@@ -29,9 +29,8 @@ struct UserView: View {
             )
     }
     
-    
     @ViewBuilder
-    private var userInformation: some View {
+    private var userInformation: some View { // swiftlint:disable:this attributes
         HStack(spacing: 16) {
             if account.signedIn,
                let user = firebaseAccountConfiguration.user,

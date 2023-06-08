@@ -20,8 +20,10 @@ struct OnboardingFlow: View {
         case healthKitPermissions
     }
     
-    @SceneStorage(StorageKeys.onboardingFlowStep) private var onboardingSteps: [Step] = []
-    @AppStorage(StorageKeys.onboardingFlowComplete) var completedOnboardingFlow = false
+    @SceneStorage(StorageKeys.onboardingFlowStep)
+    private var onboardingSteps: [Step] = []
+    @AppStorage(StorageKeys.onboardingFlowComplete)
+    var completedOnboardingFlow = false
     
     
     var body: some View {

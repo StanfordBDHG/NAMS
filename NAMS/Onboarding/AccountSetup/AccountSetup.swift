@@ -55,7 +55,7 @@ struct AccountSetup: View {
     }
     
     @ViewBuilder
-    private var accountImage: some View {
+    private var accountImage: some View { // swiftlint:disable:this attributes
         Group {
             if account.signedIn {
                 Image(systemName: "person.badge.shield.checkmark.fill")
@@ -68,7 +68,7 @@ struct AccountSetup: View {
     }
     
     @ViewBuilder
-    private var accountDescription: some View {
+    private var accountDescription: some View { // swiftlint:disable:this attributes
         VStack {
             Group {
                 if account.signedIn {
@@ -90,7 +90,7 @@ struct AccountSetup: View {
     }
     
     @ViewBuilder
-    private var actionView: some View {
+    private var actionView: some View { // swiftlint:disable:this attributes
         if account.signedIn {
             OnboardingActionsView(
                 "ACCOUNT_NEXT".moduleLocalized,
