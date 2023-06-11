@@ -3,8 +3,8 @@
 //
 
 import Foundation
-import SwiftUI
 import SpeziOnboarding
+import SwiftUI
 
 struct FinishedSetup: View {
     @AppStorage(StorageKeys.onboardingFlowComplete)
@@ -21,9 +21,11 @@ struct FinishedSetup: View {
                 Group {
                     Spacer()
                     Image(systemName: "gear.badge.checkmark")
-                        .foregroundColor(.accentColor)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(Color(uiColor: .systemGreen), Color.accentColor)
                         .font(.system(size: 150))
                         .padding(.vertical, 20)
+
 
                     Spacer()
                     Text("FINISHED_SETUP_TEXT")

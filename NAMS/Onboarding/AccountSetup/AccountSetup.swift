@@ -58,8 +58,10 @@ struct AccountSetup: View {
         Group {
             if account.signedIn {
                 Image(systemName: "person.badge.shield.checkmark.fill")
+                    .symbolRenderingMode(.hierarchical)
             } else {
                 Image(systemName: "person.fill.badge.plus")
+                    .symbolRenderingMode(.hierarchical)
             }
         }
             .font(.system(size: 150))

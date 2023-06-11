@@ -47,7 +47,7 @@ struct UserView: View {
                 Spacer()
             } else {
                 Spacer()
-                VStack(spacing: 16) {
+                HStack(spacing: 16) {
                     ProgressView()
                     Text("USER_VIEW_LOADING")
                         .multilineTextAlignment(.center)
@@ -62,9 +62,11 @@ struct UserView: View {
 #if DEBUG
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        UserView()
+        var userView = UserView()
+        userView
             .padding()
             .environmentObject(FirebaseAccountConfiguration<FHIR>(emulatorSettings: (host: "localhost", port: 9099)))
+            .environmentObject(Account(accountServices: []))
     }
 }
 #endif
