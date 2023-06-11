@@ -16,8 +16,10 @@ struct ScheduleView: View {
     @EnvironmentObject var scheduler: NAMSScheduler
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
+
     @State var presentingMuseList = false
     @State var presentingEEGMeasurements = false
+    @State var presentPatientSheet = false
 
     #if MUSE
     @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
@@ -25,12 +27,12 @@ struct ScheduleView: View {
     @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
     #endif
 
-    
+
     var startOfDays: [Date] {
         Array(eventContextsByDate.keys)
     }
-    
-    
+
+
     var body: some View {
         NavigationStack {
             List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
@@ -59,6 +61,9 @@ struct ScheduleView: View {
                         EEGRecording(eegModel: eegModel)
                     }
                 }
+                .sheet(isPresented: $presentPatientSheet) {
+                    PatientList()
+                }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
                 .toolbar {
                     toolbar
@@ -75,6 +80,18 @@ struct ScheduleView: View {
                     .accessibilityLabel("NEARBY_DEVICES")
             }
         }
+        ToolbarItem(placement: .principal) {
+            Button(action: {
+                presentPatientSheet = true
+            }, label: {
+                HStack {
+                    Text("Andreas Bauer")
+
+                    Image(systemName: "chevron.down.circle.fill")
+                        .symbolRenderingMode(.hierarchical)
+                }
+            })
+        }
         if eegModel.activeDevice?.state == .connected {
             ToolbarItem(placement: .primaryAction) {
                 Button(action: { presentingEEGMeasurements = true }) {
@@ -85,8 +102,8 @@ struct ScheduleView: View {
             }
         }
     }
-    
-    
+
+
     private func destination(withContext eventContext: EventContext) -> some View {
         @ViewBuilder var destination: some View {
             switch eventContext.task.context {
@@ -107,15 +124,15 @@ struct ScheduleView: View {
 
         return destination
     }
-    
-    
+
+
     private func format(startOfDay: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .none
         return dateFormatter.string(from: startOfDay)
     }
-    
+
     private func calculateEventContextsByDate() {
         let eventContexts = scheduler.tasks.flatMap { task in
             task
@@ -128,11 +145,11 @@ struct ScheduleView: View {
                 }
         }
             .sorted()
-        
+
         let newEventContextsByDate = Dictionary(grouping: eventContexts) { eventContext in
             Calendar.current.startOfDay(for: eventContext.event.scheduledAt)
         }
-        
+
         if newEventContextsByDate != eventContextsByDate {
             eventContextsByDate = newEventContextsByDate
         }
