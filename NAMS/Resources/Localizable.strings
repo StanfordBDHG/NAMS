@@ -78,12 +78,12 @@
 // MARK: HealthKit
 "HEALTHKIT_PERMISSIONS_TITLE" = "HealthKit Access";
 "HEALTHKIT_PERMISSIONS_SUBTITLE" = "Spezi can access data from HealthKit using the HealthKitDataSource module.";
-"HEALTHKIT_PERMISSIONS_DESCRIPTION" = "This onboarding step allows you to customize the onboarding flow to explain how the application uses the HealhtKit data and allows a user to cusomize the selection.";
+"HEALTHKIT_PERMISSIONS_DESCRIPTION" = "This onboarding step allows you to customize the onboarding flow to explain how the application uses the HealthKit data and allows a user to customize the selection.";
 "HEALTHKIT_PERMISSIONS_BUTTON" = "Grant Access";
 
 // MARK: Finished Setup
 FINISHED_SETUP_TITLE = "Ready To Go";
-FINISHED_SETUP_TEXT = "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and do EEG recordings.";
+FINISHED_SETUP_TEXT = "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and EEG recordings.";
 
 // MARK: - Mock Upload Data Storage Provider
 "MOCK_UPLOAD_TAB_TITLE" = "Mock Upload";
