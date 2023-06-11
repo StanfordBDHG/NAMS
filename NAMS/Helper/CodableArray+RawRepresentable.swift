@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+// TODO why is this used forcing JSON?
 extension Array: RawRepresentable where Element: Codable {
     public var rawValue: String {
         guard let data = try? JSONEncoder().encode(self),
