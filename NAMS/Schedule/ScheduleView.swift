@@ -16,7 +16,7 @@ struct ScheduleView: View {
     @EnvironmentObject var scheduler: NAMSScheduler
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
-    
+    @State var presentPatientSheet = false
     
     var startOfDays: [Date] {
         Array(eventContextsByDate.keys)
@@ -46,7 +46,36 @@ struct ScheduleView: View {
                 .sheet(item: $presentedContext) { presentedContext in
                     destination(withContext: presentedContext)
                 }
+                .sheet(isPresented: $presentPatientSheet) {
+                    PatientList()
+                }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
+                .toolbar {
+                    toolbar
+                }
+        }
+    }
+
+    @ToolbarContentBuilder
+    var toolbar: some ToolbarContent { // swiftlint:disable:this attributes
+        ToolbarItem {
+            Button(action: {
+                print("pressed the Account button")
+            }, label: {
+                Image(systemName: "person.circle")
+            })
+        }
+        ToolbarItem(placement: .principal) {
+            Button(action: {
+                presentPatientSheet = true
+            }, label: {
+                HStack {
+                    Text("Andreas Bauer")
+
+                    Image(systemName: "chevron.down.circle.fill")
+                        .symbolRenderingMode(.hierarchical)
+                }
+            })
         }
     }
     
