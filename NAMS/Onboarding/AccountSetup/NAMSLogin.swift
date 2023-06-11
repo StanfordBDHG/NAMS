@@ -30,8 +30,10 @@ struct NAMSLogin: View {
 #if DEBUG
 struct NAMSLogin_Previews: PreviewProvider {
     static var previews: some View {
-        NAMSLogin()
-            .environmentObject(Account(accountServices: []))
+        NavigationStack {
+            NAMSLogin()
+                .environmentObject(Account(accountServices: []))
+        }
     }
 }
 #endif

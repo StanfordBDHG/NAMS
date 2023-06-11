@@ -11,8 +11,8 @@ import SwiftUI
 
 
 @main
-struct NAMS: App {
-    @UIApplicationDelegateAdaptor(NAMSDelegate.self)
+struct NAMSApp: App {
+    @UIApplicationDelegateAdaptor(NAMSAppDelegate.self)
     var appDelegate
     @AppStorage(StorageKeys.onboardingFlowComplete)
     var completedOnboardingFlow = false

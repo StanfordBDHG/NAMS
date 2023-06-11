@@ -38,12 +38,17 @@ struct InterestingModules: View {
             ],
             actionText: "INTERESTING_MODULES_BUTTON".moduleLocalized,
             action: {
+                // TODO can we put the next button in a toolbar?
+                onboardingSteps.append(.accountSetup)
+
+                /*
                 #if targetEnvironment(simulator) && (arch(i386) || arch(x86_64))
                 print("PKCanvas view-related views are currently skipped on Intel-based iOS simulators due to a metal bug on the simulator.")
                 onboardingSteps.append(.accountSetup)
                 #else
                 onboardingSteps.append(.consent)
                 #endif
+                 */
             }
         )
     }
