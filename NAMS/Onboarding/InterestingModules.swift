@@ -38,7 +38,6 @@ struct InterestingModules: View {
             ],
             actionText: "INTERESTING_MODULES_BUTTON".moduleLocalized,
             action: {
-                // TODO can we put the next button in a toolbar?
                 onboardingSteps.append(.accountSetup)
 
                 /*

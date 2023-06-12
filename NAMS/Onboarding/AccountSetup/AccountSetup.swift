@@ -33,7 +33,7 @@ struct AccountSetup: View {
                 }
             }, actionView: {
                 actionView
-            } // TODO can we put the next button in a toolbar? (logged in state is scrollable!
+            }
         )
             .onReceive(account.objectWillChange) {
                 if account.signedIn {
@@ -73,7 +73,7 @@ struct AccountSetup: View {
         VStack {
             Group {
                 if account.signedIn {
-                    Text("ACCOUNT_SIGNED_IN_DESCRIPTION") // TODO this text does not wrap to the next line!
+                    Text("ACCOUNT_SIGNED_IN_DESCRIPTION")
                 } else {
                     Text("ACCOUNT_SETUP_DESCRIPTION")
                 }
@@ -127,8 +127,6 @@ struct AccountSetup: View {
 #if DEBUG
 struct AccountSetup_Previews: PreviewProvider {
     @State private static var path: [OnboardingFlow.Step] = []
-    
-    // TODO preview with signed in account!
 
     static var previews: some View {
         AccountSetup(onboardingSteps: $path)
