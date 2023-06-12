@@ -53,7 +53,7 @@ struct ScheduleView: View {
     
     private func destination(withContext eventContext: EventContext) -> some View {
         @ViewBuilder
-        var destination: some View { // swiftlint:disable:this attributes
+        var destination: some View {
             switch eventContext.task.context {
             case let .questionnaire(questionnaire):
                 QuestionnaireView(questionnaire: questionnaire) { _ in
