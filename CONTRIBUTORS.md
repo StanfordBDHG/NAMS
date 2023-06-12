@@ -11,4 +11,5 @@ SPDX-License-Identifier: MIT
 Neurodevelopment Assessment and Monitoring System (NAMS) Contributors
 =================================
 
+* [Andreas Bauer](https://github.com/Supereg)
 * [Paul Schmiedmayer](https://github.com/PSchmiedmayer)

@@ -17,9 +17,8 @@ struct HomeView: View {
         case mockUpload
     }
     
-    
-    @AppStorage(StorageKeys.homeTabSelection) var selectedTab = Tabs.schedule
-    
+    @AppStorage(StorageKeys.homeTabSelection)
+    var selectedTab = Tabs.schedule
     
     var body: some View {
         TabView(selection: $selectedTab) {

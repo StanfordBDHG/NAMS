@@ -12,35 +12,30 @@ import SwiftUI
 /// Displays an multi-step onboarding flow for the Neurodevelopment Assessment and Monitoring System (NAMS).
 struct OnboardingFlow: View {
     enum Step: String, Codable {
-        case interestingModules
-        case consent
         case accountSetup
         case login
         case signUp
-        case healthKitPermissions
+        case finished
     }
     
-    @SceneStorage(StorageKeys.onboardingFlowStep) private var onboardingSteps: [Step] = []
-    @AppStorage(StorageKeys.onboardingFlowComplete) var completedOnboardingFlow = false
-    
+    @SceneStorage(StorageKeys.onboardingFlowStep)
+    private var onboardingSteps: [Step] = []
+    @AppStorage(StorageKeys.onboardingFlowComplete)
+    var completedOnboardingFlow = false
     
     var body: some View {
         NavigationStack(path: $onboardingSteps) {
             Welcome(onboardingSteps: $onboardingSteps)
                 .navigationDestination(for: Step.self) { onboardingStep in
                     switch onboardingStep {
-                    case .interestingModules:
-                        InterestingModules(onboardingSteps: $onboardingSteps)
-                    case .consent:
-                        Consent(onboardingSteps: $onboardingSteps)
                     case .accountSetup:
                         AccountSetup(onboardingSteps: $onboardingSteps)
                     case .login:
                         NAMSLogin()
                     case .signUp:
                         NAMSSignUp()
-                    case .healthKitPermissions:
-                        HealthKitPermissions()
+                    case .finished:
+                        FinishedSetup()
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)

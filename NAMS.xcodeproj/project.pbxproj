@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DC17337BA4FEF5664BC0D10 /* FinishedSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */; };
+		2DC17F5243570D8FF743EADD /* PatientInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FE89AC206431F90166 /* PatientInformation.swift */; };
 		2F49B7762980407C00BCB272 /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = 2F49B7752980407B00BCB272 /* Spezi */; };
 		2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */; };
 		2F4E23832989D51F0013F3D9 /* NAMSTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */; };
@@ -62,10 +64,14 @@
 		2FE5DCB029EE6107004B9AB4 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DCAB29EE6107004B9AB4 /* UserView.swift */; };
 		2FE5DCB129EE6107004B9AB4 /* AccountSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DCAC29EE6107004B9AB4 /* AccountSetup.swift */; };
 		2FE5DCB229EE6107004B9AB4 /* NAMSLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DCAD29EE6107004B9AB4 /* NAMSLogin.swift */; };
-		653A2551283387FE005D4D48 /* NAMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NAMS.swift */; };
+		653A2551283387FE005D4D48 /* NAMSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NAMSApp.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
 		653A256228338800005D4D48 /* NAMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NAMSTests.swift */; };
 		653A256C28338800005D4D48 /* SchedulerAndQuestionnaireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256B28338800005D4D48 /* SchedulerAndQuestionnaireTests.swift */; };
+		A9405B562A36856300C75412 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
+		A989112D2A36687B00E66E3A /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientList.swift */; };
+		A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
+		A98911322A36689D00E66E3A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +92,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedSetup.swift; sourceTree = "<group>"; };
+		2DC174FE89AC206431F90166 /* PatientInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientInformation.swift; sourceTree = "<group>"; };
 		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTestingSetup.swift; sourceTree = "<group>"; };
 		2F4E23862989DB360013F3D9 /* ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTests.swift; sourceTree = "<group>"; };
@@ -124,13 +132,17 @@
 		2FE5DCAC29EE6107004B9AB4 /* AccountSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetup.swift; sourceTree = "<group>"; };
 		2FE5DCAD29EE6107004B9AB4 /* NAMSLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NAMSLogin.swift; sourceTree = "<group>"; };
 		653A254D283387FE005D4D48 /* NAMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NAMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		653A2550283387FE005D4D48 /* NAMS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMS.swift; sourceTree = "<group>"; };
+		653A2550283387FE005D4D48 /* NAMSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSApp.swift; sourceTree = "<group>"; };
 		653A255428338800005D4D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		653A255D28338800005D4D48 /* NAMSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NAMSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A256128338800005D4D48 /* NAMSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTests.swift; sourceTree = "<group>"; };
 		653A256728338800005D4D48 /* NAMSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NAMSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A256B28338800005D4D48 /* SchedulerAndQuestionnaireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerAndQuestionnaireTests.swift; sourceTree = "<group>"; };
 		653A258928339462005D4D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9405B552A36856300C75412 /* AddPatientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientView.swift; sourceTree = "<group>"; };
+		A989112C2A36687B00E66E3A /* PatientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
+		A989112E2A36688A00E66E3A /* PatientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRow.swift; sourceTree = "<group>"; };
+		A98911312A36689D00E66E3A /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +226,7 @@
 				2FE5DC3129EDD7CA004B9AB4 /* OnboardingFlow.swift */,
 				2FE5DC3329EDD7CA004B9AB4 /* String+ModuleLocalized.swift */,
 				2FE5DC3429EDD7CA004B9AB4 /* Welcome.swift */,
+				2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -299,12 +312,13 @@
 		653A254F283387FE005D4D48 /* NAMS */ = {
 			isa = PBXGroup;
 			children = (
-				653A2550283387FE005D4D48 /* NAMS.swift */,
+				653A2550283387FE005D4D48 /* NAMSApp.swift */,
 				2F5E32BC297E05EA003432F8 /* NAMSAppDelegate.swift */,
 				2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */,
 				2FC975A72978F11A00BA99FE /* Home.swift */,
 				2FE5DC2829EDD398004B9AB4 /* Onboarding */,
 				2FE5DC3B29EDD7D0004B9AB4 /* Schedule */,
+				A989112B2A36686D00E66E3A /* Patients */,
 				2FE5DC2729EDD38D004B9AB4 /* Contacts */,
 				2F4FC8D529EE69BE00BFFE26 /* MockUpload */,
 				2FE5DC3C29EDD7DA004B9AB4 /* SharedContext */,
@@ -339,6 +353,34 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A9405B542A36854C00C75412 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				A9405B552A36856300C75412 /* AddPatientView.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		A989112B2A36686D00E66E3A /* Patients */ = {
+			isa = PBXGroup;
+			children = (
+				A9405B542A36854C00C75412 /* Add */,
+				A98911302A36688F00E66E3A /* Model */,
+				A989112C2A36687B00E66E3A /* PatientList.swift */,
+				A989112E2A36688A00E66E3A /* PatientRow.swift */,
+				2DC174FE89AC206431F90166 /* PatientInformation.swift */,
+			);
+			path = Patients;
+			sourceTree = "<group>";
+		};
+		A98911302A36688F00E66E3A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A98911312A36689D00E66E3A /* Patient.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -541,6 +583,7 @@
 			files = (
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountSetup.swift in Sources */,
+				A9405B562A36856300C75412 /* AddPatientView.swift in Sources */,
 				2F4FC8D729EE69D300BFFE26 /* MockUpload.swift in Sources */,
 				2FE5DCAF29EE6107004B9AB4 /* NAMSSignUp.swift in Sources */,
 				2FE5DCB029EE6107004B9AB4 /* UserView.swift in Sources */,
@@ -550,6 +593,7 @@
 				2FE5DC3529EDD7CA004B9AB4 /* Consent.swift in Sources */,
 				2FE5DC4529EDD7F2004B9AB4 /* Binding+Negate.swift in Sources */,
 				2FE5DCB229EE6107004B9AB4 /* NAMSLogin.swift in Sources */,
+				A989112D2A36687B00E66E3A /* PatientList.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* Home.swift in Sources */,
 				2FE5DC4E29EDD7FA004B9AB4 /* ScheduleView.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
@@ -564,9 +608,13 @@
 				2FE5DC5129EDD7FA004B9AB4 /* NAMSTaskContext.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NAMSAppDelegate.swift in Sources */,
 				2FE5DC5229EDD7FA004B9AB4 /* NAMSScheduler.swift in Sources */,
-				653A2551283387FE005D4D48 /* NAMS.swift in Sources */,
+				653A2551283387FE005D4D48 /* NAMSApp.swift in Sources */,
 				2FE5DC3629EDD7CA004B9AB4 /* HealthKitPermissions.swift in Sources */,
+				A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */,
+				A98911322A36689D00E66E3A /* Patient.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
+				2DC17337BA4FEF5664BC0D10 /* FinishedSetup.swift in Sources */,
+				2DC17F5243570D8FF743EADD /* PatientInformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

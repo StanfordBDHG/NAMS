@@ -18,7 +18,6 @@ struct AccountSetup: View {
     @Binding private var onboardingSteps: [OnboardingFlow.Step]
     @EnvironmentObject var account: Account
     
-    
     var body: some View {
         OnboardingView(
             contentView: {
@@ -34,11 +33,11 @@ struct AccountSetup: View {
                 }
             }, actionView: {
                 actionView
-            }
+            } // TODO can we put the next button in a toolbar? (logged in state is scrollable!
         )
             .onReceive(account.objectWillChange) {
                 if account.signedIn {
-                    onboardingSteps.append(.healthKitPermissions)
+                    onboardingSteps.append(.finished)
                     // Unfortunately, SwiftUI currently animates changes in the navigation path that do not change
                     // the current top view. Therefore we need to do the following async procedure to remove the
                     // `.login` and `.signUp` steps while disabling the animations before and re-enabling them
@@ -55,12 +54,14 @@ struct AccountSetup: View {
     }
     
     @ViewBuilder
-    private var accountImage: some View {
+    private var accountImage: some View { // swiftlint:disable:this attributes
         Group {
             if account.signedIn {
                 Image(systemName: "person.badge.shield.checkmark.fill")
+                    .symbolRenderingMode(.hierarchical)
             } else {
                 Image(systemName: "person.fill.badge.plus")
+                    .symbolRenderingMode(.hierarchical)
             }
         }
             .font(.system(size: 150))
@@ -68,21 +69,25 @@ struct AccountSetup: View {
     }
     
     @ViewBuilder
-    private var accountDescription: some View {
+    private var accountDescription: some View { // swiftlint:disable:this attributes
         VStack {
             Group {
                 if account.signedIn {
-                    Text("ACCOUNT_SIGNED_IN_DESCRIPTION")
+                    Text("ACCOUNT_SIGNED_IN_DESCRIPTION") // TODO this text does not wrap to the next line!
                 } else {
                     Text("ACCOUNT_SETUP_DESCRIPTION")
                 }
             }
                 .multilineTextAlignment(.center)
                 .padding(.vertical, 16)
+
             if account.signedIn {
                 UserView()
                     .padding()
                 Button("Logout", role: .destructive) {
+                    // workaround as of https://github.com/StanfordSpezi/SpeziTemplateApplication/issues/21
+                    account.signedIn = false
+
                     try? Auth.auth().signOut()
                 }
             }
@@ -90,12 +95,12 @@ struct AccountSetup: View {
     }
     
     @ViewBuilder
-    private var actionView: some View {
+    private var actionView: some View { // swiftlint:disable:this attributes
         if account.signedIn {
             OnboardingActionsView(
                 "ACCOUNT_NEXT".moduleLocalized,
                 action: {
-                    onboardingSteps.append(.healthKitPermissions)
+                    onboardingSteps.append(.finished)
                 }
             )
         } else {
@@ -123,7 +128,8 @@ struct AccountSetup: View {
 struct AccountSetup_Previews: PreviewProvider {
     @State private static var path: [OnboardingFlow.Step] = []
     
-    
+    // TODO preview with signed in account!
+
     static var previews: some View {
         AccountSetup(onboardingSteps: $path)
             .environmentObject(Account(accountServices: []))

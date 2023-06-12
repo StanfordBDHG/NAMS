@@ -24,7 +24,7 @@ import SpeziScheduler
 import SwiftUI
 
 
-class NAMSDelegate: SpeziAppDelegate {
+class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration(standard: FHIR()) {
             if !FeatureFlags.disableFirebase {
