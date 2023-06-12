@@ -62,7 +62,7 @@
 "ACCOUNT_SUBTITLE" = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data.";
 "ACCOUNT_SETUP_DESCRIPTION" = "Please sign up to create a new account or log into an existing one.";
 "ACCOUNT_SIGNED_IN_DESCRIPTION" = "You are successfully signed in with the following account:";
-"ACCOUNT_NEXT" = "Next";
+"ACCOUNT_NEXT" = "Continue";
 "ACCOUNT_SIGN_UP" = "Sign Up";
 "ACCOUNT_LOGIN" = "Login";
 

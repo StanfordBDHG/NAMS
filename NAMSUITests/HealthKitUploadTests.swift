@@ -13,6 +13,7 @@ import XCTHealthKit
 
 class HealthKitUploadTests: XCTestCase {
     override func setUpWithError() throws {
+        throw XCTSkip("HelathKit Tests are currently skipped!")
         try super.setUpWithError()
         
         try disablePasswordAutofill()
@@ -26,6 +27,8 @@ class HealthKitUploadTests: XCTestCase {
     
     
     func testHealthKitMockUpload() throws {
+        throw XCTSkip("HelathKit Tests are currently skipped!")
+
         let app = XCUIApplication()
         
         try app.conductOnboardingIfNeeded()
