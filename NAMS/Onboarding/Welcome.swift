@@ -9,7 +9,6 @@
 import SpeziOnboarding
 import SwiftUI
 
-
 struct Welcome: View {
     @Binding private var onboardingSteps: [OnboardingFlow.Step]
     
