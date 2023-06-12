@@ -14,11 +14,8 @@ import SpeziFirebaseAccount
 import class FirebaseFirestore.FirestoreSettings
 import class FirebaseFirestore.MemoryCacheSettings
 import FirebaseAuth
-import HealthKit
 import SpeziFirestore
 import SpeziFirestorePrefixUserIdAdapter
-import SpeziHealthKit
-import SpeziHealthKitToFHIRAdapter
 import SpeziQuestionnaire
 import SpeziScheduler
 import SwiftUI
@@ -34,9 +31,6 @@ class NAMSAppDelegate: SpeziAppDelegate {
                     FirebaseAccountConfiguration()
                 }
                 firestore
-            }
-            if HKHealthStore.isHealthDataAvailable() {
-                healthKit
             }
             QuestionnaireDataSource()
             MockDataStorageProvider()
@@ -60,17 +54,5 @@ class NAMSAppDelegate: SpeziAppDelegate {
             },
             settings: settings
         )
-    }
-    
-    
-    private var healthKit: HealthKit<FHIR> {
-        HealthKit {
-            CollectSample(
-                HKQuantityType(.stepCount),
-                deliverySetting: .anchorQuery(.afterAuthorizationAndApplicationWillLaunch)
-            )
-        } adapter: {
-            HealthKitToFHIRAdapter()
-        }
     }
 }

@@ -62,8 +62,7 @@ struct UserView: View {
 #if DEBUG
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
-        var userView = UserView()
-        userView
+        UserView()
             .padding()
             .environmentObject(FirebaseAccountConfiguration<FHIR>(emulatorSettings: (host: "localhost", port: 9099)))
             .environmentObject(Account(accountServices: []))
