@@ -63,6 +63,7 @@ struct ScheduleView: View {
                 }
             }
         }
+
         return destination
     }
     

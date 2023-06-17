@@ -11,10 +11,11 @@ import SwiftUI
 
 
 @main
-struct NAMS: App {
-    @UIApplicationDelegateAdaptor(NAMSDelegate.self) var appDelegate
-    @AppStorage(StorageKeys.onboardingFlowComplete) var completedOnboardingFlow = false
-    
+struct NAMSApp: App {
+    @UIApplicationDelegateAdaptor(NAMSAppDelegate.self)
+    var appDelegate
+    @AppStorage(StorageKeys.onboardingFlowComplete)
+    var completedOnboardingFlow = false
     
     var body: some Scene {
         WindowGroup {

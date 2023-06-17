@@ -17,19 +17,19 @@
 // MARK: - Onboarding
 
 // MARK: Welcome
-"WELCOME_TITLE" = "Spezi\nNeurodevelopment Assessment and Monitoring System (NAMS)";
+"WELCOME_TITLE" = "Neurodevelopment Assessment and Monitoring System (NAMS)";
 "WELCOME_SUBTITLE" = "This application demonstrates several Spezi features & modules.";
 
-"WELCOME_AREA1_TITLE" = "The Spezi Framework";
-"WELCOME_AREA1_DESCRIPTION" = "The Spezi Framework builds the foundation of the NAMS application.";
+"WELCOME_AREA1_TITLE" = "Patient Management";
+"WELCOME_AREA1_DESCRIPTION" = "The NAMS App helps you to manage multiple patients at once.";
 
-"WELCOME_AREA2_TITLE" = "Swift Package Manager";
-"WELCOME_AREA2_DESCRIPTION" = "Spezi uses the Swift Package Manager to import it as a dependency.";
+"WELCOME_AREA2_TITLE" = "Questionnaires";
+"WELCOME_AREA2_DESCRIPTION" = "NAMS provides you with several questionnaires to assess conditions of your patients.";
 
-"WELCOME_AREA3_TITLE" = "Spezi Modules";
-"WELCOME_AREA3_DESCRIPTION" = "Spezi offers several modules including HealthKit integration, questionnaires, and more ...";
+"WELCOME_AREA3_TITLE" = "EEG Recordings";
+"WELCOME_AREA3_DESCRIPTION" = "NAMS offers integration with consumer-grade EEG headbands for easy and scalable EEG measurements.";
 
-"WELCOME_BUTTON" = "Learn More";
+"WELCOME_BUTTON" = "Continue";
 
 // MARK: Interesting Modules
 "INTERESTING_MODULES_TITLE" = "Interesting Modules";
@@ -47,7 +47,7 @@
 "INTERESTING_MODULES_AREA4_TITLE" = "HealthKit Data Source";
 "INTERESTING_MODULES_AREA4_DESCRIPTION" = "The HealthKit data source module allows you to fetch data from HealthKit and e.g. transform it to FHIR resources.";
 
-"INTERESTING_MODULES_BUTTON" = "Next";
+"INTERESTING_MODULES_BUTTON" = "Continue";
 
 
 // MARK: Consent
@@ -59,10 +59,10 @@
 
 // MARK: Account
 "ACCOUNT_TITLE" = "Your Account";
-"ACCOUNT_SUBTITLE" = "The Neurodevelopment Assessment and Monitoring System (NAMS) demonstrates the usage of the Firebase Account Module.";
-"ACCOUNT_SETUP_DESCRIPTION" = "The login and sign up buttons use the Account Login and SignUp views.";
+"ACCOUNT_SUBTITLE" = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data.";
+"ACCOUNT_SETUP_DESCRIPTION" = "Please sign up to create a new account or log into an existing one.";
 "ACCOUNT_SIGNED_IN_DESCRIPTION" = "You are successfully signed in with the following account:";
-"ACCOUNT_NEXT" = "Next";
+"ACCOUNT_NEXT" = "Continue";
 "ACCOUNT_SIGN_UP" = "Sign Up";
 "ACCOUNT_LOGIN" = "Login";
 
@@ -78,9 +78,12 @@
 // MARK: HealthKit
 "HEALTHKIT_PERMISSIONS_TITLE" = "HealthKit Access";
 "HEALTHKIT_PERMISSIONS_SUBTITLE" = "Spezi can access data from HealthKit using the HealthKitDataSource module.";
-"HEALTHKIT_PERMISSIONS_DESCRIPTION" = "This onboarding step allows you to customize the onboarding flow to explain how the application uses the HealhtKit data and allows a user to cusomize the selection.";
+"HEALTHKIT_PERMISSIONS_DESCRIPTION" = "This onboarding step allows you to customize the onboarding flow to explain how the application uses the HealthKit data and allows a user to customize the selection.";
 "HEALTHKIT_PERMISSIONS_BUTTON" = "Grant Access";
 
+// MARK: Finished Setup
+FINISHED_SETUP_TITLE = "Ready To Go";
+FINISHED_SETUP_TEXT = "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and EEG recordings.";
 
 // MARK: - Mock Upload Data Storage Provider
 "MOCK_UPLOAD_TAB_TITLE" = "Mock Upload";

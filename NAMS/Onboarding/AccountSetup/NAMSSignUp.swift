@@ -29,8 +29,10 @@ struct NAMSSignUp: View {
 #if DEBUG
 struct NAMSSignUp_Previews: PreviewProvider {
     static var previews: some View {
-        NAMSSignUp()
-            .environmentObject(Account(accountServices: []))
+        NavigationStack {
+            NAMSSignUp()
+                .environmentObject(Account(accountServices: [EmailPasswordAccountService()]))
+        }
     }
 }
 #endif

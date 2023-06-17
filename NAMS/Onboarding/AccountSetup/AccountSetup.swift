@@ -18,7 +18,6 @@ struct AccountSetup: View {
     @Binding private var onboardingSteps: [OnboardingFlow.Step]
     @EnvironmentObject var account: Account
     
-    
     var body: some View {
         OnboardingView(
             contentView: {
@@ -38,7 +37,7 @@ struct AccountSetup: View {
         )
             .onReceive(account.objectWillChange) {
                 if account.signedIn {
-                    onboardingSteps.append(.healthKitPermissions)
+                    onboardingSteps.append(.finished)
                     // Unfortunately, SwiftUI currently animates changes in the navigation path that do not change
                     // the current top view. Therefore we need to do the following async procedure to remove the
                     // `.login` and `.signUp` steps while disabling the animations before and re-enabling them
@@ -59,8 +58,10 @@ struct AccountSetup: View {
         Group {
             if account.signedIn {
                 Image(systemName: "person.badge.shield.checkmark.fill")
+                    .symbolRenderingMode(.hierarchical)
             } else {
                 Image(systemName: "person.fill.badge.plus")
+                    .symbolRenderingMode(.hierarchical)
             }
         }
             .font(.system(size: 150))
@@ -79,10 +80,14 @@ struct AccountSetup: View {
             }
                 .multilineTextAlignment(.center)
                 .padding(.vertical, 16)
+
             if account.signedIn {
                 UserView()
                     .padding()
                 Button("Logout", role: .destructive) {
+                    // workaround as of https://github.com/StanfordSpezi/SpeziTemplateApplication/issues/21
+                    account.signedIn = false
+
                     try? Auth.auth().signOut()
                 }
             }
@@ -95,7 +100,7 @@ struct AccountSetup: View {
             OnboardingActionsView(
                 "ACCOUNT_NEXT".moduleLocalized,
                 action: {
-                    onboardingSteps.append(.healthKitPermissions)
+                    onboardingSteps.append(.finished)
                 }
             )
         } else {
@@ -122,8 +127,7 @@ struct AccountSetup: View {
 #if DEBUG
 struct AccountSetup_Previews: PreviewProvider {
     @State private static var path: [OnboardingFlow.Step] = []
-    
-    
+
     static var previews: some View {
         AccountSetup(onboardingSteps: $path)
             .environmentObject(Account(accountServices: []))

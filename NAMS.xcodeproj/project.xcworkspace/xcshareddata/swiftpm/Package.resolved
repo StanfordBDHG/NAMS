@@ -73,15 +73,6 @@
       }
     },
     {
-      "identity" : "healthkitonfhir",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/StanfordBDHG/HealthKitOnFHIR",
-      "state" : {
-        "revision" : "d10f408766264183cd50bb117b99580255520aa3",
-        "version" : "0.2.3"
-      }
-    },
-    {
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",
@@ -181,24 +172,6 @@
       }
     },
     {
-      "identity" : "spezihealthkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/StanfordSpezi/SpeziHealthKit.git",
-      "state" : {
-        "revision" : "d03eabcaae2de1e25a626c9a3116dc50f01cdc68",
-        "version" : "0.2.0"
-      }
-    },
-    {
-      "identity" : "spezihealthkittofhiradapter",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/StanfordSpezi/SpeziHealthKitToFHIRAdapter.git",
-      "state" : {
-        "revision" : "e43f2c05cebcd16a697397721e6a2d72bf418a9c",
-        "version" : "0.3.0"
-      }
-    },
-    {
       "identity" : "spezionboarding",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziOnboarding.git",
@@ -259,15 +232,6 @@
       "state" : {
         "revision" : "54fd8030dbd0f34426ab28ff2593611dd5506357",
         "version" : "0.4.2"
-      }
-    },
-    {
-      "identity" : "xcthealthkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/StanfordBDHG/XCTHealthKit.git",
-      "state" : {
-        "revision" : "19395bbd14a2554e4c9d3fe5cf38aa626c807269",
-        "version" : "0.3.3"
       }
     },
     {

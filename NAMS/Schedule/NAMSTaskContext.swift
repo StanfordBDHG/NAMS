@@ -13,7 +13,7 @@ import SpeziFHIR
 ///
 /// We currently only support `Questionnaire`s, more cases can be added in the future.
 enum NAMSTaskContext: Codable, Identifiable {
-    /// The task schould display a `Questionnaire`.
+    /// The task should display a `Questionnaire`.
     case questionnaire(Questionnaire)
     
     
