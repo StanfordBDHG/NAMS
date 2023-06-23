@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziContact.git",
       "state" : {
-        "revision" : "16b1d4ff1d8ad95e1aaa642d93e49daea2d6de00",
-        "version" : "0.3.0"
+        "revision" : "287bfbc61c7d9c8963282db0e967635b4c54c910",
+        "version" : "0.3.1"
       }
     },
     {
