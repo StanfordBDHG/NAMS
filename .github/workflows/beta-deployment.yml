@@ -26,6 +26,6 @@ jobs:
     secrets: inherit
     with:
       artifactname: NAMS.xcresult
-      runsonlabels: '["macOS", "self-hosted"]'
+      runsonlabels: '["macOS-13"]'
       fastlanelane: beta
       setupsigning: true
