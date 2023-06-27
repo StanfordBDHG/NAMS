@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
 import SpeziFHIR
 
 
@@ -15,12 +16,16 @@ import SpeziFHIR
 enum NAMSTaskContext: Codable, Identifiable {
     /// The task should display a `Questionnaire`.
     case questionnaire(Questionnaire)
+    /// The task is used for UI testing
+    case test(String)
     
     
     var id: Questionnaire.ID {
         switch self {
         case let .questionnaire(questionnaire):
             return questionnaire.id
+        case .test:
+            return FHIRPrimitive(FHIRString(UUID().uuidString))
         }
     }
     
@@ -28,6 +33,8 @@ enum NAMSTaskContext: Codable, Identifiable {
         switch self {
         case .questionnaire:
             return String(localized: "TASK_CONTEXT_ACTION_QUESTIONNAIRE")
+        case .test:
+            return String(localized: "TASK_CONTEXT_ACTION_TEST")
         }
     }
 }
