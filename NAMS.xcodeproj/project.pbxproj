@@ -453,7 +453,6 @@
 				2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */,
 				2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2FE5DC9729EDD9D9004B9AB4 /* XCRemoteSwiftPackageReference "XCTestExtensions" */,
-				A938973F2A4AFB6200A10B20 /* XCRemoteSwiftPackageReference "ResearchKit" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
 			projectDirPath = "";
@@ -1162,14 +1161,6 @@
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 0.4.3;
-			};
-		};
-		A938973F2A4AFB6200A10B20 /* XCRemoteSwiftPackageReference "ResearchKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordBDHG/ResearchKit";
-			requirement = {
-				kind = exactVersion;
-				version = 2.2.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
