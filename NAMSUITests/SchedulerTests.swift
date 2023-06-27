@@ -5,6 +5,7 @@
 //
 // SPDX-License-Identifier: MIT
 //
+
 import XCTest
 import XCTestExtensions
 
@@ -17,7 +18,7 @@ class SchedulerTests: XCTestCase {
 
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding", "--testSchedule"]
-        app.deleteAndLaunch(withSpringboardAppName: "TemplateApplication")
+        app.deleteAndLaunch(withSpringboardAppName: "NAMS")
     }
 
 
