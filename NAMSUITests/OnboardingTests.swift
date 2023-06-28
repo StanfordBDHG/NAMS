@@ -15,6 +15,8 @@ class OnboardingTests: XCTestCase {
         
         try disablePasswordAutofill()
         
+        sleep(1)
+        
         continueAfterFailure = false
         
         let app = XCUIApplication()
