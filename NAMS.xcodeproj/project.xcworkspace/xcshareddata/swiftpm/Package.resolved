@@ -167,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFirebase.git",
       "state" : {
-        "revision" : "2532605d27127a9fccde9cc3108c809fd03ee7f8",
-        "version" : "0.3.0"
+        "revision" : "2aeebfc9dbd4a39e0ceffb7caa96fa9b53e46b2a",
+        "version" : "0.3.1"
       }
     },
     {
@@ -230,8 +230,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/XCTestExtensions.git",
       "state" : {
-        "revision" : "da65dfa343ef6bf041b2c322448c9d5e1a0bdaa9",
-        "version" : "0.4.4"
+        "revision" : "9b716267e7699b2ad8f0fc4a6798dd213c9b8e0a",
+        "version" : "0.4.5"
       }
     },
     {
