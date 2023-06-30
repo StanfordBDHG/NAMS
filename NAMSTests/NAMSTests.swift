@@ -12,8 +12,6 @@ import XCTest
 
 class NAMSTests: XCTestCase {
     func testExample() throws {
-        let test: Bool? = true
-        print(test!)
         XCTAssertTrue(true)
     }
 }
