@@ -73,7 +73,7 @@ extension XCUIApplication {
         try testOnboardingWithoutAccount()
     }
 
-    private func testOnboardingWithoutAccount() throws {
+    func testOnboardingWithoutAccount() throws {
         XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 2))
 
         XCTAssertTrue(buttons["Sign Up"].waitForExistence(timeout: 2))
