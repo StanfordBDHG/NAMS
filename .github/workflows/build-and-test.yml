@@ -28,7 +28,6 @@ jobs:
       runsonlabels: '["macOS", "self-hosted"]'
       setupfirebaseemulator: true
       customcommand: "firebase emulators:exec 'fastlane test'"
-      codeql: true
   uploadcoveragereport:
     name: Upload Coverage Report
     needs: buildandtest
