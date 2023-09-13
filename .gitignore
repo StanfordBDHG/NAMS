@@ -6,6 +6,9 @@
 # SPDX-License-Identifier: MIT
 #
 
+# Muse SDK
+Muse.framework
+
 # Swift Package Manager
 *.xcodeproj
 .swiftpm

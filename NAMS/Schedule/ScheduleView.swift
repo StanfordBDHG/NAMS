@@ -16,6 +16,9 @@ struct ScheduleView: View {
     @EnvironmentObject var scheduler: NAMSScheduler
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
+    @State var presentingMuseList = false
+
+    @StateObject var museModel = MuseViewModel()
     
     
     var startOfDays: [Date] {
@@ -46,7 +49,19 @@ struct ScheduleView: View {
                 .sheet(item: $presentedContext) { presentedContext in
                     destination(withContext: presentedContext)
                 }
+                .sheet(isPresented: $presentingMuseList) {
+                    NavigationStack {
+                        MuseList(museModel: museModel)
+                    }
+                }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button(action: { presentingMuseList = true }) {
+                            Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                        }
+                    }
+                }
         }
     }
     
