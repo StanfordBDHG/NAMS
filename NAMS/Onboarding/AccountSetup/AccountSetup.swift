@@ -37,7 +37,6 @@ struct AccountSetup: View {
         )
             .onReceive(account.objectWillChange) {
                 if account.signedIn {
-                    // TODO standard signed in
                     onboardingSteps.append(.finished)
                     // Unfortunately, SwiftUI currently animates changes in the navigation path that do not change
                     // the current top view. Therefore we need to do the following async procedure to remove the
