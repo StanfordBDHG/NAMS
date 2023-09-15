@@ -11,9 +11,9 @@ import SpeziFHIR
 import SpeziScheduler
 
 
-/// A `Scheduler` using the `FHIR` standard as well as the ``NAMSTaskContext`` to schedule and manage tasks and events in the
+/// A `Scheduler` using the ``NAMSTaskContext`` to schedule and manage tasks and events in the
 /// Neurodevelopment Assessment and Monitoring System (NAMS).
-typealias NAMSScheduler = Scheduler<FHIR, NAMSTaskContext>
+typealias NAMSScheduler = Scheduler<NAMSTaskContext>
 
 
 extension NAMSScheduler {

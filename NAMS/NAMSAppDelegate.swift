@@ -7,15 +7,9 @@
 //
 
 import Spezi
-import SpeziFHIR
-import SpeziFHIRMockDataStorageProvider
-import SpeziFHIRToFirestoreAdapter
 import SpeziFirebaseAccount
-import class FirebaseFirestore.FirestoreSettings
-import class FirebaseFirestore.MemoryCacheSettings
-import FirebaseAuth
 import SpeziFirestore
-import SpeziFirestorePrefixUserIdAdapter
+import SpeziMockWebService
 import SpeziQuestionnaire
 import SpeziScheduler
 import SwiftUI
@@ -23,7 +17,7 @@ import SwiftUI
 
 class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
-        Configuration(standard: FHIR()) {
+        Configuration(standard: NAMSStandard()) {
             if !FeatureFlags.disableFirebase {
                 if FeatureFlags.useFirebaseEmulator {
                     FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099))
@@ -33,13 +27,13 @@ class NAMSAppDelegate: SpeziAppDelegate {
                 firestore
             }
             QuestionnaireDataSource()
-            MockDataStorageProvider()
+            MockWebService()
             NAMSScheduler()
         }
     }
     
     
-    private var firestore: Firestore<FHIR> {
+    private var firestore: Firestore {
         let settings = FirestoreSettings()
         if FeatureFlags.useFirebaseEmulator {
             settings.host = "localhost:8080"
@@ -47,12 +41,6 @@ class NAMSAppDelegate: SpeziAppDelegate {
             settings.isSSLEnabled = false
         }
         
-        return Firestore(
-            adapter: {
-                FHIRToFirestoreAdapter()
-                FirestorePrefixUserIdAdapter()
-            },
-            settings: settings
-        )
+        return Firestore(settings: settings)
     }
 }

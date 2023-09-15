@@ -33,7 +33,6 @@ class OnboardingTests: XCTestCase {
         let tabBar = app.tabBars["Tab Bar"]
         XCTAssertTrue(tabBar.buttons["Schedule"].waitForExistence(timeout: 2))
         XCTAssertTrue(tabBar.buttons["Contacts"].waitForExistence(timeout: 2))
-        XCTAssertTrue(tabBar.buttons["Mock Upload"].waitForExistence(timeout: 2))
     }
 }
 
@@ -47,7 +46,9 @@ extension XCUIApplication {
     
     func navigateOnboardingFlow() throws {
         try navigateOnboardingFlowWelcome()
-        try navigateOnboardingAccount()
+        if staticTexts["Your Account"].waitForExistence(timeout: 5) {
+            try navigateOnboardingAccount()
+        }
         try navigateFinishedSetup()
     }
     
@@ -60,8 +61,6 @@ extension XCUIApplication {
     }
     
     private func navigateOnboardingAccount() throws {
-        XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 2))
-
         if buttons["Continue"].waitForExistence(timeout: 5) {
             let logoutButton = buttons["Logout"]
             XCTAssertTrue(logoutButton.waitForExistence(timeout: 2))

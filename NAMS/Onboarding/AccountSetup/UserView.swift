@@ -7,8 +7,6 @@
 //
 
 import SpeziAccount
-import class SpeziFHIR.FHIR
-import Foundation
 import SpeziFirebaseAccount
 import SpeziViews
 import SwiftUI
@@ -16,7 +14,7 @@ import SwiftUI
 
 struct UserView: View {
     @EnvironmentObject var account: Account
-    @EnvironmentObject var firebaseAccountConfiguration: FirebaseAccountConfiguration<FHIR>
+    @EnvironmentObject var firebaseAccountConfiguration: FirebaseAccountConfiguration
     
     
     var body: some View {
@@ -63,7 +61,7 @@ struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {
         UserView()
             .padding()
-            .environmentObject(FirebaseAccountConfiguration<FHIR>(emulatorSettings: (host: "localhost", port: 9099)))
+            .environmentObject(FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099)))
             .environmentObject(Account(accountServices: []))
     }
 }

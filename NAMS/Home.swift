@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziFHIRMockDataStorageProvider
+import SpeziMockWebService
 import SwiftUI
 
 
@@ -32,11 +32,13 @@ struct HomeView: View {
                 .tabItem {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
                 }
-            MockUpload()
-                .tag(Tabs.mockUpload)
-                .tabItem {
-                    Label("MOCK_UPLOAD_TAB_TITLE", systemImage: "server.rack")
-                }
+            if FeatureFlags.disableFirebase {
+                MockUpload()
+                    .tag(Tabs.mockUpload)
+                    .tabItem {
+                        Label("MOCK_UPLOAD_TAB_TITLE", systemImage: "server.rack")
+                    }
+            }
         }
     }
 }
@@ -47,7 +49,7 @@ struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(NAMSScheduler())
-            .environmentObject(MockDataStorageProvider())
+            .environmentObject(MockWebService())
     }
 }
 #endif

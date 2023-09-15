@@ -6,9 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziAccount
-import class SpeziFHIR.FHIR
 import FirebaseAuth
+import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziOnboarding
 import SwiftUI
@@ -23,8 +22,8 @@ struct AccountSetup: View {
             contentView: {
                 VStack {
                     OnboardingTitleView(
-                        title: "ACCOUNT_TITLE".moduleLocalized,
-                        subtitle: "ACCOUNT_SUBTITLE".moduleLocalized
+                        title: "ACCOUNT_TITLE",
+                        subtitle: "ACCOUNT_SUBTITLE"
                     )
                     Spacer(minLength: 0)
                     accountImage
@@ -37,6 +36,7 @@ struct AccountSetup: View {
         )
             .onReceive(account.objectWillChange) {
                 if account.signedIn {
+                    // TODO standard signed in
                     onboardingSteps.append(.finished)
                     // Unfortunately, SwiftUI currently animates changes in the navigation path that do not change
                     // the current top view. Therefore we need to do the following async procedure to remove the
@@ -95,18 +95,18 @@ struct AccountSetup: View {
     @ViewBuilder private var actionView: some View {
         if account.signedIn {
             OnboardingActionsView(
-                "ACCOUNT_NEXT".moduleLocalized,
+                "ACCOUNT_NEXT",
                 action: {
                     onboardingSteps.append(.finished)
                 }
             )
         } else {
             OnboardingActionsView(
-                primaryText: "ACCOUNT_SIGN_UP".moduleLocalized,
+                primaryText: "ACCOUNT_SIGN_UP",
                 primaryAction: {
                     onboardingSteps.append(.signUp)
                 },
-                secondaryText: "ACCOUNT_LOGIN".moduleLocalized,
+                secondaryText: "ACCOUNT_LOGIN",
                 secondaryAction: {
                     onboardingSteps.append(.login)
                 }
@@ -128,7 +128,7 @@ struct AccountSetup_Previews: PreviewProvider {
     static var previews: some View {
         AccountSetup(onboardingSteps: $path)
             .environmentObject(Account(accountServices: []))
-            .environmentObject(FirebaseAccountConfiguration<FHIR>(emulatorSettings: (host: "localhost", port: 9099)))
+            .environmentObject(FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099)))
     }
 }
 #endif
