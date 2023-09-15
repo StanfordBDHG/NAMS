@@ -86,7 +86,7 @@ FINISHED_SETUP_TITLE = "Ready To Go";
 FINISHED_SETUP_TEXT = "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and EEG recordings.";
 
 // MARK: - Mock Upload Data Storage Provider
-"MOCK_UPLOAD_TAB_TITLE" = "Mock Upload";
+"MOCK_UPLOAD_TAB_TITLE" = "Mock Web Service";
 
 
 // MARK: - Schedule

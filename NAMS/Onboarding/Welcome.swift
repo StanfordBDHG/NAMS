@@ -15,26 +15,26 @@ struct Welcome: View {
     
     var body: some View {
         OnboardingView(
-            title: "WELCOME_TITLE".moduleLocalized,
+            title: "WELCOME_TITLE",
             subtitle: nil,
             areas: [
                 .init(
-                    icon: Image(systemName: "person.2.fill"),
-                    title: "WELCOME_AREA1_TITLE".moduleLocalized,
-                    description: "WELCOME_AREA1_DESCRIPTION".moduleLocalized
+                    icon: Image(systemName: "person.2.fill"), // swiftlint:disable:this accessibility_label_for_image
+                    title: "WELCOME_AREA1_TITLE",
+                    description: "WELCOME_AREA1_DESCRIPTION"
                 ),
                 .init(
-                    icon: Image(systemName: "list.clipboard.fill"),
-                    title: "WELCOME_AREA2_TITLE".moduleLocalized,
-                    description: "WELCOME_AREA2_DESCRIPTION".moduleLocalized
+                    icon: Image(systemName: "list.clipboard.fill"), // swiftlint:disable:this accessibility_label_for_image
+                    title: "WELCOME_AREA2_TITLE",
+                    description: "WELCOME_AREA2_DESCRIPTION"
                 ),
                 .init(
-                    icon: Image(systemName: "doc.text.below.ecg.fill"),
-                    title: "WELCOME_AREA3_TITLE".moduleLocalized,
-                    description: "WELCOME_AREA3_DESCRIPTION".moduleLocalized
+                    icon: Image(systemName: "doc.text.below.ecg.fill"), // swiftlint:disable:this accessibility_label_for_image
+                    title: "WELCOME_AREA3_TITLE",
+                    description: "WELCOME_AREA3_DESCRIPTION"
                 )
             ],
-            actionText: "WELCOME_BUTTON".moduleLocalized,
+            actionText: "WELCOME_BUTTON",
             action: {
                 onboardingSteps.append(.accountSetup)
             }

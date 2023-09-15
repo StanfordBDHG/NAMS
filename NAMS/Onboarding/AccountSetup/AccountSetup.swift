@@ -6,9 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziAccount
-import class SpeziFHIR.FHIR
 import FirebaseAuth
+import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziOnboarding
 import SwiftUI
@@ -17,14 +16,15 @@ import SwiftUI
 struct AccountSetup: View {
     @Binding private var onboardingSteps: [OnboardingFlow.Step]
     @EnvironmentObject var account: Account
+    @EnvironmentObject private var standard: NAMSStandard
     
     var body: some View {
         OnboardingView(
             contentView: {
                 VStack {
                     OnboardingTitleView(
-                        title: "ACCOUNT_TITLE".moduleLocalized,
-                        subtitle: "ACCOUNT_SUBTITLE".moduleLocalized
+                        title: "ACCOUNT_TITLE",
+                        subtitle: "ACCOUNT_SUBTITLE"
                     )
                     Spacer(minLength: 0)
                     accountImage
@@ -43,6 +43,8 @@ struct AccountSetup: View {
                     // `.login` and `.signUp` steps while disabling the animations before and re-enabling them
                     // after the elements have been changed.
                     Task { @MainActor in
+                        await standard.signedIn()
+
                         try? await Task.sleep(for: .seconds(1.0))
                         UIView.setAnimationsEnabled(false)
                         onboardingSteps.removeAll(where: { $0 == .login || $0 == .signUp })
@@ -58,9 +60,11 @@ struct AccountSetup: View {
             if account.signedIn {
                 Image(systemName: "person.badge.shield.checkmark.fill")
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             } else {
                 Image(systemName: "person.fill.badge.plus")
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             }
         }
             .font(.system(size: 150))
@@ -95,18 +99,18 @@ struct AccountSetup: View {
     @ViewBuilder private var actionView: some View {
         if account.signedIn {
             OnboardingActionsView(
-                "ACCOUNT_NEXT".moduleLocalized,
+                "ACCOUNT_NEXT",
                 action: {
                     onboardingSteps.append(.finished)
                 }
             )
         } else {
             OnboardingActionsView(
-                primaryText: "ACCOUNT_SIGN_UP".moduleLocalized,
+                primaryText: "ACCOUNT_SIGN_UP",
                 primaryAction: {
                     onboardingSteps.append(.signUp)
                 },
-                secondaryText: "ACCOUNT_LOGIN".moduleLocalized,
+                secondaryText: "ACCOUNT_LOGIN",
                 secondaryAction: {
                     onboardingSteps.append(.login)
                 }
@@ -128,7 +132,7 @@ struct AccountSetup_Previews: PreviewProvider {
     static var previews: some View {
         AccountSetup(onboardingSteps: $path)
             .environmentObject(Account(accountServices: []))
-            .environmentObject(FirebaseAccountConfiguration<FHIR>(emulatorSettings: (host: "localhost", port: 9099)))
+            .environmentObject(FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099)))
     }
 }
 #endif

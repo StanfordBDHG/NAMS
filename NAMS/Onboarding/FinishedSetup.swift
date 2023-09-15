@@ -29,6 +29,7 @@ struct FinishedSetup: View {
                         .foregroundStyle(Color(uiColor: .systemGreen), Color.accentColor)
                         .font(.system(size: 150))
                         .padding(.vertical, 20)
+                        .accessibilityHidden(true)
 
 
                     Spacer()
