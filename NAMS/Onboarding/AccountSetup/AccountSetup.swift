@@ -16,6 +16,7 @@ import SwiftUI
 struct AccountSetup: View {
     @Binding private var onboardingSteps: [OnboardingFlow.Step]
     @EnvironmentObject var account: Account
+    @EnvironmentObject private var standard: NAMSStandard
     
     var body: some View {
         OnboardingView(
@@ -43,6 +44,8 @@ struct AccountSetup: View {
                     // `.login` and `.signUp` steps while disabling the animations before and re-enabling them
                     // after the elements have been changed.
                     Task { @MainActor in
+                        await standard.signedIn()
+
                         try? await Task.sleep(for: .seconds(1.0))
                         UIView.setAnimationsEnabled(false)
                         onboardingSteps.removeAll(where: { $0 == .login || $0 == .signUp })
