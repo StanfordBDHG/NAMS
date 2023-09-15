@@ -19,17 +19,17 @@ struct Welcome: View {
             subtitle: nil,
             areas: [
                 .init(
-                    icon: Image(systemName: "person.2.fill"),
+                    icon: Image(systemName: "person.2.fill"), // swiftlint:disable:this accessibility_label_for_image
                     title: "WELCOME_AREA1_TITLE",
                     description: "WELCOME_AREA1_DESCRIPTION"
                 ),
                 .init(
-                    icon: Image(systemName: "list.clipboard.fill"),
+                    icon: Image(systemName: "list.clipboard.fill"), // swiftlint:disable:this accessibility_label_for_image
                     title: "WELCOME_AREA2_TITLE",
                     description: "WELCOME_AREA2_DESCRIPTION"
                 ),
                 .init(
-                    icon: Image(systemName: "doc.text.below.ecg.fill"),
+                    icon: Image(systemName: "doc.text.below.ecg.fill"), // swiftlint:disable:this accessibility_label_for_image
                     title: "WELCOME_AREA3_TITLE",
                     description: "WELCOME_AREA3_DESCRIPTION"
                 )

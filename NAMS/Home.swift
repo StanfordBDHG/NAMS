@@ -48,7 +48,7 @@ struct HomeView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(NAMSScheduler())
+            .environmentObject(NAMSScheduler(testSchedule: true))
             .environmentObject(MockWebService())
     }
 }

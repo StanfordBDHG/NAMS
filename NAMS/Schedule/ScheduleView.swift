@@ -108,7 +108,7 @@ struct ScheduleView: View {
 struct SchedulerView_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleView()
-            .environmentObject(NAMSScheduler())
+            .environmentObject(NAMSScheduler(testSchedule: true))
     }
 }
 #endif

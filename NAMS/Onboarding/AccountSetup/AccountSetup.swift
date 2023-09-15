@@ -60,9 +60,11 @@ struct AccountSetup: View {
             if account.signedIn {
                 Image(systemName: "person.badge.shield.checkmark.fill")
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             } else {
                 Image(systemName: "person.fill.badge.plus")
                     .symbolRenderingMode(.hierarchical)
+                    .accessibilityHidden(true)
             }
         }
             .font(.system(size: 150))
