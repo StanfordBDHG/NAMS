@@ -82,8 +82,14 @@
 "HEALTHKIT_PERMISSIONS_BUTTON" = "Grant Access";
 
 // MARK: Finished Setup
-FINISHED_SETUP_TITLE = "Ready To Go";
-FINISHED_SETUP_TEXT = "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and EEG recordings.";
+"FINISHED_SETUP_TITLE" = "Ready To Go";
+"FINISHED_SETUP_TEXT" = "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and EEG recordings.";
+
+// MARK: Notifications
+"NOTIFICATION_PERMISSIONS_TITLE" = "Notifications";
+"NOTIFICATION_PERMISSIONS_SUBTITLE" = "Spezi Scheduler Notifications.";
+"NOTIFICATION_PERMISSIONS_DESCRIPTION" = "The Spezi Scheduler module enables to send out local notifications when a new event of a task is scheduled.";
+"NOTIFICATION_PERMISSIONS_BUTTON" = "Allow Notifications";
 
 // MARK: - Mock Upload Data Storage Provider
 "MOCK_UPLOAD_TAB_TITLE" = "Mock Web Service";

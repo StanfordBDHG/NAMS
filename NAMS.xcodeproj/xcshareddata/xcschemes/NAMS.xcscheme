@@ -82,6 +82,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "--testScheduleNotification"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "--testSchedule"
             isEnabled = "NO">
          </CommandLineArgument>

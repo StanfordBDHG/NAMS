@@ -39,16 +39,17 @@ class OnboardingTests: XCTestCase {
 
 extension XCUIApplication {
     func conductOnboardingIfNeeded() throws {
-        if self.staticTexts["Neurodevelopment Assessment and Monitoring System (NAMS)"].waitForExistence(timeout: 5) {
+        if staticTexts["Neurodevelopment Assessment and Monitoring System (NAMS)"].waitForExistence(timeout: 5) {
             try navigateOnboardingFlow()
         }
     }
     
-    func navigateOnboardingFlow() throws {
+    fileprivate func navigateOnboardingFlow() throws {
         try navigateOnboardingFlowWelcome()
         if staticTexts["Your Account"].waitForExistence(timeout: 5) {
             try navigateOnboardingAccount()
         }
+        try navigateOnboardingFlowNotification()
         try navigateFinishedSetup()
     }
     
@@ -61,7 +62,7 @@ extension XCUIApplication {
     }
     
     private func navigateOnboardingAccount() throws {
-        if buttons["Continue"].waitForExistence(timeout: 5) {
+        if buttons["Continue"].waitForExistence(timeout: 2) {
             let logoutButton = buttons["Logout"]
             XCTAssertTrue(logoutButton.waitForExistence(timeout: 2))
             logoutButton.tap()
@@ -79,27 +80,19 @@ extension XCUIApplication {
         buttons["Sign Up"].tap()
 
         XCTAssertTrue(navigationBars.staticTexts["Sign Up"].waitForExistence(timeout: 2))
-        XCTAssertTrue(images["App Icon"].waitForExistence(timeout: 2))
-        XCTAssertTrue(buttons["Email and Password"].waitForExistence(timeout: 2))
 
+        XCTAssertTrue(buttons["Email and Password"].waitForExistence(timeout: 2))
         buttons["Email and Password"].tap()
 
         try textFields["Enter your email ..."].enter(value: "leland@stanford.edu")
-        swipeUp()
 
-        secureTextFields["Enter your password ..."].tap()
-        secureTextFields["Enter your password ..."].typeText("StanfordRocks")
-        swipeUp()
-        secureTextFields["Repeat your password ..."].tap()
-        secureTextFields["Repeat your password ..."].typeText("StanfordRocks")
-        swipeUp()
+        try secureTextFields["Enter your password ..."].enter(value: "StanfordRocks")
+        try secureTextFields["Repeat your password ..."].enter(value: "StanfordRocks")
 
         try textFields["Enter your first name ..."].enter(value: "Leland")
-        staticTexts["Repeat\nPassword"].swipeUp()
-
         try textFields["Enter your last name ..."].enter(value: "Stanford")
-        staticTexts["Repeat\nPassword"].swipeUp()
 
+        XCTAssertTrue(buttons["Sign Up"].waitForExistence(timeout: 2))
         collectionViews.buttons["Sign Up"].tap()
 
         sleep(3)
@@ -109,8 +102,22 @@ extension XCUIApplication {
 
             XCTAssertTrue(staticTexts["Leland Stanford"].waitForExistence(timeout: 2))
             XCTAssertTrue(staticTexts["leland@stanford.edu"].waitForExistence(timeout: 2))
+
             XCTAssertTrue(scrollViews.otherElements.buttons["Continue"].waitForExistence(timeout: 2))
             scrollViews.otherElements.buttons["Continue"].tap()
+        }
+    }
+
+    private func navigateOnboardingFlowNotification() throws {
+        XCTAssertTrue(staticTexts["Notifications"].waitForExistence(timeout: 2))
+
+        XCTAssertTrue(buttons["Allow Notifications"].waitForExistence(timeout: 2))
+        buttons["Allow Notifications"].tap()
+
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let alertAllowButton = springboard.buttons["Allow"]
+        if alertAllowButton.waitForExistence(timeout: 5) {
+            alertAllowButton.tap()
         }
     }
 
