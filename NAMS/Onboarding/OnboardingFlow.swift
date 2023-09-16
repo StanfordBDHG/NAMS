@@ -32,6 +32,8 @@ struct OnboardingFlow: View {
             if !localNotificationAuthorization {
                 NotificationPermissions()
             }
+
+            FinishedSetup()
         }
             .task {
                 localNotificationAuthorization = await scheduler.localNotificationAuthorization
