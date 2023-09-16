@@ -28,6 +28,12 @@ struct MuseDeviceRow: View {
 
             if let activeMuse = museModel.activeMuse,
                activeMuse.muse.getMacAddress() == muse.getMacAddress() {
+                // TODO how to visualize if headband is mounted?
+                if let remainingBattery = activeMuse.remainingBatteryPercentage {
+                    // TODO can we display the percentage value anywhere
+                    batteryIcon(percentage: remainingBattery)
+                }
+
                 // TODO access through the connected model?
                 switch activeMuse.state {
                 case .connecting:
@@ -54,6 +60,27 @@ struct MuseDeviceRow: View {
     init(museModel: MuseViewModel, muse: IXNMuse) {
         self.muse = muse
         self.museModel = museModel
+    }
+
+
+    @ViewBuilder
+    func batteryIcon(percentage: Double) -> some View {
+        if percentage >= 90 {
+            Image(systemName: "battery.100")
+        } else if percentage >= 65 {
+            Image(systemName: "battery.75")
+        } else if percentage >= 40 {
+            Image(systemName: "battery.50")
+        } else if percentage >= 15 {
+            Image(systemName: "battery.25")
+        } else if percentage > 3 {
+            Image(systemName: "battery.25")
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.red, .primary)
+        } else {
+            Image(systemName: "battery.0")
+                .foregroundColor(.red)
+        }
     }
 }
 

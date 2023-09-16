@@ -22,6 +22,9 @@ class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataLis
     @Published var eyeBlink = false
     @Published var jawClench = false
 
+    /// Remaining battery percentage in percent [0.0;100.0]
+    @Published var remainingBatteryPercentage: Double?
+
     init(muse: IXNMuse) {
         self.muse = muse
     }
@@ -39,6 +42,7 @@ class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataLis
         // TODO threading?
         muse.register(self, type: .artifacts)
         muse.register(self, type: .alphaAbsolute) // TODO frequencies guide https://www.learningeeg.com/terminology-and-waveforms
+        muse.register(self, type: .battery)
 
         muse.runAsynchronously()
     }
@@ -56,7 +60,8 @@ class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataLis
             return
         }
         // TODO parse data packet
-        if packet.packetType() == .alphaAbsolute || packet.packetType() == .eeg {
+        switch packet.packetType() {
+        case .alphaAbsolute, .eeg:
             // TODO might also be NaN for dropped packets!
             logger.debug("""
                          \(self.muse.getName()) data: \
@@ -65,6 +70,11 @@ class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataLis
                          \(packet.getEegChannelValue(.EEG3)) \
                          \(packet.getEegChannelValue(.EEG4))
                          """)
+        case .battery:
+            remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
+            logger.debug("Remaining battery percentage: \(packet.getBatteryValue(.chargePercentageRemaining))")
+        default:
+            break
         }
     }
 
