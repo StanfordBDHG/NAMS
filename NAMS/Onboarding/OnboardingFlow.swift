@@ -17,6 +17,7 @@ struct OnboardingFlow: View {
         case accountSetup
         case login
         case signUp
+        case notificationPermissions
         case finished
     }
     
@@ -36,6 +37,8 @@ struct OnboardingFlow: View {
                         NAMSLogin()
                     case .signUp:
                         NAMSSignUp()
+                    case .notificationPermissions:
+                        NotificationPermissions(onboardingSteps: $onboardingSteps)
                     case .finished:
                         FinishedSetup()
                     }
