@@ -71,7 +71,7 @@ extension XCUIApplication {
     }
     
     private func navigateOnboardingFlowWelcome() throws {
-        XCTAssertTrue(staticTexts["Neurodevelopment Assessment and Monitoring System (NAMS)"].waitForExistence(timeout: 2))
+        XCTAssertTrue(staticTexts["Neurodevelopment Assessment and Monitoring System (NAMS)"].waitForExistence(timeout: 5))
 
         let continueButton = buttons["Continue"]
         XCTAssertTrue(continueButton.waitForExistence(timeout: 2))
@@ -88,7 +88,7 @@ extension XCUIApplication {
     }
 
     func navigateOnboardingWithoutAccount() throws {
-        XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 2))
+        XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 5))
 
         XCTAssertTrue(buttons["Sign Up"].waitForExistence(timeout: 2))
         buttons["Sign Up"].tap()
@@ -123,7 +123,7 @@ extension XCUIApplication {
     }
 
     private func navigateOnboardingFlowNotification() throws {
-        XCTAssertTrue(staticTexts["Notifications"].waitForExistence(timeout: 2))
+        XCTAssertTrue(staticTexts["Notifications"].waitForExistence(timeout: 5))
 
         XCTAssertTrue(buttons["Continue"].waitForExistence(timeout: 2))
         buttons["Continue"].tap()

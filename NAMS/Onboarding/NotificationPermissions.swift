@@ -12,9 +12,10 @@ import SwiftUI
 
 
 struct NotificationPermissions: View {
-    @EnvironmentObject var scheduler: NAMSScheduler
-    @Binding private var onboardingSteps: [OnboardingFlow.Step]
-    @State var notificationProcessing = false
+    @EnvironmentObject private var scheduler: NAMSScheduler
+    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
+
+    @State private var notificationProcessing = false
 
 
     var body: some View {
@@ -41,8 +42,8 @@ struct NotificationPermissions: View {
                     action: {
                         do {
                             notificationProcessing = true
-                            // notifications are not available in the preview simulator.
-                            if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+                            // Notification Authorization are not available in the preview simulator.
+                            if ProcessInfo.processInfo.isPreviewSimulator {
                                 try await _Concurrency.Task.sleep(for: .seconds(5))
                             } else {
                                 try await scheduler.requestLocalNotificationAuthorization()
@@ -50,28 +51,27 @@ struct NotificationPermissions: View {
                         } catch {
                             print("Could not request notification permissions.")
                         }
+
                         notificationProcessing = false
-                        onboardingSteps.append(.finished)
+                        onboardingNavigationPath.nextStep()
                     }
                 )
             }
         )
-        .navigationBarBackButtonHidden(notificationProcessing)
-    }
-
-
-    init(onboardingSteps: Binding<[OnboardingFlow.Step]>) {
-        self._onboardingSteps = onboardingSteps
+            .navigationBarBackButtonHidden(notificationProcessing)
+            .navigationTitle("") // // Small fix as otherwise "Login" or "Sign up" is still shown in the nav bar
     }
 }
 
 
 #if DEBUG
 struct NotificationPermissions_Previews: PreviewProvider {
-    @State private static var path: [OnboardingFlow.Step] = []
-
     static var previews: some View {
-        NotificationPermissions(onboardingSteps: $path)
+        OnboardingStack(startAtStep: NotificationPermissions.self) {
+            for onboardingView in OnboardingFlow.previewSimulatorViews {
+                onboardingView
+            }
+        }
     }
 }
 #endif

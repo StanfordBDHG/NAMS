@@ -11,8 +11,7 @@ import SpeziOnboarding
 import SwiftUI
 
 struct FinishedSetup: View {
-    @AppStorage(StorageKeys.onboardingFlowComplete)
-    var completedOnboardingFlow = false
+    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
 
     var body: some View {
         OnboardingView(
@@ -42,7 +41,7 @@ struct FinishedSetup: View {
             },
             actionView: {
                 OnboardingActionsView("Start") {
-                    completedOnboardingFlow = true
+                    onboardingNavigationPath.nextStep()
                 }
             }
         )

@@ -8,44 +8,37 @@
 
 import SpeziAccount
 import SpeziFirebaseAccount
+import SpeziOnboarding
 import SwiftUI
 
 
 /// Displays an multi-step onboarding flow for the Neurodevelopment Assessment and Monitoring System (NAMS).
 struct OnboardingFlow: View {
-    enum Step: String, Codable {
-        case accountSetup
-        case login
-        case signUp
-        case notificationPermissions
-        case finished
-    }
-    
-    @SceneStorage(StorageKeys.onboardingFlowStep)
-    private var onboardingSteps: [Step] = []
+    @EnvironmentObject private var scheduler: NAMSScheduler
+
     @AppStorage(StorageKeys.onboardingFlowComplete)
-    var completedOnboardingFlow = false
+    private var completedOnboardingFlow = false
+
+    @State private var localNotificationAuthorization = false
     
     var body: some View {
-        NavigationStack(path: $onboardingSteps) {
-            Welcome(onboardingSteps: $onboardingSteps)
-                .navigationDestination(for: Step.self) { onboardingStep in
-                    switch onboardingStep {
-                    case .accountSetup:
-                        AccountSetup(onboardingSteps: $onboardingSteps)
-                    case .login:
-                        NAMSLogin()
-                    case .signUp:
-                        NAMSSignUp()
-                    case .notificationPermissions:
-                        NotificationPermissions(onboardingSteps: $onboardingSteps)
-                    case .finished:
-                        FinishedSetup()
-                    }
-                }
-                .navigationBarTitleDisplayMode(.inline)
+        OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
+            Welcome()
+
+            if !FeatureFlags.disableFirebase {
+                AccountSetup()
+            }
+
+            if !localNotificationAuthorization {
+                NotificationPermissions()
+            }
+
+            FinishedSetup()
         }
-        .interactiveDismissDisabled(!completedOnboardingFlow)
+            .task {
+                localNotificationAuthorization = await scheduler.localNotificationAuthorization
+            }
+            .interactiveDismissDisabled(!completedOnboardingFlow)
     }
 }
 

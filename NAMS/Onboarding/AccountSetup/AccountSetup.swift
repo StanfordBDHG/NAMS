@@ -14,10 +14,10 @@ import SwiftUI
 
 
 struct AccountSetup: View {
-    @Binding private var onboardingSteps: [OnboardingFlow.Step]
     @EnvironmentObject private var account: Account
-    @EnvironmentObject private var scheduler: NAMSScheduler
-    @EnvironmentObject private var standard: NAMSStandard
+    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
+
+    @State private var signingOutPretrigger = false
     
     var body: some View {
         OnboardingView(
@@ -37,10 +37,12 @@ struct AccountSetup: View {
             }
         )
             .onReceive(account.objectWillChange) {
-                if account.signedIn {
-                    Task { @MainActor in
-                        await moveToNextOnboardingStep()
+                if !signingOutPretrigger {
+                    if account.signedIn {
+                        onboardingNavigationPath.nextStep()
                     }
+                } else {
+                    signingOutPretrigger = false
                 }
             }
     }
@@ -77,9 +79,7 @@ struct AccountSetup: View {
                 UserView()
                     .padding()
                 Button("Logout", role: .destructive) {
-                    // workaround as of https://github.com/StanfordSpezi/SpeziTemplateApplication/issues/21
-                    account.signedIn = false
-
+                    signingOutPretrigger = true
                     try? Auth.auth().signOut()
                 }
             }
@@ -91,58 +91,33 @@ struct AccountSetup: View {
             OnboardingActionsView(
                 "ACCOUNT_NEXT",
                 action: {
-                    await moveToNextOnboardingStep()
+                    onboardingNavigationPath.nextStep()
                 }
             )
         } else {
             OnboardingActionsView(
                 primaryText: "ACCOUNT_SIGN_UP",
                 primaryAction: {
-                    onboardingSteps.append(.signUp)
+                    onboardingNavigationPath.append(customView: NAMSSignUp())
                 },
                 secondaryText: "ACCOUNT_LOGIN",
                 secondaryAction: {
-                    onboardingSteps.append(.login)
+                    onboardingNavigationPath.append(customView: NAMSLogin())
                 }
             )
         }
-    }
-    
-    
-    init(onboardingSteps: Binding<[OnboardingFlow.Step]>) {
-        self._onboardingSteps = onboardingSteps
-    }
-
-
-    @MainActor
-    private func moveToNextOnboardingStep() async {
-        if await !scheduler.localNotificationAuthorization {
-            onboardingSteps.append(.notificationPermissions)
-        } else {
-            onboardingSteps.append(.finished)
-        }
-
-        await standard.signedIn()
-
-        // Unfortunately, SwiftUI currently animates changes in the navigation path that do not change
-        // the current top view. Therefore we need to do the following async procedure to remove the
-        // `.login` and `.signUp` steps while disabling the animations before and re-enabling them
-        // after the elements have been changed.
-        try? await Task.sleep(for: .seconds(1.0))
-        UIView.setAnimationsEnabled(false)
-        onboardingSteps.removeAll(where: { $0 == .login || $0 == .signUp })
-        try? await Task.sleep(for: .seconds(1.0))
-        UIView.setAnimationsEnabled(true)
     }
 }
 
 
 #if DEBUG
 struct AccountSetup_Previews: PreviewProvider {
-    @State private static var path: [OnboardingFlow.Step] = []
-
     static var previews: some View {
-        AccountSetup(onboardingSteps: $path)
+        OnboardingStack(startAtStep: AccountSetup.self) {
+            for onboardingView in OnboardingFlow.previewSimulatorViews {
+                onboardingView
+            }
+        }
             .environmentObject(Account(accountServices: []))
             .environmentObject(FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099)))
     }
