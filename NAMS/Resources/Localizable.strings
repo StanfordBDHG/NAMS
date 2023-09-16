@@ -87,9 +87,9 @@
 
 // MARK: Notifications
 "NOTIFICATION_PERMISSIONS_TITLE" = "Notifications";
-"NOTIFICATION_PERMISSIONS_SUBTITLE" = "Spezi Scheduler Notifications.";
-"NOTIFICATION_PERMISSIONS_DESCRIPTION" = "The Spezi Scheduler module enables to send out local notifications when a new event of a task is scheduled.";
-"NOTIFICATION_PERMISSIONS_BUTTON" = "Allow Notifications";
+"NOTIFICATION_PERMISSIONS_SUBTITLE" = "Notifications for scheduled Tasks.";
+"NOTIFICATION_PERMISSIONS_DESCRIPTION" = "Get notified through notifications when a new event of a task is scheduled.";
+"NOTIFICATION_PERMISSIONS_BUTTON" = "Continue";
 
 // MARK: - Mock Upload Data Storage Provider
 "MOCK_UPLOAD_TAB_TITLE" = "Mock Web Service";
