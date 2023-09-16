@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DC17207918EC4D9EACAA92E /* MuseDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1700E3A250184C08E9555 /* MuseDeviceRow.swift */; };
 		2DC17337BA4FEF5664BC0D10 /* FinishedSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */; };
 		2DC1734EAF449080A9315932 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1774A86137A5E26720EFA /* ModalView.swift */; };
+		2DC1760488350DB520A099D3 /* MuseDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17935F10B18CFAC5F356B /* MuseDeviceList.swift */; };
+		2DC17C89761E2C0DE6195D6B /* ConnectedMuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1755C63E0ED60AB04E8FF /* ConnectedMuse.swift */; };
+		2DC17D4A9B040AF343D9EF1F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */; };
 		2F49B7762980407C00BCB272 /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = 2F49B7752980407B00BCB272 /* Spezi */; };
 		2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */; };
 		2F4E23832989D51F0013F3D9 /* NAMSTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */; };
@@ -66,7 +70,7 @@
 		A99522422AA61D88009272F4 /* MuseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99522412AA61D88009272F4 /* MuseView.swift */; };
 		A995224A2AA62638009272F4 /* MuseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99522492AA62638009272F4 /* MuseViewModel.swift */; };
 		A995224B2AA62B81009272F4 /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99522432AA61DA6009272F4 /* Muse.framework */; };
-		A995224F2AA667D2009272F4 /* MuseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A995224E2AA667D2009272F4 /* MuseList.swift */; };
+		A995224F2AA667D2009272F4 /* NearbyDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A995224E2AA667D2009272F4 /* NearbyDevices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +91,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DC1700E3A250184C08E9555 /* MuseDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceRow.swift; sourceTree = "<group>"; };
 		2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedSetup.swift; sourceTree = "<group>"; };
+		2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = Bluetooth/BluetoothManager.swift; sourceTree = "<group>"; };
+		2DC1755C63E0ED60AB04E8FF /* ConnectedMuse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedMuse.swift; sourceTree = "<group>"; };
 		2DC1774A86137A5E26720EFA /* ModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		2DC17935F10B18CFAC5F356B /* MuseDeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceList.swift; sourceTree = "<group>"; };
 		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTestingSetup.swift; sourceTree = "<group>"; };
 		2F4E23862989DB360013F3D9 /* ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTests.swift; sourceTree = "<group>"; };
@@ -138,7 +146,7 @@
 		A99522432AA61DA6009272F4 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Muse.framework; sourceTree = "<group>"; };
 		A99522462AA61FE5009272F4 /* NAMS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NAMS-Bridging-Header.h"; sourceTree = "<group>"; };
 		A99522492AA62638009272F4 /* MuseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseViewModel.swift; sourceTree = "<group>"; };
-		A995224E2AA667D2009272F4 /* MuseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseList.swift; sourceTree = "<group>"; };
+		A995224E2AA667D2009272F4 /* NearbyDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDevices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,6 +328,7 @@
 				2FE5DC2D29EDD792004B9AB4 /* Resources */,
 				2FC9759D2978E30800BA99FE /* Supporting Files */,
 				A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */,
+				2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */,
 			);
 			path = NAMS;
 			sourceTree = "<group>";
@@ -355,7 +364,10 @@
 			children = (
 				A99522412AA61D88009272F4 /* MuseView.swift */,
 				A99522492AA62638009272F4 /* MuseViewModel.swift */,
-				A995224E2AA667D2009272F4 /* MuseList.swift */,
+				A995224E2AA667D2009272F4 /* NearbyDevices.swift */,
+				2DC17935F10B18CFAC5F356B /* MuseDeviceList.swift */,
+				2DC1700E3A250184C08E9555 /* MuseDeviceRow.swift */,
+				2DC1755C63E0ED60AB04E8FF /* ConnectedMuse.swift */,
 			);
 			path = Muse;
 			sourceTree = "<group>";
@@ -577,13 +589,17 @@
 				2F4E23832989D51F0013F3D9 /* NAMSTestingSetup.swift in Sources */,
 				2FE5DC5329EDD7FA004B9AB4 /* Bundle+Questionnaire.swift in Sources */,
 				2FE5DC5129EDD7FA004B9AB4 /* NAMSTaskContext.swift in Sources */,
-				A995224F2AA667D2009272F4 /* MuseList.swift in Sources */,
+				A995224F2AA667D2009272F4 /* NearbyDevices.swift in Sources */,
 				2F5E32BD297E05EA003432F8 /* NAMSAppDelegate.swift in Sources */,
 				2FE5DC5229EDD7FA004B9AB4 /* NAMSScheduler.swift in Sources */,
 				653A2551283387FE005D4D48 /* NAMSApp.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 				2DC17337BA4FEF5664BC0D10 /* FinishedSetup.swift in Sources */,
 				2DC1734EAF449080A9315932 /* ModalView.swift in Sources */,
+				2DC17D4A9B040AF343D9EF1F /* BluetoothManager.swift in Sources */,
+				2DC1760488350DB520A099D3 /* MuseDeviceList.swift in Sources */,
+				2DC17207918EC4D9EACAA92E /* MuseDeviceRow.swift in Sources */,
+				2DC17C89761E2C0DE6195D6B /* ConnectedMuse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

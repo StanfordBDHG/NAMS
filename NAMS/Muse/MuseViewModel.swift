@@ -7,111 +7,32 @@
 //
 
 import Combine
-import CoreBluetooth
 import Foundation
 import OSLog
 
-class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataListener {
-    private let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseDevice")
 
-    let muse: IXNMuse
-
-    @Published var state: IXNConnectionState = .unknown // TODO we can also query that state directly!
-
-    // artifacts muse supports
-    @Published var wearingHeadband = false
-    @Published var eyeBlink = false
-    @Published var jawClench = false
-
-    init(muse: IXNMuse) {
-        self.muse = muse
-    }
-
-    func connect() {
-        // TODO is this a cyclic dependency now?
-        muse.register(self)
-
-        // TODO what other packets to register?
-        muse.register(self, type: .artifacts)
-        muse.register(self, type: .alphaAbsolute)
-
-        muse.runAsynchronously()
-    }
-
-    func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        // TODO verify same muse?
-        // TODO handle firmware update
-        self.state = packet.currentConnectionState
-        logger.debug("\(self.muse.getName()) state is now \(self.state.description)")
-        // TODO handle previous connection state?
-    }
-
-    func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
-        guard let packet else {
-            return
-        }
-        // TODO parse data packet
-        if packet.packetType() == .alphaAbsolute || packet.packetType() == .eeg {
-            // TODO optimize data access, there seems to be proper APIs
-            logger.debug("""
-                         \(self.muse.getName()) data: \
-                         \(packet.values()[IXNEeg.EEG1.rawValue].doubleValue) \
-                         \(packet.values()[IXNEeg.EEG2.rawValue].doubleValue) \
-                         \(packet.values()[IXNEeg.EEG3.rawValue].doubleValue) \
-                         \(packet.values()[IXNEeg.EEG4.rawValue].doubleValue)
-                         """)
-        }
-    }
-
-    func receive(_ packet: IXNMuseArtifactPacket, muse: IXNMuse?) {
-        if packet.headbandOn != wearingHeadband {
-            logger.debug("Wearing headband: \(packet.headbandOn)")
-            wearingHeadband = packet.headbandOn
-        }
-
-        if packet.blink != eyeBlink {
-            eyeBlink = packet.blink
-            if packet.blink {
-                logger.debug("Detected eye blink")
-            }
-        }
-
-        if packet.jawClench != jawClench {
-            jawClench = packet.jawClench
-            if packet.jawClench {
-                logger.debug("Detected jaw clench")
-            }
-        }
-    }
-}
-
-class MuseViewModel: NSObject, CBCentralManagerDelegate, IXNMuseListener, IXNLogListener, ObservableObject {
+class MuseViewModel: IXNMuseListener, IXNLogListener, ObservableObject {
     let logger = Logger(subsystem: "edu.stanford.NAMS", category: "Muse")
+    // TODO Log API version somewhere?
 
     private let museManager: IXNMuseManager
-    private let bluetoothManager: CBCentralManager
 
-    @Published var bluetoothEnabled = false
     @Published var nearbyMuses: [IXNMuse] = []
 
-    var activeMuse: ConnectedMuse? // TODO propagate updates
+    @Published var activeMuse: ConnectedMuse? // TODO propagate updates
     var activeMuseCancelable: AnyCancellable?
     // TODO publish muse devices!
 
-    override init() {
+    init() {
         self.museManager = IXNMuseManagerIos()
-        self.bluetoothManager = CBCentralManager()
 
-        super.init()
-
-        // TODO are these references as cyclic
+        // TODO are these references cyclic?
         self.museManager.setMuseListener(self)
-        self.bluetoothManager.delegate = self // TODO nsObject dependency!
     }
 
+    @MainActor
     func museListChanged() {
         self.nearbyMuses = self.museManager.getMuses()
-        // TODO query: self.museManager.getMuses()
     }
 
     func receiveLog(_ log: IXNLogPacket) {
@@ -119,48 +40,43 @@ class MuseViewModel: NSObject, CBCentralManagerDelegate, IXNMuseListener, IXNLog
         logger.debug("\(log.tag): \(log.timestamp) raw:\(log.raw) \(log.message)")
     }
 
-    func centralManagerDidUpdateState(_ central: CBCentralManager) {
-        bluetoothEnabled = (central.state == .poweredOn)
-    }
-
+    @MainActor
     func startScanning() {
         // TODO as a task?
         self.museManager.startListening()
         museListChanged()
     }
 
-    func reloadScanning() {
-        stopScanning()
-        startScanning() // TODO this will reset the active device as well
-    }
-
+    @MainActor
     func stopScanning() {
         self.museManager.stopListening()
-        museListChanged() // TODO use that? or empty?
+        museListChanged()
     }
 
-    func tapMuse(atIndex index: Int) {
-        guard index < nearbyMuses.count else {
-            return
-        }
-
-        let muse = nearbyMuses[index]
+    @MainActor
+    func tapMuse(_ muse: IXNMuse) {
         if let activeMuse {
-            if activeMuse.muse == muse { // TODO is this check fine
-                activeMuse.muse.disconnect()
-                return // already connected
-            }
-
-            // TODO disconnect active muse
+            // either we tapped on the same Muse or on another one, in any case disconnect the currently active Muse
             activeMuse.muse.disconnect()
             activeMuseCancelable?.cancel()
             activeMuseCancelable = nil
             self.activeMuse = nil
+
+
+            if activeMuse.muse == muse {
+                // if the tapped one was the active one return
+                return
+            }
         }
 
         let activeMuse = ConnectedMuse(muse: muse)
-        activeMuseCancelable = activeMuse.objectWillChange.sink { [weak self] _ in
+        activeMuseCancelable = activeMuse.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
+            if activeMuse.state == .disconnected {
+                self?.activeMuseCancelable?.cancel()
+                self?.activeMuseCancelable = nil
+                self?.activeMuse = nil
+            }
         }
 
         activeMuse.connect() // TODO handle connection errors?
@@ -182,6 +98,8 @@ extension IXNConnectionState: CustomStringConvertible {
             return "disconnected"
         case .needsUpdate:
             return "needsUpdate"
+        case .needsLicense: // TODO what impact does it have?
+            return "needsLicense"
         @unknown default:
             return "unknown"
         }
@@ -202,6 +120,8 @@ extension IXNMuseModel: CustomStringConvertible {
             return "Muse S" // 2019
         case .mu05:
             return "Muse s (Gen 2)"
+        @unknown default:
+            return "Unknown Muse"
         }
     }
 }

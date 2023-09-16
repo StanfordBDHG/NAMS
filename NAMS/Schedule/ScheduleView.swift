@@ -18,7 +18,7 @@ struct ScheduleView: View {
     @State var presentedContext: EventContext?
     @State var presentingMuseList = false
 
-    @StateObject var museModel = MuseViewModel()
+    @StateObject var museModel = MuseViewModel() // TODO don't init the CB manager here?
     
     
     var startOfDays: [Date] {
@@ -51,13 +51,14 @@ struct ScheduleView: View {
                 }
                 .sheet(isPresented: $presentingMuseList) {
                     NavigationStack {
-                        MuseList(museModel: museModel)
+                        NearbyDevices(museModel: museModel)
                     }
                 }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button(action: { presentingMuseList = true }) {
+                            // TODO radio icon? dot.radiowaves.left.and.right
                             Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
                         }
                     }
