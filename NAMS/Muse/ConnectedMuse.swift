@@ -36,8 +36,6 @@ class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataLis
         // TODO support IXNMuseDataPacketTypeHsiPrecision (for how good it fits!)
         // TODO expose IXNMuseDataPacketTypeIsGood
 
-        // TODO display IXNMuseDataPacketTypeBattery
-
         // TODO what other packets to register?
         // TODO threading?
         muse.register(self, type: .artifacts)
@@ -48,21 +46,27 @@ class ConnectedMuse: ObservableObject, IXNMuseConnectionListener, IXNMuseDataLis
     }
 
     func receive(_ packet: IXNMuseConnectionPacket, muse: IXNMuse?) {
-        // TODO verify same muse?
-        // TODO handle firmware update
         self.state = packet.currentConnectionState
         logger.debug("\(self.muse.getName()) state is now \(self.state.description)")
-        // TODO handle previous connection state?
+
+        if state == .disconnected {
+            remainingBatteryPercentage = nil
+            wearingHeadband = false
+            eyeBlink = false
+            jawClench = false
+        }
     }
 
     func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
         guard let packet else {
             return
         }
-        // TODO parse data packet
+
         switch packet.packetType() {
         case .alphaAbsolute, .eeg:
             // TODO might also be NaN for dropped packets!
+
+            // TODO what is the mapping to TP9, AF7, AF8 and TP10?
             logger.debug("""
                          \(self.muse.getName()) data: \
                          \(packet.getEegChannelValue(.EEG1)) \

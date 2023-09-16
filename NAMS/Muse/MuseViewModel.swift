@@ -72,7 +72,7 @@ class MuseViewModel: IXNMuseListener, IXNLogListener, ObservableObject {
         let activeMuse = ConnectedMuse(muse: muse)
         activeMuseCancelable = activeMuse.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
-            if activeMuse.state == .disconnected {
+            if activeMuse.state == .disconnected { // TODO we might attempt to reconnect!
                 self?.activeMuseCancelable?.cancel()
                 self?.activeMuseCancelable = nil
                 self?.activeMuse = nil
