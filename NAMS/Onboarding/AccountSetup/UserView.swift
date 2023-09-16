@@ -13,8 +13,8 @@ import SwiftUI
 
 
 struct UserView: View {
-    @EnvironmentObject var account: Account
-    @EnvironmentObject var firebaseAccountConfiguration: FirebaseAccountConfiguration
+    @EnvironmentObject private var account: Account
+    @EnvironmentObject private var firebaseAccountConfiguration: FirebaseAccountConfiguration
     
     
     var body: some View {
@@ -57,7 +57,7 @@ struct UserView: View {
 
 
 #if DEBUG
-struct SwiftUIView_Previews: PreviewProvider {
+struct UserView_Previews: PreviewProvider {
     static var previews: some View {
         UserView()
             .padding()
