@@ -30,9 +30,24 @@ class OnboardingTests: XCTestCase {
         
         try app.navigateOnboardingFlow()
         
-        let tabBar = app.tabBars["Tab Bar"]
-        XCTAssertTrue(tabBar.buttons["Schedule"].waitForExistence(timeout: 2))
-        XCTAssertTrue(tabBar.buttons["Contacts"].waitForExistence(timeout: 2))
+        try app.assertOnboardingComplete()
+    }
+
+    func testOnboardingFlowRepeated() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["--showOnboarding"]
+
+        try app.navigateOnboardingFlow()
+        try app.assertOnboardingComplete()
+
+        app.terminate()
+
+        // Second onboarding round shouldn't display HealthKit and Notification authorizations anymore
+        app.activate()
+
+        try app.navigateOnboardingFlow(repeated: true)
+        // Do not show HealthKit and Notification authorization view again
+        try app.assertOnboardingComplete()
     }
 }
 
@@ -44,12 +59,14 @@ extension XCUIApplication {
         }
     }
     
-    fileprivate func navigateOnboardingFlow() throws {
+    fileprivate func navigateOnboardingFlow(repeated skippedIfRepeated: Bool = false) throws {
         try navigateOnboardingFlowWelcome()
         if staticTexts["Your Account"].waitForExistence(timeout: 5) {
             try navigateOnboardingAccount()
         }
-        try navigateOnboardingFlowNotification()
+        if !skippedIfRepeated {
+            try navigateOnboardingFlowNotification()
+        }
         try navigateFinishedSetup()
     }
     
@@ -63,17 +80,14 @@ extension XCUIApplication {
     
     private func navigateOnboardingAccount() throws {
         if buttons["Continue"].waitForExistence(timeout: 2) {
-            let logoutButton = buttons["Logout"]
-            XCTAssertTrue(logoutButton.waitForExistence(timeout: 2))
-            logoutButton.tap()
-
-            XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 2))
+            buttons["Continue"].tap()
+            return
         }
         
-        try testOnboardingWithoutAccount()
+        try navigateOnboardingWithoutAccount()
     }
 
-    func testOnboardingWithoutAccount() throws {
+    func navigateOnboardingWithoutAccount() throws {
         XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 2))
 
         XCTAssertTrue(buttons["Sign Up"].waitForExistence(timeout: 2))
@@ -111,8 +125,8 @@ extension XCUIApplication {
     private func navigateOnboardingFlowNotification() throws {
         XCTAssertTrue(staticTexts["Notifications"].waitForExistence(timeout: 2))
 
-        XCTAssertTrue(buttons["Allow Notifications"].waitForExistence(timeout: 2))
-        buttons["Allow Notifications"].tap()
+        XCTAssertTrue(buttons["Continue"].waitForExistence(timeout: 2))
+        buttons["Continue"].tap()
 
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         let alertAllowButton = springboard.buttons["Allow"]
@@ -127,5 +141,11 @@ extension XCUIApplication {
         let startButton = buttons["Start"]
         XCTAssertTrue(startButton.waitForExistence(timeout: 2))
         startButton.tap()
+    }
+
+    fileprivate func assertOnboardingComplete() throws {
+        let tabBar = tabBars["Tab Bar"]
+        XCTAssertTrue(tabBar.buttons["Schedule"].waitForExistence(timeout: 2))
+        XCTAssertTrue(tabBar.buttons["Contacts"].waitForExistence(timeout: 2))
     }
 }

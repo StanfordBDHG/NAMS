@@ -15,7 +15,8 @@ import SwiftUI
 
 struct AccountSetup: View {
     @Binding private var onboardingSteps: [OnboardingFlow.Step]
-    @EnvironmentObject var account: Account
+    @EnvironmentObject private var account: Account
+    @EnvironmentObject private var scheduler: NAMSScheduler
     @EnvironmentObject private var standard: NAMSStandard
     
     var body: some View {
@@ -37,7 +38,9 @@ struct AccountSetup: View {
         )
             .onReceive(account.objectWillChange) {
                 if account.signedIn {
-                    moveToNextOnboardingStep()
+                    Task { @MainActor in
+                        await moveToNextOnboardingStep()
+                    }
                 }
             }
     }
@@ -88,7 +91,7 @@ struct AccountSetup: View {
             OnboardingActionsView(
                 "ACCOUNT_NEXT",
                 action: {
-                    moveToNextOnboardingStep()
+                    await moveToNextOnboardingStep()
                 }
             )
         } else {
@@ -111,21 +114,25 @@ struct AccountSetup: View {
     }
 
 
-    private func moveToNextOnboardingStep() {
-        onboardingSteps.append(.notificationPermissions)
+    @MainActor
+    private func moveToNextOnboardingStep() async {
+        if await !scheduler.localNotificationAuthorization {
+            onboardingSteps.append(.notificationPermissions)
+        } else {
+            onboardingSteps.append(.finished)
+        }
+
+        await standard.signedIn()
+
         // Unfortunately, SwiftUI currently animates changes in the navigation path that do not change
         // the current top view. Therefore we need to do the following async procedure to remove the
         // `.login` and `.signUp` steps while disabling the animations before and re-enabling them
         // after the elements have been changed.
-        Task { @MainActor in
-            await standard.signedIn()
-
-            try? await Task.sleep(for: .seconds(1.0))
-            UIView.setAnimationsEnabled(false)
-            onboardingSteps.removeAll(where: { $0 == .login || $0 == .signUp })
-            try? await Task.sleep(for: .seconds(1.0))
-            UIView.setAnimationsEnabled(true)
-        }
+        try? await Task.sleep(for: .seconds(1.0))
+        UIView.setAnimationsEnabled(false)
+        onboardingSteps.removeAll(where: { $0 == .login || $0 == .signUp })
+        try? await Task.sleep(for: .seconds(1.0))
+        UIView.setAnimationsEnabled(true)
     }
 }
 
