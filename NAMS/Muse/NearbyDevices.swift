@@ -69,10 +69,8 @@ struct NearbyDevices: View {
                 }
             }
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") {
-                        dismiss()
-                    }
+                Button("Close") {
+                    dismiss()
                 }
             }
     }

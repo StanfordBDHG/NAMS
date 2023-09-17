@@ -17,6 +17,7 @@ struct ScheduleView: View {
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
     @State var presentingMuseList = false
+    @State var presentingEEGMeasurements = false
 
     @StateObject var museModel = MuseViewModel() // TODO don't init the CB manager here?
     
@@ -26,8 +27,8 @@ struct ScheduleView: View {
     }
     
     
-    var body: some View {
-        NavigationStack {
+    var body: some View { // TODO length!
+        NavigationStack { // swiftlint:disable:this closure_body_length
             List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
                 Section(format(startOfDay: startOfDay)) {
                     ForEach(eventContextsByDate[startOfDay] ?? [], id: \.event) { eventContext in
@@ -54,12 +55,22 @@ struct ScheduleView: View {
                         NearbyDevices(museModel: museModel)
                     }
                 }
+                .sheet(isPresented: $presentingEEGMeasurements) {
+                    NavigationStack {
+                        EEGRecording(museModel: museModel)
+                    }
+                }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button(action: { presentingMuseList = true }) {
-                            // TODO radio icon? dot.radiowaves.left.and.right
-                            Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                            Image(systemName: "dot.radiowaves.left.and.right").symbolRenderingMode(.hierarchical)
+                        }
+                    }
+                    ToolbarItemGroup(placement: .primaryAction) {
+                        Button(action: { presentingEEGMeasurements = true }) {
+                            Image(systemName: "brain.head.profile") // TODO or 􀑃 waveform.path (waveform) waveform.path.badge.plus
+                                .symbolRenderingMode(.hierarchical)
                         }
                     }
                 }

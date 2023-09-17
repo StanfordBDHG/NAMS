@@ -26,6 +26,8 @@ struct MuseDeviceRow: View {
                 }
             }
 
+            // TODO maybe build a details view with: battery percentage, firmware versions, warnings (like firmware or other things) firmware type? serial number
+            //   => checking the fit?
             if let activeMuse = museModel.activeMuse,
                activeMuse.muse.getMacAddress() == muse.getMacAddress() {
                 // TODO how to visualize if headband is mounted?

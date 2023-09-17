@@ -19,14 +19,13 @@ class MuseViewModel: IXNMuseListener, IXNLogListener, ObservableObject {
 
     @Published var nearbyMuses: [IXNMuse] = []
 
-    @Published var activeMuse: ConnectedMuse? // TODO propagate updates
+    @Published var activeMuse: ConnectedMuse?
     var activeMuseCancelable: AnyCancellable?
-    // TODO publish muse devices!
 
     init() {
         self.museManager = IXNMuseManagerIos()
 
-        // TODO are these references cyclic?
+        // TODO are these references cyclic? => Yes
         self.museManager.setMuseListener(self)
     }
 
@@ -35,7 +34,7 @@ class MuseViewModel: IXNMuseListener, IXNLogListener, ObservableObject {
         self.nearbyMuses = self.museManager.getMuses()
     }
 
-    func receiveLog(_ log: IXNLogPacket) {
+    func receiveLog(_ log: IXNLogPacket) { // TODO we don't ever register with the LogManager
         // TODO do we want to display the log?
         logger.debug("\(log.tag): \(log.timestamp) raw:\(log.raw) \(log.message)")
     }
