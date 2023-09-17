@@ -9,42 +9,41 @@
 import SwiftUI
 
 
-struct MuseDeviceRow: View {
-    private let muse: IXNMuse
+struct EEGDeviceRow: View {
+    private let device: EEGDevice
 
-    @ObservedObject private var museModel: MuseViewModel
+    @ObservedObject private var eegModel: EEGViewModel
 
     var body: some View {
         HStack {
             Button(action: {
-                museModel.tapMuse(muse)
+                eegModel.tapDevice(device)
             }) {
                 HStack {
-                    Text(verbatim: "\(muse.getModel().description) - \(muse.getName().replacingOccurrences(of: "Muse-", with: ""))")
+                    Text(verbatim: "\(device.model) - \(device.name.replacingOccurrences(of: "Muse-", with: ""))") // TODO replacing occurences not here!
                         .foregroundColor(.primary)
                     Spacer()
                 }
             }
 
-            // TODO maybe build a details view with: battery percentage, firmware versions, warnings (like firmware or other things) firmware type? serial number
+            // TODO maybe build a details view with: battery percentage, firmware versions, warnings (like firmware or other things)
+            //  , mounted, firmware type?, serial number
             //   => checking the fit?
-            if let activeMuse = museModel.activeMuse,
-               activeMuse.muse.getMacAddress() == muse.getMacAddress() {
-                // TODO how to visualize if headband is mounted?
-                if let remainingBattery = activeMuse.remainingBatteryPercentage {
-                    // TODO can we display the percentage value anywhere
+            if let activeDevice = eegModel.activeDevice,
+               activeDevice.device.macAddress == device.macAddress {
+                if let remainingBattery = activeDevice.remainingBatteryPercentage {
                     batteryIcon(percentage: remainingBattery)
                 }
 
                 // TODO access through the connected model?
-                switch activeMuse.state {
+                switch activeDevice.state {
                 case .connecting:
                     ProgressView()
                 case .connected:
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.accentColor)
                         .accessibilityHidden(true) // TODO accessibility!
-                case .needsUpdate, .needsLicense:
+                case .interventionRequired:
                     // TODO make this tapable! with information and instructions on how to update
                     Image(systemName: "exclamationmark.triangle.fill")
                         .symbolRenderingMode(.multicolor)
@@ -59,9 +58,9 @@ struct MuseDeviceRow: View {
     }
 
 
-    init(museModel: MuseViewModel, muse: IXNMuse) {
-        self.muse = muse
-        self.museModel = museModel
+    init(eegModel: EEGViewModel, device: EEGDevice) {
+        self.device = device
+        self.eegModel = eegModel
     }
 
 

@@ -13,7 +13,7 @@ struct NearbyDevices: View {
     private var dismiss
 
     @StateObject private var bluetoothManager = BluetoothManager()
-    @ObservedObject private var museModel: MuseViewModel
+    @ObservedObject private var eegModel: EEGViewModel
 
     private var troubleshootingUrl: URL {
         // we may move to a #URL macro once Swift 5.9 is shipping
@@ -27,6 +27,7 @@ struct NearbyDevices: View {
 
     var body: some View {
         List {
+            // TODO consider the `unsupported` state as poweredOn on simulator devices
             if case .poweredOn = bluetoothManager.bluetoothState {
                 Text("Make sure your headband is turned on and nearby.")
                     .listRowBackground(Color.clear)
@@ -37,12 +38,12 @@ struct NearbyDevices: View {
 
             Section {
                 if case .poweredOn = bluetoothManager.bluetoothState {
-                    if museModel.nearbyMuses.isEmpty {
+                    if eegModel.nearbyDevices.isEmpty {
                         // TODO if we disconnect this doesn't appear?
                         ProgressView()
                             .frame(maxWidth: .infinity)
                     } else {
-                        MuseDeviceList(museModel: museModel)
+                        EEGDeviceList(eegModel: eegModel)
                     }
                 }
 
@@ -54,18 +55,18 @@ struct NearbyDevices: View {
             .navigationTitle("Nearby Devices")
             .onAppear {
                 if case .poweredOn = bluetoothManager.bluetoothState {
-                    museModel.startScanning()
+                    eegModel.startScanning()
                 }
             }
             .onDisappear {
-                museModel.stopScanning()
+                eegModel.stopScanning()
             }
             .onReceive(bluetoothManager.$bluetoothState) { newValue in
                 if case .poweredOn = newValue {
-                    museModel.startScanning()
+                    eegModel.startScanning()
                 } else {
                     // this will still trigger an API MISUSE, both otherwise we end up in undefined state
-                    museModel.stopScanning()
+                    eegModel.stopScanning()
                 }
             }
             .toolbar {
@@ -117,6 +118,7 @@ struct NearbyDevices: View {
 
     @ViewBuilder var sectionFooter: some View {
         HStack {
+            // TODO this doesn't look got on small screen sizes
             Text("Do you have problems connecting?")
             Button(action: {
                 UIApplication.shared.open(troubleshootingUrl)
@@ -129,16 +131,16 @@ struct NearbyDevices: View {
     }
 
 
-    init(museModel: MuseViewModel) {
-        self.museModel = museModel
+    init(eegModel: EEGViewModel) {
+        self.eegModel = eegModel
     }
 }
 
 struct MuseList_Previews: PreviewProvider {
-    @StateObject static var model = MuseViewModel()
+    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
     static var previews: some View {
         NavigationStack {
-            NearbyDevices(museModel: model)
+            NearbyDevices(eegModel: model)
         }
     }
 }

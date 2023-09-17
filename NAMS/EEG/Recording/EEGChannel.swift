@@ -6,8 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-//  Use this file to import your target's public headers that you would like to expose to Swift.
 
-#ifdef MUSE
-#import <Muse/Muse.h>
-#endif
+enum EEGChannel: String { // TODO naming?
+    case tp9 = "TP9"
+    case af7 = "AF7"
+    case af8 = "AF8"
+    case tp10 = "TP10"
+}

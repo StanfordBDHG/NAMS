@@ -14,12 +14,12 @@ struct EEGRecording: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    @ObservedObject var museModel: MuseViewModel
+    @ObservedObject var eegModel: EEGViewModel
 
     var body: some View {
         List {
-            if let activeMuse = museModel.activeMuse {
-                Text("Device: \(activeMuse.muse.getModel().description) - \(activeMuse.muse.getName())")
+            if let activeMuse = eegModel.activeDevice {
+                Text("Device: \(activeMuse.device.model) - \(activeMuse.device.name)")
 
                 Section {
                     let measurements = activeMuse.measurements.suffix(800) // TODO sample rate?
@@ -57,18 +57,18 @@ struct EEGRecording: View {
             }
     }
 
-    init(museModel: MuseViewModel) {
-        self.museModel = museModel
+    init(eegModel: EEGViewModel) {
+        self.eegModel = eegModel
     }
 }
 
 
 #if DEBUG
 struct EEGMeasurement_Previews: PreviewProvider {
-    @StateObject static var model = MuseViewModel()
+    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
     static var previews: some View {
         NavigationStack {
-            EEGRecording(museModel: model)
+            EEGRecording(eegModel: model)
         }
     }
 }

@@ -6,8 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-//  Use this file to import your target's public headers that you would like to expose to Swift.
-
-#ifdef MUSE
-#import <Muse/Muse.h>
+#if MUSE
+extension EEGReading {
+    init(from packet: IXNMuseDataPacket, _ channel: EEGChannel) {
+        self.channel = channel
+        self.value = packet.getEegChannelValue(channel.ixnEEG)
+    }
+}
 #endif

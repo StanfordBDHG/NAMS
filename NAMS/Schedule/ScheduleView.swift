@@ -19,8 +19,12 @@ struct ScheduleView: View {
     @State var presentingMuseList = false
     @State var presentingEEGMeasurements = false
 
-    @StateObject var museModel = MuseViewModel() // TODO don't init the CB manager here?
-    
+    #if MUSE
+    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
+    #else
+    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
+    #endif
+
     
     var startOfDays: [Date] {
         Array(eventContextsByDate.keys)
@@ -52,12 +56,12 @@ struct ScheduleView: View {
                 }
                 .sheet(isPresented: $presentingMuseList) {
                     NavigationStack {
-                        NearbyDevices(museModel: museModel)
+                        NearbyDevices(eegModel: eegModel)
                     }
                 }
                 .sheet(isPresented: $presentingEEGMeasurements) {
                     NavigationStack {
-                        EEGRecording(museModel: museModel)
+                        EEGRecording(eegModel: eegModel)
                     }
                 }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
