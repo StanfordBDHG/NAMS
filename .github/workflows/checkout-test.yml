@@ -21,4 +21,5 @@ jobs:
       - name: Checkout with submodules
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.MUSE_PAT }}
           submodules: true
