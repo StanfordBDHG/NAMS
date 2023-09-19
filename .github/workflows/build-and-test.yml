@@ -34,8 +34,9 @@ jobs:
       runsonlabels: '["macOS", "self-hosted"]'
       setupfirebaseemulator: true
       customcommand: "firebase emulators:exec 'fastlane test'"
-      checkout_token: ${{ secrets.MUSE_PAT }}
       checkout_submodules: true
+    secrets:
+      checkout_token: ${{ secrets.MUSE_PAT }}
   uploadcoveragereport:
     name: Upload Coverage Report
     needs: buildandtest
