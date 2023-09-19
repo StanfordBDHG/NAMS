@@ -28,12 +28,14 @@ jobs:
       fastlanelane: codeql
   buildandtest:
     name: Build and Test
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
+    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@feature/submodule-checkout
     with:
       artifactname: NAMS.xcresult
       runsonlabels: '["macOS", "self-hosted"]'
       setupfirebaseemulator: true
       customcommand: "firebase emulators:exec 'fastlane test'"
+      checkout_token: ${{ secrets.MUSE_PAT }}
+      checkout_submodules: true
   uploadcoveragereport:
     name: Upload Coverage Report
     needs: buildandtest
