@@ -47,7 +47,7 @@ class EEGViewModel: ObservableObject {
     @MainActor
     func stopScanning() {
         self.deviceManager.stopScanning()
-        refreshNearbyDevices()
+        refreshNearbyDevices() // TODO is this call the issue for the API MISUSE?
     }
 
     @MainActor
