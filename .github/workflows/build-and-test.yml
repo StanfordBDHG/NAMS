@@ -28,7 +28,7 @@ jobs:
       fastlanelane: codeql
   buildandtest:
     name: Build and Test
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@feature/submodule-checkout
+    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
     with:
       artifactname: NAMS.xcresult
       runsonlabels: '["macOS", "self-hosted"]'
