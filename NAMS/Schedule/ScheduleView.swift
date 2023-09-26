@@ -68,12 +68,13 @@ struct ScheduleView: View {
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button(action: { presentingMuseList = true }) {
-                            Image(systemName: "dot.radiowaves.left.and.right").symbolRenderingMode(.hierarchical)
+                            // TODO dot.radiowaves.left.and.right
+                            Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
                         }
                     }
                     ToolbarItemGroup(placement: .primaryAction) {
                         Button(action: { presentingEEGMeasurements = true }) {
-                            Image(systemName: "brain.head.profile") // TODO or 􀑃 waveform.path (waveform) waveform.path.badge.plus
+                            Image(systemName: "waveform.path") // TODO or 􀑃 waveform.path (waveform) waveform.path.badge.plus
                                 .symbolRenderingMode(.hierarchical)
                         }
                     }

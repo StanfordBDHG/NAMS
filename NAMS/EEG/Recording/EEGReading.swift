@@ -10,7 +10,7 @@ import Foundation
 
 
 struct EEGReading {
-    let channel: EEGChannel
+    let channel: EEGChannel // TODO move channel out for less memory footprint?
     /// Value in micro volts
     let value: Double
 

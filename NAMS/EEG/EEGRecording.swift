@@ -14,7 +14,8 @@ struct EEGRecording: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    @ObservedObject var eegModel: EEGViewModel
+    @ObservedObject private var eegModel: EEGViewModel
+    @State private var frequency: EEGFrequency = .all
 
     var body: some View {
         List {
@@ -22,25 +23,38 @@ struct EEGRecording: View {
                 Text("Device: \(activeMuse.device.model) - \(activeMuse.device.name)")
 
                 Section {
-                    let measurements = activeMuse.measurements.suffix(800) // TODO sample rate?
-                    let baseTime = activeMuse.measurements.first?.timestamp.timeIntervalSince1970
-
-                    if let baseTime, let lastTime = activeMuse.measurements.last?.timestamp.timeIntervalSince1970 {
-                        let asd = print("max time! \(lastTime - baseTime)")
+                    Picker("Frequency", selection: $frequency) {
+                        ForEach([EEGFrequency.theta, .alpha, .beta, .gamma]) { frequency in // TODO enable all at some point
+                            Text(frequency.localizedStringResource).tag(frequency) // TODO line break
+                        }
                     }
+                        .pickerStyle(.segmented)
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .padding(.bottom, -10)
+                }
+
+                Section {
+                    let measurements = activeMuse.measurements[frequency, default: []]
+                    let suffix = measurements.suffix(frequency == .all ? 800 : 100) // TODO sample rate?
+                    let baseTime = measurements.first?.timestamp.timeIntervalSince1970
+
+                    // if let baseTime, let lastTime = measurements.last?.timestamp.timeIntervalSince1970 {
+                    //    let asd = print("max time! \(lastTime - baseTime)")
+                    // }
 
                     VStack {
-                        EEGChart(measurements: measurements, for: .tp9, baseTime: baseTime)
-                        EEGChart(measurements: measurements, for: .af7, baseTime: baseTime)
-                        EEGChart(measurements: measurements, for: .af8, baseTime: baseTime)
-                        EEGChart(measurements: measurements, for: .tp10, baseTime: baseTime)
+                        EEGChart(measurements: suffix, for: .tp9, baseTime: baseTime)
+                        EEGChart(measurements: suffix, for: .af7, baseTime: baseTime)
+                        EEGChart(measurements: suffix, for: .af8, baseTime: baseTime)
+                        EEGChart(measurements: suffix, for: .tp10, baseTime: baseTime)
                     }
                 }
                     .listRowBackground(Color.clear)
 
                 Section {
                     Button(role: .destructive, action: {
-                        activeMuse.measurements = []
+                        activeMuse.measurements = [:]
                     }) {
                         Text("Reset")
                     }

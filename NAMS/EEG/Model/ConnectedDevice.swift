@@ -26,7 +26,7 @@ class ConnectedDevice: ObservableObject {
     /// Remaining battery percentage in percent [0.0;100.0]
     @Published var remainingBatteryPercentage: Double?
 
-    @Published var measurements: [EEGSeries] = []
+    @Published var measurements: [EEGFrequency: [EEGSeries]] = [:]
 
     init(device: EEGDevice) {
         self.device = device

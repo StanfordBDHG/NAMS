@@ -63,8 +63,15 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         // TODO threading?
         muse.register(self, type: .artifacts)
         muse.register(self, type: .eeg) // TODO frequencies guide https://www.learningeeg.com/terminology-and-waveforms
+        muse.register(self, type: .thetaAbsolute) // 4-8 Hz
+        muse.register(self, type: .alphaAbsolute) // 8-16 Hz
+        muse.register(self, type: .betaAbsolute) // 16-32 Hz
+        muse.register(self, type: .gammaAbsolute) // 32-64 Hz
         muse.register(self, type: .battery)
         muse.register(self, type: .isGood)
+
+        // set the preset for now if it isn't TODO verify?
+        muse.setPreset(.preset53) // TODO document, depends on the muse model
 
         muse.runAsynchronously()
     }
@@ -81,13 +88,23 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
 
         switch device.state {
         case .connected:
-            logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Connected. Versions: \(self.muse.getVersion()?.versionString ?? "NONE")")
+            logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Connected. Versions: \(self.muse.getVersion()?.versionString ?? "NONE"); Configuration: \(self.muse.getConfiguration())")
+
+            if let version = self.muse.getVersion() {
+                logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Versions: \(version.versionString)")
+            }
+
+            if let configuration = self.muse.getConfiguration() {
+                device.remainingBatteryPercentage = configuration.getBatteryPercentRemaining()
+
+                logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Configuration: \(configuration.configurationString)")
+            }
         case .disconnected:
             device.remainingBatteryPercentage = nil
             device.wearingHeadband = false
             device.eyeBlink = false
             device.jawClench = false
-            device.measurements = []
+            device.measurements = [:]
             // TODO reset isGood!
 
             self.muse.unregisterAllListeners()
@@ -103,22 +120,29 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         }
 
         switch packet.packetType() {
-        case .alphaAbsolute, .eeg:
-            // TODO picker for all the different hz: alpha, beta, ...
-
+        case .eeg:
             // TODO might also be NaN for dropped packets!
-            logger.debug("""
+            /*
+            logger.trace("""
                          \(self.muse.getName()) data: \
                          \(packet.getEegChannelValue(.EEG1)) \
                          \(packet.getEegChannelValue(.EEG2)) \
                          \(packet.getEegChannelValue(.EEG3)) \
                          \(packet.getEegChannelValue(.EEG4))
                          """)
-
-            if packet.packetType() == .eeg {
-                // TODO maybe toggle collection only if the view is shown?
-                device.measurements.append(EEGSeries(from: packet))
-            }
+             */
+            // TODO maybe toggle collection only if the view is shown?
+            // TODO reenable, review which threads does what work!
+            // device.measurements[.all, default: []].append(EEGSeries(from: packet))
+            break
+        case .thetaAbsolute:
+            device.measurements[.theta, default: []].append(EEGSeries(from: packet))
+        case .alphaAbsolute:
+            device.measurements[.alpha, default: []].append(EEGSeries(from: packet))
+        case .betaAbsolute:
+            device.measurements[.beta, default: []].append(EEGSeries(from: packet))
+        case .gammaAbsolute:
+            device.measurements[.gamma, default: []].append(EEGSeries(from: packet))
         case .battery:
             device.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
             logger.debug("Remaining battery percentage: \(packet.getBatteryValue(.chargePercentageRemaining))")
@@ -154,13 +178,6 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
                 logger.debug("Detected jaw clench")
             }
         }
-    }
-}
-
-extension IXNMuseVersion { // TODO placement
-    var versionString: String {
-        // TODO bootloader version? running state?
-        "firmware: \(getFirmwareVersion()) (\(getFirmwareBuildNumber()) - \(getFirmwareType())), hardware: \(getHardwareVersion()), protocol: \(getProtocolVersion()), bsp: \(getBspVersion())"
     }
 }
 #endif

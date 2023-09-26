@@ -32,7 +32,6 @@ struct NearbyDevices: View {
                 Text("Make sure your headband is turned on and nearby.")
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    .padding(.bottom, -4)
                     .padding([.top, .leading, .trailing])
             }
 
