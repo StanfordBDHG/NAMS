@@ -14,6 +14,14 @@ struct EEGDeviceRow: View {
 
     @ObservedObject private var eegModel: EEGViewModel
 
+    var connectedDevice: ConnectedDevice? {
+        if let activeDevice = eegModel.activeDevice,
+           activeDevice.device.macAddress == device.macAddress {
+            return activeDevice
+        }
+        return nil
+    }
+
     var body: some View {
         HStack {
             Button(action: {
@@ -23,35 +31,41 @@ struct EEGDeviceRow: View {
                     Text(verbatim: "\(device.model) - \(device.name.replacingOccurrences(of: "Muse-", with: ""))") // TODO replacing occurences not here!
                         .foregroundColor(.primary)
                     Spacer()
+                    if let connectedDevice {
+                        if connectedDevice.state == .connecting {
+                            ProgressView()
+                        } else if connectedDevice.state == .connected || connectedDevice.state == .interventionRequired {
+                            Text("Connected") // TODO improve accessibility?
+                                .foregroundStyle(.secondary)
+
+                            if connectedDevice.state == .interventionRequired {
+                                // TODO shall this be tapable?
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .symbolRenderingMode(.multicolor)
+                            }
+                        }
+                    }
                 }
             }
+                .buttonStyle(.plain)
 
             // TODO maybe build a details view with: battery percentage, firmware versions, warnings (like firmware or other things)
             //  , mounted, firmware type?, serial number
             //   => checking the fit?
 
-            if let activeDevice = eegModel.activeDevice,
-               activeDevice.device.macAddress == device.macAddress {
-                if let remainingBattery = activeDevice.remainingBatteryPercentage {
-                    batteryIcon(percentage: remainingBattery)
-                }
-
-                // TODO access through the connected model?
-                switch activeDevice.state {
-                case .connecting:
-                    ProgressView()
-                case .connected:
-                    Image(systemName: "checkmark.circle.fill")
+            // TODO generlized connected state?
+            if let connectedDevice, connectedDevice.state == .connected || connectedDevice.state == .interventionRequired {
+                Button(action: {
+                    // TODO how to do navigation?
+                    //  EEGDeviceDetails(device: activeDevice)
+                    print("pressed!")
+                }) {
+                    Image(systemName: "info.circle")
                         .foregroundColor(.accentColor)
-                        .accessibilityHidden(true) // TODO accessibility!
-                case .interventionRequired:
-                    // TODO make this tapable! with information and instructions on how to update
-                    Image(systemName: "exclamationmark.triangle.fill")
-                        .symbolRenderingMode(.multicolor)
-                    // TODO accessibility
-                case .disconnected, .unknown:
-                    EmptyView()
+                        .font(.title3)
+                    // TODO accessibility label
                 }
+                // TODO invervention required marker! => exclamationmark.triangle.fill (.symbolRenderingMode(.multicolor))
             }
         }
     }
@@ -60,30 +74,6 @@ struct EEGDeviceRow: View {
     init(eegModel: EEGViewModel, device: EEGDevice) {
         self.device = device
         self.eegModel = eegModel
-    }
-
-
-    @ViewBuilder
-    func batteryIcon(percentage: Double) -> some View {
-        Group {
-            if percentage >= 90 {
-                Image(systemName: "battery.100")
-            } else if percentage >= 65 {
-                Image(systemName: "battery.75")
-            } else if percentage >= 40 {
-                Image(systemName: "battery.50")
-            } else if percentage >= 15 {
-                Image(systemName: "battery.25")
-            } else if percentage > 3 {
-                Image(systemName: "battery.25")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.red, .primary)
-            } else {
-                Image(systemName: "battery.0")
-                    .foregroundColor(.red)
-            }
-        }
-            .accessibilityLabel("Battery: \(percentage)%")
     }
 }
 
@@ -94,28 +84,34 @@ struct EEGDeviceRow_Previews: PreviewProvider {
         static let device = MockEEGDevice(name: "Device", model: "Mock")
         @StateObject var model = EEGViewModel(deviceManager: MockDeviceManager())
         var body: some View {
-            EEGDeviceRow(eegModel: model, device:  Self.device)
+            EEGDeviceRow(eegModel: model, device: Self.device)
         }
     }
 
     static let devices = [
-        MockEEGDevice(name: "Connecting Device", model: "Mock", state: .connecting),
-        MockEEGDevice(name: "Connected Device", model: "Mock", state: .connected),
-        MockEEGDevice(name: "Connected Device", model: "Mock", state: .interventionRequired)
+        MockEEGDevice(name: "Device 1", model: "Mock", state: .connecting),
+        MockEEGDevice(name: "Device 2", model: "Mock", state: .connected),
+        MockEEGDevice(name: "Device 3", model: "Mock", state: .interventionRequired)
     ]
 
     static var previews: some View {
-        List {
-            StateRow() // tap to pair
+        NavigationStack {
+            List {
+                StateRow() // tap to pair
+            }
         }
 
-        List {
-            EEGDeviceRow(eegModel: EEGViewModel(deviceManager: MockDeviceManager()), device: MockEEGDevice(name: "Nearby Device", model: "Mock"))
+        NavigationStack {
+            List {
+                EEGDeviceRow(eegModel: EEGViewModel(deviceManager: MockDeviceManager()), device: MockEEGDevice(name: "Nearby Device", model: "Mock"))
+            }
         }
 
         ForEach(devices, id: \.macAddress) { device in
-            List {
-                EEGDeviceRow(eegModel: EEGViewModel(mock: device), device: device)
+            NavigationStack {
+                List {
+                    EEGDeviceRow(eegModel: EEGViewModel(mock: device), device: device)
+                }
             }
         }
     }

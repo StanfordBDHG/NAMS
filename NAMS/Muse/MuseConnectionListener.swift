@@ -24,24 +24,17 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
     func connect() {
         muse.register(self)
 
-        // TODO support IXNMuseDataPacketTypeHsiPrecision (for how good it fits!)
-        // TODO expose IXNMuseDataPacketTypeIsGood
-
-        // TODO what other packets to register?
-        // TODO threading?
         muse.register(self, type: .artifacts)
+        muse.register(self, type: .battery)
+        muse.register(self, type: .isGood)
 
-        // TODO control this
-        // muse.register(self, type: .eeg)
         // Might want to read https://www.learningeeg.com/terminology-and-waveforms for a short intro into EEG frequency ranges
         muse.register(self, type: .thetaAbsolute) // 4-8 Hz
         muse.register(self, type: .alphaAbsolute) // 8-16 Hz
         muse.register(self, type: .betaAbsolute) // 16-32 Hz
         muse.register(self, type: .gammaAbsolute) // 32-64 Hz
-        muse.register(self, type: .battery)
-        muse.register(self, type: .isGood)
 
-        muse.register(self, type: .hsiPrecision) // TODO capture and visualize
+        muse.register(self, type: .hsiPrecision) // we don't yet visualize this
 
         // set the preset manually for now
         switch muse.getModel() {
@@ -60,10 +53,6 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         device.state = ConnectionState(from: packet.currentConnectionState)
         logger.debug("\(self.muse.getName()) state is now \(self.device.state.description)")
 
-        // TODO check if version is already present earlier? => Yes
-
-        // TODO can we always query the serial number?
-
         switch device.state {
         case .connected:
             logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Connected. Versions: \(self.muse.getVersion()?.versionString ?? "NONE"); Configuration: \(self.muse.getConfiguration())")
@@ -75,6 +64,7 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
             if let configuration = self.muse.getConfiguration() {
                 device.remainingBatteryPercentage = configuration.getBatteryPercentRemaining()
 
+                // TODO log in tool window (stuff like serial number, firmware version etc)
                 logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Configuration: \(configuration.configurationString)")
             }
         case .disconnected:
@@ -83,7 +73,7 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
             device.eyeBlink = false
             device.jawClench = false
             device.measurements = [:]
-            // TODO reset isGood!
+            device.isGood = (false, false, false, false)
 
             self.muse.unregisterAllListeners()
             device.listener = nil
@@ -92,7 +82,7 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         }
     }
 
-    func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) {
+    func receive(_ packet: IXNMuseDataPacket?, muse: IXNMuse?) { // swiftlint:disable:this cyclomatic_complexity
         guard let packet else {
             return
         }
@@ -104,19 +94,7 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
                 device.fit = fit
             }
         case .eeg:
-            // TODO might also be NaN for dropped packets!
-            /*
-            logger.trace("""
-                         \(self.muse.getName()) data: \
-                         \(packet.getEegChannelValue(.EEG1)) \
-                         \(packet.getEegChannelValue(.EEG2)) \
-                         \(packet.getEegChannelValue(.EEG3)) \
-                         \(packet.getEegChannelValue(.EEG4))
-                         """)
-             */
-            // TODO maybe toggle collection only if the view is shown?
-            // TODO reenable, review which threads does what work!
-            // device.measurements[.all, default: []].append(EEGSeries(from: packet))
+            // we currently do not forward nor enable raw eeg data for visualization purposes
             break
         case .thetaAbsolute:
             device.measurements[.theta, default: []].append(EEGSeries(from: packet))
@@ -130,7 +108,6 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
             device.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
             logger.debug("Remaining battery percentage: \(packet.getBatteryValue(.chargePercentageRemaining))")
         case .isGood:
-            // TODO actually mark the measurements?
             device.isGood = (
                 packet.getEegChannelValue(.EEG1) == 1.0,
                 packet.getEegChannelValue(.EEG2) == 1.0,

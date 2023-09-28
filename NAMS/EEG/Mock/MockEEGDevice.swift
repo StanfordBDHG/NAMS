@@ -52,16 +52,6 @@ class MockEEGDevice: EEGDevice {
     var rssi: Double = 0
     var lastDiscoveredTime: Double = 0
 
-    func connect(state device: ConnectedDevice) -> DeviceConnectionListener {
-        let listener = ConnectionListener(mock: self, device: device)
-        listener.connect()
-        return listener
-    }
-
-    func disconnect() {
-        connectionState = .disconnected
-    }
-
 
     init(name: String, model: String, macAddress: String? = nil, state: ConnectionState = .unknown) {
         self.name = name
@@ -70,5 +60,16 @@ class MockEEGDevice: EEGDevice {
             .map { _ in String(format: "%02X", Int.random(in: 0...255)) }
             .joined(separator: ":")
         self.connectionState = state
+    }
+
+
+    func connect(state device: ConnectedDevice) -> DeviceConnectionListener {
+        let listener = ConnectionListener(mock: self, device: device)
+        listener.connect()
+        return listener
+    }
+
+    func disconnect() {
+        connectionState = .disconnected
     }
 }

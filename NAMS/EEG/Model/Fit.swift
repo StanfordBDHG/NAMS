@@ -6,9 +6,34 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SwiftUI
 
-enum Fit: String, Hashable {
+
+enum Fit: String, Hashable, CustomLocalizedStringResourceConvertible {
     case good
     case mediocre
     case poor
+
+
+    var localizedStringResource: LocalizedStringResource {
+        switch self {
+        case .good:
+            return "GOOD_FIT"
+        case .mediocre:
+            return "MEDIOCRE_FIT"
+        case .poor:
+            return "POOR_FIT"
+        }
+    }
+
+    var style: Color {
+        switch self {
+        case .good:
+            return .green
+        case .mediocre:
+            return .orange
+        case .poor:
+            return .red
+        }
+    }
 }

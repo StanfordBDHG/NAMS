@@ -184,6 +184,10 @@
 		A9610AB72AB4847400E46ADE /* SpeziMockWebService in Frameworks */ = {isa = PBXBuildFile; productRef = A9610AB62AB4847400E46ADE /* SpeziMockWebService */; };
 		A9610AB92AB4868D00E46ADE /* NAMSStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */; };
 		A9610ABB2AB49F0900E46ADE /* MockUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610ABA2AB49F0900E46ADE /* MockUploadTests.swift */; };
+		A9A179532AC6266A00B180D8 /* EEGDeviceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A179522AC6266A00B180D8 /* EEGDeviceDetails.swift */; };
+		A9A179542AC6266A00B180D8 /* EEGDeviceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A179522AC6266A00B180D8 /* EEGDeviceDetails.swift */; };
+		A9A179562AC62BE500B180D8 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A179552AC62BE500B180D8 /* ListRow.swift */; };
+		A9A179572AC62BE500B180D8 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A179552AC62BE500B180D8 /* ListRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -289,6 +293,8 @@
 		A9610ABA2AB49F0900E46ADE /* MockUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUploadTests.swift; sourceTree = "<group>"; };
 		A99522432AA61DA6009272F4 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Muse.framework; sourceTree = "<group>"; };
 		A99522462AA61FE5009272F4 /* NAMS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NAMS-Bridging-Header.h"; sourceTree = "<group>"; };
+		A9A179522AC6266A00B180D8 /* EEGDeviceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceDetails.swift; sourceTree = "<group>"; };
+		A9A179552AC62BE500B180D8 /* ListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -535,6 +541,8 @@
 				A926D80F2AB7B430000C4C2F /* EEGRecording.swift */,
 				A926D80B2AB7B42F000C4C2F /* EEGDeviceList.swift */,
 				A926D80C2AB7B42F000C4C2F /* EEGDeviceRow.swift */,
+				A9A179522AC6266A00B180D8 /* EEGDeviceDetails.swift */,
+				A9A179552AC62BE500B180D8 /* ListRow.swift */,
 				A926D80D2AB7B42F000C4C2F /* NearbyDevices.swift */,
 			);
 			path = EEG;
@@ -887,6 +895,7 @@
 				A916ADD52AB60227006960DF /* NotificationPermissions.swift in Sources */,
 				2FE5DCAF29EE6107004B9AB4 /* NAMSSignUp.swift in Sources */,
 				2FE5DCB029EE6107004B9AB4 /* UserView.swift in Sources */,
+				A9A179532AC6266A00B180D8 /* EEGDeviceDetails.swift in Sources */,
 				A926D81E2AB7B430000C4C2F /* NearbyDevices.swift in Sources */,
 				2FE5DC3A29EDD7CA004B9AB4 /* Welcome.swift in Sources */,
 				2FE5DC4529EDD7F2004B9AB4 /* Binding+Negate.swift in Sources */,
@@ -932,6 +941,7 @@
 				2DC174CC46386A3F7E20786B /* IXNMuseVersion+String.swift in Sources */,
 				2DC179BD6217C86A55D70E6F /* IXNMuseConfiguration+Description.swift in Sources */,
 				2DC17FE0AC1DD98C29B417F1 /* IXNMusePreset+Description.swift in Sources */,
+				A9A179562AC62BE500B180D8 /* ListRow.swift in Sources */,
 				2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */,
 				2DC179D0C1180EF9B1E8F276 /* MuseDeviceManager.swift in Sources */,
 				2DC17ABFAC9031FE699864FB /* IXNMuse+EEGDevice.swift in Sources */,
@@ -978,6 +988,7 @@
 				A926D7822AB7A552000C4C2F /* NotificationPermissions.swift in Sources */,
 				A926D7832AB7A552000C4C2F /* NAMSSignUp.swift in Sources */,
 				A926D7852AB7A552000C4C2F /* UserView.swift in Sources */,
+				A9A179542AC6266A00B180D8 /* EEGDeviceDetails.swift in Sources */,
 				A926D81F2AB7B430000C4C2F /* NearbyDevices.swift in Sources */,
 				A926D7872AB7A552000C4C2F /* Welcome.swift in Sources */,
 				A926D7882AB7A552000C4C2F /* Binding+Negate.swift in Sources */,
@@ -1023,6 +1034,7 @@
 				2DC179831EDABDCBD8A1EBFB /* IXNMuseVersion+String.swift in Sources */,
 				2DC173E694F96E89EAB63FE0 /* IXNMuseConfiguration+Description.swift in Sources */,
 				2DC17924E7D44FE1A2562528 /* IXNMusePreset+Description.swift in Sources */,
+				A9A179572AC62BE500B180D8 /* ListRow.swift in Sources */,
 				2DC17D159C62F690B2137E65 /* EEGFrequency.swift in Sources */,
 				2DC1713C311BAA65EE0E2748 /* MuseDeviceManager.swift in Sources */,
 				2DC17DA43107F4E8469B7C73 /* IXNMuse+EEGDevice.swift in Sources */,
