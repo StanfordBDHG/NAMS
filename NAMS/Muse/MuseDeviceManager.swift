@@ -39,7 +39,7 @@ class MuseDeviceManager: DeviceManager, IXNLogListener {
     init() {
         self.museManager = IXNMuseManagerIos()
         
-        self.museListener = nil // TODO do we actually have to keep track of that reference?
+        self.museListener = nil
         self.museListener = MuseListener(deviceManager: self)
 
         self.museManager.setMuseListener(museListener)
@@ -57,8 +57,8 @@ class MuseDeviceManager: DeviceManager, IXNLogListener {
         self.museManager.getMuses()
     }
 
-    func receiveLog(_ log: IXNLogPacket) { // TODO we don't ever register with the LogManager
-        // TODO do we want to display the log?
+    func receiveLog(_ log: IXNLogPacket) {
+        // we currently don't register the log manager
         logger.debug("\(log.tag): \(log.timestamp) raw:\(log.raw) \(log.message)")
     }
 }

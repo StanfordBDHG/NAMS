@@ -11,34 +11,35 @@ import SwiftUI
 struct NearbyDevices: View {
     @Environment(\.dismiss)
     private var dismiss
+    @Environment(\.locale)
+    private var locale
 
     @StateObject private var bluetoothManager = BluetoothManager()
     @ObservedObject private var eegModel: EEGViewModel
 
-    private var troubleshootingUrl: URL {
-        // we may move to a #URL macro once Swift 5.9 is shipping
-        // TODO ?language=en_US
-        guard let docsUrl = URL(string: "https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting") else {
-            fatalError("Failed to construct SpeziAccount Documentation URL. Please review URL syntax!")
+    private var bluetoothPoweredOn: Bool {
+        if case .poweredOn = bluetoothManager.bluetoothState {
+            return true
         }
-
-        return docsUrl
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return ProcessInfo.processInfo.isPreviewSimulator
+        #endif
     }
 
     var body: some View {
         List {
-            // TODO consider the `unsupported` state as poweredOn on simulator devices
-            if case .poweredOn = bluetoothManager.bluetoothState {
-                Text("Make sure your headband is turned on and nearby.")
+            if bluetoothPoweredOn {
+                Text("TURN_ON_HEADBAND_HINT")
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .padding([.top, .leading, .trailing])
             }
 
             Section {
-                if case .poweredOn = bluetoothManager.bluetoothState {
+                if bluetoothPoweredOn {
                     if eegModel.nearbyDevices.isEmpty {
-                        // TODO if we disconnect this doesn't appear?
                         ProgressView()
                             .frame(maxWidth: .infinity)
                     } else {
@@ -51,25 +52,25 @@ struct NearbyDevices: View {
                 sectionFooter
             }
         }
-            .navigationTitle("Nearby Devices")
+            .navigationTitle("NEARBY_DEVICES")
             .onAppear {
-                if case .poweredOn = bluetoothManager.bluetoothState {
+                if bluetoothPoweredOn {
                     eegModel.startScanning()
                 }
             }
             .onDisappear {
-                eegModel.stopScanning()
+                eegModel.stopScanning(state: bluetoothManager.bluetoothState)
             }
             .onReceive(bluetoothManager.$bluetoothState) { newValue in
                 if case .poweredOn = newValue {
                     eegModel.startScanning()
                 } else {
                     // this will still trigger an API MISUSE, both otherwise we end up in undefined state
-                    eegModel.stopScanning()
+                    eegModel.stopScanning(state: bluetoothManager.bluetoothState)
                 }
             }
             .toolbar {
-                Button("Close") {
+                Button("CLOSE") {
                     dismiss()
                 }
             }
@@ -82,32 +83,30 @@ struct NearbyDevices: View {
                 EmptyView()
             case .poweredOff:
                 VStack {
-                    Text("Bluetooth Off")
+                    Text("BLUETOOTH_OFF")
                         .font(.title2)
                         .padding()
 
-                    Text("""
-                         Bluetooth is turned off. \
-                         Please turn on Bluetooth in Control Center or Settings in order to use your Muse Headband.
-                         """)
+                    Text("BLUETOOTH_OFF_HINT")
                         .multilineTextAlignment(.center)
                 }
             case .unauthorized:
                 VStack {
-                    Text("Bluetooth Prohibited")
+                    Text("BLUETOOTH_PROHIBITED")
                         .font(.title2)
                         .padding()
 
-                    Text("""
-                         Bluetooth is required to make connections to your Muse Headband. \
-                         Please allow Bluetooth connections in your Privacy settings.
-                         """)
+                    Text("BLUETOOTH_PROHIBITED_HINT")
                         .multilineTextAlignment(.center)
                 }
             case .resetting, .unknown:
-                Text("We have troubles communicating with Bluetooth. Please try again.")
+                Text("BLUETOOTH_UNKNOWN")
             case .unsupported:
-                Text("Bluetooth is unsupported on this device!")
+                if bluetoothPoweredOn {
+                    EmptyView() // handle preview case
+                } else {
+                    Text("BLUETOOTH_UNSUPPORTED")
+                }
             @unknown default:
                 EmptyView()
             }
@@ -117,14 +116,8 @@ struct NearbyDevices: View {
 
     @ViewBuilder var sectionFooter: some View {
         HStack {
-            // TODO this doesn't look got on small screen sizes
-            Text("Do you have problems connecting?")
-            Button(action: {
-                UIApplication.shared.open(troubleshootingUrl)
-            }) {
-                Text("Troubleshooting")
-                    .font(.footnote)
-            }
+            // TODO somehow translate
+            Text("Do you have problems connecting? [\("Troubleshooting")](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=\(locale.identifier))")
         }
             .padding(.top)
     }
@@ -136,7 +129,11 @@ struct NearbyDevices: View {
 }
 
 struct MuseList_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
+    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager(nearbyDevices: [
+        MockEEGDevice(name: "Mock", model: "Device 1"),
+        MockEEGDevice(name: "Mock", model: "Device 2")
+    ]))
+
     static var previews: some View {
         NavigationStack {
             NearbyDevices(eegModel: model)

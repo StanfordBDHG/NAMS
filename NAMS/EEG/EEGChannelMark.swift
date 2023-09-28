@@ -19,10 +19,9 @@ struct EEGChannelMark: ChartContent {
             x: .value("Seconds", time),
             y: .value("Micro-Volt", reading.value)
         )
-            .lineStyle(StrokeStyle(lineWidth: 2.0)) // TODO strokes?
+            .lineStyle(StrokeStyle(lineWidth: 2.0))
             .foregroundStyle(.orange) // TODO color?
             .foregroundStyle(by: .value("Channel", reading.channel.rawValue)) // TODO present differently
-            // .interpolationMethod(.cardinal) // TODO?=
     }
 
 

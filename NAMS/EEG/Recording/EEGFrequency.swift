@@ -11,7 +11,6 @@ import Foundation
 
 enum EEGFrequency: String, CaseIterable, Identifiable, CustomLocalizedStringResourceConvertible {
     case all
-    // TODO list all or just what we are using? = delta?
     case theta
     case alpha
     case beta

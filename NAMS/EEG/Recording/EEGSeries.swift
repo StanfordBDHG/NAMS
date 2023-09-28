@@ -10,7 +10,9 @@ import Foundation
 
 
 struct EEGSeries: Identifiable {
-    let id = UUID() // TODO fine as an identifier right?
+    var id: Date {
+        timestamp
+    }
 
     private let readingsDictionary: [EEGChannel: EEGReading]
 

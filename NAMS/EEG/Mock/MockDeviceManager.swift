@@ -12,21 +12,26 @@ import Combine
 class MockDeviceManager: DeviceManager {
     @Published var nearbyDevices: [EEGDevice] = []
 
+    let deviceList: [EEGDevice]
+
     var devicePublisher: Published<[EEGDevice]>.Publisher {
         $nearbyDevices
     }
 
 
-    init() {}
+    init(nearbyDevices: [EEGDevice] = []) {
+        self.deviceList = nearbyDevices
+    }
 
 
     func startScanning() {
-        // TODO mock device!
+        Task {
+            try? await Task.sleep(for: .seconds(1))
+            nearbyDevices = deviceList
+        }
     }
 
-    func stopScanning() {
-    }
-
+    func stopScanning() {}
 
     func retrieveDeviceList() -> [EEGDevice] {
         nearbyDevices

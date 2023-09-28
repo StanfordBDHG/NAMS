@@ -10,42 +10,10 @@ import OSLog
 
 
 #if MUSE
-extension IXNMuse: EEGDevice {
-    var name: String {
-        getName()
-    }
-
-    var macAddress: String {
-        getMacAddress()
-    }
-
-    var model: String {
-        getModel().description
-    }
-
-    var connectionState: ConnectionState {
-        ConnectionState(from: getConnectionState())
-    }
-
-    var rssi: Double {
-        getRssi()
-    }
-
-    var lastDiscoveredTime: Double {
-        getLastDiscoveredTime()
-    }
-
-    func connect(state device: ConnectedDevice) -> DeviceConnectionListener {
-        let listener = MuseConnectionListener(muse: self, device: device)
-        listener.connect()
-        return listener
-    }
-}
-
-class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListener, IXNMuseDataListener { // TODO placement
+class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListener, IXNMuseDataListener {
     private let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseConnectionListener")
 
-    private unowned let muse: IXNMuse
+    private let muse: IXNMuse
     private let device: ConnectedDevice
 
     init(muse: IXNMuse, device: ConnectedDevice) {
@@ -62,7 +30,10 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         // TODO what other packets to register?
         // TODO threading?
         muse.register(self, type: .artifacts)
-        muse.register(self, type: .eeg) // TODO frequencies guide https://www.learningeeg.com/terminology-and-waveforms
+
+        // TODO control this
+        // muse.register(self, type: .eeg)
+        // Might want to read https://www.learningeeg.com/terminology-and-waveforms for a short intro into EEG frequency ranges
         muse.register(self, type: .thetaAbsolute) // 4-8 Hz
         muse.register(self, type: .alphaAbsolute) // 8-16 Hz
         muse.register(self, type: .betaAbsolute) // 16-32 Hz
@@ -70,8 +41,17 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         muse.register(self, type: .battery)
         muse.register(self, type: .isGood)
 
-        // set the preset for now if it isn't TODO verify?
-        muse.setPreset(.preset53) // TODO document, depends on the muse model
+        muse.register(self, type: .hsiPrecision) // TODO capture and visualize
+
+        // set the preset manually for now
+        switch muse.getModel() {
+        case .mu01, .mu02:
+            break
+        case .mu03, .mu04, .mu05:
+            muse.setPreset(.preset53)
+        @unknown default:
+            break
+        }
 
         muse.runAsynchronously()
     }
@@ -80,9 +60,7 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         device.state = ConnectionState(from: packet.currentConnectionState)
         logger.debug("\(self.muse.getName()) state is now \(self.device.state.description)")
 
-        // TODO check if version is already present earlier?
-
-        // TODO check if can directly query battery percentage
+        // TODO check if version is already present earlier? => Yes
 
         // TODO can we always query the serial number?
 
@@ -120,6 +98,11 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
         }
 
         switch packet.packetType() {
+        case .hsiPrecision:
+            let fit = HeadbandFit(from: packet)
+            if device.fit != fit {
+                device.fit = fit
+            }
         case .eeg:
             // TODO might also be NaN for dropped packets!
             /*

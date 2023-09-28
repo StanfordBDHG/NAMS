@@ -21,11 +21,7 @@ struct EEGDeviceList: View {
     }
 
     var body: some View {
-        // TODO don't rely on index;
-        let list = sortedDeviceList
-
-        ForEach(list.indices, id: \.self) { index in
-            let device = list[index]
+        ForEach(sortedDeviceList, id: \.macAddress) { device in
             EEGDeviceRow(eegModel: eegModel, device: device)
         }
     }
@@ -38,7 +34,11 @@ struct EEGDeviceList: View {
 
 #if DEBUG
 struct MuseDeviceList_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
+    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager(nearbyDevices: [
+        MockEEGDevice(name: "Mock", model: "Device 1"),
+        MockEEGDevice(name: "Mock", model: "Device 2")
+    ]))
+
     static var previews: some View {
         NavigationStack {
             NearbyDevices(eegModel: model)

@@ -7,9 +7,8 @@
 //
 
 
-enum EEGChannel: String {
-    case tp9 = "TP9"
-    case af7 = "AF7"
-    case af8 = "AF8"
-    case tp10 = "TP10"
+enum Fit: String, Hashable {
+    case good
+    case mediocre
+    case poor
 }

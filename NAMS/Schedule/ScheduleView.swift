@@ -31,8 +31,8 @@ struct ScheduleView: View {
     }
     
     
-    var body: some View { // TODO length!
-        NavigationStack { // swiftlint:disable:this closure_body_length
+    var body: some View {
+        NavigationStack {
             List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
                 Section(format(startOfDay: startOfDay)) {
                     ForEach(eventContextsByDate[startOfDay] ?? [], id: \.event) { eventContext in
@@ -66,19 +66,26 @@ struct ScheduleView: View {
                 }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
                 .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarLeading) {
-                        Button(action: { presentingMuseList = true }) {
-                            // TODO dot.radiowaves.left.and.right
-                            Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
-                        }
-                    }
-                    ToolbarItemGroup(placement: .primaryAction) {
-                        Button(action: { presentingEEGMeasurements = true }) {
-                            Image(systemName: "waveform.path") // TODO or 􀑃 waveform.path (waveform) waveform.path.badge.plus
-                                .symbolRenderingMode(.hierarchical)
-                        }
-                    }
+                    toolbar
                 }
+        }
+    }
+
+    @ToolbarContentBuilder private var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+                presentingMuseList = true
+            }) {
+                Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                    .accessibilityLabel("NEARBY_DEVICES")
+            }
+        }
+        ToolbarItem(placement: .primaryAction) {
+            Button(action: { presentingEEGMeasurements = true }) {
+                Image(systemName: "waveform.path")
+                    .symbolRenderingMode(.hierarchical)
+                    .accessibilityLabel("EEG_RECORDING")
+            }
         }
     }
     

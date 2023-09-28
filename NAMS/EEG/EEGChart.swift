@@ -32,7 +32,6 @@ struct EEGChart: View {
     }
 
     var body: some View {
-        // TODO horizontal scroll view?
         Chart(measurements) { series in
             EEGChannelMark(time: max(0.0, series.timestamp.timeIntervalSince1970 - baseTime!), reading: series.reading(for: channel))
             // TODO channel opacity of invalid data!
@@ -59,7 +58,7 @@ struct EEGChart: View {
                 }
             }
             .chartYAxis {
-                AxisMarks(values: .automatic(desiredCount: 14)) { _ in // TODO value?
+                AxisMarks(values: .automatic(desiredCount: 14)) { _ in
                     AxisGridLine(stroke: .init(lineWidth: 1))
                         .foregroundStyle(.gray.opacity(0.25))
                 }

@@ -15,64 +15,77 @@ struct EEGRecording: View {
     private var dismiss
 
     @ObservedObject private var eegModel: EEGViewModel
-    @State private var frequency: EEGFrequency = .all
+    @State private var frequency: EEGFrequency = .theta
+
+    private var pickerFrequencies: [EEGFrequency] {
+        EEGFrequency.allCases.filter { eegModel.activeDevice?.measurements.keys.contains($0) ?? false }
+    }
 
     var body: some View {
         List {
-            if let activeMuse = eegModel.activeDevice {
-                Text("Device: \(activeMuse.device.model) - \(activeMuse.device.name)")
+            if let activeDevice = eegModel.activeDevice {
+                Text("Device: \(activeDevice.device.model) - \(activeDevice.device.name)") // TODO translate?
 
-                Section {
-                    Picker("Frequency", selection: $frequency) {
-                        ForEach([EEGFrequency.theta, .alpha, .beta, .gamma]) { frequency in // TODO enable all at some point
-                            Text(frequency.localizedStringResource).tag(frequency) // TODO line break
-                        }
-                    }
-                        .pickerStyle(.segmented)
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        .padding(.bottom, -10)
-                }
+                frequencyPicker
 
-                Section {
-                    let measurements = activeMuse.measurements[frequency, default: []]
-                    let suffix = measurements.suffix(frequency == .all ? 800 : 100) // TODO sample rate?
-                    let baseTime = measurements.first?.timestamp.timeIntervalSince1970
-
-                    // if let baseTime, let lastTime = measurements.last?.timestamp.timeIntervalSince1970 {
-                    //    let asd = print("max time! \(lastTime - baseTime)")
-                    // }
-
-                    VStack {
-                        EEGChart(measurements: suffix, for: .tp9, baseTime: baseTime)
-                        EEGChart(measurements: suffix, for: .af7, baseTime: baseTime)
-                        EEGChart(measurements: suffix, for: .af8, baseTime: baseTime)
-                        EEGChart(measurements: suffix, for: .tp10, baseTime: baseTime)
-                    }
-                }
-                    .listRowBackground(Color.clear)
+                eegCharts(active: activeDevice)
 
                 Section {
                     Button(role: .destructive, action: {
-                        activeMuse.measurements = [:]
+                        activeDevice.measurements = [:]
                     }) {
-                        Text("Reset")
+                        Text("RESET")
                     }
                 }
             } else {
-                Text("No Device connected!") // TODO optimize
+                Text("NO_DEVICE_CONNECTED")
+                    .bold()
+                Text("CONNECT_NEARBY_HINT")
             }
         }
-            .navigationTitle("EEG Recording")
+            .navigationTitle("EEG_RECORDING")
             .toolbar {
-                Button("Close") {
+                Button("CLOSE") {
                     dismiss()
                 }
             }
     }
 
+    @ViewBuilder private var frequencyPicker: some View {
+        Section {
+            Picker("FREQUENCY", selection: $frequency) {
+                ForEach(pickerFrequencies) { frequency in
+                    Text(frequency.localizedStringResource)
+                        .tag(frequency)
+                }
+            }
+                .pickerStyle(.segmented)
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .padding(.bottom, -10)
+        }
+    }
+
     init(eegModel: EEGViewModel) {
         self.eegModel = eegModel
+    }
+
+
+    @ViewBuilder
+    private func eegCharts(active activeDevice: ConnectedDevice) -> some View {
+        Section {
+            let measurements = activeDevice.measurements[frequency, default: []]
+            let suffix = measurements.suffix(frequency == .all ? 800 : 100) // TODO sample rate?
+            let baseTime = measurements.first?.timestamp.timeIntervalSince1970
+
+            VStack {
+                EEGChart(measurements: suffix, for: .tp9, baseTime: baseTime)
+                EEGChart(measurements: suffix, for: .af7, baseTime: baseTime)
+                EEGChart(measurements: suffix, for: .af8, baseTime: baseTime)
+                EEGChart(measurements: suffix, for: .tp10, baseTime: baseTime)
+            }
+        }
+            .listRowBackground(Color.clear)
     }
 }
 

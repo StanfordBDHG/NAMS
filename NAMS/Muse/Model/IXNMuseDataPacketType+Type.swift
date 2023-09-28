@@ -11,10 +11,11 @@
 extension IXNMuseDataPacketType {
     var isEEGPacket: Bool {
         switch self {
+        // non-exhaustive list of EEG packets
         case .eeg, .alphaAbsolute, .betaAbsolute, .gammaAbsolute, .deltaAbsolute, .thetaAbsolute:
             return true
         default:
-            return false // TODO non exhaustive
+            return false
         }
     }
 }

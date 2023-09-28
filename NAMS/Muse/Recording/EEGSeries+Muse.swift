@@ -10,7 +10,7 @@
 #if MUSE
 extension EEGSeries {
     init(from packet: IXNMuseDataPacket) {
-        precondition(packet.packetType().isEEGPacket, "Unsupported packet type to parse EEG readings \(packet.packetType())") // TODO support all the other eeg packets!
+        precondition(packet.packetType().isEEGPacket, "Unsupported packet type to parse EEG readings \(packet.packetType())")
 
         let epochMillis = packet.timestamp()
 

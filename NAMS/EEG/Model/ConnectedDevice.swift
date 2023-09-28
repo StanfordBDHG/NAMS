@@ -20,8 +20,10 @@ class ConnectedDevice: ObservableObject {
     @Published var eyeBlink = false
     @Published var jawClench = false
 
-    // swiftlint:disable:next large_tuple
-    @Published var isGood: (Bool, Bool, Bool, Bool) = (false, false, false, false) // TODO type!
+    /// Determines if the last second of data is considered good
+    @Published var isGood: (Bool, Bool, Bool, Bool) = (false, false, false, false) // swiftlint:disable:this large_tuple
+    /// The current fit of the headband
+    @Published var fit = HeadbandFit(tp9Fit: .poor, af7Fit: .poor, af8Fit: .poor, tp10Fit: .poor)
 
     /// Remaining battery percentage in percent [0.0;100.0]
     @Published var remainingBatteryPercentage: Double?

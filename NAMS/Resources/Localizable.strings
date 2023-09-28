@@ -101,9 +101,31 @@
 "SCHEDULE_LIST_TITLE" = "Schedule";
 "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_TITLE" = "Social Support Questionnaire";
 "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_DESCRIPTION" = "Please fill out the Social Support Questionnaire every day.";
-"TASK_TEST_CLOSE_TITLE" = "Close";
 "TASK_TEST_TITLE" = "Test Task";
 "TASK_TEST_CONTENT" = "This is a test";
 "TASK_TEST_DESCRIPTION" = "This is an example task for UI testing.";
 "TASK_CONTEXT_ACTION_QUESTIONNAIRE" = "Start Questionnaire";
 "TASK_CONTEXT_ACTION_TEST" = "Start Test";
+
+// MARK: General
+"CLOSE" = "Close";
+
+// MARK: Nearby Devices
+"NEARBY_DEVICES" = "Nearby Devices";
+"TURN_ON_HEADBAND_HINT" = "Make sure your headband is turned on and nearby.";
+
+// MARK: Bluetooth
+"BLUETOOTH_OFF" = "Bluetooth Off";
+"BLUETOOTH_OFF_HINT" = "Bluetooth is turned off. Please turn on Bluetooth in Control Center or Settings in order to use your Muse Headband.";
+"BLUETOOTH_PROHIBITED" = "Bluetooth Prohibited";
+"BLUETOOTH_PROHIBITED_HINT" = "Bluetooth is required to make connections to your Muse Headband. Please allow Bluetooth connections in your Privacy settings.";
+"BLUETOOTH_UNKNOWN" = "We have troubles with the Bluetooth communication. Please try again.";
+"BLUETOOTH_UNSUPPORTED" = "Bluetooth is unsupported on this device!";
+
+// MARK: EEG Recording
+"EEG_RECORDING" = "EEG Recording";
+"FREQUENCY" = "Frequency";
+"RESET" = "Reset";
+"NO_DEVICE_CONNECTED" = "No Device connected!";
+"CONNECT_NEARBY_HINT" = "Please connect to a nearby EEG headband first.";
+"PROBLEMS_CONNECTING_HINT %@" = "Do you have problems connecting? [Troubleshooting](%@)";

@@ -12,7 +12,7 @@ enum ConnectionState: Int {
     case connected
     case connecting
     case disconnected
-    case interventionRequired // TODO think about how to present text once we visualize it!
+    case interventionRequired
 }
 
 

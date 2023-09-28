@@ -7,27 +7,43 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2DC17118C1343928877B2D10 /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171F59DAF7DE0B5CC0096 /* IXNMuseDataPacketType+Type.swift */; };
+		2DC17128D81F6CF06F65FFD4 /* MuseConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */; };
+		2DC1713C311BAA65EE0E2748 /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */; };
 		2DC171975C15D343ED45A7F3 /* DeviceConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173E2CB87E7470075E022 /* DeviceConnectionListener.swift */; };
 		2DC171B41D4A87E2C861C356 /* ConnectionState+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */; };
 		2DC17337BA4FEF5664BC0D10 /* FinishedSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */; };
 		2DC1734EAF449080A9315932 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1774A86137A5E26720EFA /* ModalView.swift */; };
 		2DC17374D5266F13ADD5C002 /* MockDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */; };
+		2DC173E02BF55765A906AF4F /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */; };
 		2DC173E694F96E89EAB63FE0 /* IXNMuseConfiguration+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */; };
 		2DC17459E46F767C767C0AA0 /* DeviceConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173E2CB87E7470075E022 /* DeviceConnectionListener.swift */; };
 		2DC174CC46386A3F7E20786B /* IXNMuseVersion+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */; };
+		2DC1752A3985DDF8E7F5866C /* EEGViewModel+ActiveMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1740BAF6AC3F49A133752 /* EEGViewModel+ActiveMock.swift */; };
 		2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
+		2DC1762E730B0472308EEFFC /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */; };
+		2DC17644A07BC415B89BDACA /* Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177545B4C12357C3B2613 /* Fit.swift */; };
+		2DC176E7B29173393F43A357 /* MockEEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */; };
+		2DC1772594424A2D9AF7E666 /* HeadbandFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */; };
 		2DC17924E7D44FE1A2562528 /* IXNMusePreset+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1751EE233BB85004ECA90 /* IXNMusePreset+Description.swift */; };
+		2DC179421EE83DA24520EABB /* HeadbandFit+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FEC8B57C8C069AF84F /* HeadbandFit+Muse.swift */; };
 		2DC1795BADBADF4E3409B59E /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1723C364CC7AEF003CC97 /* ConnectionState.swift */; };
 		2DC179831EDABDCBD8A1EBFB /* IXNMuseVersion+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */; };
 		2DC17996ADEFAEC6C12BFB0A /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1723C364CC7AEF003CC97 /* ConnectionState.swift */; };
 		2DC179BD6217C86A55D70E6F /* IXNMuseConfiguration+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */; };
+		2DC179D0C1180EF9B1E8F276 /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */; };
+		2DC17A1DBD336BC4543CCA81 /* Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177545B4C12357C3B2613 /* Fit.swift */; };
+		2DC17ABFAC9031FE699864FB /* IXNMuse+EEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1768C714141C636C5CFCD /* IXNMuse+EEGDevice.swift */; };
 		2DC17B21929D86939F8EB566 /* ConnectionState+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */; };
 		2DC17CA2806C0BFD72984B3D /* MockDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */; };
+		2DC17CEE255C54119538D254 /* HeadbandFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */; };
 		2DC17D159C62F690B2137E65 /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
 		2DC17D4A9B040AF343D9EF1F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */; };
-		2DC17EBC1E687E37DCF4A813 /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171F59DAF7DE0B5CC0096 /* IXNMuseDataPacketType+Type.swift */; };
+		2DC17DA28E7F6C4330CDB7FC /* EEGViewModel+ActiveMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1740BAF6AC3F49A133752 /* EEGViewModel+ActiveMock.swift */; };
+		2DC17DA43107F4E8469B7C73 /* IXNMuse+EEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1768C714141C636C5CFCD /* IXNMuse+EEGDevice.swift */; };
+		2DC17F8981E53AEED0CFD1BD /* MockEEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */; };
+		2DC17FB80AB25F5356A59FEE /* HeadbandFit+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FEC8B57C8C069AF84F /* HeadbandFit+Muse.swift */; };
 		2DC17FE0AC1DD98C29B417F1 /* IXNMusePreset+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1751EE233BB85004ECA90 /* IXNMusePreset+Description.swift */; };
+		2DC17FE79AB13F1F300788A6 /* MuseConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */; };
 		2F49B7762980407C00BCB272 /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = 2F49B7752980407B00BCB272 /* Spezi */; };
 		2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */; };
 		2F4E23832989D51F0013F3D9 /* NAMSTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */; };
@@ -131,8 +147,6 @@
 		A926D7BB2AB7A552000C4C2F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FC9759E2978E39600BA99FE /* Localizable.strings */; };
 		A926D7BC2AB7A552000C4C2F /* SocialSupportQuestionnaire.json in Resources */ = {isa = PBXBuildFile; fileRef = 2FE5DC5529EDD811004B9AB4 /* SocialSupportQuestionnaire.json */; };
 		A926D7BD2AB7A552000C4C2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6025CA29BBE70F0045459E /* GoogleService-Info.plist */; };
-		A926D7FD2AB7B41C000C4C2F /* IXNMuse+EEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F42AB7B41B000C4C2F /* IXNMuse+EEGDevice.swift */; };
-		A926D7FE2AB7B41C000C4C2F /* IXNMuse+EEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F42AB7B41B000C4C2F /* IXNMuse+EEGDevice.swift */; };
 		A926D7FF2AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F52AB7B41B000C4C2F /* IXNMuseModel+Description.swift */; };
 		A926D8002AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F52AB7B41B000C4C2F /* IXNMuseModel+Description.swift */; };
 		A926D8032AB7B41C000C4C2F /* EEGReading+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F82AB7B41B000C4C2F /* EEGReading+Muse.swift */; };
@@ -141,8 +155,6 @@
 		A926D8062AB7B41C000C4C2F /* EEGSeries+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F92AB7B41B000C4C2F /* EEGSeries+Muse.swift */; };
 		A926D8072AB7B41C000C4C2F /* EEGChannel+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7FA2AB7B41B000C4C2F /* EEGChannel+Muse.swift */; };
 		A926D8082AB7B41C000C4C2F /* EEGChannel+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7FA2AB7B41B000C4C2F /* EEGChannel+Muse.swift */; };
-		A926D8092AB7B41C000C4C2F /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7FC2AB7B41C000C4C2F /* MuseDeviceManager.swift */; };
-		A926D80A2AB7B41C000C4C2F /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7FC2AB7B41C000C4C2F /* MuseDeviceManager.swift */; };
 		A926D81A2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D80B2AB7B42F000C4C2F /* EEGDeviceList.swift */; };
 		A926D81B2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D80B2AB7B42F000C4C2F /* EEGDeviceList.swift */; };
 		A926D81C2AB7B430000C4C2F /* EEGDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D80C2AB7B42F000C4C2F /* EEGDeviceRow.swift */; };
@@ -193,17 +205,25 @@
 
 /* Begin PBXFileReference section */
 		2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseVersion+String.swift"; sourceTree = "<group>"; };
-		2DC171F59DAF7DE0B5CC0096 /* IXNMuseDataPacketType+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseDataPacketType+Type.swift"; sourceTree = "<group>"; };
+		2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadbandFit.swift; sourceTree = "<group>"; };
 		2DC1723C364CC7AEF003CC97 /* ConnectionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectionState.swift; sourceTree = "<group>"; };
 		2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinishedSetup.swift; sourceTree = "<group>"; };
 		2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BluetoothManager.swift; path = Bluetooth/BluetoothManager.swift; sourceTree = "<group>"; };
 		2DC173E2CB87E7470075E022 /* DeviceConnectionListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceConnectionListener.swift; sourceTree = "<group>"; };
+		2DC1740BAF6AC3F49A133752 /* EEGViewModel+ActiveMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EEGViewModel+ActiveMock.swift"; sourceTree = "<group>"; };
 		2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGFrequency.swift; sourceTree = "<group>"; };
+		2DC174FEC8B57C8C069AF84F /* HeadbandFit+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HeadbandFit+Muse.swift"; sourceTree = "<group>"; };
 		2DC1751EE233BB85004ECA90 /* IXNMusePreset+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMusePreset+Description.swift"; sourceTree = "<group>"; };
 		2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDeviceManager.swift; sourceTree = "<group>"; };
+		2DC1768C714141C636C5CFCD /* IXNMuse+EEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuse+EEGDevice.swift"; sourceTree = "<group>"; };
 		2DC1774A86137A5E26720EFA /* ModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		2DC177545B4C12357C3B2613 /* Fit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fit.swift; sourceTree = "<group>"; };
 		2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConnectionState+Muse.swift"; sourceTree = "<group>"; };
 		2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseConfiguration+Description.swift"; sourceTree = "<group>"; };
+		2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseConnectionListener.swift; sourceTree = "<group>"; };
+		2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseDataPacketType+Type.swift"; sourceTree = "<group>"; };
+		2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEEGDevice.swift; sourceTree = "<group>"; };
+		2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceManager.swift; sourceTree = "<group>"; };
 		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTestingSetup.swift; sourceTree = "<group>"; };
 		2F4E23862989DB360013F3D9 /* ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTests.swift; sourceTree = "<group>"; };
@@ -248,12 +268,10 @@
 		A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+PreviewSimulator.swift"; sourceTree = "<group>"; };
 		A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingFlow+PreviewSimulator.swift"; sourceTree = "<group>"; };
 		A926D7C32AB7A552000C4C2F /* NAMS Muse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NAMS Muse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A926D7F42AB7B41B000C4C2F /* IXNMuse+EEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuse+EEGDevice.swift"; sourceTree = "<group>"; };
 		A926D7F52AB7B41B000C4C2F /* IXNMuseModel+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseModel+Description.swift"; sourceTree = "<group>"; };
 		A926D7F82AB7B41B000C4C2F /* EEGReading+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EEGReading+Muse.swift"; sourceTree = "<group>"; };
 		A926D7F92AB7B41B000C4C2F /* EEGSeries+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EEGSeries+Muse.swift"; sourceTree = "<group>"; };
 		A926D7FA2AB7B41B000C4C2F /* EEGChannel+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EEGChannel+Muse.swift"; sourceTree = "<group>"; };
-		A926D7FC2AB7B41C000C4C2F /* MuseDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceManager.swift; sourceTree = "<group>"; };
 		A926D80B2AB7B42F000C4C2F /* EEGDeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGDeviceList.swift; sourceTree = "<group>"; };
 		A926D80C2AB7B42F000C4C2F /* EEGDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGDeviceRow.swift; sourceTree = "<group>"; };
 		A926D80D2AB7B42F000C4C2F /* NearbyDevices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyDevices.swift; sourceTree = "<group>"; };
@@ -525,12 +543,10 @@
 		A926D7F32AB7B41B000C4C2F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A926D7F42AB7B41B000C4C2F /* IXNMuse+EEGDevice.swift */,
 				A926D7F52AB7B41B000C4C2F /* IXNMuseModel+Description.swift */,
 				2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */,
 				2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */,
 				2DC1751EE233BB85004ECA90 /* IXNMusePreset+Description.swift */,
-				2DC171F59DAF7DE0B5CC0096 /* IXNMuseDataPacketType+Type.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -548,8 +564,9 @@
 		A926D7FB2AB7B41C000C4C2F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A926D7FC2AB7B41C000C4C2F /* MuseDeviceManager.swift */,
 				2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */,
+				2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */,
+				2DC174FEC8B57C8C069AF84F /* HeadbandFit+Muse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -574,6 +591,8 @@
 				A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */,
 				2DC1723C364CC7AEF003CC97 /* ConnectionState.swift */,
 				2DC173E2CB87E7470075E022 /* DeviceConnectionListener.swift */,
+				2DC177545B4C12357C3B2613 /* Fit.swift */,
+				2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -582,6 +601,8 @@
 			isa = PBXGroup;
 			children = (
 				2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */,
+				2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */,
+				2DC1740BAF6AC3F49A133752 /* EEGViewModel+ActiveMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -592,6 +613,9 @@
 				A926D7F32AB7B41B000C4C2F /* Extensions */,
 				A926D7FB2AB7B41C000C4C2F /* Model */,
 				A926D7F72AB7B41B000C4C2F /* Recording */,
+				2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */,
+				2DC1768C714141C636C5CFCD /* IXNMuse+EEGDevice.swift */,
+				2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */,
 			);
 			path = Muse;
 			sourceTree = "<group>";
@@ -855,7 +879,6 @@
 			files = (
 				A926D8302AB7B430000C4C2F /* EEGViewModel.swift in Sources */,
 				A926D7FF2AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */,
-				A926D7FD2AB7B41C000C4C2F /* IXNMuse+EEGDevice.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				2FE5DCB129EE6107004B9AB4 /* AccountSetup.swift in Sources */,
 				2F4FC8D729EE69D300BFFE26 /* MockUpload.swift in Sources */,
@@ -876,7 +899,6 @@
 				A926D8242AB7B430000C4C2F /* EEGSeries.swift in Sources */,
 				2FE5DC4E29EDD7FA004B9AB4 /* ScheduleView.swift in Sources */,
 				A926D81A2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,
-				A926D8092AB7B41C000C4C2F /* MuseDeviceManager.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
 				2FE5DCAE29EE6107004B9AB4 /* IconView.swift in Sources */,
 				A926D82C2AB7B430000C4C2F /* DeviceManager.swift in Sources */,
@@ -911,7 +933,15 @@
 				2DC179BD6217C86A55D70E6F /* IXNMuseConfiguration+Description.swift in Sources */,
 				2DC17FE0AC1DD98C29B417F1 /* IXNMusePreset+Description.swift in Sources */,
 				2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */,
-				2DC17118C1343928877B2D10 /* IXNMuseDataPacketType+Type.swift in Sources */,
+				2DC179D0C1180EF9B1E8F276 /* MuseDeviceManager.swift in Sources */,
+				2DC17ABFAC9031FE699864FB /* IXNMuse+EEGDevice.swift in Sources */,
+				2DC173E02BF55765A906AF4F /* IXNMuseDataPacketType+Type.swift in Sources */,
+				2DC17FE79AB13F1F300788A6 /* MuseConnectionListener.swift in Sources */,
+				2DC17A1DBD336BC4543CCA81 /* Fit.swift in Sources */,
+				2DC179421EE83DA24520EABB /* HeadbandFit+Muse.swift in Sources */,
+				2DC1772594424A2D9AF7E666 /* HeadbandFit.swift in Sources */,
+				2DC17F8981E53AEED0CFD1BD /* MockEEGDevice.swift in Sources */,
+				2DC1752A3985DDF8E7F5866C /* EEGViewModel+ActiveMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,7 +970,6 @@
 			files = (
 				A926D8312AB7B430000C4C2F /* EEGViewModel.swift in Sources */,
 				A926D8002AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */,
-				A926D7FE2AB7B41C000C4C2F /* IXNMuse+EEGDevice.swift in Sources */,
 				A926D77F2AB7A552000C4C2F /* StorageKeys.swift in Sources */,
 				A926D7802AB7A552000C4C2F /* AccountSetup.swift in Sources */,
 				A926D7812AB7A552000C4C2F /* MockUpload.swift in Sources */,
@@ -961,7 +990,6 @@
 				A926D8252AB7B430000C4C2F /* EEGSeries.swift in Sources */,
 				A926D78D2AB7A552000C4C2F /* ScheduleView.swift in Sources */,
 				A926D81B2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,
-				A926D80A2AB7B41C000C4C2F /* MuseDeviceManager.swift in Sources */,
 				A926D78E2AB7A552000C4C2F /* OnboardingFlow.swift in Sources */,
 				A926D78F2AB7A552000C4C2F /* IconView.swift in Sources */,
 				A926D82D2AB7B430000C4C2F /* DeviceManager.swift in Sources */,
@@ -996,7 +1024,15 @@
 				2DC173E694F96E89EAB63FE0 /* IXNMuseConfiguration+Description.swift in Sources */,
 				2DC17924E7D44FE1A2562528 /* IXNMusePreset+Description.swift in Sources */,
 				2DC17D159C62F690B2137E65 /* EEGFrequency.swift in Sources */,
-				2DC17EBC1E687E37DCF4A813 /* IXNMuseDataPacketType+Type.swift in Sources */,
+				2DC1713C311BAA65EE0E2748 /* MuseDeviceManager.swift in Sources */,
+				2DC17DA43107F4E8469B7C73 /* IXNMuse+EEGDevice.swift in Sources */,
+				2DC1762E730B0472308EEFFC /* IXNMuseDataPacketType+Type.swift in Sources */,
+				2DC17128D81F6CF06F65FFD4 /* MuseConnectionListener.swift in Sources */,
+				2DC17644A07BC415B89BDACA /* Fit.swift in Sources */,
+				2DC17FB80AB25F5356A59FEE /* HeadbandFit+Muse.swift in Sources */,
+				2DC17CEE255C54119538D254 /* HeadbandFit.swift in Sources */,
+				2DC176E7B29173393F43A357 /* MockEEGDevice.swift in Sources */,
+				2DC17DA28E7F6C4330CDB7FC /* EEGViewModel+ActiveMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CoreBluetooth
 import Foundation
 import OSLog
 
@@ -34,7 +35,6 @@ class EEGViewModel: ObservableObject {
 
     @MainActor
     private func refreshNearbyDevices() {
-        // TODO is this even needed?
         self.nearbyDevices = self.deviceManager.retrieveDeviceList()
     }
 
@@ -45,9 +45,12 @@ class EEGViewModel: ObservableObject {
     }
 
     @MainActor
-    func stopScanning() {
+    func stopScanning(state: CBManagerState) {
         self.deviceManager.stopScanning()
-        refreshNearbyDevices() // TODO is this call the issue for the API MISUSE?
+
+        if state == .poweredOn {
+            refreshNearbyDevices()
+        }
     }
 
     @MainActor
@@ -69,14 +72,14 @@ class EEGViewModel: ObservableObject {
         let activeDevice = ConnectedDevice(device: device)
         activeDeviceCancelable = activeDevice.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
-            if case .disconnected = activeDevice.state { // TODO we might attempt to reconnect!
+            if case .disconnected = activeDevice.state { // TODO do we handle reconnects properly?
                 self?.activeDeviceCancelable?.cancel()
                 self?.activeDeviceCancelable = nil
                 self?.activeDevice = nil
             }
         }
 
-        activeDevice.connect() // TODO handle connection errors?
+        activeDevice.connect()
         self.activeDevice = activeDevice
     }
 }
