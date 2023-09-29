@@ -73,14 +73,14 @@ platform :ios do
 
   desc "Publish a beta release to internal TestFlight testers"
   lane :beta do
-    # signin
-    # increment_build_number(
-    #   {
-    #     build_number: latest_testflight_build_number + 1
-    #   }
-    # )
+    signin
+    increment_build_number(
+      {
+        build_number: latest_testflight_build_number + 1
+      }
+    )
     build
-    # commit = last_git_commit
+    commit = last_git_commit
     # upload_to_testflight(
     #   distribute_external: true,
     #   groups: [
