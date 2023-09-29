@@ -30,5 +30,3 @@ jobs:
       fastlanelane: beta
       setupsigning: true
       checkout_submodules: true
-    secrets:
-      checkout_token: ${{ secrets.MUSE_PAT }}
