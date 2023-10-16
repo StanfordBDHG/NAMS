@@ -24,8 +24,6 @@ struct EEGRecording: View {
     var body: some View {
         List {
             if let activeDevice = eegModel.activeDevice {
-                Text("Device: \(activeDevice.device.model) - \(activeDevice.device.name)") // TODO translate?
-
                 frequencyPicker
 
                 eegCharts(active: activeDevice)
@@ -75,7 +73,7 @@ struct EEGRecording: View {
     private func eegCharts(active activeDevice: ConnectedDevice) -> some View {
         Section {
             let measurements = activeDevice.measurements[frequency, default: []]
-            let suffix = measurements.suffix(frequency == .all ? 800 : 100) // TODO sample rate?
+            let suffix = measurements.suffix(frequency == .all ? 800 : 100)
             let baseTime = measurements.first?.timestamp.timeIntervalSince1970
 
             VStack {

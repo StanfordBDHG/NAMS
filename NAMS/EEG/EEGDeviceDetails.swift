@@ -13,7 +13,7 @@ struct EEGDeviceDetails: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    private let device: ConnectedDevice
+    @ObservedObject private var device: ConnectedDevice
 
     var body: some View {
         List {
@@ -25,7 +25,6 @@ struct EEGDeviceDetails: View {
             battery
 
             headbandFit
-
 
             if !device.aboutInformation.isEmpty {
                 Section("ABOUT") {

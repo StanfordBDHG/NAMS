@@ -78,6 +78,7 @@
 // MARK: Nearby Devices
 "NEARBY_DEVICES" = "Nearby Devices";
 "TURN_ON_HEADBAND_HINT" = "Make sure your headband is turned on and nearby.";
+"ATTENTION_REQUIRED" = "Attention Required";
 
 // MARK: Bluetooth
 "BLUETOOTH_OFF" = "Bluetooth Off";

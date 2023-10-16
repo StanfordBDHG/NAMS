@@ -14,7 +14,6 @@ import OSLog
 
 class EEGViewModel: ObservableObject {
     let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseViewModel")
-    // TODO Log API version somewhere?
 
     private let deviceManager: DeviceManager
 

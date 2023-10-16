@@ -65,7 +65,7 @@ struct EEGDeviceRow: View {
                         Text("CONNECTED")
                             .foregroundStyle(.gray)
                     case .interventionRequired:
-                        Text("Attention Required") // TODO optimize (image?, multicolor rendering exclamationmark.triangle.fill)
+                        Text("ATTENTION_REQUIRED")
                             .foregroundStyle(.gray)
                     default:
                         EmptyView()
@@ -81,10 +81,9 @@ struct EEGDeviceRow: View {
             Button(action: {
                 detailsButtonAction(for: connectedDevice)
             }) {
-                Image(systemName: "info.circle")
+                Image(systemName: "info.circle") // swiftlint:disable:this accessibility_label_for_image
                     .foregroundColor(.accentColor)
-                    .font(.title3) // TODO remove label?
-                    .accessibilityLabel("DEVICE_DETAILS")
+                    .font(.title3)
             }
         }
     }

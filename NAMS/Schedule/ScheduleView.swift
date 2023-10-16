@@ -78,11 +78,13 @@ struct ScheduleView: View {
                     .accessibilityLabel("NEARBY_DEVICES")
             }
         }
-        ToolbarItem(placement: .primaryAction) {
-            Button(action: { presentingEEGMeasurements = true }) {
-                Image(systemName: "waveform.path")
-                    .symbolRenderingMode(.hierarchical)
-                    .accessibilityLabel("EEG_RECORDING")
+        if eegModel.activeDevice?.state == .connected {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { presentingEEGMeasurements = true }) {
+                    Image(systemName: "waveform.path")
+                        .symbolRenderingMode(.hierarchical)
+                        .accessibilityLabel("EEG_RECORDING")
+                }
             }
         }
     }
@@ -98,7 +100,7 @@ struct ScheduleView: View {
                     }
                 }
             case let .test(string):
-                ModalView(text: string, buttonText: String(localized: "TASK_TEST_CLOSE_TITLE")) {
+                ModalView(text: string, buttonText: String(localized: "TASK_TEST_CLOSE_TITLE")) { // TODO accidental remove?
                     _Concurrency.Task {
                         await eventContext.event.complete(true)
                     }

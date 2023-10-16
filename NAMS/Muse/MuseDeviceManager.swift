@@ -43,6 +43,10 @@ class MuseDeviceManager: DeviceManager, IXNLogListener {
         self.museListener = MuseListener(deviceManager: self)
 
         self.museManager.setMuseListener(museListener)
+
+        if let apiVersion = IXNLibmuseVersion.instance() {
+            logger.debug("Initialized Muse Manager with API version \(apiVersion.getString())")
+        }
     }
 
     func startScanning() {

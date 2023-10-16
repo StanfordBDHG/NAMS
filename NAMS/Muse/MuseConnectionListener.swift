@@ -60,7 +60,6 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
             if let version = self.muse.getVersion() {
                 logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Versions: \(version.versionString)")
 
-                // TODO any other information? (=> can we display update information?)
                 device.aboutInformation["FIRMWARE_VERSION"] = version.getFirmwareVersion()
             }
 
@@ -69,7 +68,6 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
 
                 logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Configuration: \(configuration.configurationString)")
 
-                // TODO add bluetooth MAC on debug builds?
                 device.aboutInformation["SERIAL_NUMBER"] = configuration.getSerialNumber()
             }
         case .disconnected:
