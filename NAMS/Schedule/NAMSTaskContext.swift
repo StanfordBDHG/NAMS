@@ -17,7 +17,7 @@ enum NAMSTaskContext: Codable, Identifiable {
     /// The task should display a `Questionnaire`.
     case questionnaire(Questionnaire)
     /// The task is used for UI testing
-    case test(String)
+    case test(LocalizedStringResource)
     
     
     var id: Questionnaire.ID {
@@ -29,12 +29,12 @@ enum NAMSTaskContext: Codable, Identifiable {
         }
     }
     
-    var actionType: String {
+    var actionType: LocalizedStringResource {
         switch self {
         case .questionnaire:
-            return String(localized: "TASK_CONTEXT_ACTION_QUESTIONNAIRE")
+            return "TASK_CONTEXT_ACTION_QUESTIONNAIRE"
         case .test:
-            return String(localized: "TASK_CONTEXT_ACTION_TEST")
+            return "TASK_CONTEXT_ACTION_TEST"
         }
     }
 }

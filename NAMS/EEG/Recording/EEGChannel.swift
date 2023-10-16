@@ -7,7 +7,7 @@
 //
 
 
-enum EEGChannel: String {
+enum EEGChannel: String, CaseIterable {
     case tp9 = "TP9"
     case af7 = "AF7"
     case af8 = "AF8"

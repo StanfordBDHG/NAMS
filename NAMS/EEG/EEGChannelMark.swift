@@ -20,8 +20,7 @@ struct EEGChannelMark: ChartContent {
             y: .value("Micro-Volt", reading.value)
         )
             .lineStyle(StrokeStyle(lineWidth: 2.0))
-            .foregroundStyle(.orange) // TODO color?
-            .foregroundStyle(by: .value("Channel", reading.channel.rawValue)) // TODO present differently
+            .foregroundStyle(by: .value("Channel", reading.channel.rawValue))
     }
 
 
@@ -32,4 +31,13 @@ struct EEGChannelMark: ChartContent {
 }
 
 
-// TODO previews?
+#if DEBUG
+struct EEGChannelMark_Previews: PreviewProvider {
+    static let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
+
+    static var previews: some View {
+        let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
+        EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
+    }
+}
+#endif

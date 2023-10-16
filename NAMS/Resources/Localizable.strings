@@ -94,7 +94,8 @@
 "RESET" = "Reset";
 "NO_DEVICE_CONNECTED" = "No Device connected!";
 "CONNECT_NEARBY_HINT" = "Please connect to a nearby EEG headband first.";
-"PROBLEMS_CONNECTING_HINT %@" = "Do you have problems connecting? [Troubleshooting](%@)"; // TODO unused!
+"TROUBLESHOOTING" = "Troubleshooting";
+"PROBLEMS_CONNECTING_HINT" = "Do you have problems connecting?";
 
 // MARK: EEG Device Details
 "ABOUT" = "About";
@@ -110,6 +111,8 @@
 "INTERVENTION_REQUIRED_PREFIX %@" = "Intervention Required: %@";
 "INTERVENTION_MUSE_FIRMWARE" = "The headband's firmware is out of date. Please use the Muse app to upgrade to the latest firmware version.";
 "INTERVENTION_MUSE_LICENSE" = "The headband's license is invalid. Please refer to the Muse app for more information.";
+"PROBLEMS_BATTERY_HINT" = "Issues with your battery?";
+"PROBLEMS_HEADBAND_FIT_HINT" = "Issues maintaining a good fit?";
 
 // MARK: EEG Fit
 "GOOD_FIT" = "good";

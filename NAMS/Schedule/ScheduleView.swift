@@ -45,10 +45,7 @@ struct ScheduleView: View {
                     }
                 }
             }
-                .onChange(of: scheduler) { _ in
-                    calculateEventContextsByDate()
-                }
-                .task {
+                .onChange(of: scheduler, initial: true) {
                     calculateEventContextsByDate()
                 }
                 .sheet(item: $presentedContext) { presentedContext in
@@ -100,7 +97,7 @@ struct ScheduleView: View {
                     }
                 }
             case let .test(string):
-                ModalView(text: string, buttonText: String(localized: "TASK_TEST_CLOSE_TITLE")) { // TODO accidental remove?
+                ModalView(text: string, buttonText: "CLOSE") {
                     _Concurrency.Task {
                         await eventContext.event.complete(true)
                     }

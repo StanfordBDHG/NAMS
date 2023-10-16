@@ -6,15 +6,25 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
 
-struct ConnectionListener: DeviceConnectionListener {
+
+private struct ConnectionListener: DeviceConnectionListener {
+    private static let sampleRate = 60
+
     private let mockDevice: MockEEGDevice
     private let device: ConnectedDevice
+
+    private let eegMeasurementGenerators: [EEGFrequency: EEGMeasurementGenerator]
 
     init(mock mockDevice: MockEEGDevice, device: ConnectedDevice) {
         self.mockDevice = mockDevice
         self.device = device
+        self.eegMeasurementGenerators = EEGFrequency.allCases.reduce(into: [:]) { result, frequency in
+            result[frequency] = EEGMeasurementGenerator(sampleRate: Self.sampleRate)
+        }
     }
+
 
     func connect() {
         if mockDevice.connectionState.associatedConnection {
@@ -40,6 +50,10 @@ struct ConnectionListener: DeviceConnectionListener {
             "FIRMWARE_VERSION": "1.2.0"
         ]
 
+        // timer cancels itself based on the connection state
+        let timer = Timer(timeInterval: 1.0 / Double(Self.sampleRate), repeats: true, block: generateRecording)
+        RunLoop.main.add(timer, forMode: .common)
+
         Task {
             try await Task.sleep(for: .seconds(3))
             device.fit = HeadbandFit(tp9Fit: .good, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .good)
@@ -51,7 +65,21 @@ struct ConnectionListener: DeviceConnectionListener {
         mockDevice.connectionState = connectionState
         device.state = connectionState
     }
+
+    @Sendable
+    private func generateRecording(timer: Timer) {
+        if mockDevice.connectionState != .connected {
+            timer.invalidate()
+            return
+        }
+
+        for (frequency, generator) in eegMeasurementGenerators {
+            device.measurements[frequency, default: []]
+                .append(generator.next())
+        }
+    }
 }
+
 
 class MockEEGDevice: EEGDevice {
     let name: String

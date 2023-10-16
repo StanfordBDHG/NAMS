@@ -10,17 +10,6 @@ import Foundation
 import OrderedCollections
 
 
-extension LocalizedStringResource: Hashable { // TODO move somewhere else?
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(key)
-    }
-
-    public static func == (lhs: LocalizedStringResource, rhs: LocalizedStringResource) -> Bool {
-        lhs.key == rhs.key
-    }
-}
-
-
 class ConnectedDevice: ObservableObject {
     let device: EEGDevice
     var listener: DeviceConnectionListener?
@@ -66,5 +55,16 @@ extension ConnectedDevice: Hashable {
 
     func hash(into hasher: inout Hasher) {
         device.macAddress.hash(into: &hasher)
+    }
+}
+
+
+extension LocalizedStringResource: Hashable {
+    public static func == (lhs: LocalizedStringResource, rhs: LocalizedStringResource) -> Bool {
+        lhs.key == rhs.key
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(key)
     }
 }

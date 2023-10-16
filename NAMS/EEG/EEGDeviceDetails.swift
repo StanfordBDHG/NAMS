@@ -12,6 +12,8 @@ import SwiftUI
 struct EEGDeviceDetails: View {
     @Environment(\.dismiss)
     private var dismiss
+    @Environment(\.locale)
+    private var locale
 
     @ObservedObject private var device: ConnectedDevice
 
@@ -60,8 +62,8 @@ struct EEGDeviceDetails: View {
                     }
                 }
             } footer: {
-                // TODO locale!
-                Text("Issues with your battery? [Troubleshooting](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=en_US)")
+                let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
+                Text("PROBLEMS_BATTERY_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=\(locale.identifier))")
             }
         }
     }
@@ -82,7 +84,8 @@ struct EEGDeviceDetails: View {
         } header: {
             Text("HEADBAND")
         } footer: {
-            Text("Issues maintaining a good fit? [Troubleshooting](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=en_US)")
+            let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
+            Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
         }
     }
 

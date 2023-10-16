@@ -90,8 +90,16 @@ struct EEGRecording: View {
 
 #if DEBUG
 struct EEGMeasurement_Previews: PreviewProvider {
+    static let connectedDevice = MockEEGDevice(name: "Device 1", model: "Mock", state: .connected)
+
+    @StateObject static var connectedModel = EEGViewModel(mock: connectedDevice)
     @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
+
     static var previews: some View {
+        NavigationStack {
+            EEGRecording(eegModel: connectedModel)
+        }
+
         NavigationStack {
             EEGRecording(eegModel: model)
         }

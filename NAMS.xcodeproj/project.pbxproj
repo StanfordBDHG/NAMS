@@ -31,9 +31,11 @@
 		2DC17996ADEFAEC6C12BFB0A /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1723C364CC7AEF003CC97 /* ConnectionState.swift */; };
 		2DC179BD6217C86A55D70E6F /* IXNMuseConfiguration+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */; };
 		2DC179D0C1180EF9B1E8F276 /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */; };
+		2DC179F4A6B69C07C1A440D2 /* EEGMeasurementGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D48217697F558657E69 /* EEGMeasurementGenerator.swift */; };
 		2DC17A1DBD336BC4543CCA81 /* Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177545B4C12357C3B2613 /* Fit.swift */; };
 		2DC17ABFAC9031FE699864FB /* IXNMuse+EEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1768C714141C636C5CFCD /* IXNMuse+EEGDevice.swift */; };
 		2DC17B21929D86939F8EB566 /* ConnectionState+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */; };
+		2DC17C29AA0382E9F5F2AA4D /* EEGMeasurementGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D48217697F558657E69 /* EEGMeasurementGenerator.swift */; };
 		2DC17CA2806C0BFD72984B3D /* MockDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */; };
 		2DC17CEE255C54119538D254 /* HeadbandFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */; };
 		2DC17D159C62F690B2137E65 /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
@@ -229,6 +231,7 @@
 		2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseConnectionListener.swift; sourceTree = "<group>"; };
 		2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseDataPacketType+Type.swift"; sourceTree = "<group>"; };
 		2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEEGDevice.swift; sourceTree = "<group>"; };
+		2DC17D48217697F558657E69 /* EEGMeasurementGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGMeasurementGenerator.swift; sourceTree = "<group>"; };
 		2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceManager.swift; sourceTree = "<group>"; };
 		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTestingSetup.swift; sourceTree = "<group>"; };
@@ -615,6 +618,7 @@
 				2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */,
 				2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */,
 				2DC1740BAF6AC3F49A133752 /* EEGViewModel+ActiveMock.swift */,
+				2DC17D48217697F558657E69 /* EEGMeasurementGenerator.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -959,6 +963,7 @@
 				2DC1772594424A2D9AF7E666 /* HeadbandFit.swift in Sources */,
 				2DC17F8981E53AEED0CFD1BD /* MockEEGDevice.swift in Sources */,
 				2DC1752A3985DDF8E7F5866C /* EEGViewModel+ActiveMock.swift in Sources */,
+				2DC17C29AA0382E9F5F2AA4D /* EEGMeasurementGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,6 +1057,7 @@
 				2DC17CEE255C54119538D254 /* HeadbandFit.swift in Sources */,
 				2DC176E7B29173393F43A357 /* MockEEGDevice.swift in Sources */,
 				2DC17DA28E7F6C4330CDB7FC /* EEGViewModel+ActiveMock.swift in Sources */,
+				2DC179F4A6B69C07C1A440D2 /* EEGMeasurementGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,7 +1204,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 484YT3X9X7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1206,6 +1212,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1227,7 +1234,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1262,6 +1269,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1398,6 +1406,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1456,6 +1465,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "MUSE=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";

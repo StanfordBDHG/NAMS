@@ -13,6 +13,7 @@ import SwiftUI
 struct EEGChart: View {
     private let measurements: ArraySlice<EEGSeries>
     private let channel: EEGChannel
+    /// The base time interval since 1970.
     private let baseTime: TimeInterval?
 
     private var lowerScale: TimeInterval {
@@ -33,11 +34,12 @@ struct EEGChart: View {
 
     var body: some View {
         Chart(measurements) { series in
-            EEGChannelMark(time: max(0.0, series.timestamp.timeIntervalSince1970 - baseTime!), reading: series.reading(for: channel))
-            // TODO channel opacity of invalid data!
+            // base time exists if there is at least one measurement
+            let baseTime = baseTime ?? 0
+
+            EEGChannelMark(time: max(0.0, series.timestamp.timeIntervalSince1970 - baseTime), reading: series.reading(for: channel))
         }
             .chartXScale(domain: lowerScale...upperScale)
-            // TODO .chartYScale(domain: -500.0...1250.0)
             .chartXAxis {
                 AxisMarks(values: .automatic(desiredCount: 12)) { value in
                     if let doubleValue = value.as(Double.self),
@@ -78,4 +80,14 @@ struct EEGChart: View {
 }
 
 
-// TODO previews
+#if DEBUG
+struct EEGChart_Previews: PreviewProvider {
+    static let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
+
+    static var previews: some View {
+        let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
+        EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
+        EEGChart(measurements: generated.data.suffix(from: 0), for: .af8, baseTime: generated.baseTime)
+    }
+}
+#endif

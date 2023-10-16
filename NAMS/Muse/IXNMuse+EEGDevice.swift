@@ -33,6 +33,7 @@ extension IXNMuse: EEGDevice {
         getLastDiscoveredTime()
     }
 
+
     func connect(state device: ConnectedDevice) -> DeviceConnectionListener {
         let listener = MuseConnectionListener(muse: self, device: device)
         listener.connect()

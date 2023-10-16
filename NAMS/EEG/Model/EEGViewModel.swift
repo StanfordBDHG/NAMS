@@ -7,7 +7,6 @@
 //
 
 import Combine
-import CoreBluetooth
 import Foundation
 import OSLog
 
@@ -44,10 +43,10 @@ class EEGViewModel: ObservableObject {
     }
 
     @MainActor
-    func stopScanning(state: CBManagerState) {
+    func stopScanning(refreshNearby: Bool = true) {
         self.deviceManager.stopScanning()
 
-        if state == .poweredOn {
+        if refreshNearby {
             refreshNearbyDevices()
         }
     }
@@ -69,16 +68,20 @@ class EEGViewModel: ObservableObject {
         }
 
         let activeDevice = ConnectedDevice(device: device)
-        activeDeviceCancelable = activeDevice.objectWillChange.sink { [weak self] in
+        sinkActiveDevice(device: activeDevice)
+
+        activeDevice.connect()
+        self.activeDevice = activeDevice
+    }
+
+    func sinkActiveDevice(device: ConnectedDevice) {
+        activeDeviceCancelable = device.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
-            if case .disconnected = activeDevice.state { // TODO do we handle reconnects properly?
+            if case .disconnected = device.state {
                 self?.activeDeviceCancelable?.cancel()
                 self?.activeDeviceCancelable = nil
                 self?.activeDevice = nil
             }
         }
-
-        activeDevice.connect()
-        self.activeDevice = activeDevice
     }
 }

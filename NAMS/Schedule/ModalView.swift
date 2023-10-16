@@ -12,8 +12,8 @@ struct ModalView: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    let text: String
-    let buttonText: String
+    let text: LocalizedStringResource
+    let buttonText: LocalizedStringResource
     let onClose: () -> Void
 
 

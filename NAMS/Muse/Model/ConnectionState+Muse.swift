@@ -20,7 +20,7 @@ extension ConnectionState {
         case .disconnected:
             self = .disconnected
         case .needsUpdate:
-            self  = .interventionRequired("INTERVENTION_MUSE_FIRMWARE")
+            self = .interventionRequired("INTERVENTION_MUSE_FIRMWARE")
         case .needsLicense:
             self = .interventionRequired("INTERVENTION_MUSE_LICENSE")
         @unknown default:

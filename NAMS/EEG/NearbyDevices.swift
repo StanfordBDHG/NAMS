@@ -60,14 +60,14 @@ struct NearbyDevices: View {
                 }
             }
             .onDisappear {
-                eegModel.stopScanning(state: bluetoothManager.bluetoothState)
+                eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
             }
             .onReceive(bluetoothManager.$bluetoothState) { newValue in
                 if case .poweredOn = newValue {
                     eegModel.startScanning()
                 } else {
                     // this will still trigger an API MISUSE, both otherwise we end up in undefined state
-                    eegModel.stopScanning(state: bluetoothManager.bluetoothState)
+                    eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
                 }
             }
             .toolbar {
@@ -118,8 +118,8 @@ struct NearbyDevices: View {
 
     @ViewBuilder var sectionFooter: some View {
         HStack {
-            // TODO somehow translate
-            Text("Do you have problems connecting? [\("Troubleshooting")](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=\(locale.identifier))")
+            let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
+            Text("PROBLEMS_CONNECTING_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=\(locale.identifier))")
         }
             .padding(.top)
     }
