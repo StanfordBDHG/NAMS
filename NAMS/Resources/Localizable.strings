@@ -6,6 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
+// MARK: - General
+"YES" = "Yes";
+"NO" = "No";
+
 
 // MARK: - Contacts
 "CONTACTS_TAB_TITLE" = "Contacts";
@@ -89,9 +93,30 @@
 "RESET" = "Reset";
 "NO_DEVICE_CONNECTED" = "No Device connected!";
 "CONNECT_NEARBY_HINT" = "Please connect to a nearby EEG headband first.";
-"PROBLEMS_CONNECTING_HINT %@" = "Do you have problems connecting? [Troubleshooting](%@)";
+"PROBLEMS_CONNECTING_HINT %@" = "Do you have problems connecting? [Troubleshooting](%@)"; // TODO unused!
+
+// MARK: EEG Device Details
+"ABOUT" = "About";
+"HEADBAND" = "Headband";
+"WEARING" = "Wearing";
+"HEADBAND_FIT" = "Headband Fit";
+"BATTERY" = "Battery";
+"DISCONNECT" = "Disconnect";
+"DEVICE_DETAILS" = "Device Details";
+"SERIAL_NUMBER" = "Serial Number";
+"FIRMWARE_VERSION" = "Firmware Version";
+"INTERVENTION_REQUIRED_TITLE" = "Intervention Required";
+"INTERVENTION_REQUIRED_PREFIX %@" = "Intervention Required: %@";
+"INTERVENTION_MUSE_FIRMWARE" = "The headband's firmware is out of date. Please use the Muse app to upgrade to the latest firmware version.";
+"INTERVENTION_MUSE_LICENSE" = "The headband's license is invalid. Please refer to the Muse app for more information.";
 
 // MARK: EEG Fit
 "GOOD_FIT" = "good";
 "MEDIOCRE_FIT" = "mediocre";
 "POOR_FIT" = "poor";
+
+// MARK: Connection State
+"DISCONNECTED" = "Disconnected";
+"CONNECTING" = "Connecting";
+"CONNECTED" = "Connected";
+"INTERVENTION_REQUIRED" = "Requires Intervention";

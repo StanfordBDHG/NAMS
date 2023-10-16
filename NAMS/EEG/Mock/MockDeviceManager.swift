@@ -10,6 +10,13 @@ import Combine
 
 
 class MockDeviceManager: DeviceManager {
+    static var defaultNearbyDevices: [EEGDevice] {
+        [
+            MockEEGDevice(name: "Device 2", model: "Mock"),
+            MockEEGDevice(name: "Device 1", model: "Mock")
+        ]
+    }
+
     @Published var nearbyDevices: [EEGDevice] = []
 
     let deviceList: [EEGDevice]
@@ -19,8 +26,11 @@ class MockDeviceManager: DeviceManager {
     }
 
 
-    init(nearbyDevices: [EEGDevice] = []) {
+    init(nearbyDevices: [EEGDevice] = MockDeviceManager.defaultNearbyDevices, immediate: Bool = false) {
         self.deviceList = nearbyDevices
+        if immediate {
+            self.nearbyDevices = deviceList
+        }
     }
 
 

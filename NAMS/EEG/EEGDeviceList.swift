@@ -14,9 +14,7 @@ struct EEGDeviceList: View {
 
     var sortedDeviceList: [EEGDevice] {
         eegModel.nearbyDevices.sorted { lhs, rhs in
-            let lhsValue = lhs.connectionState.rawValue == 0 ? 3 : lhs.connectionState.rawValue
-            let rhsValue = rhs.connectionState.rawValue == 0 ? 3 : rhs.connectionState.rawValue
-            return lhsValue < rhsValue
+            lhs.name < rhs.name
         }
     }
 
@@ -26,6 +24,7 @@ struct EEGDeviceList: View {
         }
     }
 
+    
     init(eegModel: EEGViewModel) {
         self.eegModel = eegModel
     }
@@ -34,14 +33,11 @@ struct EEGDeviceList: View {
 
 #if DEBUG
 struct MuseDeviceList_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager(nearbyDevices: [
-        MockEEGDevice(name: "Mock", model: "Device 1"),
-        MockEEGDevice(name: "Mock", model: "Device 2")
-    ]))
+    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager(immediate: true))
 
     static var previews: some View {
-        NavigationStack {
-            NearbyDevices(eegModel: model)
+        List {
+            EEGDeviceList(eegModel: model)
         }
     }
 }

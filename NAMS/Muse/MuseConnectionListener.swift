@@ -59,13 +59,18 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
 
             if let version = self.muse.getVersion() {
                 logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Versions: \(version.versionString)")
+
+                // TODO any other information? (=> can we display update information?)
+                device.aboutInformation["FIRMWARE_VERSION"] = version.getFirmwareVersion()
             }
 
             if let configuration = self.muse.getConfiguration() {
                 device.remainingBatteryPercentage = configuration.getBatteryPercentRemaining()
 
-                // TODO log in tool window (stuff like serial number, firmware version etc)
                 logger.debug("\(self.muse.getModel()) - \(self.muse.getName()): Configuration: \(configuration.configurationString)")
+
+                // TODO add bluetooth MAC on debug builds?
+                device.aboutInformation["SERIAL_NUMBER"] = configuration.getSerialNumber()
             }
         case .disconnected:
             device.remainingBatteryPercentage = nil

@@ -10,7 +10,7 @@
 #if MUSE
 extension IXNMuse: EEGDevice {
     var name: String {
-        getName()
+        getName().replacingOccurrences(of: "Muse-", with: "")
     }
 
     var macAddress: String {

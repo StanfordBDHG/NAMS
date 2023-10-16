@@ -55,9 +55,7 @@ struct ScheduleView: View {
                     destination(withContext: presentedContext)
                 }
                 .sheet(isPresented: $presentingMuseList) {
-                    NavigationStack {
-                        NearbyDevices(eegModel: eegModel)
-                    }
+                    NearbyDevices(eegModel: eegModel)
                 }
                 .sheet(isPresented: $presentingEEGMeasurements) {
                     NavigationStack {

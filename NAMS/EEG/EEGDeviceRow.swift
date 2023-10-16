@@ -22,50 +22,69 @@ struct EEGDeviceRow: View {
         return nil
     }
 
+    @State private var presentingActiveDevice: ConnectedDevice?
+
     var body: some View {
         HStack {
-            Button(action: {
-                eegModel.tapDevice(device)
-            }) {
-                HStack {
-                    Text(verbatim: "\(device.model) - \(device.name.replacingOccurrences(of: "Muse-", with: ""))") // TODO replacing occurences not here!
-                        .foregroundColor(.primary)
-                    Spacer()
-                    if let connectedDevice {
-                        if connectedDevice.state == .connecting {
-                            ProgressView()
-                        } else if connectedDevice.state == .connected || connectedDevice.state == .interventionRequired {
-                            Text("Connected") // TODO improve accessibility?
-                                .foregroundStyle(.secondary)
+            deviceButton
 
-                            if connectedDevice.state == .interventionRequired {
-                                // TODO shall this be tapable?
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .symbolRenderingMode(.multicolor)
-                            }
-                        }
+            detailsButton
+        }
+            .navigationDestination(item: $presentingActiveDevice) { item in
+                EEGDeviceDetails(device: item)
+            }
+            .accessibilityRepresentation {
+                let button = Button(action: deviceButtonAction) {
+                    Text(verbatim: device.name)
+                    Text(verbatim: device.model)
+                    Text(device.connectionState.localizedStringResource)
+                }
+
+                    if let connectedDevice {
+                        button.accessibilityAction(named: "DEVICE_DETAILS", {
+                            detailsButtonAction(for: connectedDevice)
+                        })
+                    } else {
+                        button
+                    }
+            }
+    }
+
+    @ViewBuilder private var deviceButton: some View {
+        Button(action: deviceButtonAction) {
+            HStack {
+                Text(verbatim: "\(device.model) - \(device.name)")
+                    .foregroundColor(.primary)
+                Spacer()
+
+                if let connectedDevice {
+                    switch connectedDevice.state {
+                    case .connecting:
+                        ProgressView()
+                    case .connected:
+                        Text("CONNECTED")
+                            .foregroundStyle(.gray)
+                    case .interventionRequired:
+                        Text("Attention Required") // TODO optimize (image?, multicolor rendering exclamationmark.triangle.fill)
+                            .foregroundStyle(.gray)
+                    default:
+                        EmptyView()
                     }
                 }
             }
-                .buttonStyle(.plain)
+        }
+            .buttonStyle(.borderless)
+    }
 
-            // TODO maybe build a details view with: battery percentage, firmware versions, warnings (like firmware or other things)
-            //  , mounted, firmware type?, serial number
-            //   => checking the fit?
-
-            // TODO generlized connected state?
-            if let connectedDevice, connectedDevice.state == .connected || connectedDevice.state == .interventionRequired {
-                Button(action: {
-                    // TODO how to do navigation?
-                    //  EEGDeviceDetails(device: activeDevice)
-                    print("pressed!")
-                }) {
-                    Image(systemName: "info.circle")
-                        .foregroundColor(.accentColor)
-                        .font(.title3)
-                    // TODO accessibility label
-                }
-                // TODO invervention required marker! => exclamationmark.triangle.fill (.symbolRenderingMode(.multicolor))
+    @ViewBuilder private var detailsButton: some View {
+        if let connectedDevice, connectedDevice.state.establishedConnection {
+            Button(action: {
+                detailsButtonAction(for: connectedDevice)
+            }) {
+                Image(systemName: "info.circle")
+                    .foregroundColor(.accentColor)
+                    .font(.title3) // TODO remove label?
+                    .accessibilityLabel("DEVICE_DETAILS")
             }
         }
     }
@@ -74,6 +93,15 @@ struct EEGDeviceRow: View {
     init(eegModel: EEGViewModel, device: EEGDevice) {
         self.device = device
         self.eegModel = eegModel
+    }
+
+
+    private func deviceButtonAction() {
+        eegModel.tapDevice(device)
+    }
+
+    private func detailsButtonAction(for device: ConnectedDevice) {
+        presentingActiveDevice = device
     }
 }
 
@@ -91,7 +119,7 @@ struct EEGDeviceRow_Previews: PreviewProvider {
     static let devices = [
         MockEEGDevice(name: "Device 1", model: "Mock", state: .connecting),
         MockEEGDevice(name: "Device 2", model: "Mock", state: .connected),
-        MockEEGDevice(name: "Device 3", model: "Mock", state: .interventionRequired)
+        MockEEGDevice(name: "Device 3", model: "Mock", state: .interventionRequired("Firmware update required."))
     ]
 
     static var previews: some View {

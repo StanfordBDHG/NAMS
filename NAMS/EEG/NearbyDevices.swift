@@ -29,29 +29,30 @@ struct NearbyDevices: View {
     }
 
     var body: some View {
-        List {
-            if bluetoothPoweredOn {
-                Text("TURN_ON_HEADBAND_HINT")
-                    .listRowBackground(Color.clear)
-                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    .padding([.top, .leading, .trailing])
-            }
-
-            Section {
+        NavigationStack { // swiftlint:disable:this closure_body_length
+            List {
                 if bluetoothPoweredOn {
-                    if eegModel.nearbyDevices.isEmpty {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                    } else {
-                        EEGDeviceList(eegModel: eegModel)
-                    }
+                    Text("TURN_ON_HEADBAND_HINT")
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .padding([.top, .leading, .trailing])
                 }
 
-                bluetoothHints
-            } footer: {
-                sectionFooter
+                Section {
+                    if bluetoothPoweredOn {
+                        if eegModel.nearbyDevices.isEmpty {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                        } else {
+                            EEGDeviceList(eegModel: eegModel)
+                        }
+                    }
+
+                    bluetoothHints
+                } footer: {
+                    sectionFooter
+                }
             }
-        }
             .navigationTitle("NEARBY_DEVICES")
             .onAppear {
                 if bluetoothPoweredOn {
@@ -74,6 +75,7 @@ struct NearbyDevices: View {
                     dismiss()
                 }
             }
+        }
     }
 
     @ViewBuilder var bluetoothHints: some View {
@@ -128,11 +130,9 @@ struct NearbyDevices: View {
     }
 }
 
+
 struct MuseList_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager(nearbyDevices: [
-        MockEEGDevice(name: "Mock", model: "Device 1"),
-        MockEEGDevice(name: "Mock", model: "Device 2")
-    ]))
+    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
 
     static var previews: some View {
         NavigationStack {

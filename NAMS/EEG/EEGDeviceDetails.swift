@@ -17,9 +17,8 @@ struct EEGDeviceDetails: View {
 
     var body: some View {
         List {
-            if device.state == .interventionRequired {
-                // TODO implement
-                EmptyView()
+            if case let .interventionRequired(message) = device.state {
+                interventionRequiredHeader(message: message)
             }
 
 
@@ -28,13 +27,13 @@ struct EEGDeviceDetails: View {
             headbandFit
 
 
-            // TODO about information
-            Section("About") {
-                ListRow("Firmware Version") {
-                    Text("1.2.0")
-                }
-                ListRow("Serial Number") {
-                    Text("AAAA")
+            if !device.aboutInformation.isEmpty {
+                Section("ABOUT") {
+                    ForEach(device.aboutInformation.elements, id: \.key) { element in
+                        ListRow(element.key) {
+                            Text(element.value.description)
+                        }
+                    }
                 }
             }
 
@@ -42,10 +41,10 @@ struct EEGDeviceDetails: View {
                 device.disconnect()
                 dismiss()
             }) {
-                Text("Disconnect") // TODO do we need this?
+                Text("DISCONNECT")
                     .frame(maxWidth: .infinity)
             }
-                .disabled(device.state != .connected && device.state != .connecting && device.state == .interventionRequired)
+                .disabled(!device.state.associatedConnection)
         }
             .navigationTitle(device.device.name)
             .navigationBarTitleDisplayMode(.inline)
@@ -54,7 +53,7 @@ struct EEGDeviceDetails: View {
     @ViewBuilder private var battery: some View {
         if let remainingBattery = device.remainingBatteryPercentage {
             Section {
-                ListRow("Battery") {
+                ListRow("BATTERY") {
                     Group {
                         Text("\(Int(remainingBattery)) %")
                         batteryIcon(percentage: remainingBattery) // hides accessibility, only text will be shown
@@ -70,19 +69,20 @@ struct EEGDeviceDetails: View {
 
     @ViewBuilder private var headbandFit: some View {
         Section {
-            if !device.wearingHeadband {
-                ListRow("Wearing") {
-                    Text("No")
-                }
-            } else {
-                ListRow("Headband Fit") {
+            ListRow("WEARING") {
+                Text(device.wearingHeadband ? "YES" : "NO")
+            }
+            
+            if device.wearingHeadband {
+                ListRow("HEADBAND_FIT") {
                     let fit = device.fit.overallFit
                     Text(fit.localizedStringResource)
                         .foregroundStyle(fit.style)
                 }
             }
+        } header: {
+            Text("HEADBAND")
         } footer: {
-            // TODO always show?
             Text("Issues maintaining a good fit? [Troubleshooting](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=en_US)")
         }
     }
@@ -92,6 +92,27 @@ struct EEGDeviceDetails: View {
         self.device = device
     }
 
+
+    @ViewBuilder
+    func interventionRequiredHeader(message: LocalizedStringResource) -> some View {
+        VStack {
+            // swiftlint:disable:next accessibility_label_for_image
+            let image = Image(systemName: "exclamationmark.triangle.fill")
+                .symbolRenderingMode(.multicolor)
+            Text("\(image) ")
+                + Text("INTERVENTION_REQUIRED_TITLE")
+                    .fontWeight(.semibold)
+                + Text("\n")
+                + Text(message)
+        }
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .accessibilityRepresentation {
+                Text("INTERVENTION_REQUIRED_PREFIX \(message)")
+            }
+    }
 
     @ViewBuilder
     func batteryIcon(percentage: Double) -> some View {
@@ -122,8 +143,20 @@ struct EEGDeviceDetails: View {
 struct EEGDeviceDetails_Previews: PreviewProvider {
     @StateObject static var model = EEGViewModel(mock: MockEEGDevice(name: "Mock Device", model: "Mock", state: .connected))
 
+    @StateObject static var modelIntervention = EEGViewModel(mock: MockEEGDevice(
+        name: "Mock Device",
+        model: "Mock",
+        state: .interventionRequired("INTERVENTION_MUSE_FIRMWARE")
+    ))
+
     static var previews: some View {
         if let device = model.activeDevice {
+            NavigationStack {
+                EEGDeviceDetails(device: device)
+            }
+        }
+
+        if let device = modelIntervention.activeDevice {
             NavigationStack {
                 EEGDeviceDetails(device: device)
             }

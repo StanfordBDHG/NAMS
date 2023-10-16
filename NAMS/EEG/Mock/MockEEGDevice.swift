@@ -17,9 +17,9 @@ struct ConnectionListener: DeviceConnectionListener {
     }
 
     func connect() {
-        if mockDevice.connectionState != .unknown && mockDevice.connectionState != .disconnected {
+        if mockDevice.connectionState.associatedConnection {
             device.state = mockDevice.connectionState
-            if device.state == .connected {
+            if device.state.establishedConnection {
                 onConnected()
             }
             return
@@ -35,6 +35,16 @@ struct ConnectionListener: DeviceConnectionListener {
 
     func onConnected() {
         device.remainingBatteryPercentage = 75
+        device.aboutInformation = [
+            "SERIAL_NUMBER": "AA BB CC DD",
+            "FIRMWARE_VERSION": "1.2.0"
+        ]
+
+        Task {
+            try await Task.sleep(for: .seconds(3))
+            device.fit = HeadbandFit(tp9Fit: .good, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .good)
+            device.wearingHeadband = true
+        }
     }
 
     func change(connectionState: ConnectionState) {

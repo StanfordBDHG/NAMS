@@ -17,8 +17,6 @@ protocol EEGDevice: AnyObject {
 
     var lastDiscoveredTime: Double { get }
 
-    // TODO retrieve muse version! (and other information that we might store!)
-
     func connect(state device: ConnectedDevice) -> DeviceConnectionListener
 
     func disconnect()

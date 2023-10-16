@@ -7,6 +7,18 @@
 //
 
 import Foundation
+import OrderedCollections
+
+
+extension LocalizedStringResource: Hashable { // TODO move somewhere else?
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(key)
+    }
+
+    public static func == (lhs: LocalizedStringResource, rhs: LocalizedStringResource) -> Bool {
+        lhs.key == rhs.key
+    }
+}
 
 
 class ConnectedDevice: ObservableObject {
@@ -25,6 +37,8 @@ class ConnectedDevice: ObservableObject {
     /// The current fit of the headband
     @Published var fit = HeadbandFit(tp9Fit: .poor, af7Fit: .poor, af8Fit: .poor, tp10Fit: .poor)
 
+    @Published var aboutInformation: OrderedDictionary<LocalizedStringResource, CustomStringConvertible> = [:]
+
     /// Remaining battery percentage in percent [0.0;100.0]
     @Published var remainingBatteryPercentage: Double?
 
@@ -41,5 +55,16 @@ class ConnectedDevice: ObservableObject {
     func disconnect() {
         device.disconnect()
         listener = nil
+    }
+}
+
+
+extension ConnectedDevice: Hashable {
+    static func == (lhs: ConnectedDevice, rhs: ConnectedDevice) -> Bool {
+        lhs.device.macAddress == rhs.device.macAddress
+    }
+
+    func hash(into hasher: inout Hasher) {
+        device.macAddress.hash(into: &hasher)
     }
 }
