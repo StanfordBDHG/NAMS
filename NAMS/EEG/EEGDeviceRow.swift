@@ -51,7 +51,7 @@ struct EEGDeviceRow: View {
     }
 
     @ViewBuilder private var deviceButton: some View {
-        Button(action: deviceButtonAction) {
+        let button = Button(action: deviceButtonAction) {
             HStack {
                 Text(verbatim: "\(device.model) - \(device.name)")
                     .foregroundColor(.primary)
@@ -72,8 +72,15 @@ struct EEGDeviceRow: View {
                     }
                 }
             }
+                .frame(maxWidth: .infinity)
         }
-            .buttonStyle(.borderless)
+
+        if connectedDevice?.state.establishedConnection == true {
+            button
+                .buttonStyle(.plain)
+        } else {
+            button
+        }
     }
 
     @ViewBuilder private var detailsButton: some View {

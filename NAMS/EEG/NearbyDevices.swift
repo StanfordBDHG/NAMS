@@ -53,28 +53,28 @@ struct NearbyDevices: View {
                     sectionFooter
                 }
             }
-            .navigationTitle("NEARBY_DEVICES")
-            .onAppear {
-                if bluetoothPoweredOn {
-                    eegModel.startScanning()
+                .navigationTitle("NEARBY_DEVICES")
+                .onAppear {
+                    if bluetoothPoweredOn {
+                        eegModel.startScanning()
+                    }
                 }
-            }
-            .onDisappear {
-                eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
-            }
-            .onReceive(bluetoothManager.$bluetoothState) { newValue in
-                if case .poweredOn = newValue {
-                    eegModel.startScanning()
-                } else {
-                    // this will still trigger an API MISUSE, both otherwise we end up in undefined state
+                .onDisappear {
                     eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
                 }
-            }
-            .toolbar {
-                Button("CLOSE") {
-                    dismiss()
+                .onReceive(bluetoothManager.$bluetoothState) { newValue in
+                    if case .poweredOn = newValue {
+                        eegModel.startScanning()
+                    } else {
+                        // this will still trigger an API MISUSE, both otherwise we end up in undefined state
+                        eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
+                    }
                 }
-            }
+                .toolbar {
+                    Button("CLOSE") {
+                        dismiss()
+                    }
+                }
         }
     }
 
