@@ -35,18 +35,25 @@ struct EEGDeviceRow: View {
             }
             .accessibilityRepresentation {
                 let button = Button(action: deviceButtonAction) {
+                    Text(verbatim: device.model) // currently, this order flows best for Muse device naming
                     Text(verbatim: device.name)
-                    Text(verbatim: device.model)
-                    Text(device.connectionState.localizedStringResource)
+                    if device.connectionState.associatedConnection {
+                        Text(device.connectionState.localizedStringResource)
+                    }
                 }
 
-                    if let connectedDevice {
+                if !FeatureFlags.testBLEDevices {
+                    if let connectedDevice, connectedDevice.state.establishedConnection {
                         button.accessibilityAction(named: "DEVICE_DETAILS", {
                             detailsButtonAction(for: connectedDevice)
                         })
                     } else {
                         button
                     }
+                } else { // accessibility actions cannot be unit tested
+                    button
+                    detailsButton
+                }
             }
     }
 
@@ -75,6 +82,7 @@ struct EEGDeviceRow: View {
                 .frame(maxWidth: .infinity)
         }
 
+        // this is such that the button spans the whole list row but doesn't cover the details button when it's present
         if connectedDevice?.state.establishedConnection == true {
             button
                 .buttonStyle(.plain)
@@ -85,13 +93,11 @@ struct EEGDeviceRow: View {
 
     @ViewBuilder private var detailsButton: some View {
         if let connectedDevice, connectedDevice.state.establishedConnection {
-            Button(action: {
+            Button("DEVICE_DETAILS", systemImage: "info.circle") {
                 detailsButtonAction(for: connectedDevice)
-            }) {
-                Image(systemName: "info.circle") // swiftlint:disable:this accessibility_label_for_image
-                    .foregroundColor(.accentColor)
-                    .font(.title3)
             }
+                .labelStyle(.iconOnly)
+                .font(.title3)
         }
     }
 

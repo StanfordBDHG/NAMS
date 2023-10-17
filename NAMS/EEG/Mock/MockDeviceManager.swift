@@ -35,7 +35,7 @@ class MockDeviceManager: DeviceManager {
 
 
     func startScanning() {
-        Task {
+        Task { @MainActor in
             try? await Task.sleep(for: .seconds(1))
             nearbyDevices = deviceList
         }

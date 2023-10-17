@@ -23,4 +23,6 @@ enum FeatureFlags {
     #endif
     /// Adds a test task to the schedule at the current time
     static let testSchedule = CommandLine.arguments.contains("--testSchedule")
+    /// Controls some behavioral differences in the BLE device subsystem when unit testing.
+    static let testBLEDevices = CommandLine.arguments.contains("--testBLEDevices")
 }

@@ -102,11 +102,11 @@ struct NearbyDevices: View {
                         .multilineTextAlignment(.center)
                 }
             case .resetting, .unknown:
-                Text("BLUETOOTH_UNKNOWN")
+                if !bluetoothPoweredOn { // preview case
+                    Text("BLUETOOTH_UNKNOWN")
+                }
             case .unsupported:
-                if bluetoothPoweredOn {
-                    EmptyView() // handle preview case
-                } else {
+                if !bluetoothPoweredOn {
                     Text("BLUETOOTH_UNSUPPORTED")
                 }
             @unknown default:

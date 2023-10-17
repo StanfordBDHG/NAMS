@@ -22,6 +22,7 @@ class EEGViewModel: ObservableObject {
     private var deviceManagerCancelable: AnyCancellable?
     private var activeDeviceCancelable: AnyCancellable?
 
+
     init(deviceManager: DeviceManager) {
         self.deviceManager = deviceManager
         self.deviceManagerCancelable = nil
@@ -30,6 +31,7 @@ class EEGViewModel: ObservableObject {
             self?.nearbyDevices = devices
         }
     }
+
 
     @MainActor
     private func refreshNearbyDevices() {

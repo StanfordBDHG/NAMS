@@ -9,7 +9,7 @@
 import Foundation
 
 
-private struct ConnectionListener: DeviceConnectionListener {
+private class ConnectionListener: DeviceConnectionListener {
     private static let sampleRate = 60
 
     private let mockDevice: MockEEGDevice
@@ -36,7 +36,7 @@ private struct ConnectionListener: DeviceConnectionListener {
         }
 
         change(connectionState: .connecting)
-        Task {
+        Task { @MainActor in
             try? await Task.sleep(for: .seconds(2))
             change(connectionState: .connected)
             onConnected()
@@ -54,7 +54,7 @@ private struct ConnectionListener: DeviceConnectionListener {
         let timer = Timer(timeInterval: 1.0 / Double(Self.sampleRate), repeats: true, block: generateRecording)
         RunLoop.main.add(timer, forMode: .common)
 
-        Task {
+        Task { @MainActor in
             try await Task.sleep(for: .seconds(3))
             device.fit = HeadbandFit(tp9Fit: .good, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .good)
             device.wearingHeadband = true
@@ -90,6 +90,7 @@ class MockEEGDevice: EEGDevice {
     var rssi: Double = 0
     var lastDiscoveredTime: Double = 0
 
+    private var lastListener: ConnectionListener?
 
     init(name: String, model: String, macAddress: String? = nil, state: ConnectionState = .unknown) {
         self.name = name
@@ -104,10 +105,13 @@ class MockEEGDevice: EEGDevice {
     func connect(state device: ConnectedDevice) -> DeviceConnectionListener {
         let listener = ConnectionListener(mock: self, device: device)
         listener.connect()
+        self.lastListener = listener
         return listener
     }
 
     func disconnect() {
+        lastListener?.change(connectionState: .disconnected)
         connectionState = .disconnected
+        lastListener = nil
     }
 }
