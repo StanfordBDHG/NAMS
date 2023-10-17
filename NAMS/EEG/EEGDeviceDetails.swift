@@ -47,7 +47,7 @@ struct EEGDeviceDetails: View {
             }
                 .disabled(!device.state.associatedConnection)
         }
-            .navigationTitle(device.device.name)
+            .navigationTitle(Text(verbatim: device.device.model))
             .navigationBarTitleDisplayMode(.inline)
     }
 
