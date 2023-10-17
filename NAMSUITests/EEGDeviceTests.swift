@@ -21,7 +21,7 @@ class EEGDeviceTests: XCTestCase {
     }
 
 
-    func testNearbyDevicesAndDetails() throws {
+    func testNearbyDevicesAndDetails() {
         let app = XCUIApplication()
 
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
@@ -46,13 +46,12 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.buttons["Mock, Device 1, Connected"].waitForExistence(timeout: 5.0))
         XCTAssertTrue(app.buttons["Mock, Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
-        // TODO check if want to make this label unique?
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
         app.buttons["Device Details"].tap()
 
 
         // DEVICE DETAILS
-        XCTAssertTrue(app.navigationBars.staticTexts["Device 1"].waitForExistence(timeout: 2.0)) // TODO might we display something different?
+        XCTAssertTrue(app.navigationBars.staticTexts["Mock"].waitForExistence(timeout: 2.0))
 
 
         print(app.staticTexts.debugDescription)
@@ -73,5 +72,33 @@ class EEGDeviceTests: XCTestCase {
         app.buttons["Disconnect"].tap()
 
         XCTAssertTrue(app.buttons["Mock, Device 1"].waitForExistence(timeout: 5.0)) // ensure not connected
+    }
+
+    func testEEGRecordings() {
+        let app = XCUIApplication()
+
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Schedule"].tap()
+
+        // open nearby devices sheet
+        XCTAssertTrue(app.navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 0.5))
+        app.navigationBars.buttons["Nearby Devices"].tap()
+
+        XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
+
+        XCTAssertTrue(app.buttons["Mock, Device 1"].waitForExistence(timeout: 5.0))
+        app.buttons["Mock, Device 1"].tap()
+        XCTAssertTrue(app.buttons["Mock, Device 1, Connected"].waitForExistence(timeout: 5.0))
+
+        XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
+        app.navigationBars.buttons["Close"].tap()
+
+
+        XCTAssertTrue(app.navigationBars.buttons["EEG Recording"].waitForExistence(timeout: 0.5))
+        app.navigationBars.buttons["EEG Recording"].tap()
+
+        sleep(2)
+        XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
+        app.navigationBars.buttons["Close"].tap()
     }
 }
