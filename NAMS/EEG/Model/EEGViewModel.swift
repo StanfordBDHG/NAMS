@@ -29,6 +29,7 @@ class EEGViewModel: ObservableObject {
 
         self.deviceManagerCancelable = self.deviceManager.devicePublisher.sink { [weak self] devices in
             self?.nearbyDevices = devices
+            self?.logger.debug("Updated nearby devices to \(devices.count) in total.")
         }
     }
 
@@ -40,22 +41,30 @@ class EEGViewModel: ObservableObject {
 
     @MainActor
     func startScanning() {
+        logger.debug("Start scanning for nearby devices...")
         self.deviceManager.startScanning()
         refreshNearbyDevices()
+
+        if !nearbyDevices.isEmpty {
+            logger.debug("Found \(self.nearbyDevices.count) nearby devices immediately.")
+        }
     }
 
     @MainActor
     func stopScanning(refreshNearby: Bool = true) {
+        logger.debug("Stopped scanning for nearby devices!")
         self.deviceManager.stopScanning()
 
         if refreshNearby {
             refreshNearbyDevices()
+            logger.debug("We maintain \(self.nearbyDevices.count) devices after scanning stop.")
         }
     }
 
     @MainActor
     func tapDevice(_ device: EEGDevice) {
         if let activeDevice {
+            logger.info("Disconnecting previously connected device \(activeDevice.device.name)...")
             // either we tapped on the same Muse or on another one, in any case disconnect the currently active Muse
             activeDevice.disconnect()
             activeDeviceCancelable?.cancel()
@@ -68,6 +77,8 @@ class EEGViewModel: ObservableObject {
                 return
             }
         }
+
+        logger.info("Connecting to nearby devices \(device.name)...")
 
         let activeDevice = ConnectedDevice(device: device)
         sinkActiveDevice(device: activeDevice)

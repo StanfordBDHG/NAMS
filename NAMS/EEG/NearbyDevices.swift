@@ -54,13 +54,13 @@ struct NearbyDevices: View {
                 }
             }
                 .navigationTitle("NEARBY_DEVICES")
-                .onAppear {
-                    if bluetoothPoweredOn {
-                        eegModel.startScanning()
-                    }
+                .onAppear(perform: onForeground)
+                .onDisappear(perform: onBackground)
+                .onReceive(NotificationCenter.default.publisher(for: UIScene.willEnterForegroundNotification)) { _ in
+                    onForeground() // onAppear is coupled with view rendering only and won't get fired when putting app into the foreground
                 }
-                .onDisappear {
-                    eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
+                .onReceive(NotificationCenter.default.publisher(for: UIScene.willDeactivateNotification)) { _ in
+                    onBackground() // onDisappear is coupled with view rendering only and won't get fired when putting app into the background
                 }
                 .onReceive(bluetoothManager.$bluetoothState) { newValue in
                     if case .poweredOn = newValue {
@@ -127,6 +127,17 @@ struct NearbyDevices: View {
 
     init(eegModel: EEGViewModel) {
         self.eegModel = eegModel
+    }
+
+
+    func onForeground() {
+        if bluetoothPoweredOn {
+            eegModel.startScanning()
+        }
+    }
+
+    func onBackground() {
+        eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
     }
 }
 
