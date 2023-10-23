@@ -90,6 +90,7 @@ struct ScheduleView: View {
                     Image(systemName: "chevron.down.circle.fill")
                         .symbolRenderingMode(.hierarchical)
                 }
+                // TODO accessibility
             })
         }
         if eegModel.activeDevice?.state == .connected {

@@ -1,8 +1,9 @@
 //
-//  AddPatientView.swift
-//  NAMS
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-//  Created by Andreas Bauer on 12.06.23.
+// SPDX-FileCopyrightText: 2023 Stanford University
+//
+// SPDX-License-Identifier: MIT
 //
 
 import SwiftUI

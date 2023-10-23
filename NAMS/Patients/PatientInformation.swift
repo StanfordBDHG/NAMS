@@ -1,8 +1,9 @@
 //
-//  PatientRow.swift
-//  NAMS
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-//  Created by Andreas Bauer on 11.06.23.
+// SPDX-FileCopyrightText: 2023 Stanford University
+//
+// SPDX-License-Identifier: MIT
 //
 
 import SpeziViews
