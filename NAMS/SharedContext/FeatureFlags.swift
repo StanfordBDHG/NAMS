@@ -21,6 +21,8 @@ enum FeatureFlags {
     /// Defines if the application should connect to the local firebase emulator. Always set to true when using the iOS simulator.
     static let useFirebaseEmulator = CommandLine.arguments.contains("--useFirebaseEmulator")
     #endif
-    /// Adds a test task to the schedule at the current time
+    /// Adds a test task to the schedule at the current time.
     static let testSchedule = CommandLine.arguments.contains("--testSchedule")
+    /// Controls some behavioral differences in the BLE device subsystem when unit testing.
+    static let testBLEDevices = CommandLine.arguments.contains("--testBLEDevices")
 }

@@ -20,11 +20,25 @@ It demonstrates using the [Spezi](https://github.com/StanfordSpezi/Spezi) framew
 
 ## Application Structure
 
-The Neurodevelopment Assessment and Monitoring System (NAMS) uses a modularized structure using the [Spezi modules](https://swiftpackageindex.com/StanfordBDHG) enabled by the Swift Package Manager.
+The Neurodevelopment Assessment and Monitoring System (NAMS) uses a modularized structure using the [Spezi modules](https://swiftpackageindex.com/StanfordSpezi) enabled by the Swift Package Manager.
 
-The application uses the Spezi [`FHIR` standard](https://github.com/StanfordSpezi/SpeziFHIR) to provide a shared repository for data exchanged between different modules using the `FHIR` standard.
-You can learn more about the Spezi standards-based software architecture in the [Spezi documentation](https://github.com/StanfordSpezi/Spezi).
+The application uses [HL7 FHIR](https://www.hl7.org/fhir/) and the Spezi [`FHIR` module](https://github.com/StanfordSpezi/SpeziFHIR) to provide a common standard to encode data gathered by the application as defined in the Spezi [`Standard`](https://swiftpackageindex.com/stanfordspezi/spezi/documentation/spezi/standard) found in the application.
+You can learn more about the Spezi standards-based software architecture in the [Spezi documentation](https://swiftpackageindex.com/stanfordspezi/spezi/documentation/spezi).
 
+### Muse SDK
+
+The project supports Muse EEG Headbands to collect EEG recordings.
+
+The Muse SDK is closed-source and, therefore, not part of this repository.
+For more information, refer to the [Muse SDK FAQ](https://choosemuse.my.site.com/s/article/Muse-Software-Development-Kit-SDK-FAQs?language=en_US) page.
+If you have access, you may need to fetch the git submodule by running the following command:
+```shell
+git submodule update --init
+```
+
+The Xcode project configures two targets:
+* `NAMS`: This target uses a Mock Device Layer and does not include the Muse SDK. It is useful for demonstration and testing purposes. 
+* `NAMS Muse` This target includes the Muse SDK. It does not build on the iOS Simulator.
 
 ## Build and Run the Application
 
@@ -47,6 +61,8 @@ The application includes the following feature flags that can be configured in t
 - ``--showOnboarding``: Always show the onboarding when the application is launched. Makes it easy to modify and test the onboarding flow without the need to manually remove the application or reset the simulator.
 - ``--disableFirebase``: Disables the Firebase interactions, including the login/sign-up step and the Firebase Firestore upload.
 - ``--useFirebaseEmulator``: Defines if the application should connect to the local firebase emulator. Always set to true when using the iOS simulator.
+- ``--testSchedule``: Adds a test task to the schedule at the current time.
+- ``-testBLEDevices``: Controls some behavioral differences in the BLE device subsystem when unit testing.
 
 
 ## Continuous Delivery Workflows

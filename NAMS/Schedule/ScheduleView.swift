@@ -16,7 +16,15 @@ struct ScheduleView: View {
     @EnvironmentObject var scheduler: NAMSScheduler
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
-    
+    @State var presentingMuseList = false
+    @State var presentingEEGMeasurements = false
+
+    #if MUSE
+    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
+    #else
+    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
+    #endif
+
     
     var startOfDays: [Date] {
         Array(eventContextsByDate.keys)
@@ -37,16 +45,44 @@ struct ScheduleView: View {
                     }
                 }
             }
-                .onChange(of: scheduler) { _ in
-                    calculateEventContextsByDate()
-                }
-                .task {
+                .onChange(of: scheduler, initial: true) {
                     calculateEventContextsByDate()
                 }
                 .sheet(item: $presentedContext) { presentedContext in
                     destination(withContext: presentedContext)
                 }
+                .sheet(isPresented: $presentingMuseList) {
+                    NearbyDevices(eegModel: eegModel)
+                }
+                .sheet(isPresented: $presentingEEGMeasurements) {
+                    NavigationStack {
+                        EEGRecording(eegModel: eegModel)
+                    }
+                }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
+                .toolbar {
+                    toolbar
+                }
+        }
+    }
+
+    @ToolbarContentBuilder private var toolbar: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+                presentingMuseList = true
+            }) {
+                Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                    .accessibilityLabel("NEARBY_DEVICES")
+            }
+        }
+        if eegModel.activeDevice?.state == .connected {
+            ToolbarItem(placement: .primaryAction) {
+                Button(action: { presentingEEGMeasurements = true }) {
+                    Image(systemName: "waveform.path")
+                        .symbolRenderingMode(.hierarchical)
+                        .accessibilityLabel("EEG_RECORDING")
+                }
+            }
         }
     }
     
@@ -61,7 +97,7 @@ struct ScheduleView: View {
                     }
                 }
             case let .test(string):
-                ModalView(text: string, buttonText: String(localized: "TASK_TEST_CLOSE_TITLE")) {
+                ModalView(text: string, buttonText: "CLOSE") {
                     _Concurrency.Task {
                         await eventContext.event.complete(true)
                     }

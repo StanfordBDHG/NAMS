@@ -13,9 +13,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "653A254C283387FE005D4D48"
-               BuildableName = "NAMS.app"
-               BlueprintName = "NAMS"
+               BlueprintIdentifier = "A926D7642AB7A552000C4C2F"
+               BuildableName = "NAMS Muse.app"
+               BlueprintName = "NAMS Muse"
                ReferencedContainer = "container:NAMS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -25,13 +25,8 @@
       buildConfiguration = "Test"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:NAMS.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -47,16 +42,12 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "653A254C283387FE005D4D48"
-            BuildableName = "NAMS.app"
-            BlueprintName = "NAMS"
+            BlueprintIdentifier = "A926D7642AB7A552000C4C2F"
+            BuildableName = "NAMS Muse.app"
+            BlueprintName = "NAMS Muse"
             ReferencedContainer = "container:NAMS.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <LocationScenarioReference
-         identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
-         referenceType = "1">
-      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -64,15 +55,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "653A254C283387FE005D4D48"
-            BuildableName = "NAMS.app"
-            BlueprintName = "NAMS"
-            ReferencedContainer = "container:NAMS.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

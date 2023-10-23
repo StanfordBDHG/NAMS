@@ -29,3 +29,4 @@ jobs:
       runsonlabels: '["macOS-13"]'
       fastlanelane: beta
       setupsigning: true
+      checkout_submodules: true

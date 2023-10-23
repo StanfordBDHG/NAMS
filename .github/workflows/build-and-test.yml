@@ -20,13 +20,6 @@ jobs:
   swiftlint:
     name: SwiftLint
     uses: StanfordBDHG/.github/.github/workflows/swiftlint.yml@v2
-  codeql:
-    name: CodeQL
-    uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
-    with:
-      codeql: true
-      xcodeversion: '14.3.1'
-      fastlanelane: codeql
   buildandtest:
     name: Build and Test
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
@@ -35,8 +28,6 @@ jobs:
       runsonlabels: '["macOS", "self-hosted"]'
       setupfirebaseemulator: true
       customcommand: "firebase emulators:exec 'fastlane test'"
-    secrets:
-      checkout_token: ${{ secrets.MUSE_PATH }}
   uploadcoveragereport:
     name: Upload Coverage Report
     needs: buildandtest

@@ -1,0 +1,3 @@
+[submodule "Muse.framework"]
+	path = Muse.framework
+	url = git@github.com:StanfordBDHG/MuseSDK.git
