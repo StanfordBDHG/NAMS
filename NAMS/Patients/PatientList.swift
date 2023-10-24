@@ -1,135 +1,72 @@
 //
-// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
+// This source file is part of the Stanford Spezi open-source project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University
+// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
 //
 // SPDX-License-Identifier: MIT
 //
 
 import SwiftUI
 
-enum SearchToken: String, Identifiable, Hashable, CaseIterable {
-    case patientId
-    case name
-
-    var id: String {
-        rawValue
-    }
-
-    @ViewBuilder
-    var tokenLabel: some View {
-        switch self {
-        case .patientId:
-            Label("Patient Id", systemImage: "grid.circle.fill")
-        case .name:
-            Label("Name", systemImage: "person.text.rectangle")
-        }
-    }
-}
 
 struct PatientList: View {
-    // TODO where to get the data from?
-    @State var patients: [Patient] = [
-        Patient(id: "1", firstName: "Andreas", lastName: "Bauer"),
-        Patient(id: "2", firstName: "Paul", lastName: "Schmiedmayer"),
-        Patient(id: "3", firstName: "Leland", lastName: "Stanford")
-    ]
-
-    @Environment(\.dismiss)
-    var dismiss
-
-    // TODO view model
-    @State
-    private var searchText: String = ""
-    @State
-    private var searchTokens: [SearchToken] = []
-    @State
-    private var suggestedTokens: [SearchToken] = SearchToken.allCases
-    @State
-    private var showAddPatientSheet = false
-    // @State
-    // private var searchScope: SearchScope = SearchScope.firstname
-
-    var searchResults: [Patient] {
-        // TODO improve search!
-        if searchText.isEmpty {
-            return patients
-        } else {
-            return patients.filter { patient in
-                patient.firstName.contains(searchText)
-                    || patient.lastName.contains(searchText)
-            }
-        }
-    }
+    private let patients: [Patient]? // swiftlint:disable:this discouraged_optional_collection
+    private let searchModel: PatientSearchModel
 
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(searchResults) { patient in
-                    NavigationLink(value: patient) {
-                        // TODO we want to select the global patient!
-                        PatientRow(patient: patient)
+        if let patients {
+            let searchResults = searchModel.search(in: patients)
+            if searchResults.isEmpty {
+                NoInformationText {
+                    Text("No Patients")
+                } caption: {
+                    Text("Patients will appear here,\nonce they are added.")
+                }
+            } else {
+                List {
+                    ForEach(searchResults) { patient in
+                        NavigationLink(value: patient) {
+                            // TODO we want to select the global patient!
+                            PatientRow(patient: patient)
+                        }
                     }
+                        // TODO we need a model!
+                        .onDelete { indexSet in
+                            // TODO delete!
+                            print("Deleted \(indexSet.sorted())")
+                        }
                 }
-                    .onDelete { indexSet in
-                        print("Deleted \(indexSet.sorted())")
-                    }
             }
-                .navigationTitle("Patients")
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationDestination(for: Patient.self) { patient in
-                    PatientInformation(patient: patient)
-                }
-                .sheet(isPresented: $showAddPatientSheet) {
-                    AddPatientView()
-                }
-                .toolbar {
-                    toolbar
-                }
-                .searchable(text: $searchText, prompt: "Search for a patient")
-            /*
-            .searchable(text: $searchText, tokens: $searchTokens, suggestedTokens: $suggestedTokens, prompt: "Search for a patient") { token in
-                token.tokenLabel
-            }
-             */
-            /*.searchScopes($searchScope, activation: .automatic) {
-                ForEach(SearchScope.allCases, id: \.self) { scope in
-                    Text(scope.rawValue.capitalized)
-                }
-            }*/
+        } else {
+            ProgressView()
         }
     }
 
-    @ToolbarContentBuilder
-    var toolbar: some ToolbarContent {
-        ToolbarItem(placement: .cancellationAction) {
-            Button(action: {
-                dismiss()
-            }) {
-                Text("Close")
-            }
-        }
-        ToolbarItem(placement: .primaryAction) {
-            Button(action: {
-                showAddPatientSheet = true
-            }) {
-                Image(systemName: "plus")
-            }
-        }
-        ToolbarItem(placement: .primaryAction) {
-            EditButton()
-        }
+
+    init(patients: [Patient]?, searchModel: PatientSearchModel) {
+        self.patients = patients
+        self.searchModel = searchModel
     }
 }
 
 #if DEBUG
-struct PatientList_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    NavigationStack {
         PatientList(patients: [
-            Patient(id: "1", firstName: "Andreas", lastName: "Bauer"),
-            Patient(id: "2", firstName: "Paul", lastName: "Schmiedmayer"),
-            Patient(id: "3", firstName: "Leland", lastName: "Stanford")
-        ])
+            Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
+            Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer")),
+            Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford"))
+        ], searchModel: PatientSearchModel())
+            .navigationDestination(for: Patient.self) { patient in // TODO use a destination view in the link instead?
+                PatientInformation(patient: patient, activePatientId: .constant(nil))
+            }
     }
+}
+#Preview {
+    PatientList(patients: [], searchModel: PatientSearchModel())
+}
+
+#Preview {
+    PatientList(patients: nil, searchModel: PatientSearchModel())
 }
 #endif

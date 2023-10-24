@@ -1,0 +1,955 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "\n" : {
+
+    },
+    " [%@](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=%2$@)"
+          }
+        }
+      }
+    },
+    " [%@](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=%2$@)"
+          }
+        }
+      }
+    },
+    " [%@](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=%2$@)"
+          }
+        }
+      }
+    },
+    "%@ " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@ "
+          }
+        }
+      }
+    },
+    "%lld %%" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%lld %%"
+          }
+        }
+      }
+    },
+    "%llds" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%llds"
+          }
+        }
+      }
+    },
+    "ABOUT" : {
+      "comment" : "MARK: EEG Device Details",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        }
+      }
+    },
+    "ACCOUNT_LOGIN" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login"
+          }
+        }
+      }
+    },
+    "ACCOUNT_NEXT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "ACCOUNT_SETUP_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please sign up to create a new account or log into an existing one."
+          }
+        }
+      }
+    },
+    "ACCOUNT_SIGN_UP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        }
+      }
+    },
+    "ACCOUNT_SIGNED_IN_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are successfully signed in with the following account:"
+          }
+        }
+      }
+    },
+    "ACCOUNT_SUBTITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data."
+          }
+        }
+      }
+    },
+    "ACCOUNT_TITLE" : {
+      "comment" : "MARK: Account",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Account"
+          }
+        }
+      }
+    },
+    "Add Notes" : {
+
+    },
+    "Add Patient" : {
+      "comment" : "Add Patient Title"
+    },
+    "All" : {
+
+    },
+    "Alpha" : {
+
+    },
+    "App Icon" : {
+
+    },
+    "Are you sure you want to discard this new patient?" : {
+
+    },
+    "ATTENTION_REQUIRED" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attention Required"
+          }
+        }
+      }
+    },
+    "BATTERY" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Battery"
+          }
+        }
+      }
+    },
+    "Beta" : {
+
+    },
+    "BLUETOOTH_OFF" : {
+      "comment" : "MARK: Bluetooth",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth Off"
+          }
+        }
+      }
+    },
+    "BLUETOOTH_OFF_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth is turned off. Please turn on Bluetooth in Control Center or Settings in order to use your Muse Headband."
+          }
+        }
+      }
+    },
+    "BLUETOOTH_PROHIBITED" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth Prohibited"
+          }
+        }
+      }
+    },
+    "BLUETOOTH_PROHIBITED_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth is required to make connections to your Muse Headband. Please allow Bluetooth connections in your Privacy settings."
+          }
+        }
+      }
+    },
+    "BLUETOOTH_UNKNOWN" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We have troubles with the Bluetooth communication. Please try again."
+          }
+        }
+      }
+    },
+    "BLUETOOTH_UNSUPPORTED" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth is unsupported on this device!"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+
+    },
+    "Channel" : {
+
+    },
+    "Close" : {
+
+    },
+    "CLOSE" : {
+      "comment" : "MARK: General",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "CONNECT_NEARBY_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please connect to a nearby EEG headband first."
+          }
+        }
+      }
+    },
+    "CONNECTED" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected"
+          }
+        }
+      }
+    },
+    "CONNECTING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting"
+          }
+        }
+      }
+    },
+    "CONTACTS_NAVIGATION_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacts"
+          }
+        }
+      }
+    },
+    "CONTACTS_TAB_TITLE" : {
+      "comment" : "MARK: - Contacts",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contacts"
+          }
+        }
+      }
+    },
+    "DEVICE_DETAILS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Device Details"
+          }
+        }
+      }
+    },
+    "Discard Changes" : {
+
+    },
+    "DISCONNECT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnect"
+          }
+        }
+      }
+    },
+    "DISCONNECTED" : {
+      "comment" : "MARK: Connection State",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnected"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
+    },
+    "EEG_RECORDING" : {
+      "comment" : "MARK: EEG Recording",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EEG Recording"
+          }
+        }
+      }
+    },
+    "FINISHED_SETUP_TEXT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You completed all the onboarding steps!\n You can now use the app to manage patients, conduct questionnaires and EEG recordings."
+          }
+        }
+      }
+    },
+    "FINISHED_SETUP_TITLE" : {
+      "comment" : "MARK: Finished Setup",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready To Go"
+          }
+        }
+      }
+    },
+    "Firmware update required." : {
+
+    },
+    "FIRMWARE_VERSION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmware Version"
+          }
+        }
+      }
+    },
+    "FREQUENCY" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequency"
+          }
+        }
+      }
+    },
+    "Gamma" : {
+
+    },
+    "GOOD_FIT" : {
+      "comment" : "MARK: EEG Fit",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "good"
+          }
+        }
+      }
+    },
+    "HEADBAND" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Headband"
+          }
+        }
+      }
+    },
+    "HEADBAND_FIT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Headband Fit"
+          }
+        }
+      }
+    },
+    "Hello" : {
+
+    },
+    "INTERVENTION_MUSE_FIRMWARE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The headband's firmware is out of date. Please use the Muse app to upgrade to the latest firmware version."
+          }
+        }
+      }
+    },
+    "INTERVENTION_MUSE_LICENSE" : {
+      "extractionState" : "migrated",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The headband's license is invalid. Please refer to the Muse app for more information."
+          }
+        }
+      }
+    },
+    "INTERVENTION_REQUIRED" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requires Intervention"
+          }
+        }
+      }
+    },
+    "INTERVENTION_REQUIRED_PREFIX %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intervention Required: %@"
+          }
+        }
+      }
+    },
+    "INTERVENTION_REQUIRED_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intervention Required"
+          }
+        }
+      }
+    },
+    "Keep Editing" : {
+
+    },
+    "LELAND_STANFORD_BIO" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Amasa Leland Stanford (March 9, 1824 – June 21, 1893) was an American industrialist and politician. [...] He and his wife Jane were also the founders of Stanford University, which they named after their late son.\n[https://en.wikipedia.org/wiki/Leland_Stanford]"
+          }
+        }
+      }
+    },
+    "LOGIN_SUBTITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) demonstrates the usage of the Firebase Account Module to enable different authentication services, including an email and password-based login."
+          }
+        }
+      }
+    },
+    "Logout" : {
+
+    },
+    "MEDIOCRE_FIT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mediocre"
+          }
+        }
+      }
+    },
+    "Micro-Volt" : {
+
+    },
+    "MOCK_UPLOAD_TAB_TITLE" : {
+      "comment" : "MARK: - Mock Upload Data Storage Provider",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mock Web Service"
+          }
+        }
+      }
+    },
+    "Name" : {
+
+    },
+    "NEARBY_DEVICES" : {
+      "comment" : "MARK: Nearby Devices",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearby Devices"
+          }
+        }
+      }
+    },
+    "NO" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
+    },
+    "No Patient selected" : {
+
+    },
+    "No Patients" : {
+
+    },
+    "NO_DEVICE_CONNECTED" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Device connected!"
+          }
+        }
+      }
+    },
+    "Notes" : {
+
+    },
+    "NOTIFICATION_PERMISSIONS_BUTTON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "NOTIFICATION_PERMISSIONS_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get notified through notifications when a new event of a task is scheduled."
+          }
+        }
+      }
+    },
+    "NOTIFICATION_PERMISSIONS_SUBTITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications for scheduled Tasks."
+          }
+        }
+      }
+    },
+    "NOTIFICATION_PERMISSIONS_TITLE" : {
+      "comment" : "MARK: Notifications",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        }
+      }
+    },
+    "Patient Id" : {
+
+    },
+    "Patients" : {
+      "comment" : "Patient List Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patients"
+          }
+        }
+      }
+    },
+    "Patients will appear here,\nonce they are added." : {
+
+    },
+    "POOR_FIT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "poor"
+          }
+        }
+      }
+    },
+    "Preview Modal" : {
+
+    },
+    "PROBLEMS_BATTERY_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Issues with your battery?"
+          }
+        }
+      }
+    },
+    "PROBLEMS_CONNECTING_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you have problems connecting?"
+          }
+        }
+      }
+    },
+    "PROBLEMS_HEADBAND_FIT_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Issues maintaining a good fit?"
+          }
+        }
+      }
+    },
+    "RESET" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
+    },
+    "SCHEDULE_LIST_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        }
+      }
+    },
+    "SCHEDULE_TAB_TITLE" : {
+      "comment" : "MARK: - Schedule",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        }
+      }
+    },
+    "Search for a patient" : {
+
+    },
+    "Seconds" : {
+
+    },
+    "Select a patient to continue." : {
+
+    },
+    "Select Patient" : {
+      "comment" : "Principal Select Patient Button placeholder"
+    },
+    "SERIAL_NUMBER" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Serial Number"
+          }
+        }
+      }
+    },
+    "Set Active" : {
+
+    },
+    "SIGN_UP_SUBTITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) demonstrates the usage of the Firebase Account Module to enable different authentication services, including an email and password-based sign-up."
+          }
+        }
+      }
+    },
+    "Start" : {
+
+    },
+    "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Questionnaire"
+          }
+        }
+      }
+    },
+    "TASK_CONTEXT_ACTION_TEST" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Test"
+          }
+        }
+      }
+    },
+    "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please fill out the Social Support Questionnaire every day."
+          }
+        }
+      }
+    },
+    "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Social Support Questionnaire"
+          }
+        }
+      }
+    },
+    "Theta" : {
+
+    },
+    "TROUBLESHOOTING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Troubleshooting"
+          }
+        }
+      }
+    },
+    "TURN_ON_HEADBAND_HINT" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure your headband is turned on and nearby."
+          }
+        }
+      }
+    },
+    "USER_VIEW_LOADING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading user information ..."
+          }
+        }
+      }
+    },
+    "WEARING" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wearing"
+          }
+        }
+      }
+    },
+    "WELCOME_AREA1_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The NAMS App helps you to manage multiple patients at once."
+          }
+        }
+      }
+    },
+    "WELCOME_AREA1_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patient Management"
+          }
+        }
+      }
+    },
+    "WELCOME_AREA2_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NAMS provides you with several questionnaires to assess conditions of your patients."
+          }
+        }
+      }
+    },
+    "WELCOME_AREA2_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questionnaires"
+          }
+        }
+      }
+    },
+    "WELCOME_AREA3_DESCRIPTION" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "NAMS offers integration with consumer-grade EEG headbands for easy and scalable EEG measurements."
+          }
+        }
+      }
+    },
+    "WELCOME_AREA3_TITLE" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EEG Recordings"
+          }
+        }
+      }
+    },
+    "WELCOME_BUTTON" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "WELCOME_TITLE" : {
+      "comment" : "MARK: Welcome",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neurodevelopment Assessment and Monitoring System (NAMS)"
+          }
+        }
+      }
+    },
+    "World" : {
+
+    },
+    "YES" : {
+      "comment" : "MARK: - General",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -21,6 +21,11 @@ struct ScheduleView: View {
     @State var presentingEEGMeasurements = false
     @State var presentPatientSheet = false
 
+
+    @State private var patientList = PatientListModel()
+    @AppStorage(StorageKeys.selectedPatient)
+    private var activePatientId: String?
+
     #if MUSE
     @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
     #else
@@ -34,16 +39,28 @@ struct ScheduleView: View {
 
 
     var body: some View {
+        // TODO optimize later!
+        // swiftlint:disable:next closure_body_length
         NavigationStack {
-            List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
-                Section(format(startOfDay: startOfDay)) {
-                    ForEach(eventContextsByDate[startOfDay] ?? [], id: \.event) { eventContext in
-                        EventContextView(eventContext: eventContext)
-                            .onTapGesture {
-                                if !eventContext.event.complete {
-                                    presentedContext = eventContext
-                                }
+            ZStack {
+                if activePatientId != nil {
+                    List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
+                        Section(format(startOfDay: startOfDay)) {
+                            ForEach(eventContextsByDate[startOfDay] ?? [], id: \.event) { eventContext in
+                                EventContextView(eventContext: eventContext)
+                                    .onTapGesture {
+                                        if !eventContext.event.complete {
+                                            presentedContext = eventContext
+                                        }
+                                    }
                             }
+                        }
+                    }
+                } else {
+                    NoInformationText {
+                        Text("No Patient selected")
+                    } caption: {
+                        Text("Select a patient to continue.")
                     }
                 }
             }
@@ -62,7 +79,7 @@ struct ScheduleView: View {
                     }
                 }
                 .sheet(isPresented: $presentPatientSheet) {
-                    PatientList()
+                    PatientListSheet(patientList: patientList, activePatientId: $activePatientId)
                 }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
                 .toolbar {
@@ -72,25 +89,22 @@ struct ScheduleView: View {
     }
 
     @ToolbarContentBuilder private var toolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Button(action: {
-                presentingMuseList = true
-            }) {
-                Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
-                    .accessibilityLabel("NEARBY_DEVICES")
+        if activePatientId != nil {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentingMuseList = true
+                }) {
+                    Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                        .accessibilityLabel("NEARBY_DEVICES")
+                }
             }
         }
+        
         ToolbarItem(placement: .principal) {
             Button(action: {
                 presentPatientSheet = true
             }, label: {
-                HStack {
-                    Text("Andreas Bauer")
-
-                    Image(systemName: "chevron.down.circle.fill")
-                        .symbolRenderingMode(.hierarchical)
-                }
-                // TODO accessibility
+                CurrentPatientLabel(activePatient: $activePatientId, patientList: patientList)
             })
         }
         if eegModel.activeDevice?.state == .connected {

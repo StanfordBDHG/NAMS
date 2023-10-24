@@ -13,12 +13,10 @@ struct PatientRow: View {
     var patient: Patient
 
     var body: some View {
-        let name = PersonNameComponents(givenName: patient.firstName, familyName: patient.lastName)
-
         HStack {
-            UserProfileView(name: name)
+            UserProfileView(name: patient.name)
                 .frame(height: 30)
-            Text(name.formatted(.name(style: .medium)))
+            Text(verbatim: patient.name.formatted(.name(style: .long)))
             Spacer()
         }
     }
@@ -27,7 +25,7 @@ struct PatientRow: View {
 #if DEBUG
 struct PatientRow_Previews: PreviewProvider {
     static var previews: some View {
-        PatientRow(patient: Patient(id: "1234", firstName: "Andreas", lastName: "Bauer"))
+        PatientRow(patient: Patient(id: "1234", name: .init(givenName: "Andreas", familyName: "Bauer")))
     }
 }
 #endif

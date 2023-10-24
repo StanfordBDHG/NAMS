@@ -143,7 +143,10 @@ struct EEGDeviceRow_Previews: PreviewProvider {
 
         NavigationStack {
             List {
-                EEGDeviceRow(eegModel: EEGViewModel(deviceManager: MockDeviceManager()), device: MockEEGDevice(name: "Nearby Device", model: "Mock"))
+                EEGDeviceRow(
+                    eegModel: EEGViewModel(deviceManager: MockDeviceManager()),
+                    device: MockEEGDevice(name: "Nearby Device", model: "Mock")
+                )
             }
         }
 

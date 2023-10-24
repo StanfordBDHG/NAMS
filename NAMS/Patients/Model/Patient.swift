@@ -6,18 +6,24 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseFirestoreSwift
 import Foundation
 
-struct Patient: Identifiable, Hashable { // TODO hashable implementation
-    let id: String
-    let firstName: String
-    let lastName: String
-    let active: Bool
 
-    init(id: String, firstName: String, lastName: String, active: Bool = false) {
+struct Patient: Codable, Identifiable, Hashable {
+    @DocumentID var id: String?
+    let name: PersonNameComponents
+    let note: String?
+
+
+    init(id: String, name: PersonNameComponents, note: String? = nil) {
         self.id = id
-        self.firstName = firstName
-        self.lastName = lastName
-        self.active = active
+        self.name = name
+        self.note = note
+    }
+
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

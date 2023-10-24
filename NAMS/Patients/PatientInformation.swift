@@ -9,28 +9,44 @@
 import SpeziViews
 import SwiftUI
 
+
 struct PatientInformation: View {
-    var patient: Patient
+    private let patient: Patient
+
+    @Binding private var activePatientId: String?
 
     var body: some View {
-        let name = PersonNameComponents(givenName: patient.firstName, familyName: patient.lastName)
-
-        HStack {
-            UserProfileView(name: name)
-                .frame(height: 30)
-            Group {
-                Text(name.formatted(.name(style: .medium)))
-                Spacer()
+        List {
+            HStack {
+                UserProfileView(name: patient.name)
+                    .frame(height: 30)
+                Group {
+                    Text(verbatim: patient.name.formatted(.name(style: .long)))
+                    Spacer()
+                }
+                .foregroundColor(.primary)
             }
-            .foregroundColor(.primary)
+
+            Button(action: {
+                activePatientId = patient.id
+            }) {
+                Text("Set Active")
+            }
         }
+    }
+
+
+    init(patient: Patient, activePatientId: Binding<String?>) {
+        self.patient = patient
+        self._activePatientId = activePatientId
     }
 }
 
 #if DEBUG
-struct PatientInformation_Previews: PreviewProvider {
-    static var previews: some View {
-        PatientInformation(patient: Patient(id: "1234", firstName: "Andreas", lastName: "Bauer"))
-    }
+#Preview {
+    PatientInformation(
+        patient: Patient(id: "1234", name: .init(givenName: "Andreas", familyName: "Bauer")),
+        activePatientId: .constant(nil)
+    )
 }
 #endif
