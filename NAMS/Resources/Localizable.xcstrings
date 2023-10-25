@@ -31,6 +31,16 @@
         }
       }
     },
+    "%@, Patient Details" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, Patient Details"
+          }
+        }
+      }
+    },
     "ABOUT" : {
       "localizations" : {
         "en" : {
@@ -771,6 +781,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Patient Id"
+          }
+        }
+      }
+    },
+    "Patient Overview" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patient Overview"
           }
         }
       }
