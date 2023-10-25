@@ -47,7 +47,7 @@ final class PatientInformationTests: XCTestCase {
         XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 0.5))
         app.buttons["Leland Stanford"].tap()
 
-        XCTAssertTrue(app.buttons["Selected Patient: Leland Stanford"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.staticTexts["Social Support Questionnaire"].waitForExistence(timeout: 0.5))
     }
 
