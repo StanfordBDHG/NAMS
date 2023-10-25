@@ -17,7 +17,7 @@ extension IXNMuse: EEGDevice {
         getMacAddress()
     }
 
-    var newPatient: String {
+    var model: String {
         getModel().description
     }
 

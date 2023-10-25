@@ -215,8 +215,12 @@
 		A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */; };
 		A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
-		A9EC7C012AE734BF003D572E /* Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EC7C002AE734BF003D572E /* Alphabet.swift */; };
-		A9EC7C022AE734BF003D572E /* Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EC7C002AE734BF003D572E /* Alphabet.swift */; };
+		A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
+		A9DF79DF2AE8A81F00AB5983 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
+		A9DF79E02AE8A82100AB5983 /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
+		A9DF79E12AE8A82300AB5983 /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
+		A9DF79E22AE8A82600AB5983 /* PatientInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FE89AC206431F90166 /* PatientInformation.swift */; };
+		A9DF79E32AE8A82B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -340,7 +344,6 @@
 		A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInformationText.swift; sourceTree = "<group>"; };
 		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
-		A9EC7C002AE734BF003D572E /* Alphabet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -676,7 +679,6 @@
 				A989112C2A36687B00E66E3A /* PatientListSheet.swift */,
 				A989112E2A36688A00E66E3A /* PatientRow.swift */,
 				2DC174FE89AC206431F90166 /* PatientInformation.swift */,
-				A9EC7C002AE734BF003D572E /* Alphabet.swift */,
 				2DC17A06799FC1470D4DDC0D /* PatientList.swift */,
 				A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */,
 				A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */,
@@ -977,7 +979,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9EC7C012AE734BF003D572E /* Alphabet.swift in Sources */,
 				A926D8302AB7B430000C4C2F /* EEGViewModel.swift in Sources */,
 				A926D7FF2AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */,
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
@@ -1094,8 +1095,10 @@
 				A926D7802AB7A552000C4C2F /* AccountSetup.swift in Sources */,
 				A926D7812AB7A552000C4C2F /* MockUpload.swift in Sources */,
 				A9BCB58A2AE83F7E00DA8588 /* PatientListModel.swift in Sources */,
+				A9DF79DF2AE8A81F00AB5983 /* AddPatientView.swift in Sources */,
 				A926D8082AB7B41C000C4C2F /* EEGChannel+Muse.swift in Sources */,
 				A926D8232AB7B430000C4C2F /* EEGRecording.swift in Sources */,
+				A9DF79E02AE8A82100AB5983 /* PatientListSheet.swift in Sources */,
 				A926D7822AB7A552000C4C2F /* NotificationPermissions.swift in Sources */,
 				A926D7832AB7A552000C4C2F /* NAMSSignUp.swift in Sources */,
 				A926D7852AB7A552000C4C2F /* UserView.swift in Sources */,
@@ -1105,6 +1108,7 @@
 				A926D7882AB7A552000C4C2F /* Binding+Negate.swift in Sources */,
 				A926D7892AB7A552000C4C2F /* NAMSLogin.swift in Sources */,
 				A926D78A2AB7A552000C4C2F /* ProcessInfo+PreviewSimulator.swift in Sources */,
+				A9DF79E32AE8A82B00AB5983 /* SelectedPatientCard.swift in Sources */,
 				A926D82B2AB7B430000C4C2F /* EEGChart.swift in Sources */,
 				A926D8212AB7B430000C4C2F /* EEGChannelMark.swift in Sources */,
 				A926D78B2AB7A552000C4C2F /* OnboardingFlow+PreviewSimulator.swift in Sources */,
@@ -1115,6 +1119,7 @@
 				A926D81B2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,
 				A926D78E2AB7A552000C4C2F /* OnboardingFlow.swift in Sources */,
 				A9BCB5842AE830FB00DA8588 /* NewPatientModel.swift in Sources */,
+				A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */,
 				A926D78F2AB7A552000C4C2F /* IconView.swift in Sources */,
 				A926D82D2AB7B430000C4C2F /* DeviceManager.swift in Sources */,
 				A926D7902AB7A552000C4C2F /* NAMSStandard.swift in Sources */,
@@ -1133,6 +1138,7 @@
 				A9BCB5802AE82FFC00DA8588 /* PatientSearchModel.swift in Sources */,
 				A926D79A2AB7A552000C4C2F /* NAMSAppDelegate.swift in Sources */,
 				A926D79B2AB7A552000C4C2F /* NAMSScheduler.swift in Sources */,
+				A9DF79E22AE8A82600AB5983 /* PatientInformation.swift in Sources */,
 				A926D81D2AB7B430000C4C2F /* EEGDeviceRow.swift in Sources */,
 				A926D79C2AB7A552000C4C2F /* NAMSApp.swift in Sources */,
 				A926D79D2AB7A552000C4C2F /* Contacts.swift in Sources */,
@@ -1158,9 +1164,9 @@
 				2DC17128D81F6CF06F65FFD4 /* MuseConnectionListener.swift in Sources */,
 				2DC17644A07BC415B89BDACA /* Fit.swift in Sources */,
 				2DC17FB80AB25F5356A59FEE /* HeadbandFit+Muse.swift in Sources */,
+				A9DF79E12AE8A82300AB5983 /* PatientRow.swift in Sources */,
 				2DC17CEE255C54119538D254 /* HeadbandFit.swift in Sources */,
 				2DC176E7B29173393F43A357 /* MockEEGDevice.swift in Sources */,
-				A9EC7C022AE734BF003D572E /* Alphabet.swift in Sources */,
 				2DC17DA28E7F6C4330CDB7FC /* EEGViewModel+ActiveMock.swift in Sources */,
 				2DC179F4A6B69C07C1A440D2 /* EEGMeasurementGenerator.swift in Sources */,
 				2DC17686B3AEB09A8F60AB8E /* PatientList.swift in Sources */,
@@ -1312,7 +1318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 484YT3X9X7;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1342,7 +1348,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1365,12 +1371,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
+				DEVELOPMENT_TEAM = 484YT3X9X7;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1400,10 +1404,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Neurodevelopment Assessment and Monitoring System";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1504,7 +1507,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 484YT3X9X7;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1538,7 +1541,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1562,12 +1565,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
+				DEVELOPMENT_TEAM = 484YT3X9X7;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1598,10 +1599,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Neurodevelopment Assessment and Monitoring System";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

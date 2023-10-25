@@ -23,12 +23,16 @@ struct PatientInformation: View {
 
     @Binding private var activePatientId: String?
 
+    private var name: String {
+        patient.name.formatted(.name(style: .long))
+    }
+
     var body: some View {
         List {
             VStack {
                 UserProfileView(name: patient.name)
                     .frame(height: 60)
-                Text(verbatim: patient.name.formatted(.name(style: .long)))
+                Text(verbatim: name)
                     .foregroundColor(.primary)
                     .font(.title)
                     .fontWeight(.semibold)
@@ -36,6 +40,9 @@ struct PatientInformation: View {
                 .frame(maxWidth: .infinity)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowBackground(Color.clear)
+                .accessibilityRepresentation {
+                    Text(verbatim: name)
+                }
 
             if let note = patient.note {
                 Section("Notes") {

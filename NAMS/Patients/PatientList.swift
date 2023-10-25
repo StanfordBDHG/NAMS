@@ -28,7 +28,7 @@ struct PatientList: View {
         }) ?? 0
     }
 
-    var body: some View { // TODO scroll view stuff https://www.fivestars.blog/articles/section-title-index-swiftui/
+    var body: some View {
         if let patients {
             let searchResults = searchModel.search(in: patients)
 
@@ -42,9 +42,10 @@ struct PatientList: View {
                 List {
                     if let selectedPatient = patientList.activePatient, activePatientId != nil {
                         Section {
-                            SelectedPatientCard(patient: selectedPatient)
+                            SelectedPatientCard(patient: selectedPatient, activePatientId: $activePatientId)
                         }
                     }
+
                     if displayedCount < 6 {
                         patientRows(searchResults.reduce(into: [], { result, element in
                             result.append(contentsOf: element.value)
@@ -65,7 +66,7 @@ struct PatientList: View {
                 }
                     .toolbar {
                         ToolbarItem(placement: .primaryAction) {
-                            EditButton() // TODO i think we need to place it somewhere else!
+                            EditButton()
                         }
                     }
                     .listStyle(.inset)
@@ -106,7 +107,26 @@ struct PatientList: View {
 }
 
 #if DEBUG
-// TODO preview with more people!
+#Preview {
+    NavigationStack {
+        PatientList(
+            patients: [
+                "A": [Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))],
+                "E": [Patient(id: "6", name: .init(givenName: "Erik", familyName: "Gross"))],
+                "J": [Patient(id: "4", name: .init(givenName: "John", familyName: "Smith"))],
+                "L": [
+                    Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford")),
+                    Patient(id: "5", name: .init(givenName: "Lola", familyName: "Woodard"))
+                ],
+                "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
+            ],
+            viewState: .constant(.idle),
+            activePatientId: .constant("1")
+        )
+            .environment(PatientSearchModel())
+            .environment(PatientListModel())
+    }
+}
 #Preview {
     NavigationStack {
         PatientList(

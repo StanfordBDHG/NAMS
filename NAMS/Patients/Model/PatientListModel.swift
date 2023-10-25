@@ -40,6 +40,7 @@ class PatientListModel {
     func retrieveList(viewState: Binding<ViewState>) {
         closeList()
 
+        // for ordered queries, Firebase requires an index that is to be created manually
         patientListListener = patientsCollection
             .order(by: "name.givenName")
             .order(by: "name.familyName")

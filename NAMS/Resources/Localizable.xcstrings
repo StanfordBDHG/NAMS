@@ -472,7 +472,6 @@
       }
     },
     "INTERVENTION_MUSE_LICENSE" : {
-      "extractionState" : "migrated",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -646,9 +645,6 @@
         }
       }
     },
-    "Patient" : {
-
-    },
     "Patient Details" : {
 
     },
@@ -759,6 +755,9 @@
       "comment" : "Selected Patient"
     },
     "Selected Patient" : {
+
+    },
+    "Selected Patient: %@" : {
 
     },
     "SERIAL_NUMBER" : {

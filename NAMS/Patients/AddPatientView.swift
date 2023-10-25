@@ -21,7 +21,8 @@ struct AddPatientView: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    @Environment(PatientListModel.self) private var patientList
+    @Environment(PatientListModel.self)
+    private var patientList
 
     @State private var newPatient = NewPatientModel()
     @State private var viewState: ViewState = .idle

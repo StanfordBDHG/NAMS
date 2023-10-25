@@ -13,32 +13,49 @@ import SwiftUI
 struct SelectedPatientCard: View {
     private let patient: Patient
 
+    @Binding private var activePatientId: String?
+
+    private var name: String {
+        patient.name.formatted(.name(style: .long))
+    }
+
     var body: some View {
-        HStack {
-            UserProfileView(name: patient.name)
-                .frame(height: 50)
-            VStack(alignment: .leading) {
-                Text(verbatim: patient.name.formatted(.name(style: .long)))
-                    .foregroundColor(.primary)
-                    .bold()
-                Text("Selected Patient")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-            }
+        NavigationLink {
+            PatientInformation(patient: patient, activePatientId: $activePatientId)
+        } label: {
+            HStack {
+                UserProfileView(name: patient.name)
+                    .frame(height: 50)
+                VStack(alignment: .leading) {
+                    Text(verbatim: name)
+                        .foregroundColor(.primary)
+                        .bold()
+                    Text("Selected Patient")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
                 .padding(.leading, 8)
-            Spacer()
+                Spacer()
+            }
         }
+            .accessibilityLabel("Selected Patient: \(name)")
     }
 
 
-    init(patient: Patient) {
+    init(patient: Patient, activePatientId: Binding<String?>) {
         self.patient = patient
+        self._activePatientId = activePatientId
     }
 }
 
 #Preview {
-    List {
-        SelectedPatientCard(patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")))
+    NavigationStack {
+        List {
+            SelectedPatientCard(
+                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
+                activePatientId: .constant("1")
+            )
+        }
+            .listStyle(.inset)
     }
-        .listStyle(.inset)
 }

@@ -31,12 +31,10 @@ struct PatientRow: View {
             }
             .accessibilityRepresentation {
                 let button = Button(action: selectPatientAction) {
-                    if patient.isSelectedPatient(active: activePatientId) {
-                        Text("Selected Patient")
-                    } else {
-                        Text("Patient")
-                    }
                     Text(verbatim: patient.name.formatted(.name(style: .long)))
+                    if patient.isSelectedPatient(active: activePatientId) {
+                        Text("Selected", comment: "Selected Patient")
+                    }
                 }
 
                 // accessibility actions cannot be unit tested
