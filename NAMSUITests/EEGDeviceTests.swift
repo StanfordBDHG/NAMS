@@ -47,7 +47,6 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.buttons["Mock, Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
-        print(app.buttons.debugDescription)
         app.buttons["Device Details"].tap()
 
 
@@ -55,7 +54,6 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.navigationBars.staticTexts["Mock"].waitForExistence(timeout: 2.0))
 
 
-        print(app.staticTexts.debugDescription)
         XCTAssertTrue(app.staticTexts["Battery, 75 %"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.staticTexts["Issues with your battery? Troubleshooting"].waitForExistence(timeout: 0.5))
 

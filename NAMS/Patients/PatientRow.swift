@@ -21,6 +21,10 @@ struct PatientRow: View {
     @State private var showPatientDetails = false
     @Binding private var activePatientId: String?
 
+    private var patientName: String {
+        patient.name.formatted(.name(style: .long))
+    }
+
     var body: some View {
         HStack {
             selectPatientButton
@@ -31,7 +35,7 @@ struct PatientRow: View {
             }
             .accessibilityRepresentation {
                 let button = Button(action: selectPatientAction) {
-                    Text(verbatim: patient.name.formatted(.name(style: .long)))
+                    Text(verbatim: patientName)
                     if patient.isSelectedPatient(active: activePatientId) {
                         Text("Selected", comment: "Selected Patient")
                     }
@@ -46,6 +50,7 @@ struct PatientRow: View {
                         button
                             .frame(maxWidth: .infinity)
                         detailsButton
+                            .accessibilityLabel("\(patientName), Patient Details")
                     }
                 }
             }
@@ -56,7 +61,7 @@ struct PatientRow: View {
             HStack {
                 UserProfileView(name: patient.name)
                     .frame(height: 30)
-                Text(verbatim: patient.name.formatted(.name(style: .long)))
+                Text(verbatim: patientName)
                     .foregroundColor(.primary)
                 Spacer()
 

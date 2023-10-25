@@ -85,9 +85,13 @@ class PatientListModel {
         }
     }
 
-    func remove(patientId: String, viewState: Binding<ViewState>) async {
+    func remove(patientId: String, viewState: Binding<ViewState>, activePatientId: Binding<String?>) async {
         if let activePatient, activePatient.id == patientId {
             removeActivePatientListener()
+        }
+
+        if patientId == activePatientId.wrappedValue {
+            activePatientId.wrappedValue = nil
         }
 
         do {
@@ -157,6 +161,11 @@ class PatientListModel {
     private func setupTestAccount() async {
         let email = "test@nams.stanford.edu"
         let password = "123456789"
+
+        if let user = Auth.auth().currentUser,
+           user.email == email {
+            return
+        }
 
         do {
             do {

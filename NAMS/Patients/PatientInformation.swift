@@ -58,6 +58,7 @@ struct PatientInformation: View {
             deleteButton
         }
             .viewStateAlert(state: $viewState)
+            .navigationTitle("Patient Overview")
     }
 
     @ViewBuilder private var selectButton: some View {
@@ -92,7 +93,7 @@ struct PatientInformation: View {
                             return
                         }
 
-                        await patientList.remove(patientId: patientId, viewState: $viewState)
+                        await patientList.remove(patientId: patientId, viewState: $viewState, activePatientId: $activePatientId)
                         dismiss()
                     }) {
                         Text("Delete")

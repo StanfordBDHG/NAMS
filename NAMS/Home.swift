@@ -52,7 +52,10 @@ struct HomeView: View {
             .viewStateAlert(state: $viewState)
             .onAppear {
                 if FeatureFlags.injectDefaultPatient {
-                    activePatientId = "default-patient"
+                    let patientId = "default-patient"
+                    activePatientId = patientId
+                    patientList.loadActivePatientWithTestAccount(for: patientId, viewState: $viewState)
+                    return
                 }
 
                 handlePatientIdChange()
@@ -76,11 +79,7 @@ struct HomeView: View {
         }
 
         if let activePatientId {
-            if FeatureFlags.injectDefaultPatient {
-                patientList.loadActivePatientWithTestAccount(for: activePatientId, viewState: $viewState)
-            } else {
-                patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
-            }
+            patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
         } else {
             patientList.removeActivePatientListener()
         }

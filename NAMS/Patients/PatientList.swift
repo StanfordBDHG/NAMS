@@ -99,7 +99,7 @@ struct PatientList: View {
                         }
 
 
-                        await patientList.remove(patientId: patientId, viewState: $viewState)
+                        await patientList.remove(patientId: patientId, viewState: $viewState, activePatientId: $activePatientId)
                     }
                 }
             }
