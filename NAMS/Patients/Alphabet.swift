@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct AlphabetSort2: View {
-    // TODO see https://www.fivestars.blog/articles/section-title-index-swiftui/
-    // => with
     let alphabet = ["A", "B", "C", "D", "M", "Z"]
     let values = ["Avalue", "Bvalue", "Cvalue", "Dvalue", "Mvalue", "Zvalue"]
     var body: some View {

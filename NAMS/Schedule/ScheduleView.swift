@@ -39,7 +39,6 @@ struct ScheduleView: View {
 
 
     var body: some View {
-        // TODO optimize later!
         // swiftlint:disable:next closure_body_length
         NavigationStack {
             ZStack {
@@ -79,7 +78,8 @@ struct ScheduleView: View {
                     }
                 }
                 .sheet(isPresented: $presentPatientSheet) {
-                    PatientListSheet(patientList: patientList, activePatientId: $activePatientId)
+                    PatientListSheet(activePatientId: $activePatientId)
+                        .environment(patientList)
                 }
                 .navigationTitle("SCHEDULE_LIST_TITLE")
                 .toolbar {
@@ -99,7 +99,7 @@ struct ScheduleView: View {
                 }
             }
         }
-        
+
         ToolbarItem(placement: .principal) {
             Button(action: {
                 presentPatientSheet = true

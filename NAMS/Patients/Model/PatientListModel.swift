@@ -9,62 +9,67 @@
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-import Observation
+import OrderedCollections
+import OSLog
 import SpeziFirestore
+import SpeziViews
+import SwiftUI
 
 
+@MainActor
 @Observable
 class PatientListModel {
+    static let logger = Logger(subsystem: "edu.stanford.NAMS", category: "PatientListModel")
+
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
     var activePatient: Patient?
+
+    var categorizedPatients: OrderedDictionary<Character, [Patient]> = [:]
 
     @ObservationIgnored var patientListListener: ListenerRegistration?
     @ObservationIgnored var activePatientListener: ListenerRegistration?
 
     private var patientsCollection: CollectionReference {
-        get throws {
-            guard let user = Auth.auth().currentUser else { // TODO rewrite!
-                throw NAMSStandard.TemplateApplicationStandardError.userNotAuthenticatedYet
-            }
-
-            return Firestore.firestore().collection("patients")
-        }
+        Firestore.firestore().collection("patients")
     }
+
 
     init() {}
 
 
-    func retrieveList() throws {
+    func retrieveList(viewState: Binding<ViewState>) {
         closeList()
-        // TODO verify app background1
 
-        // TODO either set the patientlist or an error!
-        patientListListener = try patientsCollection
+        patientListListener = patientsCollection
+            .order(by: "name.givenName")
+            .order(by: "name.familyName")
             .addSnapshotListener { snapshot, error in
-                // TODO check empty stuff?
                 guard let snapshot else {
-                    // TODO set the view state!
-                    print("Encountered fetching document: \(error)")
+                    Self.logger.error("Failed to retrieve patient list: \(error)")
+                    viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping
                     return
                 }
 
                 do {
-                    self.patientList = try snapshot.documents.map { document in
-                        print("Patient: \(document.data())") // TODO remove!
-                        return try document.data(as: Patient.self)
+                    let patientList = try snapshot.documents.map { document in
+                        try document.data(as: Patient.self)
                     }
+                    self.patientList = patientList
+                    self.categorizedPatients = patientList.reduce(into: [:], { result, patient in
+                        if let character = patient.firstLetter {
+                            result[character, default: []].append(patient)
+                        }
+                    })
                 } catch {
-                    print("mapping documents: \(error)")
-                    // TODO this are only codable errors!
+                    if error is DecodingError {
+                        Self.logger.error("Failed to decode patient list: \(error)")
+                        viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                    } else {
+                        Self.logger.error("Unexpected error occurred while decoding patient list: \(error)")
+                        viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                    }
                 }
             }
-    }
-
-    func closeList() {
-        if let patientListListener {
-            patientListListener.remove()
-            self.patientListListener = nil
-        }
     }
 
     func add(patient: NewPatientModel) async throws {
@@ -74,27 +79,52 @@ class PatientListModel {
             try await patientsCollection
                 .addDocument(from: patient)
         } catch {
+            Self.logger.error("Failed to add new patient information: \(error)")
             throw FirestoreError(error)
-            // TODO encoding errors?
         }
     }
 
-    func loadActivePatient(for id: String) throws {
+    func remove(patientId: String, viewState: Binding<ViewState>) async {
+        if let activePatient, activePatient.id == patientId {
+            removeActivePatientListener()
+        }
+
+        do {
+            Self.logger.info("Deleting patient with ")
+            try await patientsCollection.document(patientId).delete()
+        } catch {
+            viewState.wrappedValue = .error(FirestoreError(error))
+        }
+    }
+
+    func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
         removeActivePatientListener()
 
-        // TODO unregister!
-        self.activePatientListener = try patientsCollection.document(id).addSnapshotListener { snapshot, error in
+        self.activePatientListener = patientsCollection.document(id).addSnapshotListener { snapshot, error in
             guard let snapshot else {
-                print("Error fetching active patient: \(error)")
+                Self.logger.error("Failed to retrieve active patient: \(error)")
+                viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping
                 return
             }
 
             do {
                 self.activePatient = try snapshot.data(as: Patient.self)
             } catch {
-                print("mapping documents: \(error)")
-                // TODO this are only codable errors
+                if error is DecodingError {
+                    Self.logger.error("Failed to decode patient list: \(error)")
+                    viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                } else {
+                    Self.logger.error("Unexpected error occurred while decoding patient list: \(error)")
+                    viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                }
             }
+        }
+    }
+
+    func closeList() {
+        if let patientListListener {
+            patientListListener.remove()
+            self.patientListListener = nil
         }
     }
 
@@ -102,24 +132,6 @@ class PatientListModel {
         if let activePatientListener {
             activePatientListener.remove()
             self.activePatientListener = nil
-        }
-    }
-
-    func retrievePatient(for id: String) async throws -> Patient {
-        fatalError("Whatever!")
-    }
-
-    func retrievePatients() async throws -> [Patient] {
-        // TODO this needs heavy optimization
-        do {
-            // TODO realtime updates! https://firebase.google.com/docs/firestore/query-data/listen
-            let documents = try await patientsCollection.getDocuments().documents
-
-            return try documents.map { document in
-                try document.data(as: Patient.self)
-            }
-        } catch {
-            throw FirestoreError(error) // TODO are we mapping decoding errors?
         }
     }
 }

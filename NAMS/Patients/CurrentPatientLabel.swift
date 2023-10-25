@@ -6,16 +6,19 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziViews
 import SwiftUI
 
 
 struct CurrentPatientLabel: View {
-    @Binding private var activePatientId: String? // TODO no binding needed right?
+    @Binding private var activePatientId: String?
     private let patientList: PatientListModel
+
+    @State private var viewState: ViewState = .idle
 
     var body: some View {
         HStack {
-            if let patient = patientList.activePatient {
+            if let patient = patientList.activePatient, activePatientId != nil {
                 Text(verbatim: patient.name.formatted(.name(style: .medium)))
                     .fontWeight(.medium)
             } else {
@@ -29,22 +32,18 @@ struct CurrentPatientLabel: View {
                 .accessibilityHidden(true)
         }
             .foregroundColor(.primary)
+            .viewStateAlert(state: $viewState)
             .onAppear(perform: handlePatientIdChange)
-            .onChange(of: activePatientId, handlePatientIdChange)
             .onDisappear {
                 patientList.removeActivePatientListener()
             }
-        /*
-         HStack {
-         Text("Andreas Bauer")
-
-         Image(systemName: "chevron.down.circle.fill")
-         .symbolRenderingMode(.hierarchical)
-         .accessibilityHidden(true)
-         // TODO visuals!
-         }
-         .accessibilityLabel("Selected Patient: Andreas Bauer")
-         */
+            .onChange(of: activePatientId, handlePatientIdChange)
+            .onChange(of: viewState) { oldValue, newValue in
+                if case .error = oldValue,
+                   case .idle = newValue {
+                    activePatientId = nil // reset the current patient on an error
+                }
+            }
     }
 
 
@@ -54,21 +53,21 @@ struct CurrentPatientLabel: View {
     }
 
 
+    @MainActor
     func handlePatientIdChange() {
         if let activePatientId {
-            do {
-                try patientList.loadActivePatient(for: activePatientId)
-            } catch {
-                print("ASDDF \(error)") // TODO error handling!
-            }
+            patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
+        } else {
+            patientList.removeActivePatientListener()
         }
     }
 }
 
 
-// TODO previews
+#if DEBUG
 #Preview {
     Button(action: {}) {
         CurrentPatientLabel(activePatient: .constant(nil), patientList: PatientListModel())
     }
 }
+#endif

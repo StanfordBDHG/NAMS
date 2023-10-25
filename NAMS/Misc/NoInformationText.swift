@@ -33,6 +33,8 @@ struct NoInformationText<Header: View, Caption: View>: View {
     }
 }
 
+
+#if DEBUG
 #Preview {
     NoInformationText {
         Text("No Information")
@@ -40,3 +42,4 @@ struct NoInformationText<Header: View, Caption: View>: View {
         Text("Please add information to show some information.")
     }
 }
+#endif

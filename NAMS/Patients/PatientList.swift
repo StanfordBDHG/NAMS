@@ -6,16 +6,32 @@
 // SPDX-License-Identifier: MIT
 //
 
+import OrderedCollections
+import SpeziViews
 import SwiftUI
 
 
 struct PatientList: View {
-    private let patients: [Patient]? // swiftlint:disable:this discouraged_optional_collection
-    private let searchModel: PatientSearchModel
+    private let patients: OrderedDictionary<Character, [Patient]>?
 
-    var body: some View {
+    @Environment(PatientListModel.self)
+    private var patientList
+    @Environment(PatientSearchModel.self)
+    private var searchModel
+
+    @Binding private var viewState: ViewState
+    @Binding private var activePatientId: String?
+
+    private var displayedCount: Int {
+        patients?.reduce(into: 0, { result, element in
+            result += element.value.count
+        }) ?? 0
+    }
+
+    var body: some View { // TODO scroll view stuff https://www.fivestars.blog/articles/section-title-index-swiftui/
         if let patients {
             let searchResults = searchModel.search(in: patients)
+
             if searchResults.isEmpty {
                 NoInformationText {
                     Text("No Patients")
@@ -24,18 +40,35 @@ struct PatientList: View {
                 }
             } else {
                 List {
-                    ForEach(searchResults) { patient in
-                        NavigationLink(value: patient) {
-                            // TODO we want to select the global patient!
-                            PatientRow(patient: patient)
+                    if let selectedPatient = patientList.activePatient, activePatientId != nil {
+                        Section {
+                            SelectedPatientCard(patient: selectedPatient)
                         }
                     }
-                        // TODO we need a model!
-                        .onDelete { indexSet in
-                            // TODO delete!
-                            print("Deleted \(indexSet.sorted())")
+                    if displayedCount < 6 {
+                        patientRows(searchResults.reduce(into: [], { result, element in
+                            result.append(contentsOf: element.value)
+                        }))
+                    } else {
+                        ForEach(searchResults.elements, id: \.key) { letter, patients in
+                            if patients.isEmpty {
+                                EmptyView()
+                            } else {
+                                Section {
+                                    patientRows(patients)
+                                } header: {
+                                    Text(verbatim: "\(letter)")
+                                }
+                            }
                         }
+                    }
                 }
+                    .toolbar {
+                        ToolbarItem(placement: .primaryAction) {
+                            EditButton() // TODO i think we need to place it somewhere else!
+                        }
+                    }
+                    .listStyle(.inset)
             }
         } else {
             ProgressView()
@@ -43,30 +76,61 @@ struct PatientList: View {
     }
 
 
-    init(patients: [Patient]?, searchModel: PatientSearchModel) {
+    init(patients: OrderedDictionary<Character, [Patient]>?, viewState: Binding<ViewState>, activePatientId: Binding<String?>) {
         self.patients = patients
-        self.searchModel = searchModel
+        self._viewState = viewState
+        self._activePatientId = activePatientId
+    }
+
+
+    @MainActor
+    @ViewBuilder
+    func patientRows(_ patients: [Patient]) -> some View {
+        ForEach(patients) { patient in
+            PatientRow(patient: patient, activePatientId: $activePatientId)
+        }
+            .onDelete { indexSet in
+                Task {
+                    for index in indexSet {
+                        let patient = patients[index]
+                        guard let patientId = patient.id else {
+                            continue // this is a problem!
+                        }
+
+
+                        await patientList.remove(patientId: patientId, viewState: $viewState)
+                    }
+                }
+            }
     }
 }
 
 #if DEBUG
+// TODO preview with more people!
 #Preview {
     NavigationStack {
-        PatientList(patients: [
-            Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
-            Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer")),
-            Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford"))
-        ], searchModel: PatientSearchModel())
-            .navigationDestination(for: Patient.self) { patient in // TODO use a destination view in the link instead?
-                PatientInformation(patient: patient, activePatientId: .constant(nil))
-            }
+        PatientList(
+            patients: [
+                "A": [Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))],
+                "L": [Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford"))],
+                "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
+            ],
+            viewState: .constant(.idle),
+            activePatientId: .constant("1")
+        )
+            .environment(PatientSearchModel())
+            .environment(PatientListModel())
     }
 }
 #Preview {
-    PatientList(patients: [], searchModel: PatientSearchModel())
+    PatientList(patients: [:], viewState: .constant(.idle), activePatientId: .constant(nil))
+        .environment(PatientSearchModel())
+        .environment(PatientListModel())
 }
 
 #Preview {
-    PatientList(patients: nil, searchModel: PatientSearchModel())
+    PatientList(patients: nil, viewState: .constant(.idle), activePatientId: .constant(nil))
+        .environment(PatientSearchModel())
+        .environment(PatientListModel())
 }
 #endif

@@ -322,6 +322,9 @@
         }
       }
     },
+    "Delete Patient Information" : {
+
+    },
     "DEVICE_DETAILS" : {
       "localizations" : {
         "en" : {
@@ -643,6 +646,12 @@
         }
       }
     },
+    "Patient" : {
+
+    },
+    "Patient Details" : {
+
+    },
     "Patient Id" : {
 
     },
@@ -746,6 +755,12 @@
     "Select Patient" : {
       "comment" : "Principal Select Patient Button placeholder"
     },
+    "Selected" : {
+      "comment" : "Selected Patient"
+    },
+    "Selected Patient" : {
+
+    },
     "SERIAL_NUMBER" : {
       "localizations" : {
         "en" : {
@@ -755,9 +770,6 @@
           }
         }
       }
-    },
-    "Set Active" : {
-
     },
     "SIGN_UP_SUBTITLE" : {
       "localizations" : {

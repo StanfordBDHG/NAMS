@@ -214,6 +214,7 @@
 		A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */; };
+		A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 		A9EC7C012AE734BF003D572E /* Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EC7C002AE734BF003D572E /* Alphabet.swift */; };
 		A9EC7C022AE734BF003D572E /* Alphabet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9EC7C002AE734BF003D572E /* Alphabet.swift */; };
 /* End PBXBuildFile section */
@@ -338,6 +339,7 @@
 		A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPatientLabel.swift; sourceTree = "<group>"; };
 		A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInformationText.swift; sourceTree = "<group>"; };
 		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
+		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9EC7C002AE734BF003D572E /* Alphabet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphabet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -677,6 +679,7 @@
 				A9EC7C002AE734BF003D572E /* Alphabet.swift */,
 				2DC17A06799FC1470D4DDC0D /* PatientList.swift */,
 				A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */,
+				A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */,
 			);
 			path = Patients;
 			sourceTree = "<group>";
@@ -995,6 +998,7 @@
 				2FE5DCB229EE6107004B9AB4 /* NAMSLogin.swift in Sources */,
 				A916ADD72AB62012006960DF /* ProcessInfo+PreviewSimulator.swift in Sources */,
 				A926D82A2AB7B430000C4C2F /* EEGChart.swift in Sources */,
+				A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */,
 				A926D8202AB7B430000C4C2F /* EEGChannelMark.swift in Sources */,
 				A916ADD92AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift in Sources */,
 				A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */,

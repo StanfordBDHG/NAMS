@@ -62,7 +62,7 @@ The application includes the following feature flags that can be configured in t
 - ``--disableFirebase``: Disables the Firebase interactions, including the login/sign-up step and the Firebase Firestore upload.
 - ``--useFirebaseEmulator``: Defines if the application should connect to the local firebase emulator. Always set to true when using the iOS simulator.
 - ``--testSchedule``: Adds a test task to the schedule at the current time.
-- ``-testBLEDevices``: Controls some behavioral differences in the BLE device subsystem when unit testing.
+- ``--render-accessibility-actions``: Custom accessibility actions cannot be reliably tested. This flag ensures custom accessibility actions are rendered as UI elements.
 
 
 ## Continuous Delivery Workflows

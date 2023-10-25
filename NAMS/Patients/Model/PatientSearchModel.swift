@@ -7,6 +7,7 @@
 //
 
 import Observation
+import OrderedCollections
 
 
 @Observable
@@ -16,15 +17,22 @@ class PatientSearchModel {
     var suggestedTokens: [SearchToken] = []
 
 
-    func search(in patients: [Patient]) -> [Patient] {
+    func search(in patients: OrderedDictionary<Character, [Patient]>) -> OrderedDictionary<Character, [Patient]> {
         guard !searchText.isEmpty else {
             return patients
         }
 
-        return patients.filter { patient in
-            // TODO optimize search and split the term in tokens?
-            patient.name.givenName?.contains(searchText) == true
+        return patients.compactMapValues { patients in
+            let result = patients.filter { patient in
+                patient.name.givenName?.contains(searchText) == true
                 || patient.name.familyName?.contains(searchText) == true
+            }
+
+            if result.isEmpty {
+                return nil
+            } else {
+                return result
+            }
         }
     }
 }

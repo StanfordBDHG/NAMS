@@ -10,10 +10,14 @@ import FirebaseFirestoreSwift
 import Foundation
 
 
-struct Patient: Codable, Identifiable, Hashable {
+struct Patient: Codable, Identifiable {
     @DocumentID var id: String?
     let name: PersonNameComponents
     let note: String?
+
+    var firstLetter: Character? {
+        name.formatted(.name(style: .medium)).first
+    }
 
 
     init(id: String, name: PersonNameComponents, note: String? = nil) {
@@ -23,6 +27,17 @@ struct Patient: Codable, Identifiable, Hashable {
     }
 
 
+    func isSelectedPatient(active patientId: String?) -> Bool {
+        guard let id else {
+            return false
+        }
+
+        return id == patientId
+    }
+}
+
+
+extension Patient: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

@@ -16,7 +16,7 @@ class EEGDeviceTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--testBLEDevices"]
+        app.launchArguments = ["--skipOnboarding", "--render-accessibility-actions"]
         app.launch()
     }
 

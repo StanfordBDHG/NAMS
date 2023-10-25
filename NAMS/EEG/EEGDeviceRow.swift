@@ -42,7 +42,8 @@ struct EEGDeviceRow: View {
                     }
                 }
 
-                if !FeatureFlags.testBLEDevices {
+                // accessibility actions cannot be unit tested
+                if !FeatureFlags.renderAccessibilityActions {
                     if let connectedDevice, connectedDevice.state.establishedConnection {
                         button.accessibilityAction(named: "DEVICE_DETAILS", {
                             detailsButtonAction(for: connectedDevice)
@@ -50,7 +51,7 @@ struct EEGDeviceRow: View {
                     } else {
                         button
                     }
-                } else { // accessibility actions cannot be unit tested
+                } else {
                     button
                     detailsButton
                 }
@@ -58,7 +59,7 @@ struct EEGDeviceRow: View {
     }
 
     @ViewBuilder private var deviceButton: some View {
-        let button = Button(action: deviceButtonAction) {
+        Button(action: deviceButtonAction) {
             HStack {
                 Text(verbatim: "\(device.model) - \(device.name)")
                     .foregroundColor(.primary)
@@ -81,14 +82,6 @@ struct EEGDeviceRow: View {
             }
                 .frame(maxWidth: .infinity)
         }
-
-        // this is such that the button spans the whole list row but doesn't cover the details button when it's present
-        if connectedDevice?.state.establishedConnection == true {
-            button
-                .buttonStyle(.plain)
-        } else {
-            button
-        }
     }
 
     @ViewBuilder private var detailsButton: some View {
@@ -98,6 +91,8 @@ struct EEGDeviceRow: View {
             }
                 .labelStyle(.iconOnly)
                 .font(.title3)
+                .buttonStyle(.plain) // ensure button is clickable next to the other button
+                .foregroundColor(.accentColor)
         }
     }
 

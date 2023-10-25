@@ -17,7 +17,7 @@ class NewPatientModel {
 
     
     var shouldAskForCancelConfirmation: Bool {
-        (name.givenName ?? "").isEmpty && (name.familyName ?? "").isEmpty && notes.isEmpty
+        !((name.givenName ?? "").isEmpty && (name.familyName ?? "").isEmpty && notes.isEmpty)
     }
 }
 

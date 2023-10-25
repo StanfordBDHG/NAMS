@@ -21,13 +21,13 @@ struct AddPatientView: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    private let patientList: PatientListModel
+    @Environment(PatientListModel.self) private var patientList
+
     @State private var newPatient = NewPatientModel()
-
     @State private var viewState: ViewState = .idle
-    @FocusState private var focusedField: FocusedField?
-
     @State private var showCancellationConfirmation = false
+
+    @FocusState private var focusedField: FocusedField?
 
 
     var body: some View {
@@ -41,14 +41,16 @@ struct AddPatientView: View {
                             familyNameFieldIdentifier: .lastName,
                             focusedState: _focusedField
                         )
+                            .autocorrectionDisabled(true)
+                            .textInputAutocapitalization(.words)
                     }
 
                     Section("Notes") {
                         TextField("Add Notes", text: $newPatient.notes, axis: .vertical)
                             .lineLimit(3...6)
+                            .textInputAutocapitalization(.sentences)
                     }
                 }
-                    .autocorrectionDisabled(true)
             }
                 .navigationTitle(Text("Add Patient", comment: "Add Patient Title"))
                 .navigationBarTitleDisplayMode(.inline)
@@ -81,7 +83,6 @@ struct AddPatientView: View {
         ToolbarItem(placement: .primaryAction) {
             AsyncButton(state: $viewState, action: {
                 try await patientList.add(patient: newPatient)
-                // TODO refresh the patient model in the view behind the sheet!
                 dismiss()
             }) {
                 Text("Done")
@@ -90,14 +91,13 @@ struct AddPatientView: View {
     }
 
 
-    init(patientList: PatientListModel) {
-        self.patientList = patientList
-    }
+    init() {}
 }
 
 
 #if DEBUG
 #Preview {
-    AddPatientView(patientList: PatientListModel())
+    AddPatientView()
+        .environment(PatientListModel())
 }
 #endif

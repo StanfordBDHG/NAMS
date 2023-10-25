@@ -12,7 +12,8 @@ import SwiftUI
 
 
 struct PatientListSheet: View {
-    private let patientList: PatientListModel
+    @Environment(PatientListModel.self)
+    private var patientList
 
     @Environment(\.dismiss)
     private var dismiss
@@ -26,25 +27,29 @@ struct PatientListSheet: View {
 
     var body: some View {
         NavigationStack {
-            PatientList(patients: patientList.patientList, searchModel: searchModel)
+            PatientList(patients: patientList.categorizedPatients, viewState: $viewState, activePatientId: $activePatientId)
                 .navigationTitle(Text("Patients", comment: "Patient List Title"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: Patient.self) { patient in
                     PatientInformation(patient: patient, activePatientId: $activePatientId)
                 }
+                .environment(searchModel)
                 .sheet(isPresented: $showAddPatientSheet) {
-                    AddPatientView(patientList: patientList)
+                    AddPatientView()
                 }
                 .toolbar {
                     toolbar
                 }
                 .searchable(text: $searchModel.searchText, prompt: "Search for a patient")
-                .onAppear {
-                    do {
-                        try patientList.retrieveList()
-                    } catch {
-                        // TODO handle errors here?
+                .viewStateAlert(state: $viewState)
+                .onChange(of: viewState, { oldValue, newValue in
+                    if case .error = oldValue,
+                       case .idle = newValue {
+                        dismiss() // close the view after dismissing the error
                     }
+                })
+                .onAppear {
+                    patientList.retrieveList(viewState: $viewState)
                 }
                 .onDisappear {
                     patientList.closeList()
@@ -68,20 +73,17 @@ struct PatientListSheet: View {
                     .accessibilityLabel("Add Patient")
             }
         }
-        ToolbarItem(placement: .primaryAction) {
-            EditButton()
-        }
     }
 
 
-    init(patientList: PatientListModel, activePatientId: Binding<String?>) {
-        self.patientList = patientList
+    init(activePatientId: Binding<String?>) {
         self._activePatientId = activePatientId
     }
 }
 
 #if DEBUG
 #Preview {
-    PatientListSheet(patientList: PatientListModel(), activePatientId: .constant(nil))
+    PatientListSheet(activePatientId: .constant(nil))
+        .environment(PatientListModel())
 }
 #endif
