@@ -1,24 +1,7 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
-    "\n" : {
-
-    },
-    "%@ " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ "
-          }
-        }
-      }
-    },
     "ABOUT" : {
-      "comment" : "MARK: EEG Device Details",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -89,7 +72,6 @@
       }
     },
     "ACCOUNT_TITLE" : {
-      "comment" : "MARK: Account",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -191,7 +173,6 @@
       }
     },
     "BLUETOOTH_OFF" : {
-      "comment" : "MARK: Bluetooth",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -322,7 +303,6 @@
       }
     },
     "CONTACTS_TAB_TITLE" : {
-      "comment" : "MARK: - Contacts",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -373,7 +353,6 @@
       }
     },
     "DISCONNECTED" : {
-      "comment" : "MARK: Connection State",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -394,7 +373,6 @@
       }
     },
     "EEG_RECORDING" : {
-      "comment" : "MARK: EEG Recording",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -415,7 +393,6 @@
       }
     },
     "FINISHED_SETUP_TITLE" : {
-      "comment" : "MARK: Finished Setup",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -466,7 +443,6 @@
       }
     },
     "GOOD_FIT" : {
-      "comment" : "MARK: EEG Fit",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -497,7 +473,14 @@
       }
     },
     "Hello" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hello"
+          }
+        }
+      }
     },
     "INTERVENTION_MUSE_FIRMWARE" : {
       "localizations" : {
@@ -610,7 +593,6 @@
       }
     },
     "MOCK_UPLOAD_TAB_TITLE" : {
-      "comment" : "MARK: - Mock Upload Data Storage Provider",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -631,7 +613,6 @@
       }
     },
     "NEARBY_DEVICES" : {
-      "comment" : "MARK: Nearby Devices",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -722,7 +703,6 @@
       }
     },
     "NOTIFICATION_PERMISSIONS_TITLE" : {
-      "comment" : "MARK: Notifications",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -733,10 +713,24 @@
       }
     },
     "Patient Details" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patient Details"
+          }
+        }
+      }
     },
     "Patient Id" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patient Id"
+          }
+        }
+      }
     },
     "Patients" : {
       "comment" : "Patient List Title",
@@ -750,7 +744,14 @@
       }
     },
     "Patients will appear here,\nonce they are added." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Patients will appear here,\nonce they are added."
+          }
+        }
+      }
     },
     "POOR_FIT" : {
       "localizations" : {
@@ -763,7 +764,14 @@
       }
     },
     "Preview Modal" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preview Modal"
+          }
+        }
+      }
     },
     "PROBLEMS_BATTERY_HINT" : {
       "localizations" : {
@@ -959,7 +967,14 @@
       }
     },
     "Theta" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theta"
+          }
+        }
+      }
     },
     "TROUBLESHOOTING" : {
       "localizations" : {
@@ -1072,7 +1087,6 @@
       }
     },
     "WELCOME_TITLE" : {
-      "comment" : "MARK: Welcome",
       "localizations" : {
         "en" : {
           "stringUnit" : {
