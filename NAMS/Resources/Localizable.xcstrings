@@ -162,6 +162,9 @@
         }
       }
     },
+    "Are you sure you want to delete this patient?" : {
+
+    },
     "Are you sure you want to discard this new patient?" : {
       "localizations" : {
         "en" : {
@@ -342,12 +345,22 @@
         }
       }
     },
-    "Delete Patient Information" : {
+    "Delete" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete Patient Information"
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Delete Patient" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Patient"
           }
         }
       }
