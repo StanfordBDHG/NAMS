@@ -36,9 +36,9 @@ struct UserView: View {
                 UserProfileView(name: name)
                     .frame(height: 30)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(name.formatted(.name(style: .medium)))
+                    Text(verbatim: name.formatted(.name(style: .medium)))
                     if let email = user.email {
-                        Text(email)
+                        Text(verbatim: email)
                     }
                 }
                 Spacer()

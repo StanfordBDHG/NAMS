@@ -34,7 +34,7 @@ struct ListRow<Value: View>: View {
 struct ListRow_Previews: PreviewProvider {
     static var previews: some View {
         ListRow("Hello") {
-            Text("World")
+            Text(verbatim: "World")
         }
     }
 }

@@ -81,7 +81,7 @@ struct ScheduleView: View {
                     PatientListSheet(activePatientId: $activePatientId)
                         .environment(patientList)
                 }
-                .navigationTitle("SCHEDULE_LIST_TITLE")
+                .navigationTitle(Text("Schedule", comment: "Schedule Title"))
                 .toolbar {
                     toolbar
                 }
@@ -129,7 +129,7 @@ struct ScheduleView: View {
                     }
                 }
             case let .test(string):
-                ModalView(text: string, buttonText: "CLOSE") {
+                ModalView(text: string, buttonText: "Close") {
                     _Concurrency.Task {
                         await eventContext.event.complete(true)
                     }

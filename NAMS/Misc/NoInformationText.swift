@@ -37,9 +37,9 @@ struct NoInformationText<Header: View, Caption: View>: View {
 #if DEBUG
 #Preview {
     NoInformationText {
-        Text("No Information")
+        Text(verbatim: "No Information")
     } caption: {
-        Text("Please add information to show some information.")
+        Text(verbatim: "Please add information to show some information.")
     }
 }
 #endif

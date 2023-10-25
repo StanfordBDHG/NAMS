@@ -32,7 +32,7 @@ struct EEGDeviceDetails: View {
                 Section("ABOUT") {
                     ForEach(device.aboutInformation.elements, id: \.key) { element in
                         ListRow(element.key) {
-                            Text(element.value.description)
+                            Text(verbatim: element.value.description)
                         }
                     }
                 }
@@ -56,14 +56,14 @@ struct EEGDeviceDetails: View {
             Section {
                 ListRow("BATTERY") {
                     Group {
-                        Text("\(Int(remainingBattery)) %")
+                        Text(verbatim: "\(Int(remainingBattery)) %")
                         batteryIcon(percentage: remainingBattery) // hides accessibility, only text will be shown
                             .foregroundStyle(.primary)
                     }
                 }
             } footer: {
                 let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
-                Text("PROBLEMS_BATTERY_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=\(locale.identifier))")
+                Text("PROBLEMS_BATTERY_HINT") + Text(verbatim: " [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=\(locale.identifier))")
             }
         }
     }
@@ -71,7 +71,11 @@ struct EEGDeviceDetails: View {
     @ViewBuilder private var headbandFit: some View {
         Section {
             ListRow("WEARING") {
-                Text(device.wearingHeadband ? "YES" : "NO")
+                if device.wearingHeadband {
+                    Text("Yes")
+                } else {
+                    Text("No")
+                }
             }
             
             if device.wearingHeadband {
@@ -85,7 +89,7 @@ struct EEGDeviceDetails: View {
             Text("HEADBAND")
         } footer: {
             let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
-            Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
+            Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(verbatim: " [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
         }
     }
 
@@ -101,10 +105,10 @@ struct EEGDeviceDetails: View {
             // swiftlint:disable:next accessibility_label_for_image
             let image = Image(systemName: "exclamationmark.triangle.fill")
                 .symbolRenderingMode(.multicolor)
-            Text("\(image) ")
+            Text(verbatim: "\(image) ")
                 + Text("INTERVENTION_REQUIRED_TITLE")
                     .fontWeight(.semibold)
-                + Text("\n")
+                + Text(verbatim: "\n")
                 + Text(message)
         }
             .multilineTextAlignment(.center)

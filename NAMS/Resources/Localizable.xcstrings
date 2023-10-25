@@ -7,62 +7,12 @@
     "\n" : {
 
     },
-    " [%@](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=%@)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=%2$@)"
-          }
-        }
-      }
-    },
-    " [%@](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=%@)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=%2$@)"
-          }
-        }
-      }
-    },
-    " [%@](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=%@)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=%2$@)"
-          }
-        }
-      }
-    },
     "%@ " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "%@ "
-          }
-        }
-      }
-    },
-    "%lld %%" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%lld %%"
-          }
-        }
-      }
-    },
-    "%llds" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "%llds"
           }
         }
       }
@@ -150,22 +100,65 @@
       }
     },
     "Add Notes" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Notes"
+          }
+        }
+      }
     },
     "Add Patient" : {
-      "comment" : "Add Patient Title"
+      "comment" : "Add Patient Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Patient"
+          }
+        }
+      }
     },
     "All" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        }
+      }
     },
     "Alpha" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alpha"
+          }
+        }
+      }
     },
     "App Icon" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Icon"
+          }
+        }
+      }
     },
     "Are you sure you want to discard this new patient?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to discard this new patient?"
+          }
+        }
+      }
     },
     "ATTENTION_REQUIRED" : {
       "localizations" : {
@@ -188,7 +181,14 @@
       }
     },
     "Beta" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beta"
+          }
+        }
+      }
     },
     "BLUETOOTH_OFF" : {
       "comment" : "MARK: Bluetooth",
@@ -252,16 +252,26 @@
       }
     },
     "Cancel" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
     },
     "Channel" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channel"
+          }
+        }
+      }
     },
     "Close" : {
-
-    },
-    "CLOSE" : {
-      "comment" : "MARK: General",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -323,7 +333,14 @@
       }
     },
     "Delete Patient Information" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Patient Information"
+          }
+        }
+      }
     },
     "DEVICE_DETAILS" : {
       "localizations" : {
@@ -336,7 +353,14 @@
       }
     },
     "Discard Changes" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard Changes"
+          }
+        }
+      }
     },
     "DISCONNECT" : {
       "localizations" : {
@@ -402,7 +426,14 @@
       }
     },
     "Firmware update required." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Firmware update required."
+          }
+        }
+      }
     },
     "FIRMWARE_VERSION" : {
       "localizations" : {
@@ -425,7 +456,14 @@
       }
     },
     "Gamma" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gamma"
+          }
+        }
+      }
     },
     "GOOD_FIT" : {
       "comment" : "MARK: EEG Fit",
@@ -512,7 +550,14 @@
       }
     },
     "Keep Editing" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep Editing"
+          }
+        }
+      }
     },
     "LELAND_STANFORD_BIO" : {
       "localizations" : {
@@ -535,7 +580,14 @@
       }
     },
     "Logout" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logout"
+          }
+        }
+      }
     },
     "MEDIOCRE_FIT" : {
       "localizations" : {
@@ -548,7 +600,14 @@
       }
     },
     "Micro-Volt" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Micro-Volt"
+          }
+        }
+      }
     },
     "MOCK_UPLOAD_TAB_TITLE" : {
       "comment" : "MARK: - Mock Upload Data Storage Provider",
@@ -562,7 +621,14 @@
       }
     },
     "Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
     },
     "NEARBY_DEVICES" : {
       "comment" : "MARK: Nearby Devices",
@@ -575,7 +641,7 @@
         }
       }
     },
-    "NO" : {
+    "No" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -586,10 +652,24 @@
       }
     },
     "No Patient selected" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Patient selected"
+          }
+        }
+      }
     },
     "No Patients" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Patients"
+          }
+        }
+      }
     },
     "NO_DEVICE_CONNECTED" : {
       "localizations" : {
@@ -602,7 +682,14 @@
       }
     },
     "Notes" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        }
+      }
     },
     "NOTIFICATION_PERMISSIONS_BUTTON" : {
       "localizations" : {
@@ -718,18 +805,8 @@
         }
       }
     },
-    "SCHEDULE_LIST_TITLE" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Schedule"
-          }
-        }
-      }
-    },
-    "SCHEDULE_TAB_TITLE" : {
-      "comment" : "MARK: - Schedule",
+    "Schedule" : {
+      "comment" : "Schedule Title",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -740,25 +817,76 @@
       }
     },
     "Search for a patient" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search for a patient"
+          }
+        }
+      }
     },
     "Seconds" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seconds"
+          }
+        }
+      }
     },
     "Select a patient to continue." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a patient to continue."
+          }
+        }
+      }
     },
     "Select Patient" : {
-      "comment" : "Principal Select Patient Button placeholder"
+      "comment" : "Principal Select Patient Button placeholder",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Patient"
+          }
+        }
+      }
     },
     "Selected" : {
-      "comment" : "Selected Patient"
+      "comment" : "Selected Patient",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected"
+          }
+        }
+      }
     },
     "Selected Patient" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected Patient"
+          }
+        }
+      }
     },
     "Selected Patient: %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected Patient: %@"
+          }
+        }
+      }
     },
     "SERIAL_NUMBER" : {
       "localizations" : {
@@ -781,7 +909,14 @@
       }
     },
     "Start" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        }
+      }
     },
     "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
       "localizations" : {
@@ -947,11 +1082,7 @@
         }
       }
     },
-    "World" : {
-
-    },
-    "YES" : {
-      "comment" : "MARK: - General",
+    "Yes" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -25,14 +25,14 @@ struct EventContextView: View {
                             .accessibilityHidden(true)
                     }
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(eventContext.task.title)
+                        Text(verbatim: eventContext.task.title)
                             .font(.headline)
-                        Text(format(eventDate: eventContext.event.scheduledAt))
+                        Text(verbatim: format(eventDate: eventContext.event.scheduledAt))
                             .font(.subheadline)
                     }
                 }
                 Divider()
-                Text(eventContext.task.description)
+                Text(verbatim: eventContext.task.description)
                     .font(.callout)
                 if !eventContext.event.complete {
                     Text(eventContext.task.context.actionType)

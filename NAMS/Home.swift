@@ -25,7 +25,7 @@ struct HomeView: View {
             ScheduleView()
                 .tag(Tabs.schedule)
                 .tabItem {
-                    Label("SCHEDULE_TAB_TITLE", systemImage: "list.clipboard")
+                    Label("Schedule", image: "list.clipboard")
                 }
             Contacts()
                 .tag(Tabs.contact)

@@ -43,7 +43,7 @@ struct EEGRecording: View {
         }
             .navigationTitle("EEG_RECORDING")
             .toolbar {
-                Button("CLOSE") {
+                Button("Close") {
                     dismiss()
                 }
             }
