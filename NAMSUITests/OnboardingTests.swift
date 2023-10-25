@@ -20,7 +20,7 @@ class OnboardingTests: XCTestCase {
         continueAfterFailure = false
         
         let app = XCUIApplication()
-        app.launchArguments = ["--showOnboarding"]
+        app.launchArguments = ["--showOnboarding", "--inject-default-patient"]
         app.deleteAndLaunch(withSpringboardAppName: "NAMS")
     }
     
@@ -35,7 +35,7 @@ class OnboardingTests: XCTestCase {
 
     func testOnboardingFlowRepeated() throws {
         let app = XCUIApplication()
-        app.launchArguments = ["--showOnboarding"]
+        app.launchArguments = ["--showOnboarding", "--inject-default-patient"]
 
         try app.navigateOnboardingFlow()
         try app.assertOnboardingComplete()

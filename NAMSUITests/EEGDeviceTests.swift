@@ -16,7 +16,7 @@ class EEGDeviceTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--render-accessibility-actions"]
+        app.launchArguments = ["--skipOnboarding", "--render-accessibility-actions", "--inject-default-patient"]
         app.launch()
     }
 
@@ -47,6 +47,7 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.buttons["Mock, Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
+        print(app.buttons.debugDescription)
         app.buttons["Device Details"].tap()
 
 

@@ -21,10 +21,8 @@ struct ScheduleView: View {
     @State var presentingEEGMeasurements = false
     @State var presentPatientSheet = false
 
+    @Binding var activePatientId: String?
 
-    @State private var patientList = PatientListModel()
-    @AppStorage(StorageKeys.selectedPatient)
-    private var activePatientId: String?
 
     #if MUSE
     @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
@@ -79,7 +77,6 @@ struct ScheduleView: View {
                 }
                 .sheet(isPresented: $presentPatientSheet) {
                     PatientListSheet(activePatientId: $activePatientId)
-                        .environment(patientList)
                 }
                 .navigationTitle(Text("Schedule", comment: "Schedule Title"))
                 .toolbar {
@@ -104,7 +101,7 @@ struct ScheduleView: View {
             Button(action: {
                 presentPatientSheet = true
             }, label: {
-                CurrentPatientLabel(activePatient: $activePatientId, patientList: patientList)
+                CurrentPatientLabel(activePatient: $activePatientId)
             })
         }
         if eegModel.activeDevice?.state == .connected {
@@ -175,7 +172,7 @@ struct ScheduleView: View {
 #if DEBUG
 struct SchedulerView_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleView()
+        ScheduleView(activePatientId: .constant("1 "))
             .environmentObject(NAMSScheduler(testSchedule: true))
     }
 }

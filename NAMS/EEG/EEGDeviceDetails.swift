@@ -63,7 +63,7 @@ struct EEGDeviceDetails: View {
                 }
             } footer: {
                 let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
-                Text("PROBLEMS_BATTERY_HINT") + Text(verbatim: " [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=\(locale.identifier))")
+                Text("PROBLEMS_BATTERY_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=\(locale.identifier))")
             }
         }
     }
@@ -89,7 +89,7 @@ struct EEGDeviceDetails: View {
             Text("HEADBAND")
         } footer: {
             let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
-            Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(verbatim: " [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
+            Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
         }
     }
 

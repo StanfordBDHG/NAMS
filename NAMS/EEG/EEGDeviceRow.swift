@@ -52,8 +52,11 @@ struct EEGDeviceRow: View {
                         button
                     }
                 } else {
-                    button
-                    detailsButton
+                    HStack {
+                        button
+                            .frame(maxWidth: .infinity)
+                        detailsButton
+                    }
                 }
             }
     }

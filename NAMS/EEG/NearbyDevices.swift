@@ -119,7 +119,7 @@ struct NearbyDevices: View {
     @ViewBuilder var sectionFooter: some View {
         HStack {
             let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
-            Text("PROBLEMS_CONNECTING_HINT") + Text(verbatim: " [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=\(locale.identifier))")
+            Text("PROBLEMS_CONNECTING_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=\(locale.identifier))")
         }
             .padding(.top)
     }

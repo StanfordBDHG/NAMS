@@ -1,6 +1,36 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    " [%@](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=%2$@)"
+          }
+        }
+      }
+    },
+    " [%@](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=%2$@)"
+          }
+        }
+      }
+    },
+    " [%@](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : " [%1$@](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=%2$@)"
+          }
+        }
+      }
+    },
     "ABOUT" : {
       "localizations" : {
         "en" : {

@@ -20,6 +20,7 @@ struct PatientInformation: View {
     private var patientList
 
     @State private var viewState: ViewState = .idle
+    @State private var presentingDeleteConfirmation = false
 
     @Binding private var activePatientId: String?
 
@@ -76,16 +77,31 @@ struct PatientInformation: View {
     @ViewBuilder private var deleteButton: some View {
         Section {
             AsyncButton(role: .destructive, state: $viewState, action: {
-                guard let patientId = patient.id else {
-                    return
-                }
-
-                await patientList.remove(patientId: patientId, viewState: $viewState)
-                dismiss()
+                presentingDeleteConfirmation = true
             }) {
-                Text("Delete Patient Information")
+                Text("Delete Patient")
                     .frame(maxWidth: .infinity)
             }
+                .confirmationDialog(
+                    "Are you sure you want to delete this patient?",
+                    isPresented: $presentingDeleteConfirmation,
+                    titleVisibility: .visible
+                ) {
+                    AsyncButton(role: .destructive, state: $viewState, action: {
+                        guard let patientId = patient.id else {
+                            return
+                        }
+
+                        await patientList.remove(patientId: patientId, viewState: $viewState)
+                        dismiss()
+                    }) {
+                        Text("Delete")
+                    }
+
+                    Button(role: .cancel, action: {}) {
+                        Text("Cancel")
+                    }
+                }
         }
     }
 

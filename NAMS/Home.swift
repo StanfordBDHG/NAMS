@@ -7,9 +7,11 @@
 //
 
 import SpeziMockWebService
+import SpeziViews
 import SwiftUI
 
 
+@MainActor
 struct HomeView: View {
     enum Tabs: String {
         case schedule
@@ -18,11 +20,17 @@ struct HomeView: View {
     }
     
     @AppStorage(StorageKeys.homeTabSelection)
-    var selectedTab = Tabs.schedule
-    
+    private var selectedTab = Tabs.schedule
+    @AppStorage(StorageKeys.selectedPatient)
+    private var activePatientId: String?
+
+    @State private var patientList = PatientListModel()
+
+    @State private var viewState: ViewState = .idle
+
     var body: some View {
         TabView(selection: $selectedTab) {
-            ScheduleView()
+            ScheduleView(activePatientId: $activePatientId)
                 .tag(Tabs.schedule)
                 .tabItem {
                     Label("Schedule", image: "list.clipboard")
@@ -39,6 +47,42 @@ struct HomeView: View {
                         Label("MOCK_UPLOAD_TAB_TITLE", systemImage: "server.rack")
                     }
             }
+        }
+            .environment(patientList)
+            .viewStateAlert(state: $viewState)
+            .onAppear {
+                if FeatureFlags.injectDefaultPatient {
+                    activePatientId = "default-patient"
+                }
+
+                handlePatientIdChange()
+            }
+            .onDisappear {
+                patientList.removeActivePatientListener()
+            }
+            .onChange(of: activePatientId, handlePatientIdChange)
+            .onChange(of: viewState) { oldValue, newValue in
+                if case .error = oldValue,
+                   case .idle = newValue {
+                    activePatientId = nil // reset the current patient on an error
+                }
+            }
+    }
+
+
+    func handlePatientIdChange() {
+        guard !FeatureFlags.disableFirebase else {
+            return
+        }
+
+        if let activePatientId {
+            if FeatureFlags.injectDefaultPatient {
+                patientList.loadActivePatientWithTestAccount(for: activePatientId, viewState: $viewState)
+            } else {
+                patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
+            }
+        } else {
+            patientList.removeActivePatientListener()
         }
     }
 }

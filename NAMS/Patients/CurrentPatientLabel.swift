@@ -6,15 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziViews
 import SwiftUI
 
 
 struct CurrentPatientLabel: View {
-    @Binding private var activePatientId: String?
-    private let patientList: PatientListModel
+    @Environment(PatientListModel.self)
+    private var patientList
 
-    @State private var viewState: ViewState = .idle
+    @Binding private var activePatientId: String?
 
     var body: some View {
         HStack {
@@ -32,34 +31,11 @@ struct CurrentPatientLabel: View {
                 .accessibilityHidden(true)
         }
             .foregroundColor(.primary)
-            .viewStateAlert(state: $viewState)
-            .onAppear(perform: handlePatientIdChange)
-            .onDisappear {
-                patientList.removeActivePatientListener()
-            }
-            .onChange(of: activePatientId, handlePatientIdChange)
-            .onChange(of: viewState) { oldValue, newValue in
-                if case .error = oldValue,
-                   case .idle = newValue {
-                    activePatientId = nil // reset the current patient on an error
-                }
-            }
     }
 
 
-    init(activePatient: Binding<String?>, patientList: PatientListModel) {
+    init(activePatient: Binding<String?>) {
         self._activePatientId = activePatient
-        self.patientList = patientList
-    }
-
-
-    @MainActor
-    func handlePatientIdChange() {
-        if let activePatientId {
-            patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
-        } else {
-            patientList.removeActivePatientListener()
-        }
     }
 }
 
@@ -67,7 +43,8 @@ struct CurrentPatientLabel: View {
 #if DEBUG
 #Preview {
     Button(action: {}) {
-        CurrentPatientLabel(activePatient: .constant(nil), patientList: PatientListModel())
+        CurrentPatientLabel(activePatient: .constant(nil))
+            .environment(PatientListModel())
     }
 }
 #endif

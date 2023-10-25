@@ -98,6 +98,24 @@ class PatientListModel {
         }
     }
 
+    func loadActivePatientWithTestAccount(for id: String, viewState: Binding<ViewState>) {
+        Task {
+            await setupTestAccount()
+
+            do {
+                try await patientsCollection.document(id).setData(
+                    from: Patient(id: id, name: .init(givenName: "Leland", familyName: "Stanford")),
+                    merge: true
+                )
+            } catch {
+                Self.logger.error("Failed to set test patient information: \(error)")
+                throw FirestoreError(error)
+            }
+
+            loadActivePatient(for: id, viewState: viewState)
+        }
+    }
+
     func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
         removeActivePatientListener()
 
@@ -133,6 +151,27 @@ class PatientListModel {
         if let activePatientListener {
             activePatientListener.remove()
             self.activePatientListener = nil
+        }
+    }
+
+    private func setupTestAccount() async {
+        let email = "test@nams.stanford.edu"
+        let password = "123456789"
+
+        do {
+            do {
+                try await Auth.auth().createUser(withEmail: email, password: password)
+            } catch let error as NSError {
+                if case .emailAlreadyInUse = AuthErrorCode(_nsError: error).code {
+                    try await Auth.auth().signIn(withEmail: email, password: password)
+                } else {
+                    throw error
+                }
+            } catch {
+                throw error
+            }
+        } catch {
+            Self.logger.error("Failed setting up test account : \(error)")
         }
     }
 }

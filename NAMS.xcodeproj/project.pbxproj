@@ -476,15 +476,6 @@
 			path = Schedule;
 			sourceTree = "<group>";
 		};
-		2FE5DC3C29EDD7DA004B9AB4 /* SharedContext */ = {
-			isa = PBXGroup;
-			children = (
-				2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */,
-				2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */,
-			);
-			path = SharedContext;
-			sourceTree = "<group>";
-		};
 		2FE5DC3D29EDD7E4004B9AB4 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,13 +503,13 @@
 		653A2544283387FE005D4D48 = {
 			isa = PBXGroup;
 			children = (
+				653A258B283395A7005D4D48 /* Frameworks */,
 				A99522432AA61DA6009272F4 /* Muse.framework */,
-				2FC94CD4298B0A1D009C8209 /* NAMS.xctestplan */,
 				653A254F283387FE005D4D48 /* NAMS */,
+				2FC94CD4298B0A1D009C8209 /* NAMS.xctestplan */,
 				653A256028338800005D4D48 /* NAMSTests */,
 				653A256A28338800005D4D48 /* NAMSUITests */,
 				653A254E283387FE005D4D48 /* Products */,
-				653A258B283395A7005D4D48 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -552,8 +543,8 @@
 				A989112B2A36686D00E66E3A /* Patients */,
 				2FE5DC2D29EDD792004B9AB4 /* Resources */,
 				2FE5DC3B29EDD7D0004B9AB4 /* Schedule */,
-				2FE5DC3C29EDD7DA004B9AB4 /* SharedContext */,
 				2FC9759D2978E30800BA99FE /* Supporting Files */,
+				A9DF79E82AE9B97C00AB5983 /* Testing */,
 			);
 			path = NAMS;
 			sourceTree = "<group>";
@@ -715,8 +706,17 @@
 			isa = PBXGroup;
 			children = (
 				A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */,
+				2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */,
 			);
 			path = Misc;
+			sourceTree = "<group>";
+		};
+		A9DF79E82AE9B97C00AB5983 /* Testing */ = {
+			isa = PBXGroup;
+			children = (
+				2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */,
+			);
+			path = Testing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1318,7 +1318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 484YT3X9X7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1348,7 +1348,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1371,10 +1371,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 484YT3X9X7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1404,7 +1405,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = de.andi.edu.stanford.bdhg.nams;
+				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1566,7 +1567,7 @@
 				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-                CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
 				DEVELOPMENT_TEAM = "";
@@ -1686,11 +1687,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-                CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 484YT3X9X7;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1723,7 +1723,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Neurodevelopment Assessment and Monitoring System";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

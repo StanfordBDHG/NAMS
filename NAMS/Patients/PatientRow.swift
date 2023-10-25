@@ -42,8 +42,11 @@ struct PatientRow: View {
                     button
                         .accessibilityAction(named: "Patient Details", detailsButtonAction)
                 } else {
-                    button
-                    detailsButton
+                    HStack {
+                        button
+                            .frame(maxWidth: .infinity)
+                        detailsButton
+                    }
                 }
             }
     }
