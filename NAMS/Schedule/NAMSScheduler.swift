@@ -17,7 +17,21 @@ typealias NAMSScheduler = Scheduler<NAMSTaskContext>
 
 
 extension NAMSScheduler {
-    static var socialSupportTask: SpeziScheduler.Task<NAMSTaskContext> {
+    private static var supportsNotifications: Bool {
+        !FeatureFlags.skipOnboarding
+    }
+
+    /// Creates a default instance of the ``NAMSScheduler`` by scheduling the tasks listed below.
+    convenience init() {
+        self.init(tasks: [Self.socialSupportTask()])
+    }
+
+    /// Creates a default instance of the ``NAMSScheduler`` by scheduling the tasks listed below.
+    convenience init(testSchedule: Bool) {
+        self.init(tasks: [Self.socialSupportTask(testSchedule: testSchedule)])
+    }
+
+    static func socialSupportTask(testSchedule: Bool = false) -> SpeziScheduler.Task<NAMSTaskContext> {
         let dateComponents: DateComponents
         if FeatureFlags.testSchedule {
             // Adds a task at the current time for UI testing if the `--testSchedule` feature flag is set
@@ -38,18 +52,8 @@ extension NAMSScheduler {
                 repetition: .matching(dateComponents),
                 end: .numberOfEvents(365)
             ),
-            notifications: true,
+            notifications: !testSchedule && supportsNotifications,
             context: NAMSTaskContext.questionnaire(Bundle.main.questionnaire(withName: "SocialSupportQuestionnaire"))
         )
-    }
-
-    /// Creates a default instance of the ``NAMSScheduler`` by scheduling the tasks listed below.
-    convenience init() {
-        self.init(testSchedule: false)
-    }
-
-    /// Creates a default instance of the ``NAMSScheduler`` by scheduling the tasks listed below.
-    convenience init(testSchedule: Bool) {
-        self.init(tasks: [Self.socialSupportTask])
     }
 }

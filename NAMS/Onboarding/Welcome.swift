@@ -34,7 +34,7 @@ struct Welcome: View {
                     description: "WELCOME_AREA3_DESCRIPTION"
                 )
             ],
-            actionText: "WELCOME_BUTTON",
+            actionText: "Continue",
             action: {
                 onboardingNavigationPath.nextStep()
             }

@@ -6,60 +6,36 @@
 // SPDX-License-Identifier: MIT
 //
 
-import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import OSLog
 import Spezi
+import SpeziAccount
 import SpeziFirestore
 import SpeziMockWebService
 import SpeziQuestionnaire
 import SwiftUI
 
 
-actor NAMSStandard: Standard, ObservableObject, ObservableObjectProvider, QuestionnaireConstraint {
+actor NAMSStandard: Standard, ObservableObject, ObservableObjectProvider, QuestionnaireConstraint, AccountNotifyStandard {
     enum TemplateApplicationStandardError: Error {
         case userNotAuthenticatedYet
     }
 
+    private let logger = Logger(subsystem: "TemplateApplication", category: "Standard")
 
     @Dependency var mockWebService = MockWebService()
-    private let logger = Logger(subsystem: "TemplateApplication", category: "Standard")
+
+    @AccountReference var account
 
 
     private var userDocumentReference: DocumentReference {
-        get throws {
-            guard let user = Auth.auth().currentUser else {
+        get async throws {
+            guard let user = await account.details else {
                 throw TemplateApplicationStandardError.userNotAuthenticatedYet
             }
 
-            return Firestore.firestore().collection("users").document(user.uid)
-        }
-    }
-
-
-    func signedIn() async {
-        guard !FeatureFlags.disableFirebase else {
-            try? await mockWebService.upload(path: "user", body: "Login")
-            return
-        }
-
-        guard let user = Auth.auth().currentUser else {
-            logger.error("Signed In called respite no authenticated user.")
-            return
-        }
-
-        let name = user.displayName?.components(separatedBy: " ")
-        let data: [String: Any] = [
-            "id": user.uid,
-            "firstName": name?.first ?? "",
-            "lastName": name?.last ?? ""
-        ]
-
-        do {
-            try await userDocumentReference.setData(data)
-        } catch {
-            logger.error("Could not store user information in Firebase: \(error)")
+            return Firestore.firestore().collection("users").document(user.accountId)
         }
     }
 
@@ -82,10 +58,7 @@ actor NAMSStandard: Standard, ObservableObject, ObservableObjectProvider, Questi
         }
     }
 
-
-    private func healthKitDocument(id uuid: UUID) throws -> DocumentReference {
-        try userDocumentReference
-            .collection("HealthKit") // Add all HealthKit sources in a /HealthKit collection.
-            .document(uuid.uuidString) // Set the document identifier to the UUID of the document.
+    func deletedAccount() async throws {
+        // delete all user associated data
     }
 }

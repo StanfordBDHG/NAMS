@@ -80,7 +80,7 @@ class EEGDeviceTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
         // open nearby devices sheet
-        XCTAssertTrue(app.navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 6))
         app.navigationBars.buttons["Nearby Devices"].tap()
 
         XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
@@ -93,11 +93,9 @@ class EEGDeviceTests: XCTestCase {
         app.navigationBars.buttons["Close"].tap()
 
 
-        XCTAssertTrue(app.navigationBars.buttons["EEG Recording"].waitForExistence(timeout: 0.5))
-        app.navigationBars.buttons["EEG Recording"].tap()
+        XCTAssertTrue(app.tabBars.buttons["Recording"].waitForExistence(timeout: 0.5))
+        app.tabBars.buttons["Recording"].tap()
 
         sleep(2)
-        XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
-        app.navigationBars.buttons["Close"].tap()
     }
 }

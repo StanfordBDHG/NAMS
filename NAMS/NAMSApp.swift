@@ -19,7 +19,7 @@ struct NAMSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Group {
+            ZStack {
                 if completedOnboardingFlow {
                     HomeView()
                 } else {
@@ -29,6 +29,7 @@ struct NAMSApp: App {
                 .sheet(isPresented: !$completedOnboardingFlow) {
                     OnboardingFlow()
                 }
+                .firebaseAccount(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding)
                 .testingSetup()
                 .spezi(appDelegate)
         }

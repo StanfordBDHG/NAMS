@@ -36,12 +36,7 @@ struct AddPatientView: View {
             VStack {
                 Form {
                     Section("Name") {
-                        NameFields(
-                            name: $newPatient.name,
-                            givenNameFieldIdentifier: .givenName,
-                            familyNameFieldIdentifier: .lastName,
-                            focusedState: _focusedField
-                        )
+                        nameFields
                             .autocorrectionDisabled(true)
                             .textInputAutocapitalization(.words)
                     }
@@ -67,6 +62,23 @@ struct AddPatientView: View {
                 .interactiveDismissDisabled(newPatient.shouldAskForCancelConfirmation)
         }
             .viewStateAlert(state: $viewState)
+    }
+
+    @ViewBuilder var nameFields: some View {
+        NameFields(
+            name: $newPatient.name,
+            givenNameField: .init(
+                title: "First",
+                placeholder: "enter first name"
+            ),
+            givenNameFieldIdentifier: .givenName,
+            familyNameField: .init(
+                title: "Last",
+                placeholder: "enter last name"
+            ),
+            familyNameFieldIdentifier: .lastName,
+            focusedState: $focusedField
+        )
     }
 
     @ToolbarContentBuilder var toolbar: some ToolbarContent {

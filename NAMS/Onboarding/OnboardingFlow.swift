@@ -26,7 +26,7 @@ struct OnboardingFlow: View {
             Welcome()
 
             if !FeatureFlags.disableFirebase {
-                AccountSetup()
+                AccountOnboarding()
             }
 
             if !localNotificationAuthorization {
@@ -47,8 +47,8 @@ struct OnboardingFlow: View {
 struct OnboardingFlow_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingFlow()
-            .environmentObject(Account(accountServices: []))
-            .environmentObject(FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099)))
+            .environmentObject(Account(MockUserIdPasswordAccountService()))
+            .environmentObject(NAMSScheduler())
     }
 }
 #endif

@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziAccount.git",
       "state" : {
-        "revision" : "e5f8db63ad205c635ecaca782de87e6e5dd06432",
-        "version" : "0.4.2"
+        "revision" : "2f88e04a66bb3f1444763f7e3c103353b9be6f77",
+        "version" : "0.6.0"
       }
     },
     {
@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziContact.git",
       "state" : {
-        "revision" : "c2a5f5113413439ee3f97c01a336b8f10b7373c1",
-        "version" : "0.3.3"
+        "revision" : "9dea670bcfea51c2db04ea73b80fda923c2ebaed",
+        "version" : "0.4.1"
       }
     },
     {
@@ -167,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFirebase.git",
       "state" : {
-        "revision" : "d57ddfb71d7ece1e5fecf1a1df34dc93e2c7c58d",
-        "version" : "0.4.0"
+        "revision" : "774c5e311c94e411f4f7c49b846d82e5e3755a55",
+        "version" : "0.7.0"
       }
     },
     {
@@ -176,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziMockWebService.git",
       "state" : {
-        "revision" : "414af8351f1cc0b6085f6d697e83275314068493",
-        "version" : "0.1.3"
+        "revision" : "2ea46969069d04a1c3c2d1925751bfe0d6cf9adb",
+        "version" : "0.2.0"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziOnboarding.git",
       "state" : {
-        "revision" : "38810393108d9135d33841d9a24d18efb65ccb99",
-        "version" : "0.4.4"
+        "revision" : "0ea46a66c17615e1a933481a07434bfd41717c54",
+        "version" : "0.6.0"
       }
     },
     {
@@ -203,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziScheduler.git",
       "state" : {
-        "revision" : "16547b338bb153b2ed584427baf38ab36504fb26",
-        "version" : "0.5.0"
+        "revision" : "dcba98814d783438b8505e692d0dfb8d90968597",
+        "version" : "0.6.3"
       }
     },
     {
@@ -221,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziViews.git",
       "state" : {
-        "revision" : "7bb90ed4967c8a992109351f9e63c9cb22988aa2",
-        "version" : "0.4.2"
+        "revision" : "4b7cc423fd823123d354ec1d541ca7d2e0a9d6e3",
+        "version" : "0.5.1"
       }
     },
     {

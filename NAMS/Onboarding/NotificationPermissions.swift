@@ -38,7 +38,7 @@ struct NotificationPermissions: View {
                 }
             }, actionView: {
                 OnboardingActionsView(
-                    "NOTIFICATION_PERMISSIONS_BUTTON",
+                    "Continue",
                     action: {
                         do {
                             notificationProcessing = true

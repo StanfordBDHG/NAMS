@@ -58,6 +58,10 @@
             argument = "--inject-default-patient"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--skipOnboarding"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <LocationScenarioReference
          identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"

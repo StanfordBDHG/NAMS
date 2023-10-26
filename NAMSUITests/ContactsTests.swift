@@ -27,15 +27,11 @@ class ContactsTests: XCTestCase {
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Contacts"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Contacts"].tap()
         
-        XCTAssertTrue(app.staticTexts["Leland Stanford"].waitForExistence(timeout: 2))
-        
-        
-        XCTAssertTrue(app.buttons["Call"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["Contact: Leland Stanford"].waitForExistence(timeout: 2))
 
+        XCTAssertTrue(app.buttons["Call"].waitForExistence(timeout: 2))
         XCTAssertTrue(app.buttons["Text"].waitForExistence(timeout: 2))
-        
         XCTAssertTrue(app.buttons["Email"].waitForExistence(timeout: 2))
-        
         XCTAssertTrue(app.buttons["Website"].waitForExistence(timeout: 2))
     }
 }

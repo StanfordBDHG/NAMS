@@ -7,6 +7,7 @@
 //
 
 import Spezi
+import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziFirestore
 import SpeziMockWebService
@@ -19,10 +20,20 @@ class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration(standard: NAMSStandard()) {
             if !FeatureFlags.disableFirebase {
+                let methods: FirebaseAuthAuthenticationMethods = .emailAndPassword
+
+                AccountConfiguration(configuration: [
+                    .requires(\.userId),
+                    .requires(\.name)
+                ])
+
                 if FeatureFlags.useFirebaseEmulator {
-                    FirebaseAccountConfiguration(emulatorSettings: (host: "localhost", port: 9099))
+                    FirebaseAccountConfiguration(
+                        authenticationMethods: methods,
+                        emulatorSettings: (host: "localhost", port: 9099)
+                    )
                 } else {
-                    FirebaseAccountConfiguration()
+                    FirebaseAccountConfiguration(authenticationMethods: methods)
                 }
                 firestore
             }
