@@ -98,7 +98,7 @@ final class PatientInformationTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 6.0))
         app.buttons["Leland Stanford"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))

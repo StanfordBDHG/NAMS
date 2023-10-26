@@ -103,25 +103,25 @@ class PatientListModel {
         }
     }
 
-    func loadActivePatientWithTestAccount(for id: String, viewState: Binding<ViewState>, account: Account) {
-        Task {
-            await setupTestAccount(account: account, viewState: viewState)
+    func setupTestEnvironment(withPatient patientId: String, viewState: Binding<ViewState>, account: Account) async {
+        await setupTestAccount(account: account, viewState: viewState)
 
-            do {
-                try await patientsCollection.document(id).setData(
-                    from: Patient(name: .init(givenName: "Leland", familyName: "Stanford")),
-                    merge: true
-                )
-            } catch {
-                Self.logger.error("Failed to set test patient information: \(error)")
-                throw FirestoreError(error)
-            }
-
-            loadActivePatient(for: id, viewState: viewState)
+        do {
+            try await patientsCollection.document(patientId).setData(
+                from: Patient(name: .init(givenName: "Leland", familyName: "Stanford")),
+                merge: true
+            )
+        } catch {
+            Self.logger.error("Failed to set test patient information: \(error)")
+            viewState.wrappedValue = .error(FirestoreError(error))
         }
     }
 
     func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
+        if activePatient?.id == id {
+            return // already set up
+        }
+
         removeActivePatientListener()
 
         self.activePatientListener = patientsCollection.document(id).addSnapshotListener { snapshot, error in
@@ -173,6 +173,9 @@ class PatientListModel {
         }
 
         do {
+            // let the initial stateChangeDelegate of FirebaseAuth get called. Otherwise, we will interfere with that.
+            try await Task.sleep(for: .milliseconds(500))
+
             do {
                 let details = SignupDetails.Builder()
                     .set(\.userId, value: email)

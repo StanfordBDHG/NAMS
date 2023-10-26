@@ -72,9 +72,13 @@ struct HomeView: View {
             .viewStateAlert(state: $viewState)
             .onAppear {
                 if FeatureFlags.injectDefaultPatient {
-                    let patientId = "default-patient"
-                    activePatientId = patientId
-                    patientList.loadActivePatientWithTestAccount(for: patientId, viewState: $viewState, account: account)
+                    Task {
+                        let patientId = "default-patient"
+                        await patientList.setupTestEnvironment(withPatient: patientId, viewState: $viewState, account: account)
+
+                        activePatientId = patientId // this will trigger the onChange below, loading the patient info
+                        handlePatientIdChange()
+                    }
                     return
                 }
 

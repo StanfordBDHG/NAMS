@@ -65,7 +65,7 @@ struct EventContextView: View {
 
 #if DEBUG
 struct EventContextView_Previews: PreviewProvider {
-    private static let task = NAMSScheduler.socialSupportTask
+    private static let task = NAMSScheduler.socialSupportTask(testSchedule: true)
     
     
     static var previews: some View {
