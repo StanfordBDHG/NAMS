@@ -17,12 +17,14 @@ struct CurrentPatientLabel: View {
 
     var body: some View {
         HStack {
-            if let patient = patientList.activePatient, activePatientId != nil {
+            if activePatientId == nil {
+                selectPatientText
+            } else if let patient = patientList.activePatient {
                 Text(verbatim: patient.name.formatted(.name(style: .medium)))
                     .fontWeight(.medium)
             } else {
-                Text("Select Patient", comment: "Principal Select Patient Button placeholder")
-                    .italic()
+                selectPatientText
+                    .redacted(reason: .placeholder)
             }
 
             Image(systemName: "chevron.down.circle.fill")
@@ -31,6 +33,11 @@ struct CurrentPatientLabel: View {
                 .accessibilityHidden(true)
         }
             .foregroundColor(.primary)
+    }
+
+    @ViewBuilder private var selectPatientText: some View {
+        Text("Select Patient", comment: "Principal Select Patient Button placeholder")
+            .italic()
     }
 
 

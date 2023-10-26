@@ -10,7 +10,7 @@ import XCTest
 import XCTestExtensions
 
 
-class SchedulerTests: XCTestCase {
+class ScheduleTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
 
@@ -22,7 +22,7 @@ class SchedulerTests: XCTestCase {
     }
 
 
-    func testScheduler() throws {
+    func testSchedule() throws {
         let app = XCUIApplication()
 
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
@@ -31,6 +31,11 @@ class SchedulerTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Start Questionnaire"].waitForExistence(timeout: 2))
         app.staticTexts["Start Questionnaire"].tap()
 
-        XCTAssertTrue(app.staticTexts["Social Support"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.staticTexts["M-CHAT R/F"].waitForExistence(timeout: 2))
+
+        // TODO: navigate the questionnaire with all yes
+        // TODO: assert completion!
+
+        // TODO switch patients and check if mark goes away?
     }
 }

@@ -12,7 +12,6 @@ import SpeziFirebaseAccount
 import SpeziFirestore
 import SpeziMockWebService
 import SpeziQuestionnaire
-import SpeziScheduler
 import SwiftUI
 
 
@@ -39,7 +38,6 @@ class NAMSAppDelegate: SpeziAppDelegate {
             }
             QuestionnaireDataSource()
             MockWebService()
-            NAMSScheduler()
         }
     }
     

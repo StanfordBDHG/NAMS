@@ -18,47 +18,36 @@ import SwiftUI
 
 
 actor NAMSStandard: Standard, ObservableObject, ObservableObjectProvider, QuestionnaireConstraint, AccountNotifyStandard {
-    enum TemplateApplicationStandardError: Error {
-        case userNotAuthenticatedYet
-    }
-
     private let logger = Logger(subsystem: "TemplateApplication", category: "Standard")
 
     @Dependency var mockWebService = MockWebService()
 
     @AccountReference var account
 
+    /// Indicates whether the necessary authorization to deliver local notifications is already granted.
+    var localNotificationAuthorization: Bool {
+        get async {
+            await UNUserNotificationCenter.current().notificationSettings().authorizationStatus == .authorized
+        }
+    }
 
-    private var userDocumentReference: DocumentReference {
-        get async throws {
-            guard let user = await account.details else {
-                throw TemplateApplicationStandardError.userNotAuthenticatedYet
+    /// Presents the system authentication UI to send local notifications if the application is not yet permitted to send local notifications.
+    func requestLocalNotificationAuthorization() async throws {
+        if await !localNotificationAuthorization {
+            try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
+
+            // Triggers an update of the UI in case the notification permissions are changed
+            await MainActor.run {
+                self.objectWillChange.send()
             }
-
-            return Firestore.firestore().collection("users").document(user.accountId)
         }
     }
 
     func add(response: ModelsR4.QuestionnaireResponse) async {
-        let id = response.identifier?.value?.value?.string ?? UUID().uuidString
-
-        guard !FeatureFlags.disableFirebase else {
-            let jsonRepresentation = (try? String(data: JSONEncoder().encode(response), encoding: .utf8)) ?? ""
-            try? await mockWebService.upload(path: "questionnaireResponse/\(id)", body: jsonRepresentation)
-            return
-        }
-
-        do {
-            try await userDocumentReference
-                .collection("QuestionnaireResponse") // Add all HealthKit sources in a /QuestionnaireResponse collection.
-                .document(id) // Set the document identifier to the id of the response.
-                .setData(from: response)
-        } catch {
-            logger.error("Could not store questionnaire response: \(error)")
-        }
+        // we handle that directly in PatientTiles view.
     }
 
     func deletedAccount() async throws {
-        // delete all user associated data
+        // delete all care-provider associated data
     }
 }

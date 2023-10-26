@@ -41,7 +41,7 @@ struct HomeView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            ScheduleView(presentingAccount: $presentingAccount, activePatientId: $activePatientId, eegModel: eegModel)
+            ScheduleView2(presentingAccount: $presentingAccount, activePatientId: $activePatientId, eegModel: eegModel)
                 .tag(Tabs.schedule)
                 .tabItem {
                     Label("Schedule", systemImage: "list.clipboard")
@@ -126,7 +126,6 @@ struct HomeView: View {
 
     return HomeView()
         .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
-        .environmentObject(NAMSScheduler(testSchedule: true))
         .environmentObject(MockWebService())
 }
 #endif

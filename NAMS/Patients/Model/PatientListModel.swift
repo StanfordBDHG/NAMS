@@ -8,6 +8,7 @@
 
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Observation
 import OrderedCollections
 import OSLog
 import SpeziAccount
@@ -23,12 +24,22 @@ class PatientListModel {
     static let logger = Logger(subsystem: "edu.stanford.NAMS", category: "PatientListModel")
 
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
+
     var activePatient: Patient?
+
+    var questionnaires: [CompletedQuestionnaire]? // swiftlint:disable:this discouraged_optional_collection
+    var completedQuestionnaires: [String]? { // swiftlint:disable:this discouraged_optional_collection
+        guard let questionnaires else {
+            return nil
+        }
+        return questionnaires.map { $0.internalQuestionnaireId }
+    }
 
     var categorizedPatients: OrderedDictionary<Character, [Patient]> = [:]
 
-    @ObservationIgnored var patientListListener: ListenerRegistration?
-    @ObservationIgnored var activePatientListener: ListenerRegistration?
+    @ObservationIgnored private var patientListListener: ListenerRegistration?
+    @ObservationIgnored private var activePatientListener: ListenerRegistration?
+    @ObservationIgnored private var activePatientQuestionnairesListener: ListenerRegistration?
 
     private var patientsCollection: CollectionReference {
         Firestore.firestore().collection("patients")
@@ -36,6 +47,13 @@ class PatientListModel {
 
 
     init() {}
+
+
+    func completedQuestionnairesCollection(patientId: String) -> CollectionReference {
+        patientsCollection
+            .document(patientId)
+            .collection("questionnaireResponse")
+    }
 
 
     func retrieveList(viewState: Binding<ViewState>) {
@@ -143,6 +161,37 @@ class PatientListModel {
                 }
             }
         }
+
+        self.registerPatientCompletedQuestionnaire(patientId: id, viewState: viewState)
+    }
+
+    private func registerPatientCompletedQuestionnaire(patientId: String, viewState: Binding<ViewState>) {
+        if activePatientQuestionnairesListener != nil {
+            return
+        }
+
+        self.activePatientQuestionnairesListener = completedQuestionnairesCollection(patientId: patientId)
+            .addSnapshotListener { snapshot, error in
+                guard let snapshot else {
+                    Self.logger.error("Failed to retrieve questionnaire responses for active patient: \(error)")
+                    viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping
+                    return
+                }
+
+                do {
+                    self.questionnaires = try snapshot.documents.map { document in
+                        try document.data(as: CompletedQuestionnaire.self)
+                    }
+                } catch {
+                    if error is DecodingError {
+                        Self.logger.error("Failed to decode completed questionnaires: \(error)")
+                        viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                    } else {
+                        Self.logger.error("Unexpected error occurred while decoding completed questionnaires: \(error)")
+                        viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                    }
+                }
+            }
     }
 
     func closeList() {
@@ -156,6 +205,11 @@ class PatientListModel {
         if let activePatientListener {
             activePatientListener.remove()
             self.activePatientListener = nil
+        }
+
+        if let activePatientQuestionnairesListener {
+            activePatientQuestionnairesListener.remove()
+            self.activePatientQuestionnairesListener = nil
         }
     }
 
@@ -179,7 +233,7 @@ class PatientListModel {
             do {
                 let details = SignupDetails.Builder()
                     .set(\.userId, value: email)
-                    .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+                    .set(\.name, value: PersonNameComponents(givenName: "Example", familyName: "Patient"))
                     .set(\.password, value: password)
                     .build()
                 try await service.signUp(signupDetails: details)

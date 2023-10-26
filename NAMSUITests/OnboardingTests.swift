@@ -13,7 +13,7 @@ class OnboardingTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        try disablePasswordAutofill()
+        // TODO try disablePasswordAutofill()
         
         sleep(1)
         
