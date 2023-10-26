@@ -2066,14 +2066,6 @@
 				minimumVersion = 0.4.1;
 			};
 		};
-		A926D7762AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziScheduler" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziScheduler.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.5.0;
-			};
-		};
 		A926D7782AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziStorage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziStorage.git";
@@ -2226,11 +2218,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A926D7742AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziQuestionnaire" */;
 			productName = SpeziQuestionnaire;
-		};
-		A926D7752AB7A552000C4C2F /* SpeziScheduler */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A926D7762AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziScheduler" */;
-			productName = SpeziScheduler;
 		};
 		A926D7772AB7A552000C4C2F /* SpeziLocalStorage */ = {
 			isa = XCSwiftPackageProductDependency;
