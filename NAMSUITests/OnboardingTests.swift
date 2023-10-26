@@ -31,6 +31,7 @@ class OnboardingTests: XCTestCase {
         try app.navigateOnboardingFlow()
         
         app.assertOnboardingComplete()
+        try app.assertAccountInformation()
     }
 
     func testOnboardingFlowRepeated() throws {
