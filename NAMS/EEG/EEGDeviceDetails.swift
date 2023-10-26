@@ -29,7 +29,7 @@ struct EEGDeviceDetails: View {
             headbandFit
 
             if !device.aboutInformation.isEmpty {
-                Section("ABOUT") {
+                Section("About") {
                     ForEach(device.aboutInformation.elements, id: \.key) { element in
                         ListRow(element.key) {
                             Text(verbatim: element.value.description)

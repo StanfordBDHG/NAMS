@@ -7,6 +7,7 @@
 //
 
 
+import SpeziAccount
 import SpeziQuestionnaire
 import SpeziScheduler
 import SwiftUI
@@ -14,21 +15,16 @@ import SwiftUI
 
 struct ScheduleView: View {
     @EnvironmentObject var scheduler: NAMSScheduler
+    @ObservedObject var eegModel: EEGViewModel
+
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
 
     @State var presentingMuseList = false
-    @State var presentingEEGMeasurements = false
     @State var presentPatientSheet = false
+    @Binding var presentingAccount: Bool
 
     @Binding var activePatientId: String?
-
-
-    #if MUSE
-    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
-    #else
-    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
-    #endif
 
 
     var startOfDays: [Date] {
@@ -70,11 +66,6 @@ struct ScheduleView: View {
                 .sheet(isPresented: $presentingMuseList) {
                     NearbyDevices(eegModel: eegModel)
                 }
-                .sheet(isPresented: $presentingEEGMeasurements) {
-                    NavigationStack {
-                        EEGRecording(eegModel: eegModel)
-                    }
-                }
                 .sheet(isPresented: $presentPatientSheet) {
                     PatientListSheet(activePatientId: $activePatientId)
                 }
@@ -104,15 +95,18 @@ struct ScheduleView: View {
                 CurrentPatientLabel(activePatient: $activePatientId)
             })
         }
-        if eegModel.activeDevice?.state == .connected {
+        if AccountButton.shouldDisplay {
             ToolbarItem(placement: .primaryAction) {
-                Button(action: { presentingEEGMeasurements = true }) {
-                    Image(systemName: "waveform.path")
-                        .symbolRenderingMode(.hierarchical)
-                        .accessibilityLabel("EEG_RECORDING")
-                }
+                AccountButton(isPresented: $presentingAccount)
             }
         }
+    }
+
+
+    init(presentingAccount: Binding<Bool>, activePatientId: Binding<String?>, eegModel: EEGViewModel) {
+        self._presentingAccount = presentingAccount
+        self._activePatientId = activePatientId
+        self.eegModel = eegModel
     }
 
 
@@ -170,10 +164,22 @@ struct ScheduleView: View {
 
 
 #if DEBUG
-struct SchedulerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScheduleView(activePatientId: .constant("1 "))
-            .environmentObject(NAMSScheduler(testSchedule: true))
-    }
+#Preview {
+    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"), eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+        .environmentObject(NAMSScheduler(testSchedule: true))
+        .environmentObject(Account(MockUserIdPasswordAccountService()))
+        .environment(PatientListModel())
+}
+
+#Preview {
+    let model = EEGViewModel(deviceManager: MockDeviceManager())
+    let details = AccountDetails.Builder()
+        .set(\.userId, value: "lelandstanford@stanford.edu")
+        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+
+    return ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"), eegModel: model)
+        .environmentObject(NAMSScheduler(testSchedule: true))
+        .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .environment(PatientListModel())
 }
 #endif

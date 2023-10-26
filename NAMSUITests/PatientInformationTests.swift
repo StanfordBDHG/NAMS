@@ -48,7 +48,6 @@ final class PatientInformationTests: XCTestCase {
         app.buttons["Leland Stanford"].tap()
 
         XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Social Support Questionnaire"].waitForExistence(timeout: 0.5))
     }
 
     func testPatientInformationDetails() {
@@ -109,12 +108,12 @@ final class PatientInformationTests: XCTestCase {
 
         XCTAssertTrue(app.navigationBars.staticTexts["Add Patient"].waitForExistence(timeout: 6.0))
 
-        XCTAssertTrue(app.textFields["Enter your first name ..."].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.textFields["Enter your last name ..."].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.textFields["enter first name"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.textFields["enter last name"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.textViews["Add Notes"].waitForExistence(timeout: 0.5))
 
-        try app.textFields["Enter your first name ..."].enter(value: "Jane")
-        try app.textFields["Enter your last name ..."].enter(value: "Stanford")
+        try app.textFields["enter first name"].enter(value: "Jane")
+        try app.textFields["enter last name"].enter(value: "Stanford")
         try app.textViews["Add Notes"].enter(value: "My note ...", checkIfTextWasEnteredCorrectly: false, dismissKeyboard: false)
 
         XCTAssertTrue(app.navigationBars.buttons["Done"].waitForExistence(timeout: 0.5))

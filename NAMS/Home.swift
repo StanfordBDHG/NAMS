@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziAccount
 import SpeziMockWebService
 import SpeziViews
 import SwiftUI
@@ -16,6 +17,7 @@ struct HomeView: View {
     enum Tabs: String {
         case schedule
         case contact
+        case eegRecording
         case mockUpload
     }
     
@@ -24,24 +26,42 @@ struct HomeView: View {
     @AppStorage(StorageKeys.selectedPatient)
     private var activePatientId: String?
 
+    @EnvironmentObject private var account: Account
+
     @State private var patientList = PatientListModel()
 
     @State private var viewState: ViewState = .idle
+    @State private var presentingAccount = false
+
+#if MUSE
+    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
+#else
+    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
+#endif
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            ScheduleView(activePatientId: $activePatientId)
+            ScheduleView(presentingAccount: $presentingAccount, activePatientId: $activePatientId, eegModel: eegModel)
                 .tag(Tabs.schedule)
                 .tabItem {
-                    Label("Schedule", image: "list.clipboard")
+                    Label("Schedule", systemImage: "list.clipboard")
                 }
-            Contacts()
+            if eegModel.activeDevice?.state == .connected {
+                NavigationStack {
+                    EEGRecording(eegModel: eegModel)
+                }
+                .tag(Tabs.eegRecording)
+                .tabItem {
+                    Label("Recording", systemImage: "waveform.path")
+                }
+            }
+            Contacts(presentingAccount: $presentingAccount)
                 .tag(Tabs.contact)
                 .tabItem {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
                 }
             if FeatureFlags.disableFirebase {
-                MockUpload()
+                MockUpload(presentingAccount: $presentingAccount)
                     .tag(Tabs.mockUpload)
                     .tabItem {
                         Label("MOCK_UPLOAD_TAB_TITLE", systemImage: "server.rack")
@@ -70,6 +90,13 @@ struct HomeView: View {
                     activePatientId = nil // reset the current patient on an error
                 }
             }
+            .sheet(isPresented: $presentingAccount) {
+                AccountSheet()
+            }
+            .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
+                AccountSheet()
+            }
+            .verifyRequiredAccountDetails(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding)
     }
 
 
@@ -88,11 +115,14 @@ struct HomeView: View {
 
 
 #if DEBUG
-struct MainView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-            .environmentObject(NAMSScheduler(testSchedule: true))
-            .environmentObject(MockWebService())
-    }
+#Preview {
+    let details = AccountDetails.Builder()
+        .set(\.userId, value: "lelandstanford@stanford.edu")
+        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+
+    return HomeView()
+        .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .environmentObject(NAMSScheduler(testSchedule: true))
+        .environmentObject(MockWebService())
 }
 #endif

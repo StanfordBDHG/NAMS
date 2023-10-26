@@ -93,11 +93,9 @@ class EEGDeviceTests: XCTestCase {
         app.navigationBars.buttons["Close"].tap()
 
 
-        XCTAssertTrue(app.navigationBars.buttons["EEG Recording"].waitForExistence(timeout: 0.5))
-        app.navigationBars.buttons["EEG Recording"].tap()
+        XCTAssertTrue(app.tabBars.buttons["Recording"].waitForExistence(timeout: 0.5))
+        app.tabBars.buttons["Recording"].tap()
 
         sleep(2)
-        XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
-        app.navigationBars.buttons["Close"].tap()
     }
 }

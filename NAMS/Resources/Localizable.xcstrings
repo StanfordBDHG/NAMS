@@ -41,82 +41,12 @@
         }
       }
     },
-    "ABOUT" : {
+    "About" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "About"
-          }
-        }
-      }
-    },
-    "ACCOUNT_LOGIN" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Login"
-          }
-        }
-      }
-    },
-    "ACCOUNT_NEXT" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue"
-          }
-        }
-      }
-    },
-    "ACCOUNT_SETUP_DESCRIPTION" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please sign up to create a new account or log into an existing one."
-          }
-        }
-      }
-    },
-    "ACCOUNT_SIGN_UP" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sign Up"
-          }
-        }
-      }
-    },
-    "ACCOUNT_SIGNED_IN_DESCRIPTION" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You are successfully signed in with the following account:"
-          }
-        }
-      }
-    },
-    "ACCOUNT_SUBTITLE" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data."
-          }
-        }
-      }
-    },
-    "ACCOUNT_TITLE" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Account"
           }
         }
       }
@@ -162,18 +92,15 @@
         }
       }
     },
-    "App Icon" : {
+    "Are you sure you want to delete this patient?" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "App Icon"
+            "value" : "Are you sure you want to delete this patient?"
           }
         }
       }
-    },
-    "Are you sure you want to delete this patient?" : {
-
     },
     "Are you sure you want to discard this new patient?" : {
       "localizations" : {
@@ -305,6 +232,9 @@
         }
       }
     },
+    "Completed Task: %@" : {
+
+    },
     "CONNECT_NEARBY_HINT" : {
       "localizations" : {
         "en" : {
@@ -354,6 +284,9 @@
           }
         }
       }
+    },
+    "Continue" : {
+
     },
     "Delete" : {
       "localizations" : {
@@ -605,26 +538,6 @@
         }
       }
     },
-    "LOGIN_SUBTITLE" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) demonstrates the usage of the Firebase Account Module to enable different authentication services, including an email and password-based login."
-          }
-        }
-      }
-    },
-    "Logout" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Logout"
-          }
-        }
-      }
-    },
     "MEDIOCRE_FIT" : {
       "localizations" : {
         "en" : {
@@ -721,16 +634,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notes"
-          }
-        }
-      }
-    },
-    "NOTIFICATION_PERMISSIONS_BUTTON" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue"
           }
         }
       }
@@ -866,6 +769,9 @@
         }
       }
     },
+    "Recording" : {
+
+    },
     "RESET" : {
       "localizations" : {
         "en" : {
@@ -969,16 +875,6 @@
         }
       }
     },
-    "SIGN_UP_SUBTITLE" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) demonstrates the usage of the Firebase Account Module to enable different authentication services, including an email and password-based sign-up."
-          }
-        }
-      }
-    },
     "Start" : {
       "localizations" : {
         "en" : {
@@ -1029,6 +925,9 @@
         }
       }
     },
+    "Task: %@" : {
+
+    },
     "Theta" : {
       "localizations" : {
         "en" : {
@@ -1055,16 +954,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Make sure your headband is turned on and nearby."
-          }
-        }
-      }
-    },
-    "USER_VIEW_LOADING" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Loading user information ..."
           }
         }
       }
@@ -1139,16 +1028,6 @@
         }
       }
     },
-    "WELCOME_BUTTON" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Continue"
-          }
-        }
-      }
-    },
     "WELCOME_TITLE" : {
       "localizations" : {
         "en" : {
@@ -1165,6 +1044,49 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yes"
+          }
+        }
+      }
+    },
+    "You are already signed in." : {
+      "comment" : "Account Setup Header Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are successfully signed in with the following account:"
+          }
+        }
+      }
+    },
+    "You may login below." : {
+      "comment" : "Account Setup Header Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please sign up to create a new account or log into an existing one."
+          }
+        }
+      }
+    },
+    "Your Account" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Account"
+          }
+        }
+      }
+    },
+    "Your Account Description" : {
+      "comment" : "What is an account used for in this app?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data."
           }
         }
       }
