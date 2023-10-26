@@ -56,7 +56,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--inject-default-patient"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--skipOnboarding"

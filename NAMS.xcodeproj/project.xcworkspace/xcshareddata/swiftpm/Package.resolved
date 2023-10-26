@@ -199,15 +199,6 @@
       }
     },
     {
-      "identity" : "spezischeduler",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/StanfordSpezi/SpeziScheduler.git",
-      "state" : {
-        "revision" : "dcba98814d783438b8505e692d0dfb8d90968597",
-        "version" : "0.6.3"
-      }
-    },
-    {
       "identity" : "spezistorage",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziStorage.git",

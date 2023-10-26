@@ -28,26 +28,26 @@ final class PatientInformationTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 2.0))
-        app.buttons["Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 2.0))
+        app.buttons["Example Patient"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
 
-        XCTAssertTrue(app.buttons["Selected Patient: Leland Stanford"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.buttons["Leland Stanford, Selected"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.buttons["Selected Patient: Example Patient"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.buttons["Example Patient, Selected"].waitForExistence(timeout: 0.5))
 
-        app.buttons["Leland Stanford, Selected"].tap()
+        app.buttons["Example Patient, Selected"].tap()
 
         XCTAssertTrue(app.staticTexts["No Patient selected"].waitForExistence(timeout: 2.0))
-        XCTAssertTrue(app.buttons["Select Patient"].waitForExistence(timeout: 2.0))
-        app.buttons["Select Patient"].tap()
+        XCTAssertTrue(app.navigationBars.buttons["Select Patient"].waitForExistence(timeout: 2.0))
+        app.navigationBars.buttons["Select Patient"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 0.5))
-        app.buttons["Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 0.5))
+        app.buttons["Example Patient"].tap()
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 0.5))
     }
 
     func testPatientInformationDetails() {
@@ -57,16 +57,16 @@ final class PatientInformationTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 2.0))
-        app.buttons["Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 2.0))
+        app.buttons["Example Patient"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
 
-        XCTAssertTrue(app.buttons["Selected Patient: Leland Stanford"].waitForExistence(timeout: 0.5))
-        app.buttons["Selected Patient: Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Selected Patient: Example Patient"].waitForExistence(timeout: 0.5))
+        app.buttons["Selected Patient: Example Patient"].tap()
 
         XCTAssertTrue(app.navigationBars.staticTexts["Patient Overview"].waitForExistence(timeout: 6.0))
-        XCTAssertTrue(app.staticTexts["Leland Stanford"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Example Patient"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.buttons["Delete Patient"].waitForExistence(timeout: 0.5))
         XCTAssertFalse(app.buttons["Select Patient"].waitForExistence(timeout: 0.5))
 
@@ -75,12 +75,12 @@ final class PatientInformationTests: XCTestCase {
         app.navigationBars.buttons["Patients"].tap()
 
 
-        XCTAssertTrue(app.buttons["Leland Stanford, Selected"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.buttons["Leland Stanford, Patient Details"].waitForExistence(timeout: 0.5))
-        app.buttons["Leland Stanford, Patient Details"].tap()
+        XCTAssertTrue(app.buttons["Example Patient, Selected"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.buttons["Example Patient, Patient Details"].waitForExistence(timeout: 0.5))
+        app.buttons["Example Patient, Patient Details"].tap()
 
         XCTAssertTrue(app.navigationBars.staticTexts["Patient Overview"].waitForExistence(timeout: 6.0))
-        XCTAssertTrue(app.staticTexts["Leland Stanford"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Example Patient"].waitForExistence(timeout: 0.5))
 
         // back button
         XCTAssertTrue(app.navigationBars.buttons["Patients"].waitForExistence(timeout: 0.5))
@@ -98,8 +98,8 @@ final class PatientInformationTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 6.0))
-        app.buttons["Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 6.0))
+        app.buttons["Example Patient"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
 
@@ -141,13 +141,13 @@ final class PatientInformationTests: XCTestCase {
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
 
-        XCTAssertTrue(app.buttons["Leland Stanford"].waitForExistence(timeout: 2.0))
-        app.buttons["Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 2.0))
+        app.buttons["Example Patient"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
 
-        XCTAssertTrue(app.buttons["Selected Patient: Leland Stanford"].waitForExistence(timeout: 0.5))
-        app.buttons["Selected Patient: Leland Stanford"].tap()
+        XCTAssertTrue(app.buttons["Selected Patient: Example Patient"].waitForExistence(timeout: 0.5))
+        app.buttons["Selected Patient: Example Patient"].tap()
 
         XCTAssertTrue(app.navigationBars.staticTexts["Patient Overview"].waitForExistence(timeout: 6.0))
 
@@ -163,8 +163,8 @@ final class PatientInformationTests: XCTestCase {
 
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
-        XCTAssertFalse(app.buttons["Leland Stanford"].waitForExistence(timeout: 0.5))
-        XCTAssertFalse(app.buttons["Leland Stanford, Selected"].waitForExistence(timeout: 0.5))
-        XCTAssertFalse(app.buttons["Selected Patient: Leland Stanford"].waitForExistence(timeout: 0.5))
+        XCTAssertFalse(app.buttons["Example Patient"].waitForExistence(timeout: 0.5))
+        XCTAssertFalse(app.buttons["Example Patient, Selected"].waitForExistence(timeout: 0.5))
+        XCTAssertFalse(app.buttons["Selected Patient: Example Patient"].waitForExistence(timeout: 0.5))
     }
 }

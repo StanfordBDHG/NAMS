@@ -31,6 +31,9 @@
         }
       }
     },
+    "%@ min" : {
+      "comment" : "Expected task completion in minutes."
+    },
     "%@, Patient Details" : {
       "localizations" : {
         "en" : {
@@ -232,6 +235,9 @@
         }
       }
     },
+    "Completed" : {
+      "comment" : "Completed Task. Subtitle."
+    },
     "Completed Task: %@" : {
 
     },
@@ -372,6 +378,12 @@
 
     },
     "enter last name" : {
+
+    },
+    "Failed to associate response with original questionnaire!" : {
+
+    },
+    "Failed to complete Questionnaire" : {
 
     },
     "FINISHED_SETUP_TEXT" : {
@@ -549,6 +561,9 @@
           }
         }
       }
+    },
+    "M-CHAT R/F" : {
+
     },
     "MEDIOCRE_FIT" : {
       "localizations" : {
@@ -742,6 +757,7 @@
       }
     },
     "Preview Modal" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -781,6 +797,9 @@
         }
       }
     },
+    "Questionnaire" : {
+      "comment" : "Tile Type"
+    },
     "Recording" : {
 
     },
@@ -804,6 +823,9 @@
           }
         }
       }
+    },
+    "Screening" : {
+
     },
     "Search for a patient" : {
       "localizations" : {
@@ -897,7 +919,11 @@
         }
       }
     },
+    "Start %@" : {
+
+    },
     "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -908,6 +934,7 @@
       }
     },
     "TASK_CONTEXT_ACTION_TEST" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -918,6 +945,7 @@
       }
     },
     "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_DESCRIPTION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -928,6 +956,7 @@
       }
     },
     "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_TITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -938,6 +967,12 @@
       }
     },
     "Task: %@" : {
+
+    },
+    "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
+
+    },
+    "There was no selected patient found!" : {
 
     },
     "Theta" : {
@@ -969,6 +1004,9 @@
           }
         }
       }
+    },
+    "Unexpected format of the questionnaire response!" : {
+
     },
     "WEARING" : {
       "localizations" : {

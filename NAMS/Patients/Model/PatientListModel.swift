@@ -8,6 +8,7 @@
 
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Observation
 import OrderedCollections
 import OSLog
 import SpeziAccount
@@ -23,12 +24,22 @@ class PatientListModel {
     static let logger = Logger(subsystem: "edu.stanford.NAMS", category: "PatientListModel")
 
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
+
     var activePatient: Patient?
+
+    var questionnaires: [CompletedQuestionnaire]? // swiftlint:disable:this discouraged_optional_collection
+    var completedQuestionnaires: [String]? { // swiftlint:disable:this discouraged_optional_collection
+        guard let questionnaires else {
+            return nil
+        }
+        return questionnaires.map { $0.internalQuestionnaireId }
+    }
 
     var categorizedPatients: OrderedDictionary<Character, [Patient]> = [:]
 
-    @ObservationIgnored var patientListListener: ListenerRegistration?
-    @ObservationIgnored var activePatientListener: ListenerRegistration?
+    @ObservationIgnored private var patientListListener: ListenerRegistration?
+    @ObservationIgnored private var activePatientListener: ListenerRegistration?
+    @ObservationIgnored private var activePatientQuestionnairesListener: ListenerRegistration?
 
     private var patientsCollection: CollectionReference {
         Firestore.firestore().collection("patients")
@@ -36,6 +47,13 @@ class PatientListModel {
 
 
     init() {}
+
+
+    func completedQuestionnairesCollection(patientId: String) -> CollectionReference {
+        patientsCollection
+            .document(patientId)
+            .collection("questionnaireResponse")
+    }
 
 
     func retrieveList(viewState: Binding<ViewState>) {
@@ -103,20 +121,6 @@ class PatientListModel {
         }
     }
 
-    func setupTestEnvironment(withPatient patientId: String, viewState: Binding<ViewState>, account: Account) async {
-        await setupTestAccount(account: account, viewState: viewState)
-
-        do {
-            try await patientsCollection.document(patientId).setData(
-                from: Patient(name: .init(givenName: "Leland", familyName: "Stanford")),
-                merge: true
-            )
-        } catch {
-            Self.logger.error("Failed to set test patient information: \(error)")
-            viewState.wrappedValue = .error(FirestoreError(error))
-        }
-    }
-
     func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
         if activePatient?.id == id {
             return // already set up
@@ -143,6 +147,37 @@ class PatientListModel {
                 }
             }
         }
+
+        self.registerPatientCompletedQuestionnaire(patientId: id, viewState: viewState)
+    }
+
+    private func registerPatientCompletedQuestionnaire(patientId: String, viewState: Binding<ViewState>) {
+        if activePatientQuestionnairesListener != nil {
+            return
+        }
+
+        self.activePatientQuestionnairesListener = completedQuestionnairesCollection(patientId: patientId)
+            .addSnapshotListener { snapshot, error in
+                guard let snapshot else {
+                    Self.logger.error("Failed to retrieve questionnaire responses for active patient: \(error)")
+                    viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping
+                    return
+                }
+
+                do {
+                    self.questionnaires = try snapshot.documents.map { document in
+                        try document.data(as: CompletedQuestionnaire.self)
+                    }
+                } catch {
+                    if error is DecodingError {
+                        Self.logger.error("Failed to decode completed questionnaires: \(error)")
+                        viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                    } else {
+                        Self.logger.error("Unexpected error occurred while decoding completed questionnaires: \(error)")
+                        viewState.wrappedValue = .error(AnyLocalizedError(error: error))
+                    }
+                }
+            }
     }
 
     func closeList() {
@@ -156,6 +191,25 @@ class PatientListModel {
         if let activePatientListener {
             activePatientListener.remove()
             self.activePatientListener = nil
+        }
+
+        if let activePatientQuestionnairesListener {
+            activePatientQuestionnairesListener.remove()
+            self.activePatientQuestionnairesListener = nil
+        }
+    }
+
+    func setupTestEnvironment(withPatient patientId: String, viewState: Binding<ViewState>, account: Account) async {
+        await setupTestAccount(account: account, viewState: viewState)
+
+        do {
+            try await patientsCollection.document(patientId).setData(
+                from: Patient(name: .init(givenName: "Example", familyName: "Patient")),
+                merge: true
+            )
+        } catch {
+            Self.logger.error("Failed to set test patient information: \(error)")
+            viewState.wrappedValue = .error(FirestoreError(error))
         }
     }
 

@@ -5,14 +5,13 @@
 //
 // SPDX-License-Identifier: MIT
 //
-import SpeziFHIR
+
 import SpeziOnboarding
-import SpeziScheduler
 import SwiftUI
 
 
 struct NotificationPermissions: View {
-    @EnvironmentObject private var scheduler: NAMSScheduler
+    @EnvironmentObject private var standard: NAMSStandard
     @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
 
     @State private var notificationProcessing = false
@@ -44,9 +43,9 @@ struct NotificationPermissions: View {
                             notificationProcessing = true
                             // Notification Authorization are not available in the preview simulator.
                             if ProcessInfo.processInfo.isPreviewSimulator {
-                                try await _Concurrency.Task.sleep(for: .seconds(5))
+                                try await Task.sleep(for: .seconds(5))
                             } else {
-                                try await scheduler.requestLocalNotificationAuthorization()
+                                try await standard.requestLocalNotificationAuthorization()
                             }
                         } catch {
                             print("Could not request notification permissions.")
@@ -72,6 +71,7 @@ struct NotificationPermissions_Previews: PreviewProvider {
                 onboardingView
             }
         }
+            .environmentObject(NAMSStandard())
     }
 }
 #endif
