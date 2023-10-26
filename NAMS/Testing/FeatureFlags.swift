@@ -23,6 +23,9 @@ enum FeatureFlags {
     #endif
     /// Adds a test task to the schedule at the current time.
     static let testSchedule = CommandLine.arguments.contains("--testSchedule")
-    /// Controls some behavioral differences in the BLE device subsystem when unit testing.
-    static let testBLEDevices = CommandLine.arguments.contains("--testBLEDevices")
+    /// Custom accessibility actions cannot be reliably tested. This flag ensures custom accessibility actions
+    /// are rendered as UI elements.
+    static let renderAccessibilityActions = CommandLine.arguments.contains("--render-accessibility-actions")
+    /// A default patient is injected you may use within UI tests.
+    static let injectDefaultPatient = CommandLine.arguments.contains("--inject-default-patient")
 }

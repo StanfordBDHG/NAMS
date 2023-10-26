@@ -48,7 +48,7 @@ struct EEGChart: View {
                             AxisTick(stroke: .init(lineWidth: 1))
                                 .foregroundStyle(.gray)
                             AxisValueLabel {
-                                Text("\(intValue)s")
+                                Text(verbatim: "\(intValue)s")
                             }
                             AxisGridLine(stroke: .init(lineWidth: 1))
                                 .foregroundStyle(.gray)

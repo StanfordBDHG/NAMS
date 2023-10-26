@@ -17,7 +17,7 @@ class SchedulerTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--testSchedule"]
+        app.launchArguments = ["--skipOnboarding", "--testSchedule", "--inject-default-patient"]
         app.deleteAndLaunch(withSpringboardAppName: "NAMS")
     }
 

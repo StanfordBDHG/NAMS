@@ -71,7 +71,7 @@ struct NearbyDevices: View {
                     }
                 }
                 .toolbar {
-                    Button("CLOSE") {
+                    Button("Close") {
                         dismiss()
                     }
                 }

@@ -16,8 +16,13 @@ struct ScheduleView: View {
     @EnvironmentObject var scheduler: NAMSScheduler
     @State var eventContextsByDate: [Date: [EventContext]] = [:]
     @State var presentedContext: EventContext?
+
     @State var presentingMuseList = false
     @State var presentingEEGMeasurements = false
+    @State var presentPatientSheet = false
+
+    @Binding var activePatientId: String?
+
 
     #if MUSE
     @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
@@ -25,23 +30,34 @@ struct ScheduleView: View {
     @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
     #endif
 
-    
+
     var startOfDays: [Date] {
         Array(eventContextsByDate.keys)
     }
-    
-    
+
+
     var body: some View {
+        // swiftlint:disable:next closure_body_length
         NavigationStack {
-            List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
-                Section(format(startOfDay: startOfDay)) {
-                    ForEach(eventContextsByDate[startOfDay] ?? [], id: \.event) { eventContext in
-                        EventContextView(eventContext: eventContext)
-                            .onTapGesture {
-                                if !eventContext.event.complete {
-                                    presentedContext = eventContext
-                                }
+            ZStack {
+                if activePatientId != nil {
+                    List(startOfDays, id: \.timeIntervalSinceNow) { startOfDay in
+                        Section(format(startOfDay: startOfDay)) {
+                            ForEach(eventContextsByDate[startOfDay] ?? [], id: \.event) { eventContext in
+                                EventContextView(eventContext: eventContext)
+                                    .onTapGesture {
+                                        if !eventContext.event.complete {
+                                            presentedContext = eventContext
+                                        }
+                                    }
                             }
+                        }
+                    }
+                } else {
+                    NoInformationText {
+                        Text("No Patient selected")
+                    } caption: {
+                        Text("Select a patient to continue.")
                     }
                 }
             }
@@ -59,7 +75,10 @@ struct ScheduleView: View {
                         EEGRecording(eegModel: eegModel)
                     }
                 }
-                .navigationTitle("SCHEDULE_LIST_TITLE")
+                .sheet(isPresented: $presentPatientSheet) {
+                    PatientListSheet(activePatientId: $activePatientId)
+                }
+                .navigationTitle(Text("Schedule", comment: "Schedule Title"))
                 .toolbar {
                     toolbar
                 }
@@ -67,13 +86,23 @@ struct ScheduleView: View {
     }
 
     @ToolbarContentBuilder private var toolbar: some ToolbarContent {
-        ToolbarItem(placement: .navigationBarLeading) {
-            Button(action: {
-                presentingMuseList = true
-            }) {
-                Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
-                    .accessibilityLabel("NEARBY_DEVICES")
+        if activePatientId != nil {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentingMuseList = true
+                }) {
+                    Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                        .accessibilityLabel("NEARBY_DEVICES")
+                }
             }
+        }
+
+        ToolbarItem(placement: .principal) {
+            Button(action: {
+                presentPatientSheet = true
+            }, label: {
+                CurrentPatientLabel(activePatient: $activePatientId)
+            })
         }
         if eegModel.activeDevice?.state == .connected {
             ToolbarItem(placement: .primaryAction) {
@@ -85,8 +114,8 @@ struct ScheduleView: View {
             }
         }
     }
-    
-    
+
+
     private func destination(withContext eventContext: EventContext) -> some View {
         @ViewBuilder var destination: some View {
             switch eventContext.task.context {
@@ -97,7 +126,7 @@ struct ScheduleView: View {
                     }
                 }
             case let .test(string):
-                ModalView(text: string, buttonText: "CLOSE") {
+                ModalView(text: string, buttonText: "Close") {
                     _Concurrency.Task {
                         await eventContext.event.complete(true)
                     }
@@ -107,15 +136,15 @@ struct ScheduleView: View {
 
         return destination
     }
-    
-    
+
+
     private func format(startOfDay: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         dateFormatter.timeStyle = .none
         return dateFormatter.string(from: startOfDay)
     }
-    
+
     private func calculateEventContextsByDate() {
         let eventContexts = scheduler.tasks.flatMap { task in
             task
@@ -128,11 +157,11 @@ struct ScheduleView: View {
                 }
         }
             .sorted()
-        
+
         let newEventContextsByDate = Dictionary(grouping: eventContexts) { eventContext in
             Calendar.current.startOfDay(for: eventContext.event.scheduledAt)
         }
-        
+
         if newEventContextsByDate != eventContextsByDate {
             eventContextsByDate = newEventContextsByDate
         }
@@ -143,7 +172,7 @@ struct ScheduleView: View {
 #if DEBUG
 struct SchedulerView_Previews: PreviewProvider {
     static var previews: some View {
-        ScheduleView()
+        ScheduleView(activePatientId: .constant("1 "))
             .environmentObject(NAMSScheduler(testSchedule: true))
     }
 }

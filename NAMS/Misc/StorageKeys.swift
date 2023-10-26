@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-/// Constants shared across the Spezi Teamplate Application to access storage information including the `AppStorage` and `SceneStorage`
+/// Constants shared across the NAMS app to access storage information including the `AppStorage` and `SceneStorage`
 enum StorageKeys {
     // MARK: - Onboarding
     /// A `Bool` flag indicating of the onboarding was completed.
@@ -18,4 +18,6 @@ enum StorageKeys {
     // MARK: - Home
     /// The currently selected home tab.
     static let homeTabSelection = "home.tabselection"
+    /// The currently selected patient.
+    static let selectedPatient = "active.patient"
 }

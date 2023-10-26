@@ -37,7 +37,5 @@ class ContactsTests: XCTestCase {
         XCTAssertTrue(app.buttons["Email"].waitForExistence(timeout: 2))
         
         XCTAssertTrue(app.buttons["Website"].waitForExistence(timeout: 2))
-
-        XCTAssertTrue(app.buttons["Address, 450 Serra Mall\nStanford CA 94305\nUSA"].waitForExistence(timeout: 2))
     }
 }

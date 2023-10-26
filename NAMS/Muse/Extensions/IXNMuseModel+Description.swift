@@ -20,7 +20,7 @@ extension IXNMuseModel: CustomStringConvertible {
         case .mu04:
             return "Muse S" // 2019
         case .mu05:
-            return "Muse s (Gen 2)"
+            return "Muse S (Gen 2)"
         @unknown default:
             return "Unknown Muse"
         }

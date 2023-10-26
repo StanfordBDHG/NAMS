@@ -16,7 +16,7 @@ class EEGDeviceTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--testBLEDevices"]
+        app.launchArguments = ["--skipOnboarding", "--render-accessibility-actions", "--inject-default-patient"]
         app.launch()
     }
 
@@ -54,7 +54,6 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.navigationBars.staticTexts["Mock"].waitForExistence(timeout: 2.0))
 
 
-        print(app.staticTexts.debugDescription)
         XCTAssertTrue(app.staticTexts["Battery, 75 %"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.staticTexts["Issues with your battery? Troubleshooting"].waitForExistence(timeout: 0.5))
 

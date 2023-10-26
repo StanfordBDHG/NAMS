@@ -32,7 +32,7 @@ struct EEGDeviceDetails: View {
                 Section("ABOUT") {
                     ForEach(device.aboutInformation.elements, id: \.key) { element in
                         ListRow(element.key) {
-                            Text(element.value.description)
+                            Text(verbatim: element.value.description)
                         }
                     }
                 }
@@ -56,7 +56,7 @@ struct EEGDeviceDetails: View {
             Section {
                 ListRow("BATTERY") {
                     Group {
-                        Text("\(Int(remainingBattery)) %")
+                        Text(verbatim: "\(Int(remainingBattery)) %")
                         batteryIcon(percentage: remainingBattery) // hides accessibility, only text will be shown
                             .foregroundStyle(.primary)
                     }
@@ -71,7 +71,11 @@ struct EEGDeviceDetails: View {
     @ViewBuilder private var headbandFit: some View {
         Section {
             ListRow("WEARING") {
-                Text(device.wearingHeadband ? "YES" : "NO")
+                if device.wearingHeadband {
+                    Text("Yes")
+                } else {
+                    Text("No")
+                }
             }
             
             if device.wearingHeadband {
@@ -101,10 +105,10 @@ struct EEGDeviceDetails: View {
             // swiftlint:disable:next accessibility_label_for_image
             let image = Image(systemName: "exclamationmark.triangle.fill")
                 .symbolRenderingMode(.multicolor)
-            Text("\(image) ")
+            Text(verbatim: "\(image) ")
                 + Text("INTERVENTION_REQUIRED_TITLE")
                     .fontWeight(.semibold)
-                + Text("\n")
+                + Text(verbatim: "\n")
                 + Text(message)
         }
             .multilineTextAlignment(.center)
