@@ -63,11 +63,6 @@ struct QuestionnaireTile: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(patientQuestionnaire.title)
                     .font(.headline)
-                    .accessibilityLabel(
-                        completed
-                        ? "Completed Task: \(patientQuestionnaire.title)"
-                        : "Task: \(patientQuestionnaire.title)"
-                    )
 
                 HStack {
                     if completed {
@@ -81,8 +76,9 @@ struct QuestionnaireTile: View {
                             .foregroundColor(.secondary)
                     }
                 }
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .accessibilityElement(children: .combine)
             }
         }
     }

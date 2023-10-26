@@ -39,8 +39,8 @@ final class PatientInformationTests: XCTestCase {
         app.buttons["Example Patient, Selected"].tap()
 
         XCTAssertTrue(app.staticTexts["No Patient selected"].waitForExistence(timeout: 2.0))
-        XCTAssertTrue(app.buttons["Select Patient"].waitForExistence(timeout: 2.0))
-        app.buttons["Select Patient"].tap()
+        XCTAssertTrue(app.navigationBars.buttons["Select Patient"].waitForExistence(timeout: 2.0))
+        app.navigationBars.buttons["Select Patient"].tap()
 
         XCTAssertTrue(app.navigationBars["Patients"].waitForExistence(timeout: 6.0))
 

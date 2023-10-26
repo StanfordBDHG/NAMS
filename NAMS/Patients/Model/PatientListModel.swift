@@ -121,20 +121,6 @@ class PatientListModel {
         }
     }
 
-    func setupTestEnvironment(withPatient patientId: String, viewState: Binding<ViewState>, account: Account) async {
-        await setupTestAccount(account: account, viewState: viewState)
-
-        do {
-            try await patientsCollection.document(patientId).setData(
-                from: Patient(name: .init(givenName: "Leland", familyName: "Stanford")),
-                merge: true
-            )
-        } catch {
-            Self.logger.error("Failed to set test patient information: \(error)")
-            viewState.wrappedValue = .error(FirestoreError(error))
-        }
-    }
-
     func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
         if activePatient?.id == id {
             return // already set up
@@ -213,6 +199,20 @@ class PatientListModel {
         }
     }
 
+    func setupTestEnvironment(withPatient patientId: String, viewState: Binding<ViewState>, account: Account) async {
+        await setupTestAccount(account: account, viewState: viewState)
+
+        do {
+            try await patientsCollection.document(patientId).setData(
+                from: Patient(name: .init(givenName: "Example", familyName: "Patient")),
+                merge: true
+            )
+        } catch {
+            Self.logger.error("Failed to set test patient information: \(error)")
+            viewState.wrappedValue = .error(FirestoreError(error))
+        }
+    }
+
     private func setupTestAccount(account: Account, viewState: Binding<ViewState>) async {
         let email = "test@nams.stanford.edu"
         let password = "123456789"
@@ -233,7 +233,7 @@ class PatientListModel {
             do {
                 let details = SignupDetails.Builder()
                     .set(\.userId, value: email)
-                    .set(\.name, value: PersonNameComponents(givenName: "Example", familyName: "Patient"))
+                    .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
                     .set(\.password, value: password)
                     .build()
                 try await service.signUp(signupDetails: details)
