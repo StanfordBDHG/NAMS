@@ -74,7 +74,7 @@ struct HomeView: View {
                 if FeatureFlags.injectDefaultPatient {
                     let patientId = "default-patient"
                     activePatientId = patientId
-                    patientList.loadActivePatientWithTestAccount(for: patientId, viewState: $viewState)
+                    patientList.loadActivePatientWithTestAccount(for: patientId, viewState: $viewState, account: account)
                     return
                 }
 

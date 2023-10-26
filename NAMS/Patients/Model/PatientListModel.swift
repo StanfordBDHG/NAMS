@@ -6,11 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
-import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import OrderedCollections
 import OSLog
+import SpeziAccount
+import SpeziFirebaseAccount
 import SpeziFirestore
 import SpeziViews
 import SwiftUI
@@ -102,13 +103,13 @@ class PatientListModel {
         }
     }
 
-    func loadActivePatientWithTestAccount(for id: String, viewState: Binding<ViewState>) {
+    func loadActivePatientWithTestAccount(for id: String, viewState: Binding<ViewState>, account: Account) {
         Task {
-            await setupTestAccount()
+            await setupTestAccount(account: account, viewState: viewState)
 
             do {
                 try await patientsCollection.document(id).setData(
-                    from: Patient(id: id, name: .init(givenName: "Leland", familyName: "Stanford")),
+                    from: Patient(name: .init(givenName: "Leland", familyName: "Stanford")),
                     merge: true
                 )
             } catch {
@@ -158,29 +159,37 @@ class PatientListModel {
         }
     }
 
-    private func setupTestAccount() async {
+    private func setupTestAccount(account: Account, viewState: Binding<ViewState>) async {
         let email = "test@nams.stanford.edu"
         let password = "123456789"
 
-        if let user = Auth.auth().currentUser,
-           user.email == email {
+        if let details = account.details,
+           details.email == email {
             return
+        }
+
+        guard let service = account.registeredAccountServices.compactMap({ $0 as? any UserIdPasswordAccountService }).first else {
+            preconditionFailure("Failed to retrieve a user-id-password based account service for test account setup!")
         }
 
         do {
             do {
-                try await Auth.auth().createUser(withEmail: email, password: password)
-            } catch let error as NSError {
-                if case .emailAlreadyInUse = AuthErrorCode(_nsError: error).code {
-                    try await Auth.auth().signIn(withEmail: email, password: password)
+                let details = SignupDetails.Builder()
+                    .set(\.userId, value: email)
+                    .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+                    .set(\.password, value: password)
+                    .build()
+                try await service.signUp(signupDetails: details)
+            } catch {
+                if "\(error)".contains("accountAlreadyInUse") {
+                    try await service.login(userId: email, password: password)
                 } else {
                     throw error
                 }
-            } catch {
-                throw error
             }
         } catch {
             Self.logger.error("Failed setting up test account : \(error)")
+            viewState.wrappedValue = .error(AnyLocalizedError(error: error))
         }
     }
 }

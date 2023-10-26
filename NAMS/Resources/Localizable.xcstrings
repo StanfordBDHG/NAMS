@@ -368,6 +368,12 @@
         }
       }
     },
+    "enter first name" : {
+
+    },
+    "enter last name" : {
+
+    },
     "FINISHED_SETUP_TEXT" : {
       "localizations" : {
         "en" : {
@@ -407,6 +413,9 @@
           }
         }
       }
+    },
+    "First" : {
+
     },
     "FREQUENCY" : {
       "localizations" : {
@@ -527,6 +536,9 @@
           }
         }
       }
+    },
+    "Last" : {
+
     },
     "LELAND_STANFORD_BIO" : {
       "localizations" : {

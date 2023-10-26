@@ -20,7 +20,8 @@ struct Patient: Codable, Identifiable {
     }
 
 
-    init(id: String, name: PersonNameComponents, note: String? = nil) {
+    // swiftlint:disable:next function_default_parameter_at_end
+    init(id: String? = nil, name: PersonNameComponents, note: String? = nil) {
         self.id = id
         self.name = name
         self.note = note
