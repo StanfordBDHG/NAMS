@@ -121,7 +121,7 @@ class PatientListModel {
         }
     }
 
-    func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
+    func loadActivePatient(for id: String, viewState: Binding<ViewState>, activePatientId: Binding<String?>) {
         if activePatient?.id == id {
             return // already set up
         }
@@ -135,14 +135,20 @@ class PatientListModel {
                 return
             }
 
+            if !snapshot.exists {
+                activePatientId.wrappedValue = nil
+                self.removeActivePatientListener()
+                return
+            }
+
             do {
                 self.activePatient = try snapshot.data(as: Patient.self)
             } catch {
                 if error is DecodingError {
-                    Self.logger.error("Failed to decode patient list: \(error)")
+                    Self.logger.error("Failed to decode active patient: \(error)")
                     viewState.wrappedValue = .error(AnyLocalizedError(error: error))
                 } else {
-                    Self.logger.error("Unexpected error occurred while decoding patient list: \(error)")
+                    Self.logger.error("Unexpected error occurred while decoding active patient: \(error)")
                     viewState.wrappedValue = .error(AnyLocalizedError(error: error))
                 }
             }

@@ -32,7 +32,7 @@ struct EEGRecording: View {
                     Button(role: .destructive, action: {
                         activeDevice.measurements = [:]
                     }) {
-                        Text("RESET")
+                        Text("Reset")
                     }
                 }
             } else {
@@ -41,7 +41,7 @@ struct EEGRecording: View {
                 Text("CONNECT_NEARBY_HINT")
             }
         }
-            .navigationTitle("EEG_RECORDING")
+            .navigationTitle("EEG Recording")
             .toolbar {
                 Button("Close") {
                     dismiss()

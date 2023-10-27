@@ -105,7 +105,7 @@ struct EEGDeviceDetails: View {
             // swiftlint:disable:next accessibility_label_for_image
             let image = Image(systemName: "exclamationmark.triangle.fill")
                 .symbolRenderingMode(.multicolor)
-            Text(verbatim: "\(image) ")
+            Text("\(image) ", comment: "Image prefix placeholder") // this cannot verbatim
                 + Text("INTERVENTION_REQUIRED_TITLE")
                     .fontWeight(.semibold)
                 + Text(verbatim: "\n")

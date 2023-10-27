@@ -88,6 +88,9 @@ struct HomeView: View {
                 patientList.removeActivePatientListener()
             }
             .onChange(of: activePatientId, handlePatientIdChange)
+            .onChange(of: patientList.activePatient) {
+
+            }
             .onChange(of: viewState) { oldValue, newValue in
                 if case .error = oldValue,
                    case .idle = newValue {
@@ -97,7 +100,7 @@ struct HomeView: View {
             .sheet(isPresented: $presentingAccount) {
                 AccountSheet()
             }
-            .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding) {
+            .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding && !FeatureFlags.injectDefaultPatient) {
                 AccountSheet()
             }
             .verifyRequiredAccountDetails(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding)
@@ -110,7 +113,7 @@ struct HomeView: View {
         }
 
         if let activePatientId {
-            patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
+            patientList.loadActivePatient(for: activePatientId, viewState: $viewState, activePatientId: $activePatientId)
         } else {
             patientList.removeActivePatientListener()
         }

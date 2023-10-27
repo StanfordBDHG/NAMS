@@ -225,6 +225,8 @@
 		A9DF79E32AE8A82B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 		A9F2ECC62AEB27B10057C7DD /* EEGTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */; };
 		A9F2ECC72AEB27B10057C7DD /* EEGTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */; };
+		A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */; };
+		A9F2ECCA2AEC2C300057C7DD /* CompletedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */; };
 		A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -352,6 +354,7 @@
 		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGTile.swift; sourceTree = "<group>"; };
+		A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTile.swift; sourceTree = "<group>"; };
 		A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInformationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -662,6 +665,7 @@
 				A94533F92AEADC8E0095AAD3 /* QuestionnaireTile.swift */,
 				2DC177BFA6C401C2C87FCD5C /* TileType.swift */,
 				A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */,
+				A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */,
 			);
 			path = Tiles;
 			sourceTree = "<group>";
@@ -1087,6 +1091,7 @@
 				2DC17C29AA0382E9F5F2AA4D /* EEGMeasurementGenerator.swift in Sources */,
 				2DC17F5243570D8FF743EADD /* PatientInformation.swift in Sources */,
 				2DC17C341155F06C17225169 /* NewPatientModel.swift in Sources */,
+				A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC1718A3F968CF02D7AF0EC /* PatientList.swift in Sources */,
 				2DC172753D306AE733D7FDC8 /* TileType.swift in Sources */,
 			);
@@ -1199,6 +1204,7 @@
 				2DC176E7B29173393F43A357 /* MockEEGDevice.swift in Sources */,
 				2DC17DA28E7F6C4330CDB7FC /* EEGViewModel+ActiveMock.swift in Sources */,
 				2DC179F4A6B69C07C1A440D2 /* EEGMeasurementGenerator.swift in Sources */,
+				A9F2ECCA2AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC17686B3AEB09A8F60AB8E /* PatientList.swift in Sources */,
 				2DC17ADF934F839FC66BF7A0 /* TileType.swift in Sources */,
 			);

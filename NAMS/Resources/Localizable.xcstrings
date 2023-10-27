@@ -31,6 +31,9 @@
         }
       }
     },
+    "%@ " : {
+      "comment" : "Image prefix placeholder"
+    },
     "%@ min" : {
       "comment" : "Expected task completion in minutes.",
       "localizations" : {
@@ -51,9 +54,6 @@
           }
         }
       }
-    },
-    "5 min" : {
-
     },
     "About" : {
       "localizations" : {
@@ -247,7 +247,7 @@
       }
     },
     "Completed" : {
-      "comment" : "Completed Task. Subtitle.",
+      "comment" : "Completed Tile. Subtitle\nCompleted Task. Subtitle.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -388,9 +388,6 @@
       }
     },
     "EEG Recording" : {
-
-    },
-    "EEG_RECORDING" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -635,10 +632,24 @@
       }
     },
     "M-CHAT R/F" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M-CHAT R/F"
+          }
+        }
+      }
     },
     "Measurements" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measurements"
+          }
+        }
+      }
     },
     "MEDIOCRE_FIT" : {
       "localizations" : {
@@ -696,6 +707,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No"
+          }
+        }
+      }
+    },
+    "No EEG Headband connected ..." : {
+      "comment" : "EEG Tile no headband warning",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No EEG Headband connected. You must connect to a nearby EEG device first inorder to perform an EEG."
           }
         }
       }
@@ -882,7 +904,7 @@
         }
       }
     },
-    "RESET" : {
+    "Reset" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1016,48 +1038,22 @@
       }
     },
     "Start a EEG Recording for the current patient ..." : {
-
-    },
-    "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
-      "extractionState" : "stale",
+      "comment" : "EEG Tile description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start Questionnaire"
+            "value" : "Perform a EEG recording for the current patient. Capture and analyze the patient's brain activity data."
           }
         }
       }
     },
-    "TASK_CONTEXT_ACTION_TEST" : {
-      "extractionState" : "stale",
+    "Start Recording" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start Test"
-          }
-        }
-      }
-    },
-    "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_DESCRIPTION" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please fill out the Social Support Questionnaire every day."
-          }
-        }
-      }
-    },
-    "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_TITLE" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Social Support Questionnaire"
+            "value" : "Start Recording"
           }
         }
       }
