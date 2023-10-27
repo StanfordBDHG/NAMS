@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziAccount.git",
       "state" : {
-        "branch" : "feature/standard-backed-visibility",
-        "revision" : "2a99502648b28b27e707b5c065c62da3023973c6"
+        "revision" : "81a215080070d419140cc55bd478f2177176623c",
+        "version" : "0.6.1"
       }
     },
     {
@@ -167,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFirebase.git",
       "state" : {
-        "branch" : "fix/sign-in-with-apple",
-        "revision" : "7053a0eb80a5b4c834553759cec56a9b7402d476"
+        "revision" : "187d1edded739097ee6162dcc2c38183b6f42d2e",
+        "version" : "0.7.1"
       }
     },
     {

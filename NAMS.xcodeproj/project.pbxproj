@@ -1934,8 +1934,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziAccount.git";
 			requirement = {
-				branch = "feature/standard-backed-visibility";
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.6.1;
 			};
 		};
 		2FE5DC6529EDD894004B9AB4 /* XCRemoteSwiftPackageReference "SpeziContact" */ = {
@@ -1958,8 +1958,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziFirebase.git";
 			requirement = {
-				branch = "fix/sign-in-with-apple";
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.7.1;
 			};
 		};
 		2FE5DC7F29EDD91D004B9AB4 /* XCRemoteSwiftPackageReference "SpeziOnboarding" */ = {
