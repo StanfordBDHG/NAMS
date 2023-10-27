@@ -10,8 +10,12 @@ import SpeziAccount
 import SwiftUI
 
 
-struct ScheduleView2: View {
-    @ObservedObject var eegModel: EEGViewModel
+struct ScheduleView: View {
+#if MUSE
+    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
+#else
+    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
+#endif
 
     @State var presentingMuseList = false
     @State var presentPatientSheet = false
@@ -38,7 +42,7 @@ struct ScheduleView2: View {
                             .padding()
                     }
                 } else {
-                    TilesView()
+                    TilesView(eegModel: eegModel)
                 }
             }
                 .sheet(isPresented: $presentingMuseList) {
@@ -81,23 +85,22 @@ struct ScheduleView2: View {
     }
 
 
-    init(presentingAccount: Binding<Bool>, activePatientId: Binding<String?>, eegModel: EEGViewModel) {
+    init(presentingAccount: Binding<Bool>, activePatientId: Binding<String?>) {
         self._presentingAccount = presentingAccount
         self._activePatientId = activePatientId
-        self.eegModel = eegModel
     }
 }
 
 
 #if DEBUG
 #Preview {
-    ScheduleView2(presentingAccount: .constant(true), activePatientId: .constant(nil), eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
         .environmentObject(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
 }
 
 #Preview {
-    ScheduleView2(presentingAccount: .constant(true), activePatientId: .constant("1"), eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
         .environmentObject(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
 }

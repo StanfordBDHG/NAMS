@@ -17,7 +17,6 @@ struct HomeView: View {
     enum Tabs: String {
         case schedule
         case contact
-        case eegRecording
         case mockUpload
     }
     
@@ -33,28 +32,13 @@ struct HomeView: View {
     @State private var viewState: ViewState = .idle
     @State private var presentingAccount = false
 
-#if MUSE
-    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
-#else
-    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
-#endif
-
     var body: some View {
         TabView(selection: $selectedTab) {
-            ScheduleView2(presentingAccount: $presentingAccount, activePatientId: $activePatientId, eegModel: eegModel)
+            ScheduleView(presentingAccount: $presentingAccount, activePatientId: $activePatientId)
                 .tag(Tabs.schedule)
                 .tabItem {
                     Label("Schedule", systemImage: "list.clipboard")
                 }
-            if eegModel.activeDevice?.state == .connected {
-                NavigationStack {
-                    EEGRecording(eegModel: eegModel)
-                }
-                .tag(Tabs.eegRecording)
-                .tabItem {
-                    Label("Recording", systemImage: "waveform.path")
-                }
-            }
             Contacts(presentingAccount: $presentingAccount)
                 .tag(Tabs.contact)
                 .tabItem {
@@ -88,9 +72,6 @@ struct HomeView: View {
                 patientList.removeActivePatientListener()
             }
             .onChange(of: activePatientId, handlePatientIdChange)
-            .onChange(of: patientList.activePatient) {
-
-            }
             .onChange(of: viewState) { oldValue, newValue in
                 if case .error = oldValue,
                    case .idle = newValue {

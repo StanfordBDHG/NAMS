@@ -10,7 +10,7 @@ import Foundation
 import SpeziQuestionnaire
 
 
-struct PatientQuestionnaire: Identifiable {
+struct ScreeningTask: PatientTask {
     let id: String
     let title: LocalizedStringResource
     let description: LocalizedStringResource
@@ -36,11 +36,11 @@ struct PatientQuestionnaire: Identifiable {
 }
 
 
-extension PatientQuestionnaire {
-    static let all: [PatientQuestionnaire] = [.mChatRF]
+extension ScreeningTask {
+    static let all: [ScreeningTask] = [.mChatRF]
 
-    static var mChatRF: PatientQuestionnaire = {
-        PatientQuestionnaire(
+    static var mChatRF: ScreeningTask = {
+        ScreeningTask(
             id: "m_chat_rf_1.0",
             title: "M-CHAT R/F",
             description: "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up.",

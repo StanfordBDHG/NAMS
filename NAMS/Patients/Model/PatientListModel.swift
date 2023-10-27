@@ -27,19 +27,19 @@ class PatientListModel {
 
     var activePatient: Patient?
 
-    var questionnaires: [CompletedQuestionnaire]? // swiftlint:disable:this discouraged_optional_collection
-    var completedQuestionnaires: [String]? { // swiftlint:disable:this discouraged_optional_collection
-        guard let questionnaires else {
+    var completedTasks: [CompletedTask]? // swiftlint:disable:this discouraged_optional_collection
+    var completedTaskIds: [String]? { // swiftlint:disable:this discouraged_optional_collection
+        guard let completedTasks else {
             return nil
         }
-        return questionnaires.map { $0.internalQuestionnaireId }
+        return completedTasks.map { $0.taskId }
     }
 
     var categorizedPatients: OrderedDictionary<Character, [Patient]> = [:]
 
     @ObservationIgnored private var patientListListener: ListenerRegistration?
     @ObservationIgnored private var activePatientListener: ListenerRegistration?
-    @ObservationIgnored private var activePatientQuestionnairesListener: ListenerRegistration?
+    @ObservationIgnored private var activePatientCompletedTaskListener: ListenerRegistration?
 
     private var patientsCollection: CollectionReference {
         Firestore.firestore().collection("patients")
@@ -49,10 +49,10 @@ class PatientListModel {
     init() {}
 
 
-    func completedQuestionnairesCollection(patientId: String) -> CollectionReference {
+    func completedTasksCollection(patientId: String) -> CollectionReference {
         patientsCollection
             .document(patientId)
-            .collection("questionnaireResponse")
+            .collection("completedTasks")
     }
 
 
@@ -100,6 +100,22 @@ class PatientListModel {
                 .addDocument(from: patient)
         } catch {
             Self.logger.error("Failed to add new patient information: \(error)")
+            throw FirestoreError(error)
+        }
+    }
+
+    func add(task: CompletedTask) async throws {
+        guard let activePatient,
+              let patientId = activePatient.id else {
+            Self.logger.error("Couldn't save completed task \(task.taskId). No patient found!")
+            throw QuestionnaireError.missingPatient
+        }
+
+        do {
+            try await completedTasksCollection(patientId: patientId)
+                .addDocument(from: task)
+        } catch {
+            Self.logger.error("Failed to save completed task \(task.taskId)!")
             throw FirestoreError(error)
         }
     }
@@ -154,15 +170,15 @@ class PatientListModel {
             }
         }
 
-        self.registerPatientCompletedQuestionnaire(patientId: id, viewState: viewState)
+        self.loadCompletedTasks(patientId: id, viewState: viewState)
     }
 
-    private func registerPatientCompletedQuestionnaire(patientId: String, viewState: Binding<ViewState>) {
-        if activePatientQuestionnairesListener != nil {
+    private func loadCompletedTasks(patientId: String, viewState: Binding<ViewState>) {
+        if activePatientCompletedTaskListener != nil {
             return
         }
 
-        self.activePatientQuestionnairesListener = completedQuestionnairesCollection(patientId: patientId)
+        self.activePatientCompletedTaskListener = completedTasksCollection(patientId: patientId)
             .addSnapshotListener { snapshot, error in
                 guard let snapshot else {
                     Self.logger.error("Failed to retrieve questionnaire responses for active patient: \(error)")
@@ -171,8 +187,8 @@ class PatientListModel {
                 }
 
                 do {
-                    self.questionnaires = try snapshot.documents.map { document in
-                        try document.data(as: CompletedQuestionnaire.self)
+                    self.completedTasks = try snapshot.documents.map { document in
+                        try document.data(as: CompletedTask.self)
                     }
                 } catch {
                     if error is DecodingError {
@@ -199,9 +215,9 @@ class PatientListModel {
             self.activePatientListener = nil
         }
 
-        if let activePatientQuestionnairesListener {
-            activePatientQuestionnairesListener.remove()
-            self.activePatientQuestionnairesListener = nil
+        if let activePatientCompletedTaskListener {
+            activePatientCompletedTaskListener.remove()
+            self.activePatientCompletedTaskListener = nil
         }
     }
 

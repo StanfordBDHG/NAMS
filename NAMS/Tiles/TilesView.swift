@@ -16,8 +16,12 @@ struct TilesView: View {
     @Environment(PatientListModel.self)
     private var patientList
 
+    @ObservedObject private var eegModel: EEGViewModel
+
     @State private var viewState: ViewState = .idle
+
     @State private var presentingQuestionnaire: Questionnaire?
+    @State private var presentingEEGRecording = false
 
     private var isPresentedBinding: Binding<Bool> {
         Binding {
@@ -29,41 +33,67 @@ struct TilesView: View {
         }
     }
 
-    private var questionnaires: [PatientQuestionnaire] {
-        guard let completedList = patientList.completedQuestionnaires else {
-            return PatientQuestionnaire.all
-        }
+    private var questionnaires: [ScreeningTask] {
+        taskList(ScreeningTask.all)
+    }
 
-        return PatientQuestionnaire.all.sorted { lhs, rhs in
-            !completedList.contains(lhs.id) && completedList.contains(rhs.id)
-        }
+    private var measurements: [MeasurementTask] {
+        taskList(MeasurementTask.all)
     }
 
     var body: some View {
-        if patientList.questionnaires == nil {
+        if patientList.completedTasks == nil {
             ProgressView()
         } else {
             List {
                 Section("Screening") {
                     ForEach(questionnaires) { questionnaire in
-                        QuestionnaireTile(patientQuestionnaire: questionnaire, presentingItem: $presentingQuestionnaire)
+                        ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
                     }
                 }
 
                 Section("Measurements") {
-                    EEGTile()
-                }
-            }
-            .viewStateAlert(state: $viewState)
-            .sheet(item: $presentingQuestionnaire) { questionnaire in
-                QuestionnaireView(questionnaire: questionnaire, isPresented: isPresentedBinding) { response in
-                    do {
-                        try await patientList.add(response: response)
-                    } catch {
-                        viewState = .error(AnyLocalizedError(error: error))
+                    ForEach(measurements) { measurement in
+                        MeasurementTile(
+                            task: measurement,
+                            presentingEEGRecording: $presentingEEGRecording,
+                            deviceConnected: eegModel.activeDevice != nil
+                        )
                     }
                 }
             }
+                .viewStateAlert(state: $viewState)
+                .sheet(item: $presentingQuestionnaire) { questionnaire in
+                    QuestionnaireView(questionnaire: questionnaire, isPresented: isPresentedBinding) { response in
+                        do {
+                            try await patientList.add(response: response)
+                        } catch {
+                            viewState = .error(AnyLocalizedError(error: error))
+                        }
+                    }
+                        .interactiveDismissDisabled()
+                }
+                .sheet(isPresented: $presentingEEGRecording) {
+                    NavigationStack {
+                        EEGRecording(eegModel: eegModel)
+                    }
+                }
+        }
+    }
+
+
+    init(eegModel: EEGViewModel) {
+        self.eegModel = eegModel
+    }
+
+
+    private func taskList<T: PatientTask>(_ tasks: [T]) -> [T] {
+        guard let completedList = patientList.completedTaskIds else {
+            return tasks
+        }
+
+        return tasks.sorted { lhs, rhs in
+            !completedList.contains(lhs.id) && completedList.contains(rhs.id)
         }
     }
 }
@@ -71,14 +101,14 @@ struct TilesView: View {
 
 #if DEBUG
 #Preview {
-    var patientList = PatientListModel()
-    patientList.questionnaires = []
-    return TilesView()
+    let patientList = PatientListModel()
+    patientList.completedTasks = []
+    return TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(patientList)
 }
 
 #Preview {
-    TilesView()
+    TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(PatientListModel())
 }
 #endif

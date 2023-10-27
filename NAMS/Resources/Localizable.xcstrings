@@ -32,7 +32,15 @@
       }
     },
     "%@ " : {
-      "comment" : "Image prefix placeholder"
+      "comment" : "Image prefix placeholder",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ "
+          }
+        }
+      }
     },
     "%@ min" : {
       "comment" : "Expected task completion in minutes.",
@@ -216,6 +224,16 @@
         }
       }
     },
+    "Brain activity was collected for this patient." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brain activity was collected for this patient."
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "en" : {
@@ -247,22 +265,12 @@
       }
     },
     "Completed" : {
-      "comment" : "Completed Tile. Subtitle\nCompleted Task. Subtitle.",
+      "comment" : "Completed Tile. Subtitle",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Completed"
-          }
-        }
-      }
-    },
-    "CONNECT_NEARBY_HINT" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please connect to a nearby EEG headband first."
           }
         }
       }
@@ -641,6 +649,16 @@
         }
       }
     },
+    "Mark completed" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark completed"
+          }
+        }
+      }
+    },
     "Measurements" : {
       "localizations" : {
         "en" : {
@@ -711,6 +729,16 @@
         }
       }
     },
+    "No Device connected!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Device connected!"
+          }
+        }
+      }
+    },
     "No EEG Headband connected ..." : {
       "comment" : "EEG Tile no headband warning",
       "localizations" : {
@@ -738,16 +766,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Patients"
-          }
-        }
-      }
-    },
-    "NO_DEVICE_CONNECTED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Device connected!"
           }
         }
       }
@@ -843,6 +861,16 @@
         }
       }
     },
+    "Please connect to a nearby EEG headband first." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please connect to a nearby EEG headband first."
+          }
+        }
+      }
+    },
     "POOR_FIT" : {
       "localizations" : {
         "en" : {
@@ -895,6 +923,7 @@
       }
     },
     "Recording" : {
+      "comment" : "Tile Type",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1043,17 +1072,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Perform a EEG recording for the current patient. Capture and analyze the patient's brain activity data."
-          }
-        }
-      }
-    },
-    "Start Recording" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Start Recording"
+            "value" : "Perform a EEG recording for the current patient. Capture and analyze the patient's brain activity."
           }
         }
       }

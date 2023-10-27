@@ -14,10 +14,25 @@ struct CompletedTile<Title: View, Description: View>: View {
     private let description: Description
 
     var body: some View {
-        VStack(alignment: .leading) {
+        if Description.self == EmptyView.self {
+            SimpleTile {
+                header
+            }
+        } else {
+            SimpleTile {
+                header
+            } footer: {
+                description
+                    .font(.callout)
+            }
+        }
+    }
+
+    @ViewBuilder private var header: some View {
+        HStack {
             Image(systemName: "checkmark.circle.fill")
                 .foregroundColor(.green)
-                .font(.system(size: 30))
+                .font(.custom("Completed Icon", size: 30, relativeTo: .title))
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 4) {
@@ -28,16 +43,10 @@ struct CompletedTile<Title: View, Description: View>: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
-
-            Divider()
-
-            description
-                .font(.callout)
         }
-            .containerShape(Rectangle())
     }
 
-    init(@ViewBuilder title: () -> Title, @ViewBuilder description: () -> Description) {
+    init(@ViewBuilder title: () -> Title, @ViewBuilder description: () -> Description = { EmptyView() }) {
         self.title = title()
         self.description = description()
     }
@@ -46,10 +55,20 @@ struct CompletedTile<Title: View, Description: View>: View {
 
 #if DEBUG
 #Preview {
-    CompletedTile {
-        Text(verbatim: "Test Task")
-    } description: {
-        Text(verbatim: "A nice description of a test task.")
+    List {
+        CompletedTile {
+            Text(verbatim: "Test Task")
+        } description: {
+            Text(verbatim: "A nice description of a test task.")
+        }
+    }
+}
+
+#Preview {
+    List {
+        CompletedTile {
+            Text(verbatim: "Test Task")
+        }
     }
 }
 #endif
