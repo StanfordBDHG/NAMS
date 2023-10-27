@@ -38,7 +38,7 @@ struct ScheduleView2: View {
                             .padding()
                     }
                 } else {
-                    PatientTiles()
+                    TilesView()
                 }
             }
                 .sheet(isPresented: $presentingMuseList) {

@@ -174,8 +174,8 @@
 		A94534072AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = A94534052AEAE2FF0095AAD3 /* M_CHAT_R_F-en-US-v1.0.json */; };
 		A94534092AEAE3490095AAD3 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534082AEAE3490095AAD3 /* ScheduleView.swift */; };
 		A945340A2AEAE3490095AAD3 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534082AEAE3490095AAD3 /* ScheduleView.swift */; };
-		A945340C2AEAE6380095AAD3 /* PatientTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340B2AEAE6380095AAD3 /* PatientTiles.swift */; };
-		A945340D2AEAE6380095AAD3 /* PatientTiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340B2AEAE6380095AAD3 /* PatientTiles.swift */; };
+		A945340C2AEAE6380095AAD3 /* TilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340B2AEAE6380095AAD3 /* TilesView.swift */; };
+		A945340D2AEAE6380095AAD3 /* TilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340B2AEAE6380095AAD3 /* TilesView.swift */; };
 		A94534102AEAF2AE0095AAD3 /* CompletedQuestionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340F2AEAF2AE0095AAD3 /* CompletedQuestionnaire.swift */; };
 		A94534112AEAF2AE0095AAD3 /* CompletedQuestionnaire.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340F2AEAF2AE0095AAD3 /* CompletedQuestionnaire.swift */; };
 		A94534132AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534122AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift */; };
@@ -223,6 +223,8 @@
 		A9DF79E12AE8A82300AB5983 /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
 		A9DF79E22AE8A82600AB5983 /* PatientInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FE89AC206431F90166 /* PatientInformation.swift */; };
 		A9DF79E32AE8A82B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
+		A9F2ECC62AEB27B10057C7DD /* EEGTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */; };
+		A9F2ECC72AEB27B10057C7DD /* EEGTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */; };
 		A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -323,7 +325,7 @@
 		A94533FF2AEAE1110095AAD3 /* Questionnaire+NAMS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Questionnaire+NAMS.swift"; sourceTree = "<group>"; };
 		A94534052AEAE2FF0095AAD3 /* M_CHAT_R_F-en-US-v1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "M_CHAT_R_F-en-US-v1.0.json"; sourceTree = "<group>"; };
 		A94534082AEAE3490095AAD3 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
-		A945340B2AEAE6380095AAD3 /* PatientTiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientTiles.swift; sourceTree = "<group>"; };
+		A945340B2AEAE6380095AAD3 /* TilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesView.swift; sourceTree = "<group>"; };
 		A945340F2AEAF2AE0095AAD3 /* CompletedQuestionnaire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedQuestionnaire.swift; sourceTree = "<group>"; };
 		A94534122AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PatientListModel+QuestionnaireResponse.swift"; sourceTree = "<group>"; };
 		A94534172AEB0DB20095AAD3 /* QuestionnaireError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireError.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 		A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInformationText.swift; sourceTree = "<group>"; };
 		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
+		A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGTile.swift; sourceTree = "<group>"; };
 		A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInformationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -655,9 +658,10 @@
 		A945340E2AEAF2860095AAD3 /* Tiles */ = {
 			isa = PBXGroup;
 			children = (
-				A945340B2AEAE6380095AAD3 /* PatientTiles.swift */,
+				A945340B2AEAE6380095AAD3 /* TilesView.swift */,
 				A94533F92AEADC8E0095AAD3 /* QuestionnaireTile.swift */,
 				2DC177BFA6C401C2C87FCD5C /* TileType.swift */,
+				A9F2ECC52AEB27B10057C7DD /* EEGTile.swift */,
 			);
 			path = Tiles;
 			sourceTree = "<group>";
@@ -1023,6 +1027,7 @@
 				A916ADD72AB62012006960DF /* ProcessInfo+PreviewSimulator.swift in Sources */,
 				A94A42B62AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */,
 				A926D82A2AB7B430000C4C2F /* EEGChart.swift in Sources */,
+				A9F2ECC62AEB27B10057C7DD /* EEGTile.swift in Sources */,
 				A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */,
 				A926D8202AB7B430000C4C2F /* EEGChannelMark.swift in Sources */,
 				A916ADD92AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift in Sources */,
@@ -1072,7 +1077,7 @@
 				A94534132AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift in Sources */,
 				2DC17ABFAC9031FE699864FB /* IXNMuse+EEGDevice.swift in Sources */,
 				2DC173E02BF55765A906AF4F /* IXNMuseDataPacketType+Type.swift in Sources */,
-				A945340C2AEAE6380095AAD3 /* PatientTiles.swift in Sources */,
+				A945340C2AEAE6380095AAD3 /* TilesView.swift in Sources */,
 				2DC17FE79AB13F1F300788A6 /* MuseConnectionListener.swift in Sources */,
 				2DC17A1DBD336BC4543CCA81 /* Fit.swift in Sources */,
 				2DC179421EE83DA24520EABB /* HeadbandFit+Muse.swift in Sources */,
@@ -1134,6 +1139,7 @@
 				A926D7882AB7A552000C4C2F /* Binding+Negate.swift in Sources */,
 				A94A42B72AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */,
 				A926D78A2AB7A552000C4C2F /* ProcessInfo+PreviewSimulator.swift in Sources */,
+				A9F2ECC72AEB27B10057C7DD /* EEGTile.swift in Sources */,
 				A9DF79E32AE8A82B00AB5983 /* SelectedPatientCard.swift in Sources */,
 				A926D82B2AB7B430000C4C2F /* EEGChart.swift in Sources */,
 				A926D8212AB7B430000C4C2F /* EEGChannelMark.swift in Sources */,
@@ -1183,7 +1189,7 @@
 				A94534142AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift in Sources */,
 				2DC1713C311BAA65EE0E2748 /* MuseDeviceManager.swift in Sources */,
 				2DC17DA43107F4E8469B7C73 /* IXNMuse+EEGDevice.swift in Sources */,
-				A945340D2AEAE6380095AAD3 /* PatientTiles.swift in Sources */,
+				A945340D2AEAE6380095AAD3 /* TilesView.swift in Sources */,
 				2DC1762E730B0472308EEFFC /* IXNMuseDataPacketType+Type.swift in Sources */,
 				2DC17128D81F6CF06F65FFD4 /* MuseConnectionListener.swift in Sources */,
 				2DC17644A07BC415B89BDACA /* Fit.swift in Sources */,

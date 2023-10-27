@@ -32,7 +32,15 @@
       }
     },
     "%@ min" : {
-      "comment" : "Expected task completion in minutes."
+      "comment" : "Expected task completion in minutes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ min"
+          }
+        }
+      }
     },
     "%@, Patient Details" : {
       "localizations" : {
@@ -43,6 +51,9 @@
           }
         }
       }
+    },
+    "5 min" : {
+
     },
     "About" : {
       "localizations" : {
@@ -236,7 +247,15 @@
       }
     },
     "Completed" : {
-      "comment" : "Completed Task. Subtitle."
+      "comment" : "Completed Task. Subtitle.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completed"
+          }
+        }
+      }
     },
     "CONNECT_NEARBY_HINT" : {
       "localizations" : {
@@ -289,7 +308,14 @@
       }
     },
     "Continue" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
     },
     "Delete" : {
       "localizations" : {
@@ -361,6 +387,9 @@
         }
       }
     },
+    "EEG Recording" : {
+
+    },
     "EEG_RECORDING" : {
       "localizations" : {
         "en" : {
@@ -372,16 +401,46 @@
       }
     },
     "enter first name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter first name"
+          }
+        }
+      }
     },
     "enter last name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter last name"
+          }
+        }
+      }
     },
     "Failed to associate response with original questionnaire!" : {
-
+      "comment" : "Failure Reason",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to associate response with original questionnaire!"
+          }
+        }
+      }
     },
     "Failed to complete Questionnaire" : {
-
+      "comment" : "Error Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to complete Questionnaire"
+          }
+        }
+      }
     },
     "FINISHED_SETUP_TEXT" : {
       "localizations" : {
@@ -424,7 +483,15 @@
       }
     },
     "First" : {
-
+      "comment" : "First Name Field Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First"
+          }
+        }
+      }
     },
     "FREQUENCY" : {
       "localizations" : {
@@ -547,7 +614,15 @@
       }
     },
     "Last" : {
-
+      "comment" : "Last Name Field Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last"
+          }
+        }
+      }
     },
     "LELAND_STANFORD_BIO" : {
       "localizations" : {
@@ -560,6 +635,9 @@
       }
     },
     "M-CHAT R/F" : {
+
+    },
+    "Measurements" : {
 
     },
     "MEDIOCRE_FIT" : {
@@ -753,17 +831,6 @@
         }
       }
     },
-    "Preview Modal" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preview Modal"
-          }
-        }
-      }
-    },
     "PROBLEMS_BATTERY_HINT" : {
       "localizations" : {
         "en" : {
@@ -795,10 +862,25 @@
       }
     },
     "Questionnaire" : {
-      "comment" : "Tile Type"
+      "comment" : "Tile Type",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questionnaire"
+          }
+        }
+      }
     },
     "Recording" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording"
+          }
+        }
+      }
     },
     "RESET" : {
       "localizations" : {
@@ -822,7 +904,14 @@
       }
     },
     "Screening" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screening"
+          }
+        }
+      }
     },
     "Search for a patient" : {
       "localizations" : {
@@ -917,6 +1006,16 @@
       }
     },
     "Start %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start %@"
+          }
+        }
+      }
+    },
+    "Start a EEG Recording for the current patient ..." : {
 
     },
     "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
@@ -964,10 +1063,25 @@
       }
     },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up."
+          }
+        }
+      }
     },
     "There was no selected patient found!" : {
-
+      "comment" : "Failure Reason",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was no selected patient found!"
+          }
+        }
+      }
     },
     "Theta" : {
       "localizations" : {
@@ -1000,7 +1114,15 @@
       }
     },
     "Unexpected format of the questionnaire response!" : {
-
+      "comment" : "Failure Reason",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unexpected format of the questionnaire response!"
+          }
+        }
+      }
     },
     "WEARING" : {
       "localizations" : {

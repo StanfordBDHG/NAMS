@@ -68,12 +68,12 @@ struct AddPatientView: View {
         NameFields(
             name: $newPatient.name,
             givenNameField: .init(
-                title: "First",
+                title: .init("First", comment: "First Name Field Description"),
                 placeholder: "enter first name"
             ),
             givenNameFieldIdentifier: .givenName,
             familyNameField: .init(
-                title: "Last",
+                title: .init("Last", comment: "Last Name Field Description"),
                 placeholder: "enter last name"
             ),
             familyNameFieldIdentifier: .lastName,

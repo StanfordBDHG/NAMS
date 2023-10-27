@@ -41,6 +41,7 @@ struct QuestionnaireTile: View {
                 }
                     .buttonStyle(.borderedProminent)
                     .padding(.top, 8)
+                    .tint(.mint)
             }
         }
             .containerShape(Rectangle())

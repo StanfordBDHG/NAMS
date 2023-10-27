@@ -12,7 +12,7 @@ import SwiftUI
 
 
 @MainActor
-struct PatientTiles: View {
+struct TilesView: View {
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -49,6 +49,10 @@ struct PatientTiles: View {
                         QuestionnaireTile(patientQuestionnaire: questionnaire, presentingItem: $presentingQuestionnaire)
                     }
                 }
+
+                Section("Measurements") {
+                    EEGTile()
+                }
             }
             .viewStateAlert(state: $viewState)
             .sheet(item: $presentingQuestionnaire) { questionnaire in
@@ -65,7 +69,16 @@ struct PatientTiles: View {
 }
 
 
+#if DEBUG
 #Preview {
-    PatientTiles()
+    var patientList = PatientListModel()
+    patientList.questionnaires = []
+    return TilesView()
+        .environment(patientList)
+}
+
+#Preview {
+    TilesView()
         .environment(PatientListModel())
 }
+#endif
