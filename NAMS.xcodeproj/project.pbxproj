@@ -118,7 +118,6 @@
 		A926D7AF2AB7A552000C4C2F /* SpeziMockWebService in Frameworks */ = {isa = PBXBuildFile; productRef = A926D77C2AB7A552000C4C2F /* SpeziMockWebService */; };
 		A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7652AB7A552000C4C2F /* Spezi */; };
 		A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */ = {isa = PBXBuildFile; productRef = A926D77A2AB7A552000C4C2F /* SpeziViews */; };
-		A926D7B22AB7A552000C4C2F /* SpeziScheduler in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7752AB7A552000C4C2F /* SpeziScheduler */; };
 		A926D7B32AB7A552000C4C2F /* SpeziFHIR in Frameworks */ = {isa = PBXBuildFile; productRef = A926D76B2AB7A552000C4C2F /* SpeziFHIR */; };
 		A926D7B42AB7A552000C4C2F /* SpeziOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7712AB7A552000C4C2F /* SpeziOnboarding */; };
 		A926D7B52AB7A552000C4C2F /* SpeziFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7702AB7A552000C4C2F /* SpeziFirestore */; };
@@ -405,7 +404,6 @@
 				A926D7AF2AB7A552000C4C2F /* SpeziMockWebService in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
-				A926D7B22AB7A552000C4C2F /* SpeziScheduler in Frameworks */,
 				A926D7B32AB7A552000C4C2F /* SpeziFHIR in Frameworks */,
 				A926D7B42AB7A552000C4C2F /* SpeziOnboarding in Frameworks */,
 				A926D7B52AB7A552000C4C2F /* SpeziFirestore in Frameworks */,
@@ -844,7 +842,6 @@
 				A926D7702AB7A552000C4C2F /* SpeziFirestore */,
 				A926D7712AB7A552000C4C2F /* SpeziOnboarding */,
 				A926D7732AB7A552000C4C2F /* SpeziQuestionnaire */,
-				A926D7752AB7A552000C4C2F /* SpeziScheduler */,
 				A926D7772AB7A552000C4C2F /* SpeziLocalStorage */,
 				A926D7792AB7A552000C4C2F /* SpeziSecureStorage */,
 				A926D77A2AB7A552000C4C2F /* SpeziViews */,
@@ -1437,7 +1434,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Neurodevelopment Assessment and Monitoring System";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1635,7 +1632,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Neurodevelopment Assessment and Monitoring System";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

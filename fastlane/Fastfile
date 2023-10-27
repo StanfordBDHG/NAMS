@@ -55,7 +55,7 @@ platform :ios do
         signingStyle: "manual",
         signingCertificate: "Apple Distribution: Paul Schmiedmayer (637867499T)",
         provisioningProfiles: {
-          "edu.stanford.bdhg.nams" => "Neurodevelopment Assessment and Monitoring System"
+          "edu.stanford.bdhg.nams" => "Stanford BDHG NeuroNest"
         }
       }
     )
