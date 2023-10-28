@@ -19,23 +19,12 @@ extension PatientListModel {
             throw QuestionnaireError.unexpectedFormat
         }
 
-        guard let activePatient,
-              let patientId = activePatient.id else {
-            Self.logger.error("Couldn't save questionnaire response \(questionnaireId). No patient found!")
-            throw QuestionnaireError.missingPatient
-        }
-
-        guard let questionnaire = PatientQuestionnaire.all.first(where: { $0.questionnaire.url?.value?.url.absoluteString == questionnaireId }) else {
+        guard let questionnaire = ScreeningTask.all.first(where: { $0.questionnaire.url?.value?.url.absoluteString == questionnaireId }) else {
             Self.logger.error("Failed to match questionnaire response with id \(questionnaireId) to any of our local questionnaires.")
             throw QuestionnaireError.failedQuestionnaireMatch
         }
 
-        do {
-            try await completedQuestionnairesCollection(patientId: patientId)
-                .addDocument(from: CompletedQuestionnaire(internalQuestionnaireId: questionnaire.id, questionnaireResponse: response))
-        } catch {
-            Self.logger.error("Failed to save questionnaire response for questionnaire \(questionnaireId)!")
-            throw FirestoreError(error)
-        }
+        let task = CompletedTask(taskId: questionnaire.id, content: .questionnaireResponse(response))
+        try await add(task: task)
     }
 }

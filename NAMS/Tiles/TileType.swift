@@ -11,11 +11,14 @@ import Foundation
 
 enum TileType: CustomLocalizedStringResourceConvertible {
     case questionnaire
+    case recording
 
     var localizedStringResource: LocalizedStringResource {
         switch self {
         case .questionnaire:
             return .init("Questionnaire", comment: "Tile Type")
+        case .recording:
+            return .init("Recording", comment: "Tile Type")
         }
     }
 }

@@ -31,8 +31,27 @@
         }
       }
     },
+    "%@ " : {
+      "comment" : "Image prefix placeholder",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ "
+          }
+        }
+      }
+    },
     "%@ min" : {
-      "comment" : "Expected task completion in minutes."
+      "comment" : "Expected task completion in minutes.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ min"
+          }
+        }
+      }
     },
     "%@, Patient Details" : {
       "localizations" : {
@@ -205,6 +224,16 @@
         }
       }
     },
+    "Brain activity was collected for this patient." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brain activity was collected for this patient."
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "en" : {
@@ -236,14 +265,12 @@
       }
     },
     "Completed" : {
-      "comment" : "Completed Task. Subtitle."
-    },
-    "CONNECT_NEARBY_HINT" : {
+      "comment" : "Completed Tile. Subtitle",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please connect to a nearby EEG headband first."
+            "value" : "Completed"
           }
         }
       }
@@ -289,7 +316,14 @@
       }
     },
     "Continue" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
     },
     "Delete" : {
       "localizations" : {
@@ -361,7 +395,7 @@
         }
       }
     },
-    "EEG_RECORDING" : {
+    "EEG Recording" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -372,16 +406,46 @@
       }
     },
     "enter first name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter first name"
+          }
+        }
+      }
     },
     "enter last name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter last name"
+          }
+        }
+      }
     },
     "Failed to associate response with original questionnaire!" : {
-
+      "comment" : "Failure Reason",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to associate response with original questionnaire!"
+          }
+        }
+      }
     },
     "Failed to complete Questionnaire" : {
-
+      "comment" : "Error Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to complete Questionnaire"
+          }
+        }
+      }
     },
     "FINISHED_SETUP_TEXT" : {
       "localizations" : {
@@ -424,7 +488,15 @@
       }
     },
     "First" : {
-
+      "comment" : "First Name Field Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First"
+          }
+        }
+      }
     },
     "FREQUENCY" : {
       "localizations" : {
@@ -547,7 +619,15 @@
       }
     },
     "Last" : {
-
+      "comment" : "Last Name Field Description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last"
+          }
+        }
+      }
     },
     "LELAND_STANFORD_BIO" : {
       "localizations" : {
@@ -560,7 +640,34 @@
       }
     },
     "M-CHAT R/F" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "M-CHAT R/F"
+          }
+        }
+      }
+    },
+    "Mark completed" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mark completed"
+          }
+        }
+      }
+    },
+    "Measurements" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Measurements"
+          }
+        }
+      }
     },
     "MEDIOCRE_FIT" : {
       "localizations" : {
@@ -622,6 +729,27 @@
         }
       }
     },
+    "No Device connected!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Device connected!"
+          }
+        }
+      }
+    },
+    "No EEG Headband connected ..." : {
+      "comment" : "EEG Tile no headband warning",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No EEG Headband connected. You must connect to a nearby EEG device first inorder to perform an EEG."
+          }
+        }
+      }
+    },
     "No Patient selected" : {
       "localizations" : {
         "en" : {
@@ -638,16 +766,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No Patients"
-          }
-        }
-      }
-    },
-    "NO_DEVICE_CONNECTED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No Device connected!"
           }
         }
       }
@@ -743,23 +861,22 @@
         }
       }
     },
+    "Please connect to a nearby EEG headband first." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please connect to a nearby EEG headband first."
+          }
+        }
+      }
+    },
     "POOR_FIT" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "poor"
-          }
-        }
-      }
-    },
-    "Preview Modal" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Preview Modal"
           }
         }
       }
@@ -795,12 +912,28 @@
       }
     },
     "Questionnaire" : {
-      "comment" : "Tile Type"
+      "comment" : "Tile Type",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questionnaire"
+          }
+        }
+      }
     },
     "Recording" : {
-
+      "comment" : "Tile Type",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording"
+          }
+        }
+      }
     },
-    "RESET" : {
+    "Reset" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -822,7 +955,14 @@
       }
     },
     "Screening" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screening"
+          }
+        }
+      }
     },
     "Search for a patient" : {
       "localizations" : {
@@ -917,57 +1057,46 @@
       }
     },
     "Start %@" : {
-
-    },
-    "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start Questionnaire"
+            "value" : "Start %@"
           }
         }
       }
     },
-    "TASK_CONTEXT_ACTION_TEST" : {
-      "extractionState" : "stale",
+    "Start a EEG Recording for the current patient ..." : {
+      "comment" : "EEG Tile description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Start Test"
-          }
-        }
-      }
-    },
-    "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_DESCRIPTION" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please fill out the Social Support Questionnaire every day."
-          }
-        }
-      }
-    },
-    "TASK_SOCIAL_SUPPORT_QUESTIONNAIRE_TITLE" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Social Support Questionnaire"
+            "value" : "Perform a EEG recording for the current patient. Capture and analyze the patient's brain activity."
           }
         }
       }
     },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up."
+          }
+        }
+      }
     },
     "There was no selected patient found!" : {
-
+      "comment" : "Failure Reason",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was no selected patient found!"
+          }
+        }
+      }
     },
     "Theta" : {
       "localizations" : {
@@ -1000,7 +1129,15 @@
       }
     },
     "Unexpected format of the questionnaire response!" : {
-
+      "comment" : "Failure Reason",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unexpected format of the questionnaire response!"
+          }
+        }
+      }
     },
     "WEARING" : {
       "localizations" : {

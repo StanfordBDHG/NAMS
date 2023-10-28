@@ -7,6 +7,7 @@
 //
 
 import Charts
+import SpeziViews
 import SwiftUI
 
 
@@ -15,6 +16,10 @@ struct EEGRecording: View {
     private var dismiss
 
     @ObservedObject private var eegModel: EEGViewModel
+    @Environment(PatientListModel.self)
+    private var patientList
+
+    @State private var viewState: ViewState = .idle
     @State private var frequency: EEGFrequency = .theta
 
     private var pickerFrequencies: [EEGFrequency] {
@@ -22,26 +27,39 @@ struct EEGRecording: View {
     }
 
     var body: some View {
-        List {
+        ZStack {
             if let activeDevice = eegModel.activeDevice {
-                frequencyPicker
+                List {
+                    frequencyPicker
 
-                eegCharts(active: activeDevice)
+                    eegCharts(active: activeDevice)
 
-                Section {
-                    Button(role: .destructive, action: {
-                        activeDevice.measurements = [:]
-                    }) {
-                        Text("RESET")
+                    Section {
+                        AsyncButton(state: $viewState) {
+                            // simulate a completed task for now
+                            let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording)
+                            try await patientList.add(task: task)
+                            dismiss()
+                        } label: {
+                            Text("Mark completed")
+                        }
+
+                        Button(role: .destructive, action: {
+                            activeDevice.measurements = [:]
+                        }) {
+                            Text("Reset")
+                        }
                     }
                 }
             } else {
-                Text("NO_DEVICE_CONNECTED")
-                    .bold()
-                Text("CONNECT_NEARBY_HINT")
+                NoInformationText {
+                    Text("No Device connected!")
+                } caption: {
+                    Text("Please connect to a nearby EEG headband first.")
+                }
             }
         }
-            .navigationTitle("EEG_RECORDING")
+            .navigationTitle("EEG Recording")
             .toolbar {
                 Button("Close") {
                     dismiss()

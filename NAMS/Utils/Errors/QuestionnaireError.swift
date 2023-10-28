@@ -15,7 +15,7 @@ enum QuestionnaireError: LocalizedError {
     case failedQuestionnaireMatch
 
     private var errorDescriptionResource: LocalizedStringResource {
-        "Failed to complete Questionnaire"
+        .init("Failed to complete Questionnaire", comment: "Error Description")
     }
 
     var errorDescription: String? {
@@ -25,11 +25,11 @@ enum QuestionnaireError: LocalizedError {
     private var failureReasonResource: LocalizedStringResource {
         switch self {
         case .unexpectedFormat:
-            return "Unexpected format of the questionnaire response!"
+            return .init("Unexpected format of the questionnaire response!", comment: "Failure Reason")
         case .missingPatient:
-            return "There was no selected patient found!"
+            return .init("There was no selected patient found!", comment: "Failure Reason")
         case .failedQuestionnaireMatch:
-            return "Failed to associate response with original questionnaire!"
+            return .init("Failed to associate response with original questionnaire!", comment: "Failure Reason")
         }
     }
 

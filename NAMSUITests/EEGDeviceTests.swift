@@ -79,6 +79,17 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
 
+        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 4.0))
+
+        XCTAssertTrue(app.staticTexts["MEASUREMENTS"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["EEG Recording"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(
+            app.staticTexts["No EEG Headband connected. You must connect to a nearby EEG device first inorder to perform an EEG."]
+                .waitForExistence(timeout: 0.5)
+        )
+        XCTAssertTrue(app.buttons["Start Recording"].waitForExistence(timeout: 0.5))
+        XCTAssertFalse(app.buttons["Start Recording"].isEnabled)
+
         // open nearby devices sheet
         XCTAssertTrue(app.navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 6))
         app.navigationBars.buttons["Nearby Devices"].tap()
@@ -92,10 +103,19 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
         app.navigationBars.buttons["Close"].tap()
 
+        XCTAssertTrue(app.buttons["Start Recording"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.buttons["Start Recording"].isEnabled)
+        app.buttons["Start Recording"].tap()
 
-        XCTAssertTrue(app.tabBars.buttons["Recording"].waitForExistence(timeout: 0.5))
-        app.tabBars.buttons["Recording"].tap()
 
-        sleep(2)
+        XCTAssertTrue(app.navigationBars.staticTexts["EEG Recording"].waitForExistence(timeout: 6.0))
+
+        app.swipeUp(velocity: .fast)
+
+        XCTAssertTrue(app.buttons["Mark completed"].waitForExistence(timeout: 6.0))
+        app.buttons["Mark completed"].tap()
+
+        XCTAssertTrue(app.staticTexts["Brain activity was collected for this patient."].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.staticTexts["Completed"].waitForExistence(timeout: 0.5))
     }
 }
