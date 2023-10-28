@@ -19,7 +19,7 @@ class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration(standard: NAMSStandard()) {
             if !FeatureFlags.disableFirebase {
-                let methods: FirebaseAuthAuthenticationMethods = .emailAndPassword
+                let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
 
                 AccountConfiguration(configuration: [
                     .requires(\.userId),

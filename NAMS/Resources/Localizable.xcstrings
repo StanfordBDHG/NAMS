@@ -238,9 +238,6 @@
     "Completed" : {
       "comment" : "Completed Task. Subtitle."
     },
-    "Completed Task: %@" : {
-
-    },
     "CONNECT_NEARBY_HINT" : {
       "localizations" : {
         "en" : {
@@ -965,9 +962,6 @@
           }
         }
       }
-    },
-    "Task: %@" : {
-
     },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
 
