@@ -229,6 +229,12 @@ class PatientListModel {
                 from: Patient(name: .init(givenName: "Example", familyName: "Patient")),
                 merge: true
             )
+
+
+            let query = try await completedTasksCollection(patientId: patientId).getDocuments()
+            for document in query.documents {
+                try await document.reference.delete()
+            }
         } catch {
             Self.logger.error("Failed to set test patient information: \(error)")
             viewState.wrappedValue = .error(FirestoreError(error))

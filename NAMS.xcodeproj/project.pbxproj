@@ -87,7 +87,7 @@
 		653A2551283387FE005D4D48 /* NAMSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NAMSApp.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
 		653A256228338800005D4D48 /* NAMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NAMSTests.swift */; };
-		A91459762A4AF4E000A04641 /* ScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91459752A4AF4E000A04641 /* ScheduleTests.swift */; };
+		A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */; };
 		A916ADD52AB60227006960DF /* NotificationPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD42AB60227006960DF /* NotificationPermissions.swift */; };
 		A916ADD72AB62012006960DF /* ProcessInfo+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */; };
 		A916ADD92AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */; };
@@ -306,7 +306,7 @@
 		653A256128338800005D4D48 /* NAMSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTests.swift; sourceTree = "<group>"; };
 		653A256728338800005D4D48 /* NAMSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NAMSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A258928339462005D4D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A91459752A4AF4E000A04641 /* ScheduleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTests.swift; sourceTree = "<group>"; };
+		A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireTests.swift; sourceTree = "<group>"; };
 		A916ADD42AB60227006960DF /* NotificationPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissions.swift; sourceTree = "<group>"; };
 		A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+PreviewSimulator.swift"; sourceTree = "<group>"; };
 		A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingFlow+PreviewSimulator.swift"; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 				A9610ABA2AB49F0900E46ADE /* MockUploadTests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */,
-				A91459752A4AF4E000A04641 /* ScheduleTests.swift */,
+				A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */,
 			);
 			path = NAMSUITests;
 			sourceTree = "<group>";
@@ -1125,7 +1125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */,
-				A91459762A4AF4E000A04641 /* ScheduleTests.swift in Sources */,
+				A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				A9610ABB2AB49F0900E46ADE /* MockUploadTests.swift in Sources */,
 				A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */,
