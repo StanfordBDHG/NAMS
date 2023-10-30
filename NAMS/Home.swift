@@ -78,6 +78,11 @@ struct HomeView: View {
                     activePatientId = nil // reset the current patient on an error
                 }
             }
+            .onChange(of: account.signedIn) {
+                if !account.signedIn {
+                    activePatientId = nil // reset the current patient, will clear model state!
+                }
+            }
             .sheet(isPresented: $presentingAccount) {
                 AccountSheet()
             }

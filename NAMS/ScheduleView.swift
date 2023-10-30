@@ -59,14 +59,12 @@ struct ScheduleView: View {
     }
 
     @ToolbarContentBuilder private var toolbar: some ToolbarContent {
-        if activePatientId != nil {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: {
-                    presentingMuseList = true
-                }) {
-                    Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
-                        .accessibilityLabel("NEARBY_DEVICES")
-                }
+        ToolbarItem(placement: .navigationBarLeading) {
+            Button(action: {
+                presentingMuseList = true
+            }) {
+                Image(systemName: "brain.head.profile").symbolRenderingMode(.hierarchical)
+                    .accessibilityLabel("NEARBY_DEVICES")
             }
         }
 
