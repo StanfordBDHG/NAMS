@@ -25,9 +25,7 @@ struct OnboardingFlow: View {
         OnboardingStack(onboardingFlowComplete: $completedOnboardingFlow) {
             Welcome()
 
-            if !FeatureFlags.disableFirebase {
-                AccountOnboarding()
-            }
+            AccountOnboarding()
 
             if !localNotificationAuthorization {
                 NotificationPermissions()

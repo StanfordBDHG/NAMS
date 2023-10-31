@@ -10,7 +10,6 @@ import Spezi
 import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziFirestore
-import SpeziMockWebService
 import SpeziQuestionnaire
 import SwiftUI
 
@@ -18,26 +17,24 @@ import SwiftUI
 class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration(standard: NAMSStandard()) {
-            if !FeatureFlags.disableFirebase {
-                let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
+            let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
 
-                AccountConfiguration(configuration: [
-                    .requires(\.userId),
-                    .requires(\.name)
-                ])
+            AccountConfiguration(configuration: [
+                .requires(\.userId),
+                .requires(\.name)
+            ])
 
-                if FeatureFlags.useFirebaseEmulator {
-                    FirebaseAccountConfiguration(
-                        authenticationMethods: methods,
-                        emulatorSettings: (host: "localhost", port: 9099)
-                    )
-                } else {
-                    FirebaseAccountConfiguration(authenticationMethods: methods)
-                }
-                firestore
+            if FeatureFlags.useFirebaseEmulator {
+                FirebaseAccountConfiguration(
+                    authenticationMethods: methods,
+                    emulatorSettings: (host: "localhost", port: 9099)
+                )
+            } else {
+                FirebaseAccountConfiguration(authenticationMethods: methods)
             }
+            firestore
+            
             QuestionnaireDataSource()
-            MockWebService()
         }
     }
     

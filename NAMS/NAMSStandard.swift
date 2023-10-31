@@ -12,15 +12,12 @@ import OSLog
 import Spezi
 import SpeziAccount
 import SpeziFirestore
-import SpeziMockWebService
 import SpeziQuestionnaire
 import SwiftUI
 
 
 actor NAMSStandard: Standard, ObservableObject, ObservableObjectProvider, QuestionnaireConstraint, AccountNotifyStandard {
     private let logger = Logger(subsystem: "TemplateApplication", category: "Standard")
-
-    @Dependency var mockWebService = MockWebService()
 
     @AccountReference var account
 

@@ -75,10 +75,8 @@ struct ScheduleView: View {
                 CurrentPatientLabel(activePatient: $activePatientId)
             })
         }
-        if AccountButton.shouldDisplay {
-            ToolbarItem(placement: .primaryAction) {
-                AccountButton(isPresented: $presentingAccount)
-            }
+        ToolbarItem(placement: .primaryAction) {
+            AccountButton(isPresented: $presentingAccount)
         }
     }
 

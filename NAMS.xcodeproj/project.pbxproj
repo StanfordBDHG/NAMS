@@ -57,7 +57,6 @@
 		2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */; };
 		2F4E23832989D51F0013F3D9 /* NAMSTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */; };
 		2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23862989DB360013F3D9 /* ContactsTests.swift */; };
-		2F4FC8D729EE69D300BFFE26 /* MockUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FC8D629EE69D300BFFE26 /* MockUpload.swift */; };
 		2F5E32BD297E05EA003432F8 /* NAMSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E32BC297E05EA003432F8 /* NAMSAppDelegate.swift */; };
 		2F6025CB29BBE70F0045459E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6025CA29BBE70F0045459E /* GoogleService-Info.plist */; };
 		2FC3439029EE6346002D773C /* SocialSupportQuestionnaire.json in Resources */ = {isa = PBXBuildFile; fileRef = 2FE5DC5529EDD811004B9AB4 /* SocialSupportQuestionnaire.json */; };
@@ -92,7 +91,6 @@
 		A916ADD72AB62012006960DF /* ProcessInfo+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */; };
 		A916ADD92AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */; };
 		A926D77F2AB7A552000C4C2F /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */; };
-		A926D7812AB7A552000C4C2F /* MockUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FC8D629EE69D300BFFE26 /* MockUpload.swift */; };
 		A926D7822AB7A552000C4C2F /* NotificationPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD42AB60227006960DF /* NotificationPermissions.swift */; };
 		A926D7872AB7A552000C4C2F /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3429EDD7CA004B9AB4 /* Welcome.swift */; };
 		A926D7882AB7A552000C4C2F /* Binding+Negate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4229EDD7F2004B9AB4 /* Binding+Negate.swift */; };
@@ -117,7 +115,6 @@
 		A926D7AC2AB7A552000C4C2F /* SpeziLocalStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7772AB7A552000C4C2F /* SpeziLocalStorage */; };
 		A926D7AD2AB7A552000C4C2F /* SpeziSecureStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7792AB7A552000C4C2F /* SpeziSecureStorage */; };
 		A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */ = {isa = PBXBuildFile; productRef = A926D76D2AB7A552000C4C2F /* SpeziFirebaseAccount */; };
-		A926D7AF2AB7A552000C4C2F /* SpeziMockWebService in Frameworks */ = {isa = PBXBuildFile; productRef = A926D77C2AB7A552000C4C2F /* SpeziMockWebService */; };
 		A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7652AB7A552000C4C2F /* Spezi */; };
 		A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */ = {isa = PBXBuildFile; productRef = A926D77A2AB7A552000C4C2F /* SpeziViews */; };
 		A926D7B32AB7A552000C4C2F /* SpeziFHIR in Frameworks */ = {isa = PBXBuildFile; productRef = A926D76B2AB7A552000C4C2F /* SpeziFHIR */; };
@@ -192,9 +189,7 @@
 		A94A42B72AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */; };
 		A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
 		A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
-		A9610AB72AB4847400E46ADE /* SpeziMockWebService in Frameworks */ = {isa = PBXBuildFile; productRef = A9610AB62AB4847400E46ADE /* SpeziMockWebService */; };
 		A9610AB92AB4868D00E46ADE /* NAMSStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */; };
-		A9610ABB2AB49F0900E46ADE /* MockUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610ABA2AB49F0900E46ADE /* MockUploadTests.swift */; };
 		A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
 		A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
 		A98911322A36689D00E66E3A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
@@ -282,7 +277,6 @@
 		2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTests.swift; sourceTree = "<group>"; };
 		2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTestingSetup.swift; sourceTree = "<group>"; };
 		2F4E23862989DB360013F3D9 /* ContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTests.swift; sourceTree = "<group>"; };
-		2F4FC8D629EE69D300BFFE26 /* MockUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUpload.swift; sourceTree = "<group>"; };
 		2F5E32BC297E05EA003432F8 /* NAMSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSAppDelegate.swift; sourceTree = "<group>"; };
 		2F6025CA29BBE70F0045459E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2FAEC07F297F583900C11C42 /* NAMS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NAMS.entitlements; sourceTree = "<group>"; };
@@ -343,7 +337,6 @@
 		A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupHeader.swift; sourceTree = "<group>"; };
 		A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSStandard.swift; sourceTree = "<group>"; };
-		A9610ABA2AB49F0900E46ADE /* MockUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUploadTests.swift; sourceTree = "<group>"; };
 		A989112C2A36687B00E66E3A /* PatientListSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListSheet.swift; sourceTree = "<group>"; };
 		A989112E2A36688A00E66E3A /* PatientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRow.swift; sourceTree = "<group>"; };
 		A98911312A36689D00E66E3A /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
@@ -379,7 +372,6 @@
 				2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */,
 				A92E34F02ADB9B7E00FE0B51 /* OrderedCollections in Frameworks */,
 				2FE5DC7529EDD8E6004B9AB4 /* SpeziFirebaseAccount in Frameworks */,
-				A9610AB72AB4847400E46ADE /* SpeziMockWebService in Frameworks */,
 				2F49B7762980407C00BCB272 /* Spezi in Frameworks */,
 				2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */,
 				2FE5DC6A29EDD8A9004B9AB4 /* SpeziFHIR in Frameworks */,
@@ -416,7 +408,6 @@
 				A926D7AD2AB7A552000C4C2F /* SpeziSecureStorage in Frameworks */,
 				A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */,
 				A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */,
-				A926D7AF2AB7A552000C4C2F /* SpeziMockWebService in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
 				A926D7B32AB7A552000C4C2F /* SpeziFHIR in Frameworks */,
@@ -429,14 +420,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2F4FC8D529EE69BE00BFFE26 /* MockUpload */ = {
-			isa = PBXGroup;
-			children = (
-				2F4FC8D629EE69D300BFFE26 /* MockUpload.swift */,
-			);
-			path = MockUpload;
-			sourceTree = "<group>";
-		};
 		2FC9759D2978E30800BA99FE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,7 +514,6 @@
 				A94A42A82AE9EBC300A3F9E5 /* Account */,
 				2FE5DC2729EDD38D004B9AB4 /* Contacts */,
 				A926D7C52AB7A9AB000C4C2F /* EEG */,
-				2F4FC8D529EE69BE00BFFE26 /* MockUpload */,
 				A99522402AA61D82009272F4 /* Muse */,
 				2FE5DC2829EDD398004B9AB4 /* Onboarding */,
 				A989112B2A36686D00E66E3A /* Patients */,
@@ -556,7 +538,6 @@
 			children = (
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
 				A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */,
-				A9610ABA2AB49F0900E46ADE /* MockUploadTests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */,
 				A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */,
@@ -792,7 +773,6 @@
 				2FE5DC8929EDD972004B9AB4 /* SpeziLocalStorage */,
 				2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */,
 				2FE5DC8E29EDD980004B9AB4 /* SpeziViews */,
-				A9610AB62AB4847400E46ADE /* SpeziMockWebService */,
 				A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */,
 			);
 			productName = NAMS;
@@ -865,7 +845,6 @@
 				A926D7772AB7A552000C4C2F /* SpeziLocalStorage */,
 				A926D7792AB7A552000C4C2F /* SpeziSecureStorage */,
 				A926D77A2AB7A552000C4C2F /* SpeziViews */,
-				A926D77C2AB7A552000C4C2F /* SpeziMockWebService */,
 				A92E34F12ADB9B9000FE0B51 /* OrderedCollections */,
 			);
 			productName = NAMS;
@@ -917,7 +896,6 @@
 				2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */,
 				2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				2FE5DC9729EDD9D9004B9AB4 /* XCRemoteSwiftPackageReference "XCTestExtensions" */,
-				A9610AB52AB4847400E46ADE /* XCRemoteSwiftPackageReference "SpeziMockWebService" */,
 				A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
@@ -1028,7 +1006,6 @@
 				2FE5DC4129EDD7EE004B9AB4 /* StorageKeys.swift in Sources */,
 				A9BCB5822AE8307800DA8588 /* SearchToken.swift in Sources */,
 				A9405B562A36856300C75412 /* AddPatientView.swift in Sources */,
-				2F4FC8D729EE69D300BFFE26 /* MockUpload.swift in Sources */,
 				A94533FD2AEADCC00095AAD3 /* ScreeningTask.swift in Sources */,
 				A926D8072AB7B41C000C4C2F /* EEGChannel+Muse.swift in Sources */,
 				A926D8222AB7B430000C4C2F /* EEGRecording.swift in Sources */,
@@ -1127,7 +1104,6 @@
 				A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */,
 				A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
-				A9610ABB2AB49F0900E46ADE /* MockUploadTests.swift in Sources */,
 				A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */,
 				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,
 			);
@@ -1143,7 +1119,6 @@
 				A926D8002AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */,
 				A9BCB5872AE8347E00DA8588 /* CollectionReference+AsyncAwait.swift in Sources */,
 				A926D77F2AB7A552000C4C2F /* StorageKeys.swift in Sources */,
-				A926D7812AB7A552000C4C2F /* MockUpload.swift in Sources */,
 				A9BCB58A2AE83F7E00DA8588 /* PatientListModel.swift in Sources */,
 				A94533FE2AEADCC00095AAD3 /* ScreeningTask.swift in Sources */,
 				A9DF79DF2AE8A81F00AB5983 /* AddPatientView.swift in Sources */,
@@ -2112,28 +2087,12 @@
 				minimumVersion = 0.4.1;
 			};
 		};
-		A926D77D2AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziMockWebService" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziMockWebService.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.2;
-			};
-		};
 		A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.5;
-			};
-		};
-		A9610AB52AB4847400E46ADE /* XCRemoteSwiftPackageReference "SpeziMockWebService" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziMockWebService.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2264,11 +2223,6 @@
 			package = A926D77B2AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziViews" */;
 			productName = SpeziViews;
 		};
-		A926D77C2AB7A552000C4C2F /* SpeziMockWebService */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A926D77D2AB7A552000C4C2F /* XCRemoteSwiftPackageReference "SpeziMockWebService" */;
-			productName = SpeziMockWebService;
-		};
 		A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */;
@@ -2278,11 +2232,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
-		};
-		A9610AB62AB4847400E46ADE /* SpeziMockWebService */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A9610AB52AB4847400E46ADE /* XCRemoteSwiftPackageReference "SpeziMockWebService" */;
-			productName = SpeziMockWebService;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
