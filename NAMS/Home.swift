@@ -7,7 +7,6 @@
 //
 
 import SpeziAccount
-import SpeziMockWebService
 import SpeziViews
 import SwiftUI
 
@@ -44,13 +43,6 @@ struct HomeView: View {
                 .tabItem {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
                 }
-            if FeatureFlags.disableFirebase {
-                MockUpload(presentingAccount: $presentingAccount)
-                    .tag(Tabs.mockUpload)
-                    .tabItem {
-                        Label("MOCK_UPLOAD_TAB_TITLE", systemImage: "server.rack")
-                    }
-            }
         }
             .environment(patientList)
             .viewStateAlert(state: $viewState)
@@ -78,21 +70,22 @@ struct HomeView: View {
                     activePatientId = nil // reset the current patient on an error
                 }
             }
+            .onChange(of: account.signedIn) {
+                if !account.signedIn {
+                    activePatientId = nil // reset the current patient, will clear model state!
+                }
+            }
             .sheet(isPresented: $presentingAccount) {
                 AccountSheet()
             }
-            .accountRequired(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding && !FeatureFlags.injectDefaultPatient) {
+            .accountRequired(!FeatureFlags.skipOnboarding && !FeatureFlags.injectDefaultPatient) {
                 AccountSheet()
             }
-            .verifyRequiredAccountDetails(!FeatureFlags.disableFirebase && !FeatureFlags.skipOnboarding)
+            .verifyRequiredAccountDetails()
     }
 
 
     func handlePatientIdChange() {
-        guard !FeatureFlags.disableFirebase else {
-            return
-        }
-
         if let activePatientId {
             patientList.loadActivePatient(for: activePatientId, viewState: $viewState, activePatientId: $activePatientId)
         } else {
@@ -110,6 +103,5 @@ struct HomeView: View {
 
     return HomeView()
         .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
-        .environmentObject(MockWebService())
 }
 #endif

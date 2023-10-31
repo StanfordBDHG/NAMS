@@ -14,7 +14,7 @@ class OnboardingTests: XCTestCase {
         try super.setUpWithError()
         
         try disablePasswordAutofill()
-        
+
         sleep(1)
         
         continueAfterFailure = false
@@ -31,12 +31,12 @@ class OnboardingTests: XCTestCase {
         try app.navigateOnboardingFlow()
         
         app.assertOnboardingComplete()
-        try app.assertAccountInformation()
+        try app.assertAccountInformation() // ensure account is deleted again
     }
 
     func testOnboardingFlowRepeated() throws {
         let app = XCUIApplication()
-        app.launchArguments = ["--showOnboarding", "--disableFirebase"]
+        app.launchArguments = ["--showOnboarding"]
         app.terminate()
         app.launch()
 
@@ -51,6 +51,7 @@ class OnboardingTests: XCTestCase {
         try app.navigateOnboardingFlow(repeated: true)
         // Do not show HealthKit and Notification authorization view again
         app.assertOnboardingComplete()
+        try app.assertAccountInformation() // ensure account is deleted again
     }
 }
 

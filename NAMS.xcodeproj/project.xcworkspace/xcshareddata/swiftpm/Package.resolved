@@ -172,15 +172,6 @@
       }
     },
     {
-      "identity" : "spezimockwebservice",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/StanfordSpezi/SpeziMockWebService.git",
-      "state" : {
-        "revision" : "2ea46969069d04a1c3c2d1925751bfe0d6cf9adb",
-        "version" : "0.2.0"
-      }
-    },
-    {
       "identity" : "spezionboarding",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziOnboarding.git",

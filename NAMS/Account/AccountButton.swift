@@ -10,8 +10,6 @@ import SwiftUI
 
 
 struct AccountButton: View {
-    static let shouldDisplay = !FeatureFlags.disableFirebase || ProcessInfo.processInfo.isPreviewSimulator
-
     @Binding private var isPresented: Bool
 
 

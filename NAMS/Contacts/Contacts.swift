@@ -57,9 +57,7 @@ struct Contacts: View {
             ContactsList(contacts: contacts)
                 .navigationTitle(String(localized: "CONTACTS_NAVIGATION_TITLE"))
                 .toolbar {
-                    if AccountButton.shouldDisplay {
-                        AccountButton(isPresented: $presentingAccount)
-                    }
+                    AccountButton(isPresented: $presentingAccount)
                 }
         }
     }

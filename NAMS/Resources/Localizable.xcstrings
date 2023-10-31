@@ -690,6 +690,7 @@
       }
     },
     "MOCK_UPLOAD_TAB_TITLE" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
