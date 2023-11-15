@@ -12,28 +12,6 @@ import Spezi
 import SpeziBluetooth
 
 
-struct DeviceInformation {
-    let syncRation: Double
-    let syncMode: Bool
-    let memoryWriteNumber: UInt16
-    let memoryEraseMode: Bool
-    let batteryLevel: UInt8
-    let temperatureValue: UInt8
-    let batteryCharging: Bool
-}
-
-
-struct DeviceConfiguration {
-    let channelCount: UInt8
-    let accelerometerStatus: UInt8 // TODO: properly type that!
-    let impedanceStatus: Bool
-    let memoryStatus: Bool
-    let samplesPerChannel: UInt8
-    let dataSize: UInt8
-    let syncEnabled: Bool
-    let serialNumber: String // 4 bytes
-}
-
 // TODO: should we recommend a read like https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
 
 class BiopotDevice: Component, ObservableObject, ObservableObjectProvider, BluetoothMessageHandler, DefaultInitializable {

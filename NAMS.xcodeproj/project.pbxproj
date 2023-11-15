@@ -198,6 +198,11 @@
 		A988FEAA2B0414FD00022A61 /* BiopotDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEA92B0414FD00022A61 /* BiopotDevice.swift */; };
 		A988FEAC2B043AED00022A61 /* BatteryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEAB2B043AED00022A61 /* BatteryIcon.swift */; };
 		A988FEAD2B043AED00022A61 /* BatteryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEAB2B043AED00022A61 /* BatteryIcon.swift */; };
+		A988FEAF2B0452A900022A61 /* BiopotDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEA92B0414FD00022A61 /* BiopotDevice.swift */; };
+		A988FEB22B0452C400022A61 /* DeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */; };
+		A988FEB32B0452C400022A61 /* DeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */; };
+		A988FEB52B0453E100022A61 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB42B0453E100022A61 /* DeviceInformation.swift */; };
+		A988FEB62B0453E100022A61 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB42B0453E100022A61 /* DeviceInformation.swift */; };
 		A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
 		A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
 		A98911322A36689D00E66E3A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
@@ -348,6 +353,8 @@
 		A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSStandard.swift; sourceTree = "<group>"; };
 		A988FEA92B0414FD00022A61 /* BiopotDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDevice.swift; sourceTree = "<group>"; };
 		A988FEAB2B043AED00022A61 /* BatteryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIcon.swift; sourceTree = "<group>"; };
+		A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceConfiguration.swift; sourceTree = "<group>"; };
+		A988FEB42B0453E100022A61 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
 		A989112C2A36687B00E66E3A /* PatientListSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListSheet.swift; sourceTree = "<group>"; };
 		A989112E2A36688A00E66E3A /* PatientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRow.swift; sourceTree = "<group>"; };
 		A98911312A36689D00E66E3A /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
@@ -519,8 +526,6 @@
 		653A254F283387FE005D4D48 /* NAMS */ = {
 			isa = PBXGroup;
 			children = (
-				A92DD4D82B02D94F0062781B /* BIOPOT.swift */,
-				A988FEA92B0414FD00022A61 /* BiopotDevice.swift */,
 				2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */,
 				2FC975A72978F11A00BA99FE /* Home.swift */,
 				653A2550283387FE005D4D48 /* NAMSApp.swift */,
@@ -528,6 +533,7 @@
 				2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */,
 				A94534082AEAE3490095AAD3 /* ScheduleView.swift */,
 				A94A42A82AE9EBC300A3F9E5 /* Account */,
+				A988FEAE2B04529B00022A61 /* BioPot */,
 				2FE5DC2729EDD38D004B9AB4 /* Contacts */,
 				A926D7C52AB7A9AB000C4C2F /* EEG */,
 				A99522402AA61D82009272F4 /* Muse */,
@@ -696,6 +702,25 @@
 				A94A42A92AE9EBE200A3F9E5 /* AccountSheet.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		A988FEAE2B04529B00022A61 /* BioPot */ = {
+			isa = PBXGroup;
+			children = (
+				A988FEB02B0452AB00022A61 /* Model */,
+				A92DD4D82B02D94F0062781B /* BIOPOT.swift */,
+				A988FEA92B0414FD00022A61 /* BiopotDevice.swift */,
+			);
+			path = BioPot;
+			sourceTree = "<group>";
+		};
+		A988FEB02B0452AB00022A61 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */,
+				A988FEB42B0453E100022A61 /* DeviceInformation.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A989112B2A36686D00E66E3A /* Patients */ = {
@@ -1060,6 +1085,7 @@
 				A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */,
 				2FE5DC4629EDD7F2004B9AB4 /* Bundle+Image.swift in Sources */,
 				A926D8322AB7B430000C4C2F /* ConnectedDevice.swift in Sources */,
+				A988FEB52B0453E100022A61 /* DeviceInformation.swift in Sources */,
 				A9F2ECD02AEC5EF50057C7DD /* MeasurementTask.swift in Sources */,
 				A9BCB5862AE8347E00DA8588 /* CollectionReference+AsyncAwait.swift in Sources */,
 				A926D8052AB7B41C000C4C2F /* EEGSeries+Muse.swift in Sources */,
@@ -1088,6 +1114,7 @@
 				2DC17CA2806C0BFD72984B3D /* MockDeviceManager.swift in Sources */,
 				2DC174CC46386A3F7E20786B /* IXNMuseVersion+String.swift in Sources */,
 				2DC179BD6217C86A55D70E6F /* IXNMuseConfiguration+Description.swift in Sources */,
+				A988FEB22B0452C400022A61 /* DeviceConfiguration.swift in Sources */,
 				2DC17FE0AC1DD98C29B417F1 /* IXNMusePreset+Description.swift in Sources */,
 				A9A179562AC62BE500B180D8 /* ListRow.swift in Sources */,
 				2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */,
@@ -1176,6 +1203,7 @@
 				A926D82D2AB7B430000C4C2F /* DeviceManager.swift in Sources */,
 				A926D7912AB7A552000C4C2F /* CodableArray+RawRepresentable.swift in Sources */,
 				A926D7922AB7A552000C4C2F /* FeatureFlags.swift in Sources */,
+				A988FEB62B0453E100022A61 /* DeviceInformation.swift in Sources */,
 				A9F2ECD12AEC5EF50057C7DD /* MeasurementTask.swift in Sources */,
 				A9BCB5832AE8307800DA8588 /* SearchToken.swift in Sources */,
 				A926D7932AB7A552000C4C2F /* Bundle+Image.swift in Sources */,
@@ -1190,6 +1218,7 @@
 				A94534112AEAF2AE0095AAD3 /* CompletedTask.swift in Sources */,
 				A926D81D2AB7B430000C4C2F /* EEGDeviceRow.swift in Sources */,
 				A926D79C2AB7A552000C4C2F /* NAMSApp.swift in Sources */,
+				A988FEAF2B0452A900022A61 /* BiopotDevice.swift in Sources */,
 				A926D79D2AB7A552000C4C2F /* Contacts.swift in Sources */,
 				A926D79E2AB7A552000C4C2F /* FinishedSetup.swift in Sources */,
 				A926D82F2AB7B430000C4C2F /* EEGDevice.swift in Sources */,
@@ -1203,6 +1232,7 @@
 				2DC17459E46F767C767C0AA0 /* DeviceConnectionListener.swift in Sources */,
 				2DC17374D5266F13ADD5C002 /* MockDeviceManager.swift in Sources */,
 				2DC179831EDABDCBD8A1EBFB /* IXNMuseVersion+String.swift in Sources */,
+				A988FEB32B0452C400022A61 /* DeviceConfiguration.swift in Sources */,
 				2DC173E694F96E89EAB63FE0 /* IXNMuseConfiguration+Description.swift in Sources */,
 				2DC17924E7D44FE1A2562528 /* IXNMusePreset+Description.swift in Sources */,
 				A9A179572AC62BE500B180D8 /* ListRow.swift in Sources */,
