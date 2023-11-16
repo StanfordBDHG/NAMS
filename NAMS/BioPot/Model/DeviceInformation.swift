@@ -18,5 +18,10 @@ struct DeviceInformation {
     let temperatureValue: UInt8
     let batteryCharging: Bool
 
+    //init(from byteBuffer: inout ByteBuffer) {
+        // TODO size checks
+
+        // TODO byteBuffer.getInteger(at: <#T##Int#>) TODO: move read index manually
+    //}
     // TODO: work with bytebuffer
 }
