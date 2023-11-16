@@ -64,7 +64,13 @@ struct TilesView: View {
             }
                 .viewStateAlert(state: $viewState)
                 .sheet(item: $presentingQuestionnaire) { questionnaire in
-                    QuestionnaireView(questionnaire: questionnaire, isPresented: isPresentedBinding) { response in
+                    QuestionnaireView(questionnaire: questionnaire) { result in
+                        presentingQuestionnaire = nil
+
+                        guard case let .completed(response) = result else {
+                            return
+                        }
+
                         do {
                             try await patientList.add(response: response)
                         } catch {

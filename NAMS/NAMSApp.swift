@@ -29,7 +29,6 @@ struct NAMSApp: App {
                 .sheet(isPresented: !$completedOnboardingFlow) {
                     OnboardingFlow()
                 }
-                .firebaseAccount()
                 .testingSetup()
                 .spezi(appDelegate)
         }

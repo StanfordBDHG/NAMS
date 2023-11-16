@@ -11,11 +11,10 @@ import SwiftUI
 
 
 struct NotificationPermissions: View {
-    @EnvironmentObject private var standard: NAMSStandard
-    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
+    @Environment(OnboardingNavigationPath.self)
+    private var onboardingNavigationPath
 
     @State private var notificationProcessing = false
-
 
     var body: some View {
         OnboardingView(
@@ -45,7 +44,7 @@ struct NotificationPermissions: View {
                             if ProcessInfo.processInfo.isPreviewSimulator {
                                 try await Task.sleep(for: .seconds(5))
                             } else {
-                                try await standard.requestLocalNotificationAuthorization()
+                                try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound])
                             }
                         } catch {
                             print("Could not request notification permissions.")
@@ -71,7 +70,6 @@ struct NotificationPermissions_Previews: PreviewProvider {
                 onboardingView
             }
         }
-            .environmentObject(NAMSStandard())
     }
 }
 #endif

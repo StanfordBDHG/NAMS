@@ -11,7 +11,8 @@ import SpeziOnboarding
 import SwiftUI
 
 struct FinishedSetup: View {
-    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
+    @Environment(OnboardingNavigationPath.self)
+    private var onboardingNavigationPath
 
     var body: some View {
         OnboardingView(

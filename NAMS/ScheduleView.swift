@@ -91,13 +91,13 @@ struct ScheduleView: View {
 #if DEBUG
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
-        .environmentObject(Account(MockUserIdPasswordAccountService()))
+        .environment(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
 }
 
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
-        .environmentObject(Account(MockUserIdPasswordAccountService()))
+        .environment(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
 }
 #endif

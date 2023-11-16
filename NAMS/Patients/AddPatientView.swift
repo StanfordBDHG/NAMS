@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziPersonalInfo
 import SpeziViews
 import SwiftUI
 
@@ -65,20 +66,18 @@ struct AddPatientView: View {
     }
 
     @ViewBuilder var nameFields: some View {
-        NameFields(
-            name: $newPatient.name,
-            givenNameField: .init(
-                title: .init("First", comment: "First Name Field Description"),
-                placeholder: "enter first name"
-            ),
-            givenNameFieldIdentifier: .givenName,
-            familyNameField: .init(
-                title: .init("Last", comment: "Last Name Field Description"),
-                placeholder: "enter last name"
-            ),
-            familyNameFieldIdentifier: .lastName,
-            focusedState: $focusedField
-        )
+        Grid(horizontalSpacing: 20) {
+            NameFieldRow(.init("First", comment: "First Name Field Description"), name: $newPatient.name, for: \.givenName) {
+                Text("enter first name")
+            }
+
+            Divider()
+                .gridCellUnsizedAxes(.horizontal)
+
+            NameFieldRow(.init("Last", comment: "Last Name Field Description"), name: $newPatient.name, for: \.familyName) {
+                Text("enter last name")
+            }
+        }
     }
 
     @ToolbarContentBuilder var toolbar: some ToolbarContent {

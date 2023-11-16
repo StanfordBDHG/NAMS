@@ -14,7 +14,8 @@ struct AccountSheet: View {
     @Environment(\.dismiss)
     var dismiss
 
-    @EnvironmentObject var account: Account
+    @Environment(Account.self)
+    private var account
     @Environment(\.accountRequired)
     var accountRequired
 
@@ -71,11 +72,11 @@ struct AccountSheet: View {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return AccountSheet()
-        .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .environment(Account(building: details, active: MockUserIdPasswordAccountService()))
 }
 
 #Preview {
     AccountSheet()
-        .environmentObject(Account(MockUserIdPasswordAccountService()))
+        .environment(Account(MockUserIdPasswordAccountService()))
 }
 #endif
