@@ -81,13 +81,14 @@ struct EEGChart: View {
 
 
 #if DEBUG
-struct EEGChart_Previews: PreviewProvider {
-    static let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
+private let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
+private let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
 
-    static var previews: some View {
-        let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
-        EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
-        EEGChart(measurements: generated.data.suffix(from: 0), for: .af8, baseTime: generated.baseTime)
-    }
+#Preview {
+    EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
+}
+
+#Preview {
+    EEGChart(measurements: generated.data.suffix(from: 0), for: .af8, baseTime: generated.baseTime)
 }
 #endif

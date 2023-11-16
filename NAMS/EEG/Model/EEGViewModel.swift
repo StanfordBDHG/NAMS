@@ -11,13 +11,14 @@ import Foundation
 import OSLog
 
 
-class EEGViewModel: ObservableObject {
+@Observable
+class EEGViewModel {
     let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseViewModel")
 
     private let deviceManager: DeviceManager
 
-    @Published var nearbyDevices: [EEGDevice] = []
-    @Published var activeDevice: ConnectedDevice?
+    var nearbyDevices: [EEGDevice] = []
+    var activeDevice: ConnectedDevice?
 
     private var deviceManagerCancelable: AnyCancellable?
     private var activeDeviceCancelable: AnyCancellable?
@@ -67,9 +68,7 @@ class EEGViewModel: ObservableObject {
             logger.info("Disconnecting previously connected device \(activeDevice.device.name)...")
             // either we tapped on the same Muse or on another one, in any case disconnect the currently active Muse
             activeDevice.disconnect()
-            activeDeviceCancelable?.cancel()
-            activeDeviceCancelable = nil
-            self.activeDevice = nil
+            clearActiveDevice()
 
 
             if activeDevice.device.macAddress == device.macAddress {
@@ -88,13 +87,16 @@ class EEGViewModel: ObservableObject {
     }
 
     func sinkActiveDevice(device: ConnectedDevice) {
-        activeDeviceCancelable = device.objectWillChange.sink { [weak self] in
-            self?.objectWillChange.send()
-            if case .disconnected = device.state {
-                self?.activeDeviceCancelable?.cancel()
-                self?.activeDeviceCancelable = nil
-                self?.activeDevice = nil
+        activeDeviceCancelable = device.$publishedState.sink { [weak self] state in
+            if case .disconnected = state {
+                self?.clearActiveDevice()
             }
         }
+    }
+
+    private func clearActiveDevice() {
+        activeDeviceCancelable?.cancel()
+        activeDeviceCancelable = nil
+        activeDevice = nil
     }
 }

@@ -9,11 +9,12 @@
 import CoreBluetooth
 
 
-class BluetoothManager: NSObject, ObservableObject, CBCentralManagerDelegate {
+@Observable
+class BluetoothManager: NSObject, CBCentralManagerDelegate {
     private let bluetoothManager: CBCentralManager
     private let dispatchQueue: DispatchQueue
 
-    @Published private(set) var bluetoothState: CBManagerState
+    private(set) var bluetoothState: CBManagerState
 
     override init() {
         // We use a separate dispatch queue, be aware that all delegate calls are not getting on the main thread.

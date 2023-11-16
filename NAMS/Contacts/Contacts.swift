@@ -70,9 +70,7 @@ struct Contacts: View {
 
 
 #if DEBUG
-struct Contacts_Previews: PreviewProvider {
-    static var previews: some View {
-        Contacts(presentingAccount: .constant(true))
-    }
+#Preview {
+    Contacts(presentingAccount: .constant(true))
 }
 #endif

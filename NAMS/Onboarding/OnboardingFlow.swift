@@ -40,10 +40,8 @@ struct OnboardingFlow: View {
 
 
 #if DEBUG
-struct OnboardingFlow_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingFlow()
-            .environment(Account(MockUserIdPasswordAccountService()))
-    }
+#Preview {
+    OnboardingFlow()
+        .environment(Account(MockUserIdPasswordAccountService()))
 }
 #endif

@@ -106,6 +106,7 @@ struct PatientList: View {
     }
 }
 
+
 #if DEBUG
 #Preview {
     NavigationStack {

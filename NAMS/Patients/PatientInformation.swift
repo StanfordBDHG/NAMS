@@ -114,6 +114,7 @@ struct PatientInformation: View {
     }
 }
 
+
 #if DEBUG
 #Preview {
     PatientInformation(

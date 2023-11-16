@@ -50,9 +50,7 @@ struct FinishedSetup: View {
 }
 
 #if DEBUG
-struct FinishedSetup_Previews: PreviewProvider {
-    static var previews: some View {
-        FinishedSetup()
-    }
+#Preview {
+    FinishedSetup()
 }
 #endif

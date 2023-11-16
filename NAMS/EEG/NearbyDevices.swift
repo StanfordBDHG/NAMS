@@ -9,13 +9,14 @@
 import SwiftUI
 
 struct NearbyDevices: View {
+    private let eegModel: EEGViewModel
+
     @Environment(\.dismiss)
     private var dismiss
     @Environment(\.locale)
     private var locale
 
-    @StateObject private var bluetoothManager = BluetoothManager()
-    @ObservedObject private var eegModel: EEGViewModel
+    @State private var bluetoothManager = BluetoothManager()
 
     private var bluetoothPoweredOn: Bool {
         if case .poweredOn = bluetoothManager.bluetoothState {
@@ -54,16 +55,20 @@ struct NearbyDevices: View {
                 }
             }
                 .navigationTitle("NEARBY_DEVICES")
-                .onAppear(perform: onForeground)
-                .onDisappear(perform: onBackground)
+                .onAppear {
+                    onForeground()
+                }
+                .onDisappear {
+                    onBackground()
+                }
                 .onReceive(NotificationCenter.default.publisher(for: UIScene.willEnterForegroundNotification)) { _ in
                     onForeground() // onAppear is coupled with view rendering only and won't get fired when putting app into the foreground
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIScene.willDeactivateNotification)) { _ in
                     onBackground() // onDisappear is coupled with view rendering only and won't get fired when putting app into the background
                 }
-                .onReceive(bluetoothManager.$bluetoothState) { newValue in
-                    if case .poweredOn = newValue {
+                .onChange(of: bluetoothManager.bluetoothState) {
+                    if case .poweredOn = bluetoothManager.bluetoothState {
                         eegModel.startScanning()
                     } else {
                         // this will still trigger an API MISUSE, both otherwise we end up in undefined state
@@ -130,24 +135,25 @@ struct NearbyDevices: View {
     }
 
 
+    @MainActor
     func onForeground() {
         if bluetoothPoweredOn {
             eegModel.startScanning()
         }
     }
 
+    @MainActor
     func onBackground() {
         eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
     }
 }
 
 
-struct MuseList_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
-
-    static var previews: some View {
-        NavigationStack {
-            NearbyDevices(eegModel: model)
-        }
+#if DEBUG
+#Preview {
+    let model = EEGViewModel(deviceManager: MockDeviceManager())
+    return NavigationStack {
+        NearbyDevices(eegModel: model)
     }
 }
+#endif

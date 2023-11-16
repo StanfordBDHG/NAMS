@@ -31,8 +31,8 @@ struct ListRow<Value: View>: View {
 
 
 #if DEBUG
-struct ListRow_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    List {
         ListRow("Hello") {
             Text(verbatim: "World")
         }

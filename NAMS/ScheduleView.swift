@@ -12,9 +12,9 @@ import SwiftUI
 
 struct ScheduleView: View {
 #if MUSE
-    @StateObject var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
+    @State var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
 #else
-    @StateObject var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
+    @State var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
 #endif
 
     @State var presentingMuseList = false

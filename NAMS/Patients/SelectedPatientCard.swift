@@ -49,6 +49,8 @@ struct SelectedPatientCard: View {
     }
 }
 
+
+#if DEBUG
 #Preview {
     NavigationStack {
         List {
@@ -60,3 +62,4 @@ struct SelectedPatientCard: View {
             .listStyle(.inset)
     }
 }
+#endif

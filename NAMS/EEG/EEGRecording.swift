@@ -15,7 +15,7 @@ struct EEGRecording: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    @ObservedObject private var eegModel: EEGViewModel
+    private let eegModel: EEGViewModel
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -110,8 +110,8 @@ struct EEGRecording: View {
 struct EEGMeasurement_Previews: PreviewProvider {
     static let connectedDevice = MockEEGDevice(name: "Device 1", model: "Mock", state: .connected)
 
-    @StateObject static var connectedModel = EEGViewModel(mock: connectedDevice)
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager())
+    static let connectedModel = EEGViewModel(mock: connectedDevice)
+    static let model = EEGViewModel(deviceManager: MockDeviceManager())
 
     static var previews: some View {
         NavigationStack {

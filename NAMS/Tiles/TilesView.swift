@@ -13,10 +13,11 @@ import SwiftUI
 
 @MainActor
 struct TilesView: View {
+    private let eegModel: EEGViewModel
+
     @Environment(PatientListModel.self)
     private var patientList
 
-    @ObservedObject private var eegModel: EEGViewModel
 
     @State private var viewState: ViewState = .idle
 
