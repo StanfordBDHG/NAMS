@@ -8,96 +8,48 @@
 
 import Combine
 import Foundation
+import NIOCore
 import Spezi
 import SpeziBluetooth
 
 
 // TODO: should we recommend a read like https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
 
-class BiopotDevice: Component, ObservableObject, ObservableObjectProvider, BluetoothMessageHandler, DefaultInitializable {
-    @Dependency private var bluetooth: Bluetooth
-
-    private var bluetoothAnyCancellable: AnyCancellable?
+@Observable
+class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, DefaultInitializable {
+    @ObservationIgnored @Dependency private var bluetooth: Bluetooth
 
     var bluetoothState: BluetoothState {
         bluetooth.state
     }
 
-    @MainActor @Published var deviceInfo: DeviceInformation?
+    @MainActor var deviceInfo: DeviceInformation?
 
     required init() {}
 
     func configure() {
-        bluetoothAnyCancellable = bluetooth
-            .objectWillChange
-            .receive(on: RunLoop.main)
-            .sink {
-                self.objectWillChange.send()
-            }
-
         bluetooth.add(messageHandler: self)
     }
 
-    // swiftlint:disable:next function_body_length
     func recieve(_ data: Data, service: CBUUID, characteristic: CBUUID) async {
         guard service == Service.biopot else {
             print("Received data for unknown service: \(service)")
             return
         }
 
+        var buffer = ByteBuffer(data: data)
+
         if characteristic == Characteristic.biopotDeviceInfo {
-            let information = data.withUnsafeBytes { pointer in
-                let syncRation = pointer.load(as: Double.self)
-                let syncMode = pointer.load(fromByteOffset: 8, as: Bool.self)
-                let memoryWriteNumber = pointer.loadUnaligned(fromByteOffset: 9, as: UInt16.self)
-                let memoryEraseMode = pointer.load(fromByteOffset: 11, as: Bool.self)
-                let batteryLevel = pointer.load(fromByteOffset: 12, as: UInt8.self)
-                let temperatureValue = pointer.load(fromByteOffset: 13, as: UInt8.self)
-
-                // documentation is wrong, this bit is flipped for some reason
-                let batteryCharging = !pointer.load(fromByteOffset: 14, as: Bool.self)
-
-                return DeviceInformation(
-                    syncRation: syncRation,
-                    syncMode: syncMode,
-                    memoryWriteNumber: memoryWriteNumber,
-                    memoryEraseMode: memoryEraseMode,
-                    batteryLevel: batteryLevel,
-                    temperatureValue: temperatureValue,
-                    batteryCharging: batteryCharging
-                )
+            guard let information = DeviceInformation(from: &buffer) else {
+                return
             }
 
             Task { @MainActor in
                 self.deviceInfo = information
             }
         } else if characteristic == Characteristic.biopotDeviceConfiguration {
-            let configuration = data.withUnsafeBytes { pointer in
-                // 5 bytes reserved
-                let channelCount = pointer.load(fromByteOffset: 5, as: UInt8.self)
-                let accelerometerStatus = pointer.load(fromByteOffset: 6, as: UInt8.self)
-                let impedanceStatus = pointer.load(fromByteOffset: 7, as: Bool.self)
-                let memoryStatus = pointer.load(fromByteOffset: 8, as: Bool.self)
-                let samplesPerChannel = pointer.load(fromByteOffset: 9, as: UInt8.self)
-                let dataSize = pointer.load(fromByteOffset: 10, as: UInt8.self)
-                let syncEnabled = pointer.load(fromByteOffset: 11, as: Bool.self)
-
-                let serialNumber = pointer[12...15] // TODO: verify that this is how it is done!
-                    .map { element in
-                        String(format: "%02hhx", element)
-                    }
-                    .joined()
-
-                return DeviceConfiguration(
-                    channelCount: channelCount,
-                    accelerometerStatus: accelerometerStatus,
-                    impedanceStatus: impedanceStatus,
-                    memoryStatus: memoryStatus,
-                    samplesPerChannel: samplesPerChannel,
-                    dataSize: dataSize,
-                    syncEnabled: syncEnabled,
-                    serialNumber: serialNumber
-                )
+            guard let configuration = DeviceConfiguration(from: &buffer) else {
+                return
             }
 
             print("Received data for \(service.uuidString) on \(characteristic.uuidString): \(configuration)")

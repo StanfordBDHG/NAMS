@@ -10,18 +10,40 @@ import NIOCore
 
 
 struct DeviceInformation {
-    let syncRation: Double
+    let syncRatio: Double
     let syncMode: Bool
     let memoryWriteNumber: UInt16
     let memoryEraseMode: Bool
     let batteryLevel: UInt8
     let temperatureValue: UInt8
     let batteryCharging: Bool
+}
 
-    //init(from byteBuffer: inout ByteBuffer) {
-        // TODO size checks
 
-        // TODO byteBuffer.getInteger(at: <#T##Int#>) TODO: move read index manually
-    //}
-    // TODO: work with bytebuffer
+extension DeviceInformation {
+    init?(from byteBuffer: inout ByteBuffer) {
+        guard byteBuffer.readableBytes >= 15 else {
+            return nil
+        }
+
+        guard let syncRatioData = byteBuffer.readData(length: 8),
+              let syncMode = byteBuffer.readInteger(as: UInt8.self),
+              let memoryWriteNumber = byteBuffer.readInteger(as: UInt16.self),
+              let memoryEraseMode = byteBuffer.readInteger(as: UInt8.self),
+              let batteryLevel = byteBuffer.readInteger(as: UInt8.self),
+              let temperatureValue = byteBuffer.readInteger(as: UInt8.self),
+              let batteryCharging = byteBuffer.readInteger(as: UInt8.self) else {
+            return nil
+        }
+
+        self .syncRatio = syncRatioData.withUnsafeBytes { pointer in
+            pointer.load(as: Double.self)
+        }
+        self.syncMode = syncMode == 1
+        self.memoryWriteNumber = memoryWriteNumber
+        self.memoryEraseMode = memoryEraseMode == 1
+        self.batteryLevel = batteryLevel
+        self.temperatureValue = temperatureValue
+        self.batteryCharging = !(batteryCharging == 1) // documentation is wrong, this bit is flipped for some reason
+    }
 }

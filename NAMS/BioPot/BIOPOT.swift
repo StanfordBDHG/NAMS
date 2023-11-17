@@ -10,7 +10,8 @@ import SwiftUI
 
 
 struct BIOPOT: View {
-    @EnvironmentObject private var biopot: BiopotDevice
+    @Environment(BiopotDevice.self)
+    private var biopot
 
     var body: some View {
         if let info = biopot.deviceInfo {
@@ -34,9 +35,9 @@ struct BIOPOT: View {
                         Text("\(info.temperatureValue) °C")
                     }
                 }
-                .onAppear {
-                    // TODO: we currently cannot read values through SpeziBluetooth!
-                }
+                    .onAppear {
+                        // TODO: we currently cannot read values through SpeziBluetooth!
+                    }
             }
         } else {
             VStack {
@@ -52,6 +53,6 @@ struct BIOPOT: View {
 #if DEBUG
 #Preview {
     BIOPOT()
-        .environmentObject(BiopotDevice()) // TODO: that works as long as we don't touch the Dependency
+        .environment(BiopotDevice()) // note, this currently doesn't inject the Bluetooth dependency
 }
 #endif

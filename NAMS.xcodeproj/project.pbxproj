@@ -85,7 +85,7 @@
 		2FE5DC9929EDD9D9004B9AB4 /* XCTestExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC9829EDD9D9004B9AB4 /* XCTestExtensions */; };
 		653A2551283387FE005D4D48 /* NAMSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NAMSApp.swift */; };
 		653A255528338800005D4D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
-		653A256228338800005D4D48 /* NAMSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* NAMSTests.swift */; };
+		653A256228338800005D4D48 /* BiopotCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A256128338800005D4D48 /* BiopotCodingTests.swift */; };
 		A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */; };
 		A916ADD52AB60227006960DF /* NotificationPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD42AB60227006960DF /* NotificationPermissions.swift */; };
 		A916ADD72AB62012006960DF /* ProcessInfo+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */; };
@@ -190,9 +190,6 @@
 		A94A42B72AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */; };
 		A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
 		A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
-		A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */; };
-		A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */; };
-		A9610AB92AB4868D00E46ADE /* NAMSStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */; };
 		A988FEA62B03FB4A00022A61 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEA52B03FB4A00022A61 /* SpeziBluetooth */; };
 		A988FEA82B03FB5A00022A61 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEA72B03FB5A00022A61 /* SpeziBluetooth */; };
 		A988FEAA2B0414FD00022A61 /* BiopotDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEA92B0414FD00022A61 /* BiopotDevice.swift */; };
@@ -203,6 +200,8 @@
 		A988FEB32B0452C400022A61 /* DeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */; };
 		A988FEB52B0453E100022A61 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB42B0453E100022A61 /* DeviceInformation.swift */; };
 		A988FEB62B0453E100022A61 /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB42B0453E100022A61 /* DeviceInformation.swift */; };
+		A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */; };
+		A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */; };
 		A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
 		A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
 		A98911322A36689D00E66E3A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
@@ -310,7 +309,7 @@
 		653A2550283387FE005D4D48 /* NAMSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSApp.swift; sourceTree = "<group>"; };
 		653A255428338800005D4D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		653A255D28338800005D4D48 /* NAMSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NAMSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		653A256128338800005D4D48 /* NAMSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSTests.swift; sourceTree = "<group>"; };
+		653A256128338800005D4D48 /* BiopotCodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotCodingTests.swift; sourceTree = "<group>"; };
 		653A256728338800005D4D48 /* NAMSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NAMSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A258928339462005D4D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireTests.swift; sourceTree = "<group>"; };
@@ -350,7 +349,6 @@
 		A94A42AB2AE9EBE200A3F9E5 /* AccountButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupHeader.swift; sourceTree = "<group>"; };
 		A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
-		A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSStandard.swift; sourceTree = "<group>"; };
 		A988FEA92B0414FD00022A61 /* BiopotDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDevice.swift; sourceTree = "<group>"; };
 		A988FEAB2B043AED00022A61 /* BatteryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIcon.swift; sourceTree = "<group>"; };
 		A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceConfiguration.swift; sourceTree = "<group>"; };
@@ -550,7 +548,7 @@
 		653A256028338800005D4D48 /* NAMSTests */ = {
 			isa = PBXGroup;
 			children = (
-				653A256128338800005D4D48 /* NAMSTests.swift */,
+				653A256128338800005D4D48 /* BiopotCodingTests.swift */,
 			);
 			path = NAMSTests;
 			sourceTree = "<group>";
@@ -1144,7 +1142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				653A256228338800005D4D48 /* NAMSTests.swift in Sources */,
+				653A256228338800005D4D48 /* BiopotCodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2161,7 +2159,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.1.1;
+				minimumVersion = 0.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2302,16 +2300,6 @@
 			package = A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
 		};
-		A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
-			productName = SpeziPersonalInfo;
-		};
-		A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
-			productName = SpeziPersonalInfo;
-		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
@@ -2321,6 +2309,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
 			productName = SpeziBluetooth;
+		};
+		A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
+			productName = SpeziPersonalInfo;
+		};
+		A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
+			productName = SpeziPersonalInfo;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
