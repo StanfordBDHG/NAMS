@@ -7,10 +7,13 @@
 //
 
 import CoreBluetooth
+import OSLog
 
 
 @Observable
 class BluetoothManager: NSObject, CBCentralManagerDelegate {
+    private let logger = Logger(subsystem: "edu.standford.nams", category: "BluetoothManager")
+
     private let bluetoothManager: CBCentralManager
     private let dispatchQueue: DispatchQueue
 
@@ -32,6 +35,7 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         Task { @MainActor in
             self.bluetoothState = central.state
+            logger.debug("BluetoothState is now \(central.state.rawValue)")
         }
     }
 }

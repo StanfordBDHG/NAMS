@@ -55,11 +55,7 @@ struct EEGDeviceDetails: View {
         if let remainingBattery = device.remainingBatteryPercentage {
             Section {
                 ListRow("BATTERY") {
-                    Group {
-                        Text(verbatim: "\(Int(remainingBattery)) %")
-                        batteryIcon(percentage: remainingBattery) // hides accessibility, only text will be shown
-                            .foregroundStyle(.primary)
-                    }
+                    BatteryIcon(percentage: Int(remainingBattery))
                 }
             } footer: {
                 let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
@@ -118,29 +114,6 @@ struct EEGDeviceDetails: View {
             .accessibilityRepresentation {
                 Text("INTERVENTION_REQUIRED_PREFIX \(message)")
             }
-    }
-
-    @ViewBuilder
-    func batteryIcon(percentage: Double) -> some View {
-        Group {
-            if percentage >= 90 {
-                Image(systemName: "battery.100")
-            } else if percentage >= 65 {
-                Image(systemName: "battery.75")
-            } else if percentage >= 40 {
-                Image(systemName: "battery.50")
-            } else if percentage >= 15 {
-                Image(systemName: "battery.25")
-            } else if percentage > 3 {
-                Image(systemName: "battery.25")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.red, .primary)
-            } else {
-                Image(systemName: "battery.0")
-                    .foregroundColor(.red)
-            }
-        }
-            .accessibilityHidden(true)
     }
 }
 

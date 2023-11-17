@@ -63,6 +63,9 @@
         }
       }
     },
+    "%u °C" : {
+
+    },
     "About" : {
       "localizations" : {
         "en" : {
@@ -72,6 +75,9 @@
           }
         }
       }
+    },
+    "Actions" : {
+
     },
     "Add Notes" : {
       "localizations" : {
@@ -164,6 +170,18 @@
         }
       }
     },
+    "Biopot" : {
+
+    },
+    "BioPot 3" : {
+
+    },
+    "Bluetooth Off" : {
+
+    },
+    "Bluetooth Unauthorized" : {
+
+    },
     "BLUETOOTH_OFF" : {
       "localizations" : {
         "en" : {
@@ -254,6 +272,9 @@
         }
       }
     },
+    "Charging" : {
+
+    },
     "Close" : {
       "localizations" : {
         "en" : {
@@ -274,6 +295,9 @@
           }
         }
       }
+    },
+    "Connected" : {
+
     },
     "CONNECTED" : {
       "localizations" : {
@@ -345,6 +369,9 @@
         }
       }
     },
+    "Device" : {
+
+    },
     "DEVICE_DETAILS" : {
       "localizations" : {
         "en" : {
@@ -374,6 +401,9 @@
           }
         }
       }
+    },
+    "Disconnected" : {
+
     },
     "DISCONNECTED" : {
       "localizations" : {
@@ -923,6 +953,12 @@
         }
       }
     },
+    "Read Device Configuration" : {
+
+    },
+    "Receive Device Info" : {
+
+    },
     "Recording" : {
       "comment" : "Tile Type",
       "localizations" : {
@@ -943,6 +979,9 @@
           }
         }
       }
+    },
+    "Scanning" : {
+
     },
     "Schedule" : {
       "comment" : "Schedule Title",
@@ -1077,6 +1116,12 @@
           }
         }
       }
+    },
+    "Status" : {
+
+    },
+    "Temperature" : {
+
     },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
       "localizations" : {

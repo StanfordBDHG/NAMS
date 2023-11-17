@@ -8,6 +8,7 @@
 
 import Spezi
 import SpeziAccount
+import SpeziBluetooth
 import SpeziFirebaseAccount
 import SpeziFirestore
 import SwiftUI
@@ -32,6 +33,19 @@ class NAMSAppDelegate: SpeziAppDelegate {
                 FirebaseAccountConfiguration(authenticationMethods: methods)
             }
             firestore
+
+            Bluetooth(services: [
+                // we currently only subscribe to biopot-specific characteristics
+                BluetoothService(
+                    serviceUUID: BiopotDevice.Service.biopot,
+                    characteristicUUIDs: [
+                        BiopotDevice.Characteristic.biopotDeviceInfo,
+                        BiopotDevice.Characteristic.biopotDeviceConfiguration
+                    ]
+                )
+            ])
+
+            BiopotDevice()
         }
     }
     
