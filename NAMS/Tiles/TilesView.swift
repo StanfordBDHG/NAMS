@@ -13,25 +13,16 @@ import SwiftUI
 
 @MainActor
 struct TilesView: View {
+    private let eegModel: EEGViewModel
+
     @Environment(PatientListModel.self)
     private var patientList
 
-    @ObservedObject private var eegModel: EEGViewModel
 
     @State private var viewState: ViewState = .idle
 
     @State private var presentingQuestionnaire: Questionnaire?
     @State private var presentingEEGRecording = false
-
-    private var isPresentedBinding: Binding<Bool> {
-        Binding {
-            presentingQuestionnaire != nil
-        } set: { newValue in
-            if !newValue {
-                presentingQuestionnaire = nil
-            }
-        }
-    }
 
     private var questionnaires: [ScreeningTask] {
         taskList(ScreeningTask.all)
@@ -64,7 +55,13 @@ struct TilesView: View {
             }
                 .viewStateAlert(state: $viewState)
                 .sheet(item: $presentingQuestionnaire) { questionnaire in
-                    QuestionnaireView(questionnaire: questionnaire, isPresented: isPresentedBinding) { response in
+                    QuestionnaireView(questionnaire: questionnaire) { result in
+                        presentingQuestionnaire = nil
+
+                        guard case let .completed(response) = result else {
+                            return
+                        }
+
                         do {
                             try await patientList.add(response: response)
                         } catch {

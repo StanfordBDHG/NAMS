@@ -14,8 +14,6 @@ import SwiftUI
 
 /// Displays an multi-step onboarding flow for the Neurodevelopment Assessment and Monitoring System (NAMS).
 struct OnboardingFlow: View {
-    @EnvironmentObject private var standard: NAMSStandard
-
     @AppStorage(StorageKeys.onboardingFlowComplete)
     private var completedOnboardingFlow = false
 
@@ -34,7 +32,7 @@ struct OnboardingFlow: View {
             FinishedSetup()
         }
             .task {
-                localNotificationAuthorization = await standard.localNotificationAuthorization
+                localNotificationAuthorization = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus == .authorized
             }
             .interactiveDismissDisabled(!completedOnboardingFlow)
     }
@@ -42,11 +40,8 @@ struct OnboardingFlow: View {
 
 
 #if DEBUG
-struct OnboardingFlow_Previews: PreviewProvider {
-    static var previews: some View {
-        OnboardingFlow()
-            .environmentObject(Account(MockUserIdPasswordAccountService()))
-            .environmentObject(NAMSStandard())
-    }
+#Preview {
+    OnboardingFlow()
+        .environment(Account(MockUserIdPasswordAccountService()))
 }
 #endif

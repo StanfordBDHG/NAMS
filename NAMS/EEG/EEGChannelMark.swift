@@ -32,12 +32,9 @@ struct EEGChannelMark: ChartContent {
 
 
 #if DEBUG
-struct EEGChannelMark_Previews: PreviewProvider {
-    static let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
-
-    static var previews: some View {
-        let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
-        EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
-    }
+#Preview {
+    let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
+    let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
+    return EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
 }
 #endif

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziPersonalInfo
 import SpeziViews
 import SwiftUI
 
@@ -112,6 +113,7 @@ struct PatientInformation: View {
         self._activePatientId = activePatientId
     }
 }
+
 
 #if DEBUG
 #Preview {

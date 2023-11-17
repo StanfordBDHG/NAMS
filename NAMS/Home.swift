@@ -24,7 +24,8 @@ struct HomeView: View {
     @AppStorage(StorageKeys.selectedPatient)
     private var activePatientId: String?
 
-    @EnvironmentObject private var account: Account
+    @Environment(Account.self)
+    private var account
 
     @State private var patientList = PatientListModel()
 
@@ -102,6 +103,6 @@ struct HomeView: View {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return HomeView()
-        .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .environment(Account(building: details, active: MockUserIdPasswordAccountService()))
 }
 #endif

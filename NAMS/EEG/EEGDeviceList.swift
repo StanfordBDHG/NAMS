@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct EEGDeviceList: View {
-    @ObservedObject private var eegModel: EEGViewModel
+    private let eegModel: EEGViewModel
 
     var sortedDeviceList: [EEGDevice] {
         eegModel.nearbyDevices.sorted { lhs, rhs in
@@ -32,13 +32,10 @@ struct EEGDeviceList: View {
 
 
 #if DEBUG
-struct MuseDeviceList_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(deviceManager: MockDeviceManager(immediate: true))
-
-    static var previews: some View {
-        List {
-            EEGDeviceList(eegModel: model)
-        }
+#Preview {
+    let model = EEGViewModel(deviceManager: MockDeviceManager(immediate: true))
+    return List {
+        EEGDeviceList(eegModel: model)
     }
 }
 #endif

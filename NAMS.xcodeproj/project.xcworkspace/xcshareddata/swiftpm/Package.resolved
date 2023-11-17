@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "app-check",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/app-check.git",
+      "state" : {
+        "revision" : "5746b2d35c91c50581590ed97abe4c06b5037274",
+        "version" : "10.18.0"
+      }
+    },
+    {
       "identity" : "fhirmodels",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/FHIRModels",
@@ -23,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk.git",
       "state" : {
-        "revision" : "837d4af6ead57cec1fc38007892500d3139c7556",
-        "version" : "10.16.0"
+        "revision" : "5de0369ee79ad096c164eb3afeb7921d92a43b58",
+        "version" : "10.18.0"
       }
     },
     {
@@ -32,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "56f681586ff006a7982b53dc94082eea31971acf",
-        "version" : "10.16.0"
+        "revision" : "6b332152355c372ace9966d8ee76ed191f97025e",
+        "version" : "10.17.0"
       }
     },
     {
@@ -50,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleUtilities.git",
       "state" : {
-        "revision" : "c38ce365d77b04a9a300c31061c5227589e5597b",
-        "version" : "7.11.5"
+        "revision" : "bc27fad73504f3d4af235de451f02ee22586ebd3",
+        "version" : "7.12.1"
       }
     },
     {
@@ -113,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKit",
       "state" : {
-        "revision" : "9530fadc9d09c0b783388c752b0dbe841974b6af",
-        "version" : "2.2.18"
+        "revision" : "cf79a15c7d8c436f98937fe93e72e880dd2f73e4",
+        "version" : "2.2.20"
       }
     },
     {
@@ -131,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/Spezi",
       "state" : {
-        "revision" : "e75ea4d241b6eb611ca4c1c25926097cf324ce37",
-        "version" : "0.7.3"
+        "revision" : "092eabc50a3600d8a03b43ad0d2dcd02914b223f",
+        "version" : "0.8.1"
       }
     },
     {
@@ -140,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziAccount.git",
       "state" : {
-        "revision" : "81a215080070d419140cc55bd478f2177176623c",
-        "version" : "0.6.1"
+        "revision" : "d65ad46827f748af7f6c99bd783f74225b530747",
+        "version" : "0.7.3"
       }
     },
     {
@@ -149,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziContact.git",
       "state" : {
-        "revision" : "9dea670bcfea51c2db04ea73b80fda923c2ebaed",
-        "version" : "0.4.1"
+        "revision" : "bd38bd769a20ebe89cec75ebc80dcbccfbd25230",
+        "version" : "0.5.0"
       }
     },
     {
@@ -158,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFHIR.git",
       "state" : {
-        "revision" : "4c7a5f4855193ad5fd140ec35623344ee3d48b0c",
-        "version" : "0.4.0"
+        "revision" : "043243181f380dfd88ff3cccaab73d42c850c275",
+        "version" : "0.4.1"
       }
     },
     {
@@ -167,8 +176,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFirebase.git",
       "state" : {
-        "revision" : "187d1edded739097ee6162dcc2c38183b6f42d2e",
-        "version" : "0.7.1"
+        "revision" : "084d697f58dc1a3275677992f6a5884736e3e2f6",
+        "version" : "0.8.0"
+      }
+    },
+    {
+      "identity" : "spezifoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/StanfordSpezi/SpeziFoundation.git",
+      "state" : {
+        "revision" : "683c66f922a4cfe0882c4a86a43854f613b48541",
+        "version" : "0.1.0"
       }
     },
     {
@@ -176,8 +194,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziOnboarding.git",
       "state" : {
-        "revision" : "0ea46a66c17615e1a933481a07434bfd41717c54",
-        "version" : "0.6.0"
+        "revision" : "70d1a740a0da8a5bc83d95bcff177ebd3e7402c0",
+        "version" : "0.7.0"
       }
     },
     {
@@ -185,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziQuestionnaire.git",
       "state" : {
-        "revision" : "849e207da973a089e7a209289217ff3efab68596",
-        "version" : "0.4.3"
+        "revision" : "4f3e1cd25c271244a4f8fe3653969f17063603a6",
+        "version" : "0.5.0"
       }
     },
     {
@@ -194,8 +212,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziStorage.git",
       "state" : {
-        "revision" : "58f79a21291da6d2d2193275486fa3c69b4f31fa",
-        "version" : "0.4.3"
+        "revision" : "e9be3c2743e462894bf56d41339b040f4060b567",
+        "version" : "0.5.0"
       }
     },
     {
@@ -203,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziViews.git",
       "state" : {
-        "revision" : "4b7cc423fd823123d354ec1d541ca7d2e0a9d6e3",
-        "version" : "0.5.1"
+        "revision" : "eac443080926649d09a703483a6dd6f5a8bb7d51",
+        "version" : "0.6.2"
       }
     },
     {

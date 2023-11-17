@@ -10,28 +10,41 @@ import Foundation
 import OrderedCollections
 
 
-class ConnectedDevice: ObservableObject {
+@Observable
+class ConnectedDevice {
     let device: EEGDevice
     var listener: DeviceConnectionListener?
 
-    @Published var state: ConnectionState = .unknown
+    var state: ConnectionState {
+        get {
+            access(keyPath: \.state)
+            return publishedState
+        }
+        set {
+            withMutation(keyPath: \.state) {
+                publishedState = newValue
+            }
+        }
+    }
+
+    @ObservationIgnored @Published var publishedState: ConnectionState = .unknown // current workaround to create a publisher for the view model
 
     // artifacts muse supports
-    @Published var wearingHeadband = false
-    @Published var eyeBlink = false
-    @Published var jawClench = false
+    var wearingHeadband = false
+    var eyeBlink = false
+    var jawClench = false
 
     /// Determines if the last second of data is considered good
-    @Published var isGood: (Bool, Bool, Bool, Bool) = (false, false, false, false) // swiftlint:disable:this large_tuple
+    var isGood: (Bool, Bool, Bool, Bool) = (false, false, false, false) // swiftlint:disable:this large_tuple
     /// The current fit of the headband
-    @Published var fit = HeadbandFit(tp9Fit: .poor, af7Fit: .poor, af8Fit: .poor, tp10Fit: .poor)
+    var fit = HeadbandFit(tp9Fit: .poor, af7Fit: .poor, af8Fit: .poor, tp10Fit: .poor)
 
-    @Published var aboutInformation: OrderedDictionary<LocalizedStringResource, CustomStringConvertible> = [:]
+    var aboutInformation: OrderedDictionary<LocalizedStringResource, CustomStringConvertible> = [:]
 
     /// Remaining battery percentage in percent [0.0;100.0]
-    @Published var remainingBatteryPercentage: Double?
+    var remainingBatteryPercentage: Double?
 
-    @Published var measurements: [EEGFrequency: [EEGSeries]] = [:]
+    var measurements: [EEGFrequency: [EEGSeries]] = [:]
 
     init(device: EEGDevice) {
         self.device = device

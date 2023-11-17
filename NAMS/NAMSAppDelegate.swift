@@ -10,13 +10,12 @@ import Spezi
 import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziFirestore
-import SpeziQuestionnaire
 import SwiftUI
 
 
 class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
-        Configuration(standard: NAMSStandard()) {
+        Configuration {
             let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
 
             AccountConfiguration(configuration: [
@@ -33,8 +32,6 @@ class NAMSAppDelegate: SpeziAppDelegate {
                 FirebaseAccountConfiguration(authenticationMethods: methods)
             }
             firestore
-            
-            QuestionnaireDataSource()
         }
     }
     

@@ -11,7 +11,8 @@ import SpeziOnboarding
 import SwiftUI
 
 struct FinishedSetup: View {
-    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
+    @Environment(OnboardingNavigationPath.self)
+    private var onboardingNavigationPath
 
     var body: some View {
         OnboardingView(
@@ -49,9 +50,7 @@ struct FinishedSetup: View {
 }
 
 #if DEBUG
-struct FinishedSetup_Previews: PreviewProvider {
-    static var previews: some View {
-        FinishedSetup()
-    }
+#Preview {
+    FinishedSetup()
 }
 #endif

@@ -15,7 +15,7 @@ struct EEGDeviceDetails: View {
     @Environment(\.locale)
     private var locale
 
-    @ObservedObject private var device: ConnectedDevice
+    private let device: ConnectedDevice
 
     var body: some View {
         List {
@@ -146,27 +146,21 @@ struct EEGDeviceDetails: View {
 
 
 #if DEBUG
-struct EEGDeviceDetails_Previews: PreviewProvider {
-    @StateObject static var model = EEGViewModel(mock: MockEEGDevice(name: "Mock Device", model: "Mock", state: .connected))
+#Preview {
+    let model = EEGViewModel(mock: MockEEGDevice(name: "Mock Device", model: "Mock", state: .connected))
+    return NavigationStack {
+        EEGDeviceDetails(device: model.activeDevice!) // swiftlint:disable:this force_unwrapping
+    }
+}
 
-    @StateObject static var modelIntervention = EEGViewModel(mock: MockEEGDevice(
+#Preview {
+    let modelIntervention = EEGViewModel(mock: MockEEGDevice(
         name: "Mock Device",
         model: "Mock",
         state: .interventionRequired("INTERVENTION_MUSE_FIRMWARE")
     ))
-
-    static var previews: some View {
-        if let device = model.activeDevice {
-            NavigationStack {
-                EEGDeviceDetails(device: device)
-            }
-        }
-
-        if let device = modelIntervention.activeDevice {
-            NavigationStack {
-                EEGDeviceDetails(device: device)
-            }
-        }
+    return NavigationStack {
+        EEGDeviceDetails(device: modelIntervention.activeDevice!) // swiftlint:disable:this force_unwrapping
     }
 }
 #endif

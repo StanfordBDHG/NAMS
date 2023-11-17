@@ -11,8 +11,7 @@ import SwiftUI
 
 struct EEGDeviceRow: View {
     private let device: EEGDevice
-
-    @ObservedObject private var eegModel: EEGViewModel
+    private let eegModel: EEGViewModel
 
     var connectedDevice: ConnectedDevice? {
         if let activeDevice = eegModel.activeDevice,
@@ -34,7 +33,9 @@ struct EEGDeviceRow: View {
                 EEGDeviceDetails(device: item)
             }
             .accessibilityRepresentation {
-                let button = Button(action: deviceButtonAction) {
+                let button = Button(action: {
+                    deviceButtonAction()
+                }) {
                     Text(verbatim: device.model) // currently, this order flows best for Muse device naming
                     Text(verbatim: device.name)
                     if device.connectionState.associatedConnection {
@@ -61,8 +62,11 @@ struct EEGDeviceRow: View {
             }
     }
 
-    @ViewBuilder private var deviceButton: some View {
-        Button(action: deviceButtonAction) {
+
+    @MainActor @ViewBuilder private var deviceButton: some View {
+        Button(action: {
+            deviceButtonAction()
+        }) {
             HStack {
                 Text(verbatim: "\(device.model) - \(device.name)")
                     .foregroundColor(.primary)
@@ -106,6 +110,7 @@ struct EEGDeviceRow: View {
     }
 
 
+    @MainActor
     private func deviceButtonAction() {
         eegModel.tapDevice(device)
     }
@@ -117,42 +122,39 @@ struct EEGDeviceRow: View {
 
 
 #if DEBUG
-struct EEGDeviceRow_Previews: PreviewProvider {
-    struct StateRow: View {
-        static let device = MockEEGDevice(name: "Device", model: "Mock")
-        @StateObject var model = EEGViewModel(deviceManager: MockDeviceManager())
-        var body: some View {
-            EEGDeviceRow(eegModel: model, device: Self.device)
+#Preview {
+    let device = MockEEGDevice(name: "Device", model: "Mock")
+    let model = EEGViewModel(deviceManager: MockDeviceManager())
+
+    return NavigationStack {
+        List {
+            EEGDeviceRow(eegModel: model, device: device) // tap to pair
         }
     }
+}
 
-    static let devices = [
+#Preview {
+    NavigationStack {
+        List {
+            EEGDeviceRow(
+                eegModel: EEGViewModel(deviceManager: MockDeviceManager()),
+                device: MockEEGDevice(name: "Nearby Device", model: "Mock")
+            )
+        }
+    }
+}
+
+#Preview {
+    let devices = [
         MockEEGDevice(name: "Device 1", model: "Mock", state: .connecting),
         MockEEGDevice(name: "Device 2", model: "Mock", state: .connected),
         MockEEGDevice(name: "Device 3", model: "Mock", state: .interventionRequired("Firmware update required."))
     ]
 
-    static var previews: some View {
+    return ForEach(devices, id: \.macAddress) { device in
         NavigationStack {
             List {
-                StateRow() // tap to pair
-            }
-        }
-
-        NavigationStack {
-            List {
-                EEGDeviceRow(
-                    eegModel: EEGViewModel(deviceManager: MockDeviceManager()),
-                    device: MockEEGDevice(name: "Nearby Device", model: "Mock")
-                )
-            }
-        }
-
-        ForEach(devices, id: \.macAddress) { device in
-            NavigationStack {
-                List {
-                    EEGDeviceRow(eegModel: EEGViewModel(mock: device), device: device)
-                }
+                EEGDeviceRow(eegModel: EEGViewModel(mock: device), device: device)
             }
         }
     }

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziPersonalInfo
 import SpeziViews
 import SwiftUI
 
@@ -48,6 +49,8 @@ struct SelectedPatientCard: View {
     }
 }
 
+
+#if DEBUG
 #Preview {
     NavigationStack {
         List {
@@ -59,3 +62,4 @@ struct SelectedPatientCard: View {
             .listStyle(.inset)
     }
 }
+#endif

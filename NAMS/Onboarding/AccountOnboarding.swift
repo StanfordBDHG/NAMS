@@ -12,8 +12,10 @@ import SwiftUI
 
 
 struct AccountOnboarding: View {
-    @EnvironmentObject private var account: Account
-    @EnvironmentObject private var onboardingNavigationPath: OnboardingNavigationPath
+    @Environment(Account.self)
+    private var account
+    @Environment(OnboardingNavigationPath.self)
+    private var onboardingNavigationPath
 
 
     var body: some View {
@@ -38,7 +40,7 @@ struct AccountOnboarding: View {
 
 
 #if DEBUG
-private let stack = OnboardingStack(startAtStep: AccountOnboarding.self) {
+@MainActor private let stack = OnboardingStack(startAtStep: AccountOnboarding.self) {
     for onboardingView in OnboardingFlow.previewSimulatorViews {
         onboardingView
     }
@@ -46,7 +48,7 @@ private let stack = OnboardingStack(startAtStep: AccountOnboarding.self) {
 
 #Preview {
     stack
-        .environmentObject(Account(MockUserIdPasswordAccountService()))
+        .environment(Account(MockUserIdPasswordAccountService()))
 }
 #Preview {
     let details = AccountDetails.Builder()
@@ -54,6 +56,6 @@ private let stack = OnboardingStack(startAtStep: AccountOnboarding.self) {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return stack
-        .environmentObject(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .environment(Account(building: details, active: MockUserIdPasswordAccountService()))
 }
 #endif

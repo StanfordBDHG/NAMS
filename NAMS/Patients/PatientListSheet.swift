@@ -81,6 +81,7 @@ struct PatientListSheet: View {
     }
 }
 
+
 #if DEBUG
 #Preview {
     PatientListSheet(activePatientId: .constant(nil))

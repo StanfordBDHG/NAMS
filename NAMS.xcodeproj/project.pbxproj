@@ -98,7 +98,6 @@
 		A926D78B2AB7A552000C4C2F /* OnboardingFlow+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */; };
 		A926D78C2AB7A552000C4C2F /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC975A72978F11A00BA99FE /* Home.swift */; };
 		A926D78E2AB7A552000C4C2F /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3129EDD7CA004B9AB4 /* OnboardingFlow.swift */; };
-		A926D7902AB7A552000C4C2F /* NAMSStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */; };
 		A926D7912AB7A552000C4C2F /* CodableArray+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4429EDD7F2004B9AB4 /* CodableArray+RawRepresentable.swift */; };
 		A926D7922AB7A552000C4C2F /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */; };
 		A926D7932AB7A552000C4C2F /* Bundle+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4329EDD7F2004B9AB4 /* Bundle+Image.swift */; };
@@ -189,7 +188,8 @@
 		A94A42B72AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */; };
 		A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
 		A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
-		A9610AB92AB4868D00E46ADE /* NAMSStandard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */; };
+		A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */; };
+		A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */; };
 		A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
 		A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
 		A98911322A36689D00E66E3A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
@@ -336,7 +336,6 @@
 		A94A42AB2AE9EBE200A3F9E5 /* AccountButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountButton.swift; sourceTree = "<group>"; };
 		A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupHeader.swift; sourceTree = "<group>"; };
 		A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
-		A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSStandard.swift; sourceTree = "<group>"; };
 		A989112C2A36687B00E66E3A /* PatientListSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListSheet.swift; sourceTree = "<group>"; };
 		A989112E2A36688A00E66E3A /* PatientRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRow.swift; sourceTree = "<group>"; };
 		A98911312A36689D00E66E3A /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
@@ -365,6 +364,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */,
 				2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */,
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
 				2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */,
@@ -408,6 +408,7 @@
 				A926D7AD2AB7A552000C4C2F /* SpeziSecureStorage in Frameworks */,
 				A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */,
 				A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */,
+				A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
 				A926D7B32AB7A552000C4C2F /* SpeziFHIR in Frameworks */,
@@ -508,7 +509,6 @@
 				2FC975A72978F11A00BA99FE /* Home.swift */,
 				653A2550283387FE005D4D48 /* NAMSApp.swift */,
 				2F5E32BC297E05EA003432F8 /* NAMSAppDelegate.swift */,
-				A9610AB82AB4868D00E46ADE /* NAMSStandard.swift */,
 				2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */,
 				A94534082AEAE3490095AAD3 /* ScheduleView.swift */,
 				A94A42A82AE9EBC300A3F9E5 /* Account */,
@@ -774,6 +774,7 @@
 				2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */,
 				2FE5DC8E29EDD980004B9AB4 /* SpeziViews */,
 				A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */,
+				A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */,
 			);
 			productName = NAMS;
 			productReference = 653A254D283387FE005D4D48 /* NAMS.app */;
@@ -846,6 +847,7 @@
 				A926D7792AB7A552000C4C2F /* SpeziSecureStorage */,
 				A926D77A2AB7A552000C4C2F /* SpeziViews */,
 				A92E34F12ADB9B9000FE0B51 /* OrderedCollections */,
+				A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */,
 			);
 			productName = NAMS;
 			productReference = A926D7C32AB7A552000C4C2F /* NAMS Muse.app */;
@@ -1032,7 +1034,6 @@
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
 				A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */,
 				A926D82C2AB7B430000C4C2F /* DeviceManager.swift in Sources */,
-				A9610AB92AB4868D00E46ADE /* NAMSStandard.swift in Sources */,
 				2FE5DC4729EDD7F2004B9AB4 /* CodableArray+RawRepresentable.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
 				A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */,
@@ -1149,7 +1150,6 @@
 				A9BCB5842AE830FB00DA8588 /* NewPatientModel.swift in Sources */,
 				A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */,
 				A926D82D2AB7B430000C4C2F /* DeviceManager.swift in Sources */,
-				A926D7902AB7A552000C4C2F /* NAMSStandard.swift in Sources */,
 				A926D7912AB7A552000C4C2F /* CodableArray+RawRepresentable.swift in Sources */,
 				A926D7922AB7A552000C4C2F /* FeatureFlags.swift in Sources */,
 				A9F2ECD12AEC5EF50057C7DD /* MeasurementTask.swift in Sources */,
@@ -1932,7 +1932,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/Spezi";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.7.3;
+				minimumVersion = 0.8.0;
 			};
 		};
 		2FE5DC6229EDD883004B9AB4 /* XCRemoteSwiftPackageReference "SpeziAccount" */ = {
@@ -1940,7 +1940,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziAccount.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.6.1;
+				minimumVersion = 0.7.3;
 			};
 		};
 		2FE5DC6529EDD894004B9AB4 /* XCRemoteSwiftPackageReference "SpeziContact" */ = {
@@ -1948,7 +1948,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziContact.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.1;
+				minimumVersion = 0.5.0;
 			};
 		};
 		2FE5DC6829EDD8A9004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFHIR" */ = {
@@ -1956,7 +1956,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziFHIR.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.0;
+				minimumVersion = 0.4.1;
 			};
 		};
 		2FE5DC7329EDD8E6004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFirebase" */ = {
@@ -1964,7 +1964,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziFirebase.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.7.1;
+				minimumVersion = 0.8.0;
 			};
 		};
 		2FE5DC7F29EDD91D004B9AB4 /* XCRemoteSwiftPackageReference "SpeziOnboarding" */ = {
@@ -1972,7 +1972,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziOnboarding.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.6.0;
+				minimumVersion = 0.7.0;
 			};
 		};
 		2FE5DC8229EDD934004B9AB4 /* XCRemoteSwiftPackageReference "SpeziQuestionnaire" */ = {
@@ -1980,7 +1980,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziQuestionnaire.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.3;
+				minimumVersion = 0.5.0;
 			};
 		};
 		2FE5DC8829EDD972004B9AB4 /* XCRemoteSwiftPackageReference "SpeziStorage" */ = {
@@ -1988,7 +1988,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziStorage.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.4.3;
+				minimumVersion = 0.5.0;
 			};
 		};
 		2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */ = {
@@ -1996,7 +1996,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziViews.git";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.5.1;
+				minimumVersion = 0.6.2;
 			};
 		};
 		2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -2004,7 +2004,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.13.0;
+				minimumVersion = 10.17.0;
 			};
 		};
 		2FE5DC9729EDD9D9004B9AB4 /* XCRemoteSwiftPackageReference "XCTestExtensions" */ = {
@@ -2232,6 +2232,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
+			productName = SpeziPersonalInfo;
+		};
+		A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
+			productName = SpeziPersonalInfo;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
