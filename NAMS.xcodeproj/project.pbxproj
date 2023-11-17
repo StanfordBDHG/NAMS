@@ -159,8 +159,8 @@
 		A926D8312AB7B430000C4C2F /* EEGViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8182AB7B430000C4C2F /* EEGViewModel.swift */; };
 		A926D8322AB7B430000C4C2F /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */; };
 		A926D8332AB7B430000C4C2F /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */; };
-		A92DD4D92B02D94F0062781B /* BIOPOT.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* BIOPOT.swift */; };
-		A92DD4DD2B02DA3F0062781B /* BIOPOT.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* BIOPOT.swift */; };
+		A92DD4D92B02D94F0062781B /* BioPot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* BioPot.swift */; };
+		A92DD4DD2B02DA3F0062781B /* BioPot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* BioPot.swift */; };
 		A92E34F02ADB9B7E00FE0B51 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */; };
 		A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A92E34F12ADB9B9000FE0B51 /* OrderedCollections */; };
 		A9405B562A36856300C75412 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
@@ -240,6 +240,9 @@
 		A9F2ECCE2AEC58B00057C7DD /* SimpleTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */; };
 		A9F2ECD02AEC5EF50057C7DD /* MeasurementTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */; };
 		A9F2ECD12AEC5EF50057C7DD /* MeasurementTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */; };
+		A9F916752B07FD58007CECF6 /* ByteCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F916742B07FD58007CECF6 /* ByteCodable.swift */; };
+		A9F916762B07FD58007CECF6 /* ByteCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F916742B07FD58007CECF6 /* ByteCodable.swift */; };
+		A9F916782B080967007CECF6 /* BiopotDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F916772B080967007CECF6 /* BiopotDeviceTests.swift */; };
 		A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -334,7 +337,7 @@
 		A926D8172AB7B430000C4C2F /* EEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGDevice.swift; sourceTree = "<group>"; };
 		A926D8182AB7B430000C4C2F /* EEGViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGViewModel.swift; sourceTree = "<group>"; };
 		A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedDevice.swift; sourceTree = "<group>"; };
-		A92DD4D82B02D94F0062781B /* BIOPOT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIOPOT.swift; sourceTree = "<group>"; };
+		A92DD4D82B02D94F0062781B /* BioPot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioPot.swift; sourceTree = "<group>"; };
 		A9405B552A36856300C75412 /* AddPatientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientView.swift; sourceTree = "<group>"; };
 		A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTile.swift; sourceTree = "<group>"; };
 		A94533FC2AEADCC00095AAD3 /* ScreeningTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTask.swift; sourceTree = "<group>"; };
@@ -373,6 +376,8 @@
 		A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTile.swift; sourceTree = "<group>"; };
 		A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTile.swift; sourceTree = "<group>"; };
 		A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTask.swift; sourceTree = "<group>"; };
+		A9F916742B07FD58007CECF6 /* ByteCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByteCodable.swift; sourceTree = "<group>"; };
+		A9F916772B080967007CECF6 /* BiopotDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDeviceTests.swift; sourceTree = "<group>"; };
 		A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInformationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -549,6 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				653A256128338800005D4D48 /* BiopotCodingTests.swift */,
+				A9F916772B080967007CECF6 /* BiopotDeviceTests.swift */,
 			);
 			path = NAMSTests;
 			sourceTree = "<group>";
@@ -706,7 +712,7 @@
 			isa = PBXGroup;
 			children = (
 				A988FEB02B0452AB00022A61 /* Model */,
-				A92DD4D82B02D94F0062781B /* BIOPOT.swift */,
+				A92DD4D82B02D94F0062781B /* BioPot.swift */,
 				A988FEA92B0414FD00022A61 /* BiopotDevice.swift */,
 			);
 			path = BioPot;
@@ -717,6 +723,7 @@
 			children = (
 				A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */,
 				A988FEB42B0453E100022A61 /* DeviceInformation.swift */,
+				A9F916742B07FD58007CECF6 /* ByteCodable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -835,6 +842,8 @@
 				653A255F28338800005D4D48 /* PBXTargetDependency */,
 			);
 			name = NAMSTests;
+			packageProductDependencies = (
+			);
 			productName = NAMSTests;
 			productReference = 653A255D28338800005D4D48 /* NAMSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1072,7 +1081,7 @@
 				A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* Home.swift in Sources */,
 				A94A42B22AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
-				A92DD4D92B02D94F0062781B /* BIOPOT.swift in Sources */,
+				A92DD4D92B02D94F0062781B /* BioPot.swift in Sources */,
 				A926D8242AB7B430000C4C2F /* EEGSeries.swift in Sources */,
 				A926D81A2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
@@ -1134,6 +1143,7 @@
 				A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC1718A3F968CF02D7AF0EC /* PatientList.swift in Sources */,
 				2DC172753D306AE733D7FDC8 /* TileType.swift in Sources */,
+				A9F916752B07FD58007CECF6 /* ByteCodable.swift in Sources */,
 				2DC17257A28A7E2232229658 /* PatientTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1142,6 +1152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9F916782B080967007CECF6 /* BiopotDeviceTests.swift in Sources */,
 				653A256228338800005D4D48 /* BiopotCodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1190,7 +1201,7 @@
 				A926D78B2AB7A552000C4C2F /* OnboardingFlow+PreviewSimulator.swift in Sources */,
 				A926D78C2AB7A552000C4C2F /* Home.swift in Sources */,
 				A94A42B32AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
-				A92DD4DD2B02DA3F0062781B /* BIOPOT.swift in Sources */,
+				A92DD4DD2B02DA3F0062781B /* BioPot.swift in Sources */,
 				A926D8252AB7B430000C4C2F /* EEGSeries.swift in Sources */,
 				A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */,
 				A926D81B2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,
@@ -1252,6 +1263,7 @@
 				A9F2ECCA2AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC17686B3AEB09A8F60AB8E /* PatientList.swift in Sources */,
 				2DC17ADF934F839FC66BF7A0 /* TileType.swift in Sources */,
+				A9F916762B07FD58007CECF6 /* ByteCodable.swift in Sources */,
 				2DC1727A98890570E5A4B46D /* PatientTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,7 @@
 import NIOCore
 
 
-enum AccelerometerStatus: UInt8 {
+enum AccelerometerStatus: UInt8, Equatable {
     case off = 0
     case dynamicallySelectable2g = 1
     case dynamicallySelectable4g = 2
@@ -24,13 +24,14 @@ struct DeviceConfiguration {
     let impedanceStatus: Bool
     let memoryStatus: Bool
     let samplesPerChannel: UInt8
+    /// Data size in bits. Typically 24-bits.
     let dataSize: UInt8
     let syncEnabled: Bool
-    let serialNumber: String
+    let serialNumber: UInt32
 }
 
 
-extension DeviceConfiguration {
+extension DeviceConfiguration: ByteCodable, Equatable {
     init?(from byteBuffer: inout ByteBuffer) {
         guard byteBuffer.readableBytes >= 16 else {
             return nil
@@ -46,13 +47,7 @@ extension DeviceConfiguration {
               let samplesPerChannel = byteBuffer.readInteger(as: UInt8.self),
               let dataSize = byteBuffer.readInteger(as: UInt8.self),
               let syncEnabled = byteBuffer.readInteger(as: UInt8.self),
-              let serialNumber = byteBuffer.readString(length: 4) else { // TODO: what's the format?
-
-            // TODO: ?? pointer[12...15] // TODO: verify that this is how it is done!
-            //  .map { element in
-            //      String(format: "%02hhx", element)
-            //  }
-            //  .joined()
+              let serialNumber = byteBuffer.readInteger(as: UInt32.self) else {
             return nil
         }
 
@@ -65,5 +60,21 @@ extension DeviceConfiguration {
         self.dataSize = dataSize
         self.syncEnabled = syncEnabled == 1
         self.serialNumber = serialNumber
+    }
+
+
+    func encode(to byteBuffer: inout ByteBuffer) {
+        byteBuffer.reserveCapacity(minimumWritableBytes: 16)
+
+        byteBuffer.writeRepeatingByte(0, count: 5) // reserved bytes, we just write zeros for now
+
+        byteBuffer.writeInteger(channelCount)
+        byteBuffer.writeInteger(accelerometerStatus.rawValue)
+        byteBuffer.writeInteger(impedanceStatus ? 1 : 0, as: UInt8.self)
+        byteBuffer.writeInteger(memoryStatus ? 1 : 0, as: UInt8.self)
+        byteBuffer.writeInteger(samplesPerChannel)
+        byteBuffer.writeInteger(dataSize)
+        byteBuffer.writeInteger(syncEnabled ? 1 : 0, as: UInt8.self)
+        byteBuffer.writeInteger(serialNumber)
     }
 }

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Foundation
 import NIOCore
 
 
@@ -20,7 +21,7 @@ struct DeviceInformation {
 }
 
 
-extension DeviceInformation {
+extension DeviceInformation: ByteDecodable, Equatable {
     init?(from byteBuffer: inout ByteBuffer) {
         guard byteBuffer.readableBytes >= 15 else {
             return nil

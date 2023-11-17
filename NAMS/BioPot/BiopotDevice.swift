@@ -9,14 +9,21 @@
 import Combine
 import Foundation
 import NIOCore
+import OSLog
 import Spezi
 import SpeziBluetooth
 
 
-// TODO: should we recommend a read like https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
-
+/// Model for the BioPot 3 device.
+///
+/// If you need more information about bluetooth, you might find these resources helpful:
+/// * https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model
+/// * https://www.bluetooth.com/blog/a-developers-guide-to-bluetooth
+/// * https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
 @Observable
 class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, DefaultInitializable {
+    private let logger = Logger(subsystem: "edu.stanford.nams", category: "BiopotDevice")
+
     @ObservationIgnored @Dependency private var bluetooth: Bluetooth
 
     var bluetoothState: BluetoothState {
@@ -25,7 +32,9 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
 
     @MainActor var deviceInfo: DeviceInformation?
 
+
     required init() {}
+
 
     func configure() {
         bluetooth.add(messageHandler: self)
@@ -33,9 +42,11 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
 
     func recieve(_ data: Data, service: CBUUID, characteristic: CBUUID) async {
         guard service == Service.biopot else {
-            print("Received data for unknown service: \(service)")
+            logger.warning("Received data for unknown service: \(service)")
             return
         }
+
+        logger.warning("Received data for biopot on service \(service.uuidString) for characteristic \(characteristic.uuidString): \(data.hexString())")
 
         var buffer = ByteBuffer(data: data)
 
@@ -44,7 +55,7 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
                 return
             }
 
-            Task { @MainActor in
+            await MainActor.run {
                 self.deviceInfo = information
             }
         } else if characteristic == Characteristic.biopotDeviceConfiguration {
@@ -52,18 +63,24 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
                 return
             }
 
-            print("Received data for \(service.uuidString) on \(characteristic.uuidString): \(configuration)")
+            logger.debug("Received configuration data: \("\(configuration)")")
         } else {
-            print("Received data for unknown biopot characteristic: \(characteristic)")
+            logger.warning("Data on \(characteristic.uuidString)@\(service.uuidString) was unexpected and not processed!")
         }
     }
+
+    func readBiopot(characteristic: CBUUID) throws {
+        try bluetooth.read(service: Service.biopot, characteristic: characteristic)
+    }
 }
+
 
 extension BiopotDevice {
     enum Service {
         static let biopot = CBUUID(string: "0000FFF0-0000-1000-8000-00805F9B34FB")
     }
 }
+
 
 extension BiopotDevice {
     /// Characteristic definitions with access properties.

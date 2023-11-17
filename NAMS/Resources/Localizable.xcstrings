@@ -76,6 +76,9 @@
         }
       }
     },
+    "Actions" : {
+
+    },
     "Add Notes" : {
       "localizations" : {
         "en" : {
@@ -168,6 +171,9 @@
       }
     },
     "BIOPOT" : {
+
+    },
+    "BioPot 3" : {
 
     },
     "BLUETOOTH_OFF" : {
@@ -943,6 +949,9 @@
           }
         }
       }
+    },
+    "Read Device Configuration" : {
+
     },
     "Recording" : {
       "comment" : "Tile Type",
