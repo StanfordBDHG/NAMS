@@ -24,16 +24,6 @@ struct TilesView: View {
     @State private var presentingQuestionnaire: Questionnaire?
     @State private var presentingEEGRecording = false
 
-    private var isPresentedBinding: Binding<Bool> {
-        Binding {
-            presentingQuestionnaire != nil
-        } set: { newValue in
-            if !newValue {
-                presentingQuestionnaire = nil
-            }
-        }
-    }
-
     private var questionnaires: [ScreeningTask] {
         taskList(ScreeningTask.all)
     }
