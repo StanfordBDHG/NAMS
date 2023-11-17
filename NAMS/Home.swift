@@ -45,10 +45,10 @@ struct HomeView: View {
                 .tabItem {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
                 }
-            BioPot()
+            Biopot()
                 .tag(Tabs.biopot)
                 .tabItem {
-                    Label("BIOPOT", systemImage: "brain.fill")
+                    Label("Biopot", systemImage: "brain.fill")
                 }
         }
             .environment(patientList)

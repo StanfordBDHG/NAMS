@@ -159,8 +159,8 @@
 		A926D8312AB7B430000C4C2F /* EEGViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8182AB7B430000C4C2F /* EEGViewModel.swift */; };
 		A926D8322AB7B430000C4C2F /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */; };
 		A926D8332AB7B430000C4C2F /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */; };
-		A92DD4D92B02D94F0062781B /* BioPot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* BioPot.swift */; };
-		A92DD4DD2B02DA3F0062781B /* BioPot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* BioPot.swift */; };
+		A92DD4D92B02D94F0062781B /* Biopot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* Biopot.swift */; };
+		A92DD4DD2B02DA3F0062781B /* Biopot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92DD4D82B02D94F0062781B /* Biopot.swift */; };
 		A92E34F02ADB9B7E00FE0B51 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */; };
 		A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A92E34F12ADB9B9000FE0B51 /* OrderedCollections */; };
 		A9405B562A36856300C75412 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
@@ -225,6 +225,7 @@
 		A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */; };
+		A9D83F922B081A47000D0C78 /* BiopotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D83F912B081A47000D0C78 /* BiopotTests.swift */; };
 		A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 		A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
 		A9DF79DF2AE8A81F00AB5983 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
@@ -337,7 +338,7 @@
 		A926D8172AB7B430000C4C2F /* EEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGDevice.swift; sourceTree = "<group>"; };
 		A926D8182AB7B430000C4C2F /* EEGViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGViewModel.swift; sourceTree = "<group>"; };
 		A926D8192AB7B430000C4C2F /* ConnectedDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedDevice.swift; sourceTree = "<group>"; };
-		A92DD4D82B02D94F0062781B /* BioPot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BioPot.swift; sourceTree = "<group>"; };
+		A92DD4D82B02D94F0062781B /* Biopot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Biopot.swift; sourceTree = "<group>"; };
 		A9405B552A36856300C75412 /* AddPatientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientView.swift; sourceTree = "<group>"; };
 		A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTile.swift; sourceTree = "<group>"; };
 		A94533FC2AEADCC00095AAD3 /* ScreeningTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTask.swift; sourceTree = "<group>"; };
@@ -371,6 +372,7 @@
 		A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPatientLabel.swift; sourceTree = "<group>"; };
 		A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInformationText.swift; sourceTree = "<group>"; };
 		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
+		A9D83F912B081A47000D0C78 /* BiopotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTile.swift; sourceTree = "<group>"; };
 		A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTile.swift; sourceTree = "<group>"; };
@@ -567,6 +569,7 @@
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */,
 				A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */,
+				A9D83F912B081A47000D0C78 /* BiopotTests.swift */,
 			);
 			path = NAMSUITests;
 			sourceTree = "<group>";
@@ -712,7 +715,7 @@
 			isa = PBXGroup;
 			children = (
 				A988FEB02B0452AB00022A61 /* Model */,
-				A92DD4D82B02D94F0062781B /* BioPot.swift */,
+				A92DD4D82B02D94F0062781B /* Biopot.swift */,
 				A988FEA92B0414FD00022A61 /* BiopotDevice.swift */,
 			);
 			path = BioPot;
@@ -1081,7 +1084,7 @@
 				A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* Home.swift in Sources */,
 				A94A42B22AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
-				A92DD4D92B02D94F0062781B /* BioPot.swift in Sources */,
+				A92DD4D92B02D94F0062781B /* Biopot.swift in Sources */,
 				A926D8242AB7B430000C4C2F /* EEGSeries.swift in Sources */,
 				A926D81A2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
@@ -1163,6 +1166,7 @@
 			files = (
 				A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */,
 				A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */,
+				A9D83F922B081A47000D0C78 /* BiopotTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
 				A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */,
 				2F4E237E2989A2FE0013F3D9 /* OnboardingTests.swift in Sources */,
@@ -1201,7 +1205,7 @@
 				A926D78B2AB7A552000C4C2F /* OnboardingFlow+PreviewSimulator.swift in Sources */,
 				A926D78C2AB7A552000C4C2F /* Home.swift in Sources */,
 				A94A42B32AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
-				A92DD4DD2B02DA3F0062781B /* BioPot.swift in Sources */,
+				A92DD4DD2B02DA3F0062781B /* Biopot.swift in Sources */,
 				A926D8252AB7B430000C4C2F /* EEGSeries.swift in Sources */,
 				A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */,
 				A926D81B2AB7B430000C4C2F /* EEGDeviceList.swift in Sources */,

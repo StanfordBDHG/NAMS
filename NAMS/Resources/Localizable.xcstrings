@@ -170,10 +170,16 @@
         }
       }
     },
-    "BIOPOT" : {
+    "Biopot" : {
 
     },
     "BioPot 3" : {
+
+    },
+    "Bluetooth Off" : {
+
+    },
+    "Bluetooth Unauthorized" : {
 
     },
     "BLUETOOTH_OFF" : {
@@ -395,6 +401,9 @@
           }
         }
       }
+    },
+    "Disconnected" : {
+
     },
     "DISCONNECTED" : {
       "localizations" : {
@@ -751,12 +760,6 @@
         }
       }
     },
-    "No BioPot device found. Please make sure the device is turned on." : {
-
-    },
-    "No Device Connected" : {
-
-    },
     "No Device connected!" : {
       "localizations" : {
         "en" : {
@@ -953,6 +956,9 @@
     "Read Device Configuration" : {
 
     },
+    "Receive Device Info" : {
+
+    },
     "Recording" : {
       "comment" : "Tile Type",
       "localizations" : {
@@ -973,6 +979,9 @@
           }
         }
       }
+    },
+    "Scanning" : {
+
     },
     "Schedule" : {
       "comment" : "Schedule Title",

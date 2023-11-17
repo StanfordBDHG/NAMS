@@ -24,4 +24,6 @@ enum FeatureFlags {
     static let renderAccessibilityActions = CommandLine.arguments.contains("--render-accessibility-actions")
     /// A default patient is injected you may use within UI tests.
     static let injectDefaultPatient = CommandLine.arguments.contains("--inject-default-patient")
+    /// Enable test specific functionality for the Biopot platform.
+    static let testBiopot = CommandLine.arguments.contains("--test-biopot")
 }

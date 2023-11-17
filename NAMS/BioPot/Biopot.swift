@@ -11,7 +11,7 @@ import SpeziViews
 import SwiftUI
 
 
-struct BioPot: View {
+struct Biopot: View {
     @Environment(BiopotDevice.self)
     private var biopot
 
@@ -22,9 +22,10 @@ struct BioPot: View {
             ListRow("Device") {
                 Text(biopot.bluetoothState.localizedStringResource)
             }
+            testingSupport
 
 
-            if let info = biopot.deviceInfo, biopot.bluetoothState == .connected {
+            if let info = biopot.deviceInfo {
                 Section("Status") {
                     ListRow("BATTERY") {
                         BatteryIcon(percentage: Int(info.batteryLevel))
@@ -46,7 +47,7 @@ struct BioPot: View {
                         try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDeviceConfiguration)
                     }
                 }
-            } else {
+            } else if biopot.bluetoothState == .scanning {
                 Section {
                     ProgressView()
                         .listRowBackground(Color.clear)
@@ -57,6 +58,28 @@ struct BioPot: View {
         }
             .viewStateAlert(state: $viewState)
             .navigationTitle("BioPot 3")
+            .onChange(of: biopot.bluetoothState) {
+                if biopot.bluetoothState != .connected {
+                    biopot.deviceInfo = nil
+                }
+            }
+    }
+
+
+    @MainActor @ViewBuilder private var testingSupport: some View {
+        if FeatureFlags.testBiopot {
+            Button("Receive Device Info") {
+                biopot.deviceInfo = DeviceInformation(
+                    syncRatio: 0,
+                    syncMode: false,
+                    memoryWriteNumber: 0,
+                    memoryEraseMode: false,
+                    batteryLevel: 80,
+                    temperatureValue: 23,
+                    batteryCharging: false
+                )
+            }
+        }
     }
 }
 
@@ -92,7 +115,7 @@ import Spezi
         }
     }
 
-    return BioPot()
+    return Biopot()
         .spezi(PreviewDelegate())
 }
 #endif
