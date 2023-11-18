@@ -22,6 +22,7 @@
 		2DC17459E46F767C767C0AA0 /* DeviceConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173E2CB87E7470075E022 /* DeviceConnectionListener.swift */; };
 		2DC174CC46386A3F7E20786B /* IXNMuseVersion+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */; };
 		2DC1752A3985DDF8E7F5866C /* EEGViewModel+ActiveMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1740BAF6AC3F49A133752 /* EEGViewModel+ActiveMock.swift */; };
+		2DC1759355773DBBAC27CA6F /* openapi.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DC179886DD8C07AAC203917 /* openapi.json */; };
 		2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
 		2DC1762E730B0472308EEFFC /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */; };
 		2DC17644A07BC415B89BDACA /* Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177545B4C12357C3B2613 /* Fit.swift */; };
@@ -40,9 +41,11 @@
 		2DC17ABFAC9031FE699864FB /* IXNMuse+EEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1768C714141C636C5CFCD /* IXNMuse+EEGDevice.swift */; };
 		2DC17ADF934F839FC66BF7A0 /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177BFA6C401C2C87FCD5C /* TileType.swift */; };
 		2DC17B21929D86939F8EB566 /* ConnectionState+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */; };
+		2DC17B3E6EB6940BED8F0B40 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2DC17C6467AEBDC288B99379 /* openapi.yaml */; };
 		2DC17C29AA0382E9F5F2AA4D /* EEGMeasurementGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D48217697F558657E69 /* EEGMeasurementGenerator.swift */; };
 		2DC17C341155F06C17225169 /* NewPatientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1739D3D10EFC5B9F67646 /* NewPatientModel.swift */; };
 		2DC17CA2806C0BFD72984B3D /* MockDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */; };
+		2DC17CCD78D53C42748829F9 /* openapi.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 2DC17C6467AEBDC288B99379 /* openapi.yaml */; };
 		2DC17CEE255C54119538D254 /* HeadbandFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */; };
 		2DC17D159C62F690B2137E65 /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
 		2DC17D4A9B040AF343D9EF1F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173D02776C8AAB7386C29 /* BluetoothManager.swift */; };
@@ -51,6 +54,7 @@
 		2DC17F5243570D8FF743EADD /* PatientInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FE89AC206431F90166 /* PatientInformation.swift */; };
 		2DC17F8981E53AEED0CFD1BD /* MockEEGDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */; };
 		2DC17FB80AB25F5356A59FEE /* HeadbandFit+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FEC8B57C8C069AF84F /* HeadbandFit+Muse.swift */; };
+		2DC17FBD37B64AEB6916ABCD /* openapi.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DC179886DD8C07AAC203917 /* openapi.json */; };
 		2DC17FE0AC1DD98C29B417F1 /* IXNMusePreset+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1751EE233BB85004ECA90 /* IXNMusePreset+Description.swift */; };
 		2DC17FE79AB13F1F300788A6 /* MuseConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */; };
 		2F49B7762980407C00BCB272 /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = 2F49B7752980407B00BCB272 /* Spezi */; };
@@ -284,8 +288,10 @@
 		2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ConnectionState+Muse.swift"; sourceTree = "<group>"; };
 		2DC177BFA6C401C2C87FCD5C /* TileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
 		2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseConfiguration+Description.swift"; sourceTree = "<group>"; };
+		2DC179886DD8C07AAC203917 /* openapi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = openapi.json; sourceTree = "<group>"; };
 		2DC17A06799FC1470D4DDC0D /* PatientList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
 		2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseConnectionListener.swift; sourceTree = "<group>"; };
+		2DC17C6467AEBDC288B99379 /* openapi.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = openapi.yaml; sourceTree = "<group>"; };
 		2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseDataPacketType+Type.swift"; sourceTree = "<group>"; };
 		2DC17D172D8299600ED13D60 /* MockEEGDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockEEGDevice.swift; sourceTree = "<group>"; };
 		2DC17D48217697F558657E69 /* EEGMeasurementGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGMeasurementGenerator.swift; sourceTree = "<group>"; };
@@ -488,6 +494,8 @@
 				2FE5DC2C29EDD78E004B9AB4 /* ConsentDocument.md */,
 				2FE5DC2A29EDD78D004B9AB4 /* AppIcon.png */,
 				2FE5DC5529EDD811004B9AB4 /* SocialSupportQuestionnaire.json */,
+				2DC179886DD8C07AAC203917 /* openapi.json */,
+				2DC17C6467AEBDC288B99379 /* openapi.yaml */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -979,6 +987,8 @@
 				A9BCB57C2AE7435E00DA8588 /* Localizable.xcstrings in Resources */,
 				2F6025CB29BBE70F0045459E /* GoogleService-Info.plist in Resources */,
 				A94534062AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */,
+				2DC17FBD37B64AEB6916ABCD /* openapi.json in Resources */,
+				2DC17B3E6EB6940BED8F0B40 /* openapi.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1017,8 @@
 				A9BCB57D2AE7435E00DA8588 /* Localizable.xcstrings in Resources */,
 				A926D7BD2AB7A552000C4C2F /* GoogleService-Info.plist in Resources */,
 				A94534072AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */,
+				2DC1759355773DBBAC27CA6F /* openapi.json in Resources */,
+				2DC17CCD78D53C42748829F9 /* openapi.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
