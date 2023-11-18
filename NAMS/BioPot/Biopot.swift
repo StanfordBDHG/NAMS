@@ -42,11 +42,7 @@ struct Biopot: View {
                     }
                 }
 
-                Section("Actions") { // section of testing actions
-                    AsyncButton("Read Device Configuration", state: $viewState) {
-                        try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDeviceConfiguration)
-                    }
-                }
+                actionButtons
             } else if biopot.bluetoothState == .scanning {
                 Section {
                     ProgressView()
@@ -65,7 +61,6 @@ struct Biopot: View {
             }
     }
 
-
     @MainActor @ViewBuilder private var testingSupport: some View {
         if FeatureFlags.testBiopot {
             Button("Receive Device Info") {
@@ -78,6 +73,23 @@ struct Biopot: View {
                     temperatureValue: 23,
                     batteryCharging: false
                 )
+            }
+        }
+    }
+
+    @MainActor @ViewBuilder private var actionButtons: some View {
+        Section("Actions") { // section of testing actions
+            AsyncButton("Read Device Configuration", state: $viewState) {
+                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDeviceConfiguration)
+            }
+            AsyncButton("Read Data Control", state: $viewState) {
+                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDataControl)
+            }
+            AsyncButton("Read Data Acquisition", state: $viewState) {
+                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDataAcquisition)
+            }
+            AsyncButton("Read Sample Configuration", state: $viewState) {
+                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotSamplingConfiguration)
             }
         }
     }

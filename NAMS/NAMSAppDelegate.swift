@@ -39,8 +39,12 @@ class NAMSAppDelegate: SpeziAppDelegate {
                 BluetoothService(
                     serviceUUID: BiopotDevice.Service.biopot,
                     characteristicUUIDs: [
-                        BiopotDevice.Characteristic.biopotDeviceInfo,
-                        BiopotDevice.Characteristic.biopotDeviceConfiguration
+                        BiopotDevice.Characteristic.biopotDeviceConfiguration,
+                        BiopotDevice.Characteristic.biopotDataControl,
+                        BiopotDevice.Characteristic.biopotDataAcquisition,
+                        BiopotDevice.Characteristic.biopotDataStream,
+                        BiopotDevice.Characteristic.biopotSamplingConfiguration,
+                        BiopotDevice.Characteristic.biopotDeviceInfo
                     ]
                 )
             ])

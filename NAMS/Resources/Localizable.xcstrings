@@ -953,7 +953,16 @@
         }
       }
     },
+    "Read Data Acquisition" : {
+
+    },
+    "Read Data Control" : {
+
+    },
     "Read Device Configuration" : {
+
+    },
+    "Read Sample Configuration" : {
 
     },
     "Receive Device Info" : {
