@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031577F02B1826A90063393E /* DeviceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031577EF2B1826A90063393E /* DeviceData.swift */; };
 		2DC17128D81F6CF06F65FFD4 /* MuseConnectionListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17C07ED61540F306E7D23 /* MuseConnectionListener.swift */; };
 		2DC1713C311BAA65EE0E2748 /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */; };
 		2DC1718A3F968CF02D7AF0EC /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17A06799FC1470D4DDC0D /* PatientList.swift */; };
@@ -265,6 +266,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		031577EF2B1826A90063393E /* DeviceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceData.swift; sourceTree = "<group>"; };
 		2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseVersion+String.swift"; sourceTree = "<group>"; };
 		2DC17095E60D83D6205EFA78 /* HeadbandFit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadbandFit.swift; sourceTree = "<group>"; };
 		2DC170F68232B993528F84FE /* PatientTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientTask.swift; sourceTree = "<group>"; };
@@ -727,6 +729,7 @@
 				A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */,
 				A988FEB42B0453E100022A61 /* DeviceInformation.swift */,
 				A9F916742B07FD58007CECF6 /* ByteCodable.swift */,
+				031577EF2B1826A90063393E /* DeviceData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1145,6 +1148,7 @@
 				2DC17C341155F06C17225169 /* NewPatientModel.swift in Sources */,
 				A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC1718A3F968CF02D7AF0EC /* PatientList.swift in Sources */,
+				031577F02B1826A90063393E /* DeviceData.swift in Sources */,
 				2DC172753D306AE733D7FDC8 /* TileType.swift in Sources */,
 				A9F916752B07FD58007CECF6 /* ByteCodable.swift in Sources */,
 				2DC17257A28A7E2232229658 /* PatientTask.swift in Sources */,
