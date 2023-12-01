@@ -41,8 +41,8 @@ class NAMSAppDelegate: SpeziAppDelegate {
                     characteristicUUIDs: [
                         BiopotDevice.Characteristic.biopotDeviceConfiguration,
                         BiopotDevice.Characteristic.biopotDataControl,
+                        BiopotDevice.Characteristic.biopotImpedanceMeasurement,
                         BiopotDevice.Characteristic.biopotDataAcquisition,
-                        BiopotDevice.Characteristic.biopotDataStream,
                         BiopotDevice.Characteristic.biopotSamplingConfiguration,
                         BiopotDevice.Characteristic.biopotDeviceInfo
                     ]

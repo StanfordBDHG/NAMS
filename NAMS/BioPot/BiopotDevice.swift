@@ -92,9 +92,9 @@ extension BiopotDevice {
         /// Characteristic 2, as per the manual. RW.
         static let biopotDataControl = CBUUID(string: "0000FFF2-0000-1000-8000-00805F9B34FB")
         /// Characteristic 3, as per the manual. RW.
-        static let biopotDataAcquisition = CBUUID(string: "0000FFF3-0000-1000-8000-00805F9B34FB")
+        static let biopotImpedanceMeasurement = CBUUID(string: "0000FFF3-0000-1000-8000-00805F9B34FB")
         /// Characteristic 4, as per the manual. RN.
-        static let biopotDataStream = CBUUID(string: "0000FFF4-0000-1000-8000-00805F9B34FB")
+        static let biopotDataAcquisition = CBUUID(string: "0000FFF4-0000-1000-8000-00805F9B34FB")
         /// Characteristic 5, as per the manual. RW.
         static let biopotSamplingConfiguration = CBUUID(string: "0000FFF5-0000-1000-8000-00805F9B34FB")
         /// Characteristic 6, as per the manual. RN.

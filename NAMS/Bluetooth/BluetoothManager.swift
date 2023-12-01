@@ -21,7 +21,6 @@ class BluetoothManager: NSObject, CBCentralManagerDelegate {
 
     override init() {
         // We use a separate dispatch queue, be aware that all delegate calls are not getting on the main thread.
-        // So make sure to interact with @Published properties only via the main thread
         self.dispatchQueue = DispatchQueue(label: "CBCentralManager")
         self.bluetoothManager = CBCentralManager(delegate: nil, queue: dispatchQueue)
         self.bluetoothState = bluetoothManager.state
