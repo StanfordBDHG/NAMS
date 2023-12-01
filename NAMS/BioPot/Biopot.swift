@@ -86,7 +86,7 @@ struct Biopot: View {
                 try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDataControl)
             }
             AsyncButton("Read Data Acquisition", state: $viewState) {
-                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDataAcquisition)
+                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotImpedanceMeasurement)
             }
             AsyncButton("Read Sample Configuration", state: $viewState) {
                 try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotSamplingConfiguration)
