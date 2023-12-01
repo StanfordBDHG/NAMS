@@ -277,14 +277,19 @@ extension Data {
 
         var index = hex.startIndex
 
+        let hexCount: Int
+
         if hex.hasPrefix("0x") || hex.hasPrefix("0X") {
             index = hex.index(index, offsetBy: 2)
+            hexCount = hex.count - 2
+        } else {
+            hexCount = hex.count
         }
 
         var bytes: [UInt8] = []
-        bytes.reserveCapacity(hex.count / 2 + hex.count % 2)
+        bytes.reserveCapacity(hexCount / 2 + hexCount % 2)
 
-        if !hex.count.isMultiple(of: 2) {
+        if !hexCount.isMultiple(of: 2) {
             guard let byte = UInt8(String(hex[index]), radix: 16) else {
                 return nil
             }
@@ -303,7 +308,7 @@ extension Data {
             index = hex.index(index, offsetBy: 2)
         }
 
-        guard hex.count / bytes.count == 2 else {
+        guard hexCount / bytes.count == 2 else {
             return nil
         }
         self.init(bytes)
