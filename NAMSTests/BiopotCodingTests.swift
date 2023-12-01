@@ -111,7 +111,7 @@ class BiopotCodingTests: XCTestCase {
         try testIdentity(of: SamplingConfiguration.self, using: idData)
     }
 
-    func testDataAcquisition() throws {
+    func testDataAcquisition11_1() throws {
         let data = try XCTUnwrap(Data(
             hex: """
                  0x1b000000\
@@ -164,7 +164,7 @@ class BiopotCodingTests: XCTestCase {
         XCTAssertEqual(acquisition.accelerometerSample.point2.z, -15520)
     }
 
-    func testDataAcquisition2() throws {
+    func testDataAcquisition11_2() throws {
         let data = try XCTUnwrap(Data(
             hex: """
                  49020000\
@@ -218,7 +218,52 @@ class BiopotCodingTests: XCTestCase {
         XCTAssertEqual(acquisition.accelerometerSample.point2.y, -352)
         XCTAssertEqual(acquisition.accelerometerSample.point2.z, -15472)
     }
-    
+
+    func testDataAcquisition10() throws {
+        let data = try XCTUnwrap(Data(
+            hex: """
+                 0x1b000000\
+                 6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
+                 1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
+                 75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
+                 ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
+                 d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
+                 2889a72889a72889a72889a72889a72889a72889a72889a7\
+                 4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
+                 1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
+                 b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
+                 87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
+                 """
+        ))
+        var buffer = ByteBuffer(data: data)
+
+        let acquisition = try XCTUnwrap(DataAcquisition10(from: &buffer))
+
+        XCTAssertEqual(acquisition.timestamps, 27)
+
+        XCTAssertEqual(acquisition.samples.count, 10)
+        XCTAssertTrue(
+            acquisition.samples
+                .map { $0.channels.count }
+                .allSatisfy { $0 == 8 }
+        )
+
+        // we OR by 0xFF000000 for all that negative values to fix two's complement
+        let expectedCH1Sample: [Int32] = [
+            Int32(bitPattern: 0x9fab6a | 0xFF000000), // 6aab9f
+            Int32(bitPattern: 0xa1351e | 0xFF000000), // 1e35a1
+            Int32(bitPattern: 0xa2c675 | 0xFF000000), // 75c6a2
+            Int32(bitPattern: 0xa45bed | 0xFF000000), // ed5ba4
+            Int32(bitPattern: 0xa5f2d8 | 0xFF000000), // d8f2a5
+            Int32(bitPattern: 0xa78928 | 0xFF000000), // 2889a7
+            Int32(bitPattern: 0xa91d4e | 0xFF000000), // 4e1da9
+            Int32(bitPattern: 0xaaae1e | 0xFF000000), // 1eaeaa
+            Int32(bitPattern: 0xac3ab6 | 0xFF000000), // b63aac
+            Int32(bitPattern: 0xffff87 | 0xFF000000)  // 8787ffff
+        ]
+
+        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.sample }, expectedCH1Sample)
+    }
 
     func testInt24Big() throws {
         let data = try XCTUnwrap(Data(hex: "0xFF0000"))
