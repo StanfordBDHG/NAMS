@@ -31,6 +31,8 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
     }
 
     @MainActor var deviceInfo: DeviceInformation?
+    @MainActor var deviceConfiguration: DeviceConfiguration?
+    @MainActor var samplingConfiguration: SamplingConfiguration?
 
 
     required init() {}
@@ -63,7 +65,26 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
                 return
             }
 
-            logger.debug("Received configuration data: \("\(configuration)")")
+            await MainActor.run {
+                self.deviceConfiguration = configuration
+            }
+        } else if characteristic == Characteristic.biopotSamplingConfiguration {
+            guard let configuration = SamplingConfiguration(from: &buffer) else {
+                return
+            }
+
+            await MainActor.run {
+                self.samplingConfiguration = configuration
+            }
+        } else if characteristic == Characteristic.biopotDataAcquisition {
+            // TODO: depending on the accel status?
+            guard let data = DataAcquisition11(from: &buffer) else {
+                return
+            }
+
+            await MainActor.run {
+                // TODO: how to publish the measurements!
+            }
         } else {
             logger.warning("Data on \(characteristic.uuidString)@\(service.uuidString) was unexpected and not processed!")
         }
@@ -71,6 +92,24 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
 
     func readBiopot(characteristic: CBUUID) throws {
         try bluetooth.read(service: Service.biopot, characteristic: characteristic)
+    }
+
+    func enableRecording() async throws {
+        try await setDataControl(false)
+
+        try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotDeviceConfiguration)
+
+        try await setDataControl(true)
+        try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotSamplingConfiguration) // TODO: read after write
+    }
+
+    func setDataControl(_ enable: Bool) async throws {
+        let control = DataControl(dataAcquisitionEnabled: enable)
+        var buffer = ByteBuffer()
+        control.encode(to: &buffer)
+
+        try await bluetooth.write(&buffer, service: Service.biopot, characteristic: Characteristic.biopotDataControl)
+
     }
 }
 

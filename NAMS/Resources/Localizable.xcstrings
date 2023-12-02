@@ -173,9 +173,6 @@
     "Biopot" : {
 
     },
-    "BioPot 3" : {
-
-    },
     "Bluetooth Off" : {
 
     },
@@ -370,6 +367,9 @@
       }
     },
     "Device" : {
+
+    },
+    "Device Type" : {
 
     },
     "DEVICE_DETAILS" : {
@@ -730,6 +730,9 @@
         }
       }
     },
+    "Muse" : {
+
+    },
     "Name" : {
       "localizations" : {
         "en" : {
@@ -989,7 +992,7 @@
         }
       }
     },
-    "Scanning" : {
+    "Scanning ..." : {
 
     },
     "Schedule" : {

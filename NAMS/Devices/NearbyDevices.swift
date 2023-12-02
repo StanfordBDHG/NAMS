@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct NearbyDevices: View {
     private let eegModel: EEGViewModel
 
@@ -30,57 +31,47 @@ struct NearbyDevices: View {
     }
 
     var body: some View {
-        NavigationStack { // swiftlint:disable:this closure_body_length
-            List {
-                if bluetoothPoweredOn {
-                    Text("TURN_ON_HEADBAND_HINT")
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        .padding([.top, .leading, .trailing])
-                }
+        if bluetoothPoweredOn {
+            Text("TURN_ON_HEADBAND_HINT")
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets(top: -15, leading: 0, bottom: 0, trailing: 0))
+                .padding([.top, .leading, .trailing])
+        }
 
-                Section {
-                    if bluetoothPoweredOn {
-                        if eegModel.nearbyDevices.isEmpty {
-                            ProgressView()
-                                .frame(maxWidth: .infinity)
-                        } else {
-                            EEGDeviceList(eegModel: eegModel)
-                        }
-                    }
-
-                    bluetoothHints
-                } footer: {
-                    sectionFooter
+        Section {
+            if bluetoothPoweredOn {
+                if eegModel.nearbyDevices.isEmpty {
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                } else {
+                    EEGDeviceList(eegModel: eegModel)
                 }
             }
-                .navigationTitle("NEARBY_DEVICES")
-                .onAppear {
-                    onForeground()
-                }
-                .onDisappear {
-                    onBackground()
-                }
-                .onReceive(NotificationCenter.default.publisher(for: UIScene.willEnterForegroundNotification)) { _ in
-                    onForeground() // onAppear is coupled with view rendering only and won't get fired when putting app into the foreground
-                }
-                .onReceive(NotificationCenter.default.publisher(for: UIScene.willDeactivateNotification)) { _ in
-                    onBackground() // onDisappear is coupled with view rendering only and won't get fired when putting app into the background
-                }
-                .onChange(of: bluetoothManager.bluetoothState) {
-                    if case .poweredOn = bluetoothManager.bluetoothState {
-                        eegModel.startScanning()
-                    } else {
-                        // this will still trigger an API MISUSE, both otherwise we end up in undefined state
-                        eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
-                    }
-                }
-                .toolbar {
-                    Button("Close") {
-                        dismiss()
-                    }
-                }
+
+            bluetoothHints
+        } footer: {
+            sectionFooter
         }
+            .onAppear {
+                onForeground()
+            }
+            .onDisappear {
+                onBackground()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIScene.willEnterForegroundNotification)) { _ in
+                onForeground() // onAppear is coupled with view rendering only and won't get fired when putting app into the foreground
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIScene.willDeactivateNotification)) { _ in
+                onBackground() // onDisappear is coupled with view rendering only and won't get fired when putting app into the background
+            }
+            .onChange(of: bluetoothManager.bluetoothState) {
+                if case .poweredOn = bluetoothManager.bluetoothState {
+                    eegModel.startScanning()
+                } else {
+                    // this will still trigger an API MISUSE, both otherwise we end up in undefined state
+                    eegModel.stopScanning(refreshNearby: bluetoothManager.bluetoothState == .poweredOn)
+                }
+            }
     }
 
     @ViewBuilder var bluetoothHints: some View {
@@ -150,10 +141,10 @@ struct NearbyDevices: View {
 
 
 #if DEBUG
-#Preview {
-    let model = EEGViewModel(deviceManager: MockDeviceManager())
-    return NavigationStack {
-        NearbyDevices(eegModel: model)
+#Preview {NavigationStack {
+        List {
+            NearbyDevices(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+        }
     }
 }
 #endif

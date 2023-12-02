@@ -7,8 +7,8 @@
 //
 
 import Combine
-import Foundation
 import OSLog
+import SwiftUI
 
 
 @Observable
@@ -19,10 +19,18 @@ class EEGViewModel {
 
     var nearbyDevices: [EEGDevice] = []
     var activeDevice: ConnectedDevice?
+    var recordingSession: EEGRecordingSession? // TODO: set
 
     private var deviceManagerCancelable: AnyCancellable?
     private var activeDeviceCancelable: AnyCancellable?
 
+    var recordingSessionBinding: Binding<EEGRecordingSession?> {
+        Binding {
+            self.recordingSession
+        } set: { newValue in
+            self.recordingSession = newValue
+        }
+    }
 
     init(deviceManager: DeviceManager) {
         self.deviceManager = deviceManager
@@ -79,7 +87,7 @@ class EEGViewModel {
 
         logger.info("Connecting to nearby devices \(device.name)...")
 
-        let activeDevice = ConnectedDevice(device: device)
+        let activeDevice = ConnectedDevice(device: device, session: recordingSessionBinding)
         sinkActiveDevice(device: activeDevice)
 
         activeDevice.connect()

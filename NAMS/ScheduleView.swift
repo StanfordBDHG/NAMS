@@ -46,7 +46,7 @@ struct ScheduleView: View {
                 }
             }
                 .sheet(isPresented: $presentingMuseList) {
-                    NearbyDevices(eegModel: eegModel)
+                    DevicesSheet(eegModel: eegModel)
                 }
                 .sheet(isPresented: $presentPatientSheet) {
                     PatientListSheet(activePatientId: $activePatientId)

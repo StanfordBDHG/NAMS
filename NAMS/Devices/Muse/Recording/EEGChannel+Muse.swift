@@ -19,6 +19,8 @@ extension EEGChannel {
             return .EEG3
         case .tp10:
             return .EEG4
+        default:
+            preconditionFailure("EEGChannel \(self) is not supported by Muse!")
         }
     }
 }

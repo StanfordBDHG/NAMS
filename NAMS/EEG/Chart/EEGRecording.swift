@@ -23,16 +23,16 @@ struct EEGRecording: View {
     @State private var frequency: EEGFrequency = .theta
 
     private var pickerFrequencies: [EEGFrequency] {
-        EEGFrequency.allCases.filter { eegModel.activeDevice?.measurements.keys.contains($0) ?? false }
+        EEGFrequency.allCases.filter { eegModel.recordingSession?.measurements.keys.contains($0) ?? false }
     }
 
     var body: some View {
         ZStack {
-            if let activeDevice = eegModel.activeDevice {
+            if let session = eegModel.recordingSession {
                 List {
                     frequencyPicker
 
-                    eegCharts(active: activeDevice)
+                    eegCharts(session: session)
 
                     Section {
                         AsyncButton(state: $viewState) {
@@ -45,7 +45,7 @@ struct EEGRecording: View {
                         }
 
                         Button(role: .destructive, action: {
-                            activeDevice.measurements = [:]
+                            session.measurements = [:]
                         }) {
                             Text("Reset")
                         }
@@ -88,10 +88,10 @@ struct EEGRecording: View {
 
 
     @ViewBuilder
-    private func eegCharts(active activeDevice: ConnectedDevice) -> some View {
+    private func eegCharts(session: EEGRecordingSession) -> some View {
         Section {
-            let measurements = activeDevice.measurements[frequency, default: []]
-            let suffix = measurements.suffix(frequency == .all ? 800 : 100)
+            let measurements = session.measurements[frequency, default: []]
+            let suffix = measurements.suffix(frequency == .all ? 800 : 100) // TODO: adjust dynamically!
             let baseTime = measurements.first?.timestamp.timeIntervalSince1970
 
             VStack {

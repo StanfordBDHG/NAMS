@@ -74,7 +74,7 @@ private class ConnectionListener: DeviceConnectionListener {
         }
 
         for (frequency, generator) in eegMeasurementGenerators {
-            device.measurements[frequency, default: []]
+            device.session?.measurements[frequency, default: []]
                 .append(generator.next())
         }
     }

@@ -49,7 +49,7 @@ class EEGMeasurementGenerator {
     private func generate(values: inout [EEGChannel: Double], time: inout Double) -> EEGSeries {
         time += sampleDuration
 
-        let readings = EEGChannel.allCases.map { channel in
+        let readings = [EEGChannel.tp9, .af7, .af8, .tp10].map { channel in
             values[channel, default: baseValue] += Double.random(in: -3.35...3.5)
             return EEGReading(channel: channel, value: values[channel, default: baseValue])
         }
