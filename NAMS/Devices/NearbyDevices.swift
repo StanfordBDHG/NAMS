@@ -141,7 +141,8 @@ struct NearbyDevices: View {
 
 
 #if DEBUG
-#Preview {NavigationStack {
+#Preview {
+    NavigationStack {
         List {
             NearbyDevices(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         }

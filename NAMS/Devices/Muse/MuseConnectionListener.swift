@@ -98,7 +98,6 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
                 device.fit = fit
             }
         case .eeg:
-            // TODO: which measurements to add?
             // we currently do not forward nor enable raw eeg data for visualization purposes
             break
         case .thetaAbsolute:

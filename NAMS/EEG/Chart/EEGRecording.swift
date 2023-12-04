@@ -16,17 +16,20 @@ struct EEGRecording: View {
     private var dismiss
 
     private let eegModel: EEGViewModel
+    @Environment(BiopotDevice.self)
+    private var biopot // TODO: used in preview!
     @Environment(PatientListModel.self)
     private var patientList
 
     @State private var viewState: ViewState = .idle
-    @State private var frequency: EEGFrequency = .theta
+    @State private var frequency: EEGFrequency = .all // TODO: whats the default here?
 
     private var pickerFrequencies: [EEGFrequency] {
         EEGFrequency.allCases.filter { eegModel.recordingSession?.measurements.keys.contains($0) ?? false }
     }
 
-    var body: some View {
+    var body: some View { // TODO: remove SL
+        // swiftlint:disable:next closure_body_length
         ZStack {
             // TODO: proper state modelling: not conneced, no session, session
             if let session = eegModel.recordingSession {
@@ -61,6 +64,11 @@ struct EEGRecording: View {
                     }
                     Button("Start Recording Session") {
                         eegModel.startRecordingSession()
+                        if biopot.connected {
+                            Task {
+                                await biopot.enableRecording()
+                            }
+                        }
                     }
                 }
             }
@@ -97,14 +105,16 @@ struct EEGRecording: View {
     private func eegCharts(session: EEGRecordingSession) -> some View {
         Section {
             let measurements = session.measurements[frequency, default: []]
-            let suffix = measurements.suffix(frequency == .all ? 800 : 100) // TODO: adjust dynamically!
-            let baseTime = measurements.first?.timestamp.timeIntervalSince1970
+            let suffix = measurements.suffix(frequency == .all ? 800 : 100)
 
-            VStack {
-                EEGChart(measurements: suffix, for: .tp9, baseTime: baseTime)
-                EEGChart(measurements: suffix, for: .af7, baseTime: baseTime)
-                EEGChart(measurements: suffix, for: .af8, baseTime: baseTime)
-                EEGChart(measurements: suffix, for: .tp10, baseTime: baseTime)
+            if let first = measurements.first {
+                let baseTime = first.timestamp.timeIntervalSince1970
+
+                VStack {
+                    ForEach(first.channels, id: \.self) { channel in
+                        EEGChart(measurements: suffix, for: channel, baseTime: baseTime)
+                    }
+                }
             }
         }
             .listRowBackground(Color.clear)

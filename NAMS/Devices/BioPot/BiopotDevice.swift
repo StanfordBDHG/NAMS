@@ -30,9 +30,15 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
         bluetooth.state
     }
 
+    var connected: Bool {
+        bluetoothState == .connected
+    }
+
     @MainActor var deviceInfo: DeviceInformation?
     @MainActor var deviceConfiguration: DeviceConfiguration?
     @MainActor var samplingConfiguration: SamplingConfiguration?
+
+    @MainActor var startDate: Date?
 
     @Binding @ObservationIgnored private var recordingSession: EEGRecordingSession?
 
@@ -94,14 +100,20 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
         try bluetooth.read(service: Service.biopot, characteristic: characteristic)
     }
 
-    func enableRecording() async throws {
-        try await setDataControl(false)
+    func enableRecording() async {
+        do {
+            try await setDataControl(false)
 
-        try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotDeviceConfiguration)
+            try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotDeviceConfiguration)
 
-        try await setDataControl(true)
-        // TODO: read after write
-        try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotSamplingConfiguration)
+            await MainActor.run {
+                startDate = .now
+            }
+            try await setDataControl(true)
+            try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotSamplingConfiguration)
+        } catch {
+            logger.error("Failed to enable Biopot recording: \(error)")
+        }
     }
 
     func setDataControl(_ enable: Bool) async throws {
@@ -136,7 +148,31 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
         }
 
         await MainActor.run {
-            // TODO: how to publish the measurements!
+            guard let recordingSession else {
+                return
+            }
+
+            let baseDate = startDate ?? .now
+            // TODO base date
+
+            let series: [EEGSeries] = data.samples.map { sample in
+                var readings: [EEGReading] = []
+                readings.reserveCapacity(8)
+
+                for index in 1...sample.channels.count {
+                    guard let channel = EEGChannel(biopotNum: index) else {
+                        continue
+                    }
+                    // TODO: all these conversions?
+                    readings.append(EEGReading(channel: channel, value: Double(sample.channels[index - 1].sample)))
+                }
+
+
+                let timestamp = baseDate.addingTimeInterval(Double(data.timestamps) / 1000.0)
+                return EEGSeries(timestamp: timestamp, readings: readings)
+            }
+
+            recordingSession.measurements[.all, default: []].append(contentsOf: series)
         }
     }
 }

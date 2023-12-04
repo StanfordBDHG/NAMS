@@ -17,6 +17,10 @@ struct EEGSeries: Identifiable {
     let timestamp: Date
     private let readingsDictionary: [EEGChannel: EEGReading]
 
+    var channels: [EEGChannel] {
+        Array(readingsDictionary.keys)
+    }
+
     init(timestamp: Date, readings: [EEGReading]) {
         self.timestamp = timestamp
         self.readingsDictionary = readings.reduce(into: [:]) { result, reading in

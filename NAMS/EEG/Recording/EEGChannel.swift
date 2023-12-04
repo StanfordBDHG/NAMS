@@ -7,7 +7,7 @@
 //
 
 
-struct EEGChannel: RawRepresentable, Hashable { // TODO CaseIterable?
+struct EEGChannel: RawRepresentable, Hashable {
     static let tp9 = EEGChannel(rawValue: "TP9")
     static let af7 = EEGChannel(rawValue: "AF7")
     static let af8 = EEGChannel(rawValue: "AF9")
@@ -28,9 +28,28 @@ struct EEGChannel: RawRepresentable, Hashable { // TODO CaseIterable?
     }
 }
 
-enum EEGChannel2: String, CaseIterable { // TODO remove?
-    case tp9 = "TP9"
-    case af7 = "AF7"
-    case af8 = "AF8"
-    case tp10 = "TP10"
+
+extension EEGChannel { // TODO: move?
+    init?(biopotNum value: Int) {
+        switch value {
+        case 1:
+            self = .lme
+        case 2:
+            self = .tp10
+        case 3:
+            self = .af8
+        case 4:
+            self = .fp2
+        case 5:
+            self = .fpz
+        case 6:
+            self = .fp1
+        case 7:
+            self = .af7
+        case 8:
+            self = .mm
+        default:
+            return nil
+        }
+    }
 }

@@ -12,6 +12,4 @@ import Foundation
 @Observable
 class EEGRecordingSession {
     var measurements: [EEGFrequency: [EEGSeries]] = [:]
-
-    // TODO: start time!
 }

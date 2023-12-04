@@ -15,6 +15,8 @@ import SwiftUI
 struct TilesView: View {
     private let eegModel: EEGViewModel
 
+    @Environment(BiopotDevice.self)
+    private var biopot
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -48,7 +50,7 @@ struct TilesView: View {
                         MeasurementTile(
                             task: measurement,
                             presentingEEGRecording: $presentingEEGRecording,
-                            deviceConnected: eegModel.activeDevice != nil
+                            deviceConnected: eegModel.activeDevice != nil || biopot.connected
                         )
                     }
                 }
@@ -97,6 +99,7 @@ struct TilesView: View {
 
 
 #if DEBUG
+// TODO: biopot device preview
 #Preview {
     let patientList = PatientListModel()
     patientList.completedTasks = []
