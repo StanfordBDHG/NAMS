@@ -28,6 +28,7 @@ struct EEGRecording: View {
 
     var body: some View {
         ZStack {
+            // TODO: proper state modelling: not conneced, no session, session
             if let session = eegModel.recordingSession {
                 List {
                     frequencyPicker
@@ -52,10 +53,15 @@ struct EEGRecording: View {
                     }
                 }
             } else {
-                NoInformationText {
-                    Text("No Device connected!")
-                } caption: {
-                    Text("Please connect to a nearby EEG headband first.")
+                VStack(spacing: 16) {
+                    NoInformationText {
+                        Text("No Device connected!")
+                    } caption: {
+                        Text("Please connect to a nearby EEG headband first.")
+                    }
+                    Button("Start Recording Session") {
+                        eegModel.startRecordingSession()
+                    }
                 }
             }
         }
@@ -116,10 +122,12 @@ struct EEGMeasurement_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             EEGRecording(eegModel: connectedModel)
+                .environment(PatientListModel())
         }
 
         NavigationStack {
             EEGRecording(eegModel: model)
+                .environment(PatientListModel())
         }
     }
 }

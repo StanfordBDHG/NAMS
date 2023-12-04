@@ -12,10 +12,13 @@ import SwiftUI
 
 struct ScheduleView: View {
 #if MUSE
+    // TODO: what happens if we switch to contacts?
     @State var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
 #else
     @State var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
 #endif
+    @Environment(BiopotDevice.self)
+    private var biopot
 
     @State var presentingMuseList = false
     @State var presentPatientSheet = false
@@ -45,13 +48,16 @@ struct ScheduleView: View {
                     TilesView(eegModel: eegModel)
                 }
             }
+                .navigationTitle(Text("Schedule", comment: "Schedule Title"))
                 .sheet(isPresented: $presentingMuseList) {
                     DevicesSheet(eegModel: eegModel)
                 }
                 .sheet(isPresented: $presentPatientSheet) {
                     PatientListSheet(activePatientId: $activePatientId)
                 }
-                .navigationTitle(Text("Schedule", comment: "Schedule Title"))
+                .onAppear {
+                    biopot.associate(eegModel)
+                }
                 .toolbar {
                     toolbar
                 }
@@ -89,6 +95,7 @@ struct ScheduleView: View {
 
 
 #if DEBUG
+// TODO: previews need biopot device!
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
         .environment(Account(MockUserIdPasswordAccountService()))

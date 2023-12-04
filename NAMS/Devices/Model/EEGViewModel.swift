@@ -19,7 +19,7 @@ class EEGViewModel {
 
     var nearbyDevices: [EEGDevice] = []
     var activeDevice: ConnectedDevice?
-    var recordingSession: EEGRecordingSession? // TODO: set
+    private(set) var recordingSession: EEGRecordingSession?
 
     private var deviceManagerCancelable: AnyCancellable?
     private var activeDeviceCancelable: AnyCancellable?
@@ -40,6 +40,11 @@ class EEGViewModel {
             self?.nearbyDevices = devices
             self?.logger.debug("Updated nearby devices to \(devices.count) in total.")
         }
+    }
+
+    @MainActor
+    func startRecordingSession() {
+        self.recordingSession = EEGRecordingSession()
     }
 
 

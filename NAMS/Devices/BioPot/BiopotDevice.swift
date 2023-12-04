@@ -7,11 +7,11 @@
 //
 
 import Combine
-import Foundation
 import NIOCore
 import OSLog
 import Spezi
 import SpeziBluetooth
+import SwiftUI
 
 
 /// Model for the BioPot 3 device.
@@ -34,12 +34,19 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
     @MainActor var deviceConfiguration: DeviceConfiguration?
     @MainActor var samplingConfiguration: SamplingConfiguration?
 
+    @Binding @ObservationIgnored private var recordingSession: EEGRecordingSession?
 
-    required init() {}
+    required init() {
+        self._recordingSession = .constant(nil)
+    }
 
 
     func configure() {
         bluetooth.add(messageHandler: self)
+    }
+
+    func associate(_ model: EEGViewModel) {
+        self._recordingSession = model.recordingSessionBinding
     }
 
     func recieve(_ data: Data, service: CBUUID, characteristic: CBUUID) async {
@@ -77,14 +84,7 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
                 self.samplingConfiguration = configuration
             }
         } else if characteristic == Characteristic.biopotDataAcquisition {
-            // TODO: depending on the accel status?
-            guard let data = DataAcquisition11(from: &buffer) else {
-                return
-            }
-
-            await MainActor.run {
-                // TODO: how to publish the measurements!
-            }
+            await handleDataAcquisition(buffer: &buffer)
         } else {
             logger.warning("Data on \(characteristic.uuidString)@\(service.uuidString) was unexpected and not processed!")
         }
@@ -100,7 +100,8 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
         try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotDeviceConfiguration)
 
         try await setDataControl(true)
-        try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotSamplingConfiguration) // TODO: read after write
+        // TODO: read after write
+        try bluetooth.read(service: Service.biopot, characteristic: Characteristic.biopotSamplingConfiguration)
     }
 
     func setDataControl(_ enable: Bool) async throws {
@@ -109,7 +110,34 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
         control.encode(to: &buffer)
 
         try await bluetooth.write(&buffer, service: Service.biopot, characteristic: Characteristic.biopotDataControl)
+    }
 
+    private func handleDataAcquisition(buffer: inout ByteBuffer) async {
+        guard let deviceConfiguration = await deviceConfiguration else {
+            logger.warning("Received data acquisition without having device configuration ready!")
+            return
+        }
+
+        guard deviceConfiguration.dataSize == 24
+                  && deviceConfiguration.channelCount == 8 else {
+            logger.error("Unable to process data acquisition. Unexpected configuration: \(String(describing: deviceConfiguration))")
+            return
+        }
+
+        let data: DataAcquisition?
+        if case .off = deviceConfiguration.accelerometerStatus {
+            data = DataAcquisition10(from: &buffer)
+        } else {
+            data = DataAcquisition11(from: &buffer)
+        }
+
+        guard let data else {
+            return
+        }
+
+        await MainActor.run {
+            // TODO: how to publish the measurements!
+        }
     }
 }
 
