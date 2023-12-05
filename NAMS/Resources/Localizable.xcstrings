@@ -239,6 +239,12 @@
         }
       }
     },
+    "Brain Activity" : {
+
+    },
+    "Brain activity is visualized in real time." : {
+
+    },
     "Brain activity was collected for this patient." : {
       "localizations" : {
         "en" : {
@@ -281,6 +287,9 @@
           }
         }
       }
+    },
+    "Collect the patient's brain activity using the connected EEG headband." : {
+
     },
     "Completed" : {
       "comment" : "Completed Tile. Subtitle",
@@ -669,6 +678,9 @@
         }
       }
     },
+    "Live Visualization" : {
+
+    },
     "M-CHAT R/F" : {
       "localizations" : {
         "en" : {
@@ -983,6 +995,7 @@
       }
     },
     "Reset" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1129,7 +1142,13 @@
         }
       }
     },
-    "Start Recording Session" : {
+    "Start a new EEG recording session for the currently selected patient." : {
+
+    },
+    "Start a new Recording" : {
+
+    },
+    "Start Recording" : {
 
     },
     "Status" : {

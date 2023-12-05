@@ -99,16 +99,17 @@ struct TilesView: View {
 
 
 #if DEBUG
-// TODO: biopot device preview
 #Preview {
     let patientList = PatientListModel()
     patientList.completedTasks = []
     return TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(patientList)
+        .biopotPreviewSetup()
 }
 
 #Preview {
     TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(PatientListModel())
+        .biopotPreviewSetup()
 }
 #endif

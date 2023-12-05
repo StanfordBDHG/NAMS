@@ -153,7 +153,6 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
             }
 
             let baseDate = startDate ?? .now
-            // TODO base date
 
             let series: [EEGSeries] = data.samples.map { sample in
                 var readings: [EEGReading] = []
@@ -163,11 +162,13 @@ class BiopotDevice: Module, EnvironmentAccessible, BluetoothMessageHandler, Defa
                     guard let channel = EEGChannel(biopotNum: index) else {
                         continue
                     }
-                    // TODO: all these conversions?
+
                     readings.append(EEGReading(channel: channel, value: Double(sample.channels[index - 1].sample)))
                 }
 
 
+                // We currently register all samples within a packet at the same timestamp. We might need to research
+                // how each sample within a packet is evenly distributed.
                 let timestamp = baseDate.addingTimeInterval(Double(data.timestamps) / 1000.0)
                 return EEGSeries(timestamp: timestamp, readings: readings)
             }

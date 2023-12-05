@@ -77,17 +77,7 @@ struct DevicesSheet: View {
 
 #if DEBUG
 #Preview {
-    // TODO: optimize into a separate thingy!
-    class PreviewDelegate: SpeziAppDelegate {
-        override var configuration: Configuration {
-            Configuration {
-                Bluetooth()
-                BiopotDevice()
-            }
-        }
-    }
-
-    return DevicesSheet(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
-        .spezi(PreviewDelegate())
+    DevicesSheet(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+        .biopotPreviewSetup()
 }
 #endif

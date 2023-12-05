@@ -12,7 +12,6 @@ import SwiftUI
 
 struct ScheduleView: View {
 #if MUSE
-    // TODO: what happens if we switch to contacts?
     @State var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
 #else
     @State var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
@@ -95,16 +94,17 @@ struct ScheduleView: View {
 
 
 #if DEBUG
-// TODO: previews need biopot device!
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
         .environment(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
+        .biopotPreviewSetup()
 }
 
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
         .environment(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
+        .biopotPreviewSetup()
 }
 #endif

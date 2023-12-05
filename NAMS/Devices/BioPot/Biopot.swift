@@ -115,18 +115,9 @@ extension BluetoothState: CustomLocalizedStringResourceConvertible {
 
 #if DEBUG
 #Preview {
-    class PreviewDelegate: SpeziAppDelegate {
-        override var configuration: Configuration {
-            Configuration {
-                Bluetooth()
-                BiopotDevice()
-            }
-        }
-    }
-
-    return List {
+    List {
         Biopot()
     }
-        .spezi(PreviewDelegate())
+        .biopotPreviewSetup()
 }
 #endif

@@ -98,8 +98,7 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
                 device.fit = fit
             }
         case .eeg:
-            // we currently do not forward nor enable raw eeg data for visualization purposes
-            break
+            device.session?.measurements[.all, default: []].append(EEGSeries(from: packet))
         case .thetaAbsolute:
             device.session?.measurements[.theta, default: []].append(EEGSeries(from: packet))
         case .alphaAbsolute:

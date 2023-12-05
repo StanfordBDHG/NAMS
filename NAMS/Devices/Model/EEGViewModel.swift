@@ -47,6 +47,11 @@ class EEGViewModel {
         self.recordingSession = EEGRecordingSession()
     }
 
+    @MainActor
+    func stopRecordingSession() {
+        self.recordingSession = nil
+    }
+
 
     @MainActor
     private func refreshNearbyDevices() {
