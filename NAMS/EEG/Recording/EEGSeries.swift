@@ -14,13 +14,12 @@ struct EEGSeries: Identifiable {
         timestamp
     }
 
+    let timestamp: Date
     private let readingsDictionary: [EEGChannel: EEGReading]
 
-    let timestamp: Date
-    var readings: Dictionary<EEGChannel, EEGReading>.Values {
-        readingsDictionary.values
+    var channels: [EEGChannel] {
+        Array(readingsDictionary.keys)
     }
-
 
     init(timestamp: Date, readings: [EEGReading]) {
         self.timestamp = timestamp

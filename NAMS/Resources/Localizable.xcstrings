@@ -173,9 +173,6 @@
     "Biopot" : {
 
     },
-    "BioPot 3" : {
-
-    },
     "Bluetooth Off" : {
 
     },
@@ -242,6 +239,12 @@
         }
       }
     },
+    "Brain Activity" : {
+
+    },
+    "Brain activity is visualized in real time." : {
+
+    },
     "Brain activity was collected for this patient." : {
       "localizations" : {
         "en" : {
@@ -284,6 +287,9 @@
           }
         }
       }
+    },
+    "Collect the patient's brain activity using the connected EEG headband." : {
+
     },
     "Completed" : {
       "comment" : "Completed Tile. Subtitle",
@@ -370,6 +376,9 @@
       }
     },
     "Device" : {
+
+    },
+    "Device Type" : {
 
     },
     "DEVICE_DETAILS" : {
@@ -669,6 +678,9 @@
         }
       }
     },
+    "Live Visualization" : {
+
+    },
     "M-CHAT R/F" : {
       "localizations" : {
         "en" : {
@@ -729,6 +741,9 @@
           }
         }
       }
+    },
+    "Muse" : {
+
     },
     "Name" : {
       "localizations" : {
@@ -980,6 +995,7 @@
       }
     },
     "Reset" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -989,7 +1005,7 @@
         }
       }
     },
-    "Scanning" : {
+    "Scanning ..." : {
 
     },
     "Schedule" : {
@@ -1125,6 +1141,15 @@
           }
         }
       }
+    },
+    "Start a new EEG recording session for the currently selected patient." : {
+
+    },
+    "Start a new Recording" : {
+
+    },
+    "Start Recording" : {
+
     },
     "Status" : {
 

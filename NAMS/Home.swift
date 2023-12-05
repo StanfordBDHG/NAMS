@@ -17,7 +17,6 @@ struct HomeView: View {
         case schedule
         case contact
         case mockUpload
-        case biopot
     }
     
     @AppStorage(StorageKeys.homeTabSelection)
@@ -44,11 +43,6 @@ struct HomeView: View {
                 .tag(Tabs.contact)
                 .tabItem {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
-                }
-            Biopot()
-                .tag(Tabs.biopot)
-                .tabItem {
-                    Label("Biopot", systemImage: "brain.fill")
                 }
         }
             .environment(patientList)

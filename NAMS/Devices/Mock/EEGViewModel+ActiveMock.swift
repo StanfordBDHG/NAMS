@@ -10,7 +10,7 @@
 extension EEGViewModel {
     convenience init(mock: MockEEGDevice) {
         self.init(deviceManager: MockDeviceManager())
-        let activeDevice = ConnectedDevice(device: mock)
+        let activeDevice = ConnectedDevice(device: mock, session: recordingSessionBinding)
         sinkActiveDevice(device: activeDevice)
         activeDevice.connect()
         self.activeDevice = activeDevice

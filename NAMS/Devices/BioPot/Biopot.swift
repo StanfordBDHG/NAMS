@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Spezi
 import SpeziBluetooth
 import SpeziViews
 import SwiftUI
@@ -18,47 +19,45 @@ struct Biopot: View {
     @State private var viewState: ViewState = .idle
 
     var body: some View {
-        List {
-            ListRow("Device") {
-                Text(biopot.bluetoothState.localizedStringResource)
-            }
-            testingSupport
-
-
-            if let info = biopot.deviceInfo {
-                Section("Status") {
-                    ListRow("BATTERY") {
-                        BatteryIcon(percentage: Int(info.batteryLevel))
-                    }
-                    ListRow("Charging") {
-                        if info.batteryCharging {
-                            Text("Yes")
-                        } else {
-                            Text("No")
-                        }
-                    }
-                    ListRow("Temperature") {
-                        Text("\(info.temperatureValue) °C")
-                    }
-                }
-
-                actionButtons
-            } else if biopot.bluetoothState == .scanning {
-                Section {
-                    ProgressView()
-                        .listRowBackground(Color.clear)
-                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        .frame(maxWidth: .infinity)
-                }
-            }
+        ListRow("Device") {
+            Text(biopot.bluetoothState.localizedStringResource)
         }
             .viewStateAlert(state: $viewState)
-            .navigationTitle("BioPot 3")
             .onChange(of: biopot.bluetoothState) {
                 if biopot.bluetoothState != .connected {
                     biopot.deviceInfo = nil
                 }
             }
+
+        testingSupport
+
+
+        if let info = biopot.deviceInfo {
+            Section("Status") {
+                ListRow("BATTERY") {
+                    BatteryIcon(percentage: Int(info.batteryLevel))
+                }
+                ListRow("Charging") {
+                    if info.batteryCharging {
+                        Text("Yes")
+                    } else {
+                        Text("No")
+                    }
+                }
+                ListRow("Temperature") {
+                    Text("\(info.temperatureValue) °C")
+                }
+            }
+
+            actionButtons
+        } else if biopot.bluetoothState == .scanning {
+            Section {
+                ProgressView()
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .frame(maxWidth: .infinity)
+            }
+        }
     }
 
     @MainActor @ViewBuilder private var testingSupport: some View {
@@ -104,7 +103,7 @@ extension BluetoothState: CustomLocalizedStringResourceConvertible {
         case .disconnected:
             return "Disconnected"
         case .scanning:
-            return "Scanning"
+            return "Scanning ..."
         case .poweredOff:
             return "Bluetooth Off"
         case .unauthorized:
@@ -115,19 +114,10 @@ extension BluetoothState: CustomLocalizedStringResourceConvertible {
 
 
 #if DEBUG
-import Spezi
-
 #Preview {
-    class PreviewDelegate: SpeziAppDelegate {
-        override var configuration: Configuration {
-            Configuration {
-                Bluetooth()
-                BiopotDevice()
-            }
-        }
+    List {
+        Biopot()
     }
-
-    return Biopot()
-        .spezi(PreviewDelegate())
+        .biopotPreviewSetup()
 }
 #endif

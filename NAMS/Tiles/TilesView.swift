@@ -15,6 +15,8 @@ import SwiftUI
 struct TilesView: View {
     private let eegModel: EEGViewModel
 
+    @Environment(BiopotDevice.self)
+    private var biopot
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -37,19 +39,19 @@ struct TilesView: View {
             ProgressView()
         } else {
             List {
-                Section("Screening") {
-                    ForEach(questionnaires) { questionnaire in
-                        ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
-                    }
-                }
-
                 Section("Measurements") {
                     ForEach(measurements) { measurement in
                         MeasurementTile(
                             task: measurement,
                             presentingEEGRecording: $presentingEEGRecording,
-                            deviceConnected: eegModel.activeDevice != nil
+                            deviceConnected: eegModel.activeDevice != nil || biopot.connected
                         )
+                    }
+                }
+
+                Section("Screening") {
+                    ForEach(questionnaires) { questionnaire in
+                        ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
                     }
                 }
             }
@@ -102,10 +104,12 @@ struct TilesView: View {
     patientList.completedTasks = []
     return TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(patientList)
+        .biopotPreviewSetup()
 }
 
 #Preview {
     TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(PatientListModel())
+        .biopotPreviewSetup()
 }
 #endif

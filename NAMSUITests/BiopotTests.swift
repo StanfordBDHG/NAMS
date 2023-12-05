@@ -23,8 +23,15 @@ final class BiopotTests: XCTestCase {
     func testExample() throws {
         let app = XCUIApplication()
 
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Contacts"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Biopot"].tap()
+        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
+        app.tabBars["Tab Bar"].buttons["Schedule"].tap()
+
+        XCTAssertTrue(app.navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 0.5))
+        app.navigationBars.buttons["Nearby Devices"].tap()
+
+        XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.segmentedControls.buttons["Biopot"].exists)
+        app.segmentedControls.buttons["Biopot"].tap()
 
         XCTAssertTrue(app.buttons["Receive Device Info"].waitForExistence(timeout: 2.0))
         app.buttons["Receive Device Info"].tap()

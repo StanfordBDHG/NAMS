@@ -75,8 +75,9 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
             device.wearingHeadband = false
             device.eyeBlink = false
             device.jawClench = false
-            device.measurements = [:]
             device.isGood = (false, false, false, false)
+
+            device.session = nil
 
             self.muse.unregisterAllListeners()
             device.listener = nil
@@ -97,16 +98,15 @@ class MuseConnectionListener: DeviceConnectionListener, IXNMuseConnectionListene
                 device.fit = fit
             }
         case .eeg:
-            // we currently do not forward nor enable raw eeg data for visualization purposes
-            break
+            device.session?.measurements[.all, default: []].append(EEGSeries(from: packet))
         case .thetaAbsolute:
-            device.measurements[.theta, default: []].append(EEGSeries(from: packet))
+            device.session?.measurements[.theta, default: []].append(EEGSeries(from: packet))
         case .alphaAbsolute:
-            device.measurements[.alpha, default: []].append(EEGSeries(from: packet))
+            device.session?.measurements[.alpha, default: []].append(EEGSeries(from: packet))
         case .betaAbsolute:
-            device.measurements[.beta, default: []].append(EEGSeries(from: packet))
+            device.session?.measurements[.beta, default: []].append(EEGSeries(from: packet))
         case .gammaAbsolute:
-            device.measurements[.gamma, default: []].append(EEGSeries(from: packet))
+            device.session?.measurements[.gamma, default: []].append(EEGSeries(from: packet))
         case .battery:
             device.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
             logger.debug("Remaining battery percentage: \(packet.getBatteryValue(.chargePercentageRemaining))")

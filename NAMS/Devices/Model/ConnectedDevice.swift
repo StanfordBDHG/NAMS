@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import Foundation
 import OrderedCollections
+import SwiftUI
 
 
 @Observable
@@ -44,10 +44,11 @@ class ConnectedDevice {
     /// Remaining battery percentage in percent [0.0;100.0]
     var remainingBatteryPercentage: Double?
 
-    var measurements: [EEGFrequency: [EEGSeries]] = [:]
+    @Binding @ObservationIgnored var session: EEGRecordingSession?
 
-    init(device: EEGDevice) {
+    init(device: EEGDevice, session: Binding<EEGRecordingSession?>) {
         self.device = device
+        self._session = session
     }
 
     func connect() {
