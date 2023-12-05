@@ -39,12 +39,6 @@ struct TilesView: View {
             ProgressView()
         } else {
             List {
-                Section("Screening") {
-                    ForEach(questionnaires) { questionnaire in
-                        ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
-                    }
-                }
-
                 Section("Measurements") {
                     ForEach(measurements) { measurement in
                         MeasurementTile(
@@ -52,6 +46,12 @@ struct TilesView: View {
                             presentingEEGRecording: $presentingEEGRecording,
                             deviceConnected: eegModel.activeDevice != nil || biopot.connected
                         )
+                    }
+                }
+
+                Section("Screening") {
+                    ForEach(questionnaires) { questionnaire in
+                        ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
                     }
                 }
             }
