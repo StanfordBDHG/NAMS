@@ -14,15 +14,16 @@ import SwiftUI
 private class PreviewDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration {
-            Bluetooth()
-            BiopotDevice()
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
         }
     }
 }
 
 
 extension View {
-    func biopotPreviewSetup() -> some View {
+    func biopotPreviewSetup2() -> some View {
         self
             .spezi(PreviewDelegate())
     }

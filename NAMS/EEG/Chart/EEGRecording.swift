@@ -7,6 +7,7 @@
 //
 
 import Charts
+import SpeziBluetooth
 import SpeziOnboarding
 import SpeziViews
 import SwiftUI
@@ -17,7 +18,7 @@ struct EEGRecording: View {
     private var dismiss
 
     private let eegModel: EEGViewModel
-    @Environment(BiopotDevice.self)
+    @Environment(BiopotDevice.self) // TODO: make optional
     private var biopot
     @Environment(PatientListModel.self)
     private var patientList
@@ -118,7 +119,11 @@ struct EEGRecording: View {
     return NavigationStack {
         EEGRecording(eegModel: model)
             .environment(PatientListModel())
-            .biopotPreviewSetup()
+            .previewWith {
+                Bluetooth {
+                    Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                }
+            }
     }
 }
 
@@ -127,7 +132,11 @@ struct EEGRecording: View {
     return NavigationStack {
         EEGRecording(eegModel: EEGViewModel(mock: device))
             .environment(PatientListModel())
-            .biopotPreviewSetup()
+            .previewWith {
+                Bluetooth {
+                    Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                }
+            }
     }
 }
 
@@ -135,7 +144,11 @@ struct EEGRecording: View {
     NavigationStack {
         EEGRecording(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
             .environment(PatientListModel())
-            .biopotPreviewSetup()
+            .previewWith {
+                Bluetooth {
+                    Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                }
+            }
     }
 }
 #endif

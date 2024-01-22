@@ -176,7 +176,13 @@
     "Bluetooth Off" : {
 
     },
+    "Bluetooth On" : {
+
+    },
     "Bluetooth Unauthorized" : {
+
+    },
+    "Bluetooth Unsupported" : {
 
     },
     "BLUETOOTH_OFF" : {
@@ -315,6 +321,9 @@
         }
       }
     },
+    "Connecting" : {
+
+    },
     "CONNECTING" : {
       "localizations" : {
         "en" : {
@@ -423,6 +432,9 @@
           }
         }
       }
+    },
+    "Disconnecting" : {
+
     },
     "Done" : {
       "localizations" : {
@@ -754,6 +766,9 @@
           }
         }
       }
+    },
+    "Nearby Devices" : {
+
     },
     "NEARBY_DEVICES" : {
       "localizations" : {
@@ -1218,6 +1233,9 @@
           }
         }
       }
+    },
+    "Unknown" : {
+
     },
     "WEARING" : {
       "localizations" : {

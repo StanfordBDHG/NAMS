@@ -148,4 +148,12 @@ struct NearbyDevices: View {
         }
     }
 }
+
+#Preview {
+    NavigationStack {
+        List {
+            NearbyDevices(eegModel: EEGViewModel(deviceManager: MockDeviceManager(nearbyDevices: [])))
+        }
+    }
+}
 #endif

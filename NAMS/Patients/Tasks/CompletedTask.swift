@@ -7,7 +7,7 @@
 //
 
 import FirebaseFirestoreSwift
-import SpeziFHIR
+import SpeziQuestionnaire
 
 
 enum TaskContent {

@@ -6,9 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziBluetooth
 import SpeziQuestionnaire
 import SpeziViews
 import SwiftUI
+
+extension Questionnaire: Identifiable {} // TODO: move somewhere!
 
 
 @MainActor
@@ -16,7 +19,7 @@ struct TilesView: View {
     private let eegModel: EEGViewModel
 
     @Environment(BiopotDevice.self)
-    private var biopot
+    private var biopot: BiopotDevice?
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -44,7 +47,7 @@ struct TilesView: View {
                         MeasurementTile(
                             task: measurement,
                             presentingEEGRecording: $presentingEEGRecording,
-                            deviceConnected: eegModel.activeDevice != nil || biopot.connected
+                            deviceConnected: eegModel.activeDevice != nil || biopot?.connected == true
                         )
                     }
                 }
@@ -104,12 +107,20 @@ struct TilesView: View {
     patientList.completedTasks = []
     return TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(patientList)
-        .biopotPreviewSetup()
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+        }
 }
 
 #Preview {
     TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
         .environment(PatientListModel())
-        .biopotPreviewSetup()
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+        }
 }
 #endif

@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziFHIR
 import SpeziFirestore
+import SpeziQuestionnaire
 
 
 // SpeziFHIR defines the Observation Model which collides with Apples Observation framework naming

@@ -7,6 +7,7 @@
 //
 
 import SpeziAccount
+import SpeziBluetooth
 import SwiftUI
 
 
@@ -17,7 +18,7 @@ struct ScheduleView: View {
     @State var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
 #endif
     @Environment(BiopotDevice.self)
-    private var biopot
+    private var biopot: BiopotDevice?
 
     @State var presentingMuseList = false
     @State var presentPatientSheet = false
@@ -55,7 +56,7 @@ struct ScheduleView: View {
                     PatientListSheet(activePatientId: $activePatientId)
                 }
                 .onAppear {
-                    biopot.associate(eegModel)
+                    biopot?.associate(eegModel) // TODO: that has to change!
                 }
                 .toolbar {
                     toolbar
@@ -96,15 +97,27 @@ struct ScheduleView: View {
 #if DEBUG
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
-        .environment(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
-        .biopotPreviewSetup()
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
+        }
 }
 
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
-        .environment(Account(MockUserIdPasswordAccountService()))
         .environment(PatientListModel())
-        .biopotPreviewSetup()
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
+        }
 }
 #endif

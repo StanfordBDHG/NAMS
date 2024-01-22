@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SpeziFHIR
+import SpeziQuestionnaire
 
 
 extension Questionnaire {

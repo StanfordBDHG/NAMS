@@ -13,26 +13,31 @@ import SwiftUI
 
 
 struct Biopot: View {
+    @Environment(Bluetooth.self)
+    private var bluetooth
     @Environment(BiopotDevice.self)
-    private var biopot
+    private var biopot: BiopotDevice?
 
     @State private var viewState: ViewState = .idle
 
     var body: some View {
+        ListRow("Nearby Devices") {
+            Text(verbatim: "\(bluetooth.nearbyDevices(for: BiopotDevice.self).count)")
+        }
         ListRow("Device") {
-            Text(biopot.bluetoothState.localizedStringResource)
+            if let biopot {
+                Text(biopot.state.localizedStringResource)
+            } else {
+                Text("Scanning ...")
+            }
         }
             .viewStateAlert(state: $viewState)
-            .onChange(of: biopot.bluetoothState) {
-                if biopot.bluetoothState != .connected {
-                    biopot.deviceInfo = nil
-                }
-            }
+            .scanNearbyDevices(with: bluetooth, autoConnect: true)
 
         testingSupport
 
-
-        if let info = biopot.deviceInfo {
+        if let biopot,
+           let info = biopot.service.deviceInfo {
             Section("Status") {
                 ListRow("BATTERY") {
                     BatteryIcon(percentage: Int(info.batteryLevel))
@@ -50,7 +55,7 @@ struct Biopot: View {
             }
 
             actionButtons
-        } else if biopot.bluetoothState == .scanning {
+        } else {
             Section {
                 ProgressView()
                     .listRowBackground(Color.clear)
@@ -63,6 +68,9 @@ struct Biopot: View {
     @MainActor @ViewBuilder private var testingSupport: some View {
         if FeatureFlags.testBiopot {
             Button("Receive Device Info") {
+                // TODO: allow testing support via a different SPI?
+                // TODO: also this needs to inject a device instance?
+                /*
                 biopot.deviceInfo = DeviceInformation(
                     syncRatio: 0,
                     syncMode: false,
@@ -71,7 +79,7 @@ struct Biopot: View {
                     batteryLevel: 80,
                     temperatureValue: 23,
                     batteryCharging: false
-                )
+                )*/
             }
         }
     }
@@ -79,16 +87,16 @@ struct Biopot: View {
     @MainActor @ViewBuilder private var actionButtons: some View {
         Section("Actions") { // section of testing actions
             AsyncButton("Read Device Configuration", state: $viewState) {
-                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDeviceConfiguration)
+                try await biopot?.service.$deviceInfo.read()
             }
             AsyncButton("Read Data Control", state: $viewState) {
-                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotDataControl)
+                try await biopot?.service.$dataControl.read()
             }
             AsyncButton("Read Data Acquisition", state: $viewState) {
-                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotImpedanceMeasurement)
+                try await biopot?.service.$impedanceMeasurement.read()
             }
             AsyncButton("Read Sample Configuration", state: $viewState) {
-                try biopot.readBiopot(characteristic: BiopotDevice.Characteristic.biopotSamplingConfiguration)
+                try await biopot?.service.$samplingConfiguration.read()
             }
         }
     }
@@ -98,16 +106,31 @@ struct Biopot: View {
 extension BluetoothState: CustomLocalizedStringResourceConvertible {
     public var localizedStringResource: LocalizedStringResource {
         switch self {
-        case .connected:
-            return "Connected"
-        case .disconnected:
-            return "Disconnected"
-        case .scanning:
-            return "Scanning ..."
+        case .unknown:
+            "Unknown"
+        case .poweredOn:
+            "Bluetooth On"
+        case .unsupported:
+            "Bluetooth Unsupported"
         case .poweredOff:
-            return "Bluetooth Off"
+            "Bluetooth Off"
         case .unauthorized:
-            return "Bluetooth Unauthorized"
+            "Bluetooth Unauthorized"
+        }
+    }
+}
+
+extension PeripheralState: CustomLocalizedStringResourceConvertible {
+    public var localizedStringResource: LocalizedStringResource {
+        switch self {
+        case .connected:
+            "Connected"
+        case .disconnected:
+            "Disconnected"
+        case .connecting:
+            "Connecting"
+        case .disconnecting:
+            "Disconnecting"
         }
     }
 }
@@ -118,6 +141,10 @@ extension BluetoothState: CustomLocalizedStringResourceConvertible {
     List {
         Biopot()
     }
-        .biopotPreviewSetup()
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+        }
 }
 #endif

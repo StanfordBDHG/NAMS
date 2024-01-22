@@ -34,22 +34,10 @@ class NAMSAppDelegate: SpeziAppDelegate {
             }
             firestore
 
-            Bluetooth(services: [
-                // we currently only subscribe to biopot-specific characteristics
-                BluetoothService(
-                    serviceUUID: BiopotDevice.Service.biopot,
-                    characteristicUUIDs: [
-                        BiopotDevice.Characteristic.biopotDeviceConfiguration,
-                        BiopotDevice.Characteristic.biopotDataControl,
-                        BiopotDevice.Characteristic.biopotImpedanceMeasurement,
-                        BiopotDevice.Characteristic.biopotDataAcquisition,
-                        BiopotDevice.Characteristic.biopotSamplingConfiguration,
-                        BiopotDevice.Characteristic.biopotDeviceInfo
-                    ]
-                )
-            ])
-
-            BiopotDevice()
+            Bluetooth {
+                // TODO: can this be based on the type of BiopotDevice service property?
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import NIOCore
+import SpeziBluetooth
 
 
 struct DataControl {

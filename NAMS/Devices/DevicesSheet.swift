@@ -78,6 +78,19 @@ struct DevicesSheet: View {
 #if DEBUG
 #Preview {
     DevicesSheet(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
-        .biopotPreviewSetup()
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+        }
+}
+
+#Preview {
+    DevicesSheet(eegModel: EEGViewModel(deviceManager: MockDeviceManager(nearbyDevices: [])))
+        .previewWith {
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+            }
+        }
 }
 #endif

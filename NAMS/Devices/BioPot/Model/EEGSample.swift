@@ -7,6 +7,7 @@
 //
 
 import NIOCore
+import SpeziBluetooth
 
 
 struct EEGChannelSample { // we always deal with 24-bits channel samples

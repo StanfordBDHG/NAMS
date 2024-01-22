@@ -7,6 +7,7 @@
 //
 
 import NIOCore
+import SpeziBluetooth
 
 
 enum AccelerometerStatus: UInt8, Equatable {

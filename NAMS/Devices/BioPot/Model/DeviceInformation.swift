@@ -8,6 +8,7 @@
 
 import Foundation
 import NIOCore
+import SpeziBluetooth
 
 
 struct DeviceInformation {
