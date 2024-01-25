@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -29,9 +29,9 @@ extension Point: ByteDecodable {
             return nil
         }
 
-        guard let x = byteBuffer.readInteger(endianness: .little, as: Int16.self), // swiftlint:disable:this identifier_name
-              let y = byteBuffer.readInteger(endianness: .little, as: Int16.self), // swiftlint:disable:this identifier_name
-              let z = byteBuffer.readInteger(endianness: .little, as: Int16.self) else { // swiftlint:disable:this identifier_name
+        guard let x = Int16(from: &byteBuffer), // swiftlint:disable:this identifier_name
+              let y = Int16(from: &byteBuffer), // swiftlint:disable:this identifier_name
+              let z = Int16(from: &byteBuffer) else { // swiftlint:disable:this identifier_name
             return nil
         }
 

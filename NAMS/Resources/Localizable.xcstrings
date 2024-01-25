@@ -400,6 +400,9 @@
         }
       }
     },
+    "Devices" : {
+
+    },
     "Discard Changes" : {
       "localizations" : {
         "en" : {
@@ -528,6 +531,9 @@
         }
       }
     },
+    "Firmware Version" : {
+
+    },
     "FIRMWARE_VERSION" : {
       "localizations" : {
         "en" : {
@@ -578,6 +584,9 @@
           }
         }
       }
+    },
+    "Hardware Version" : {
+
     },
     "HEADBAND" : {
       "localizations" : {
@@ -703,6 +712,9 @@
         }
       }
     },
+    "Make sure your device is connected and nearby!" : {
+
+    },
     "Mark completed" : {
       "localizations" : {
         "en" : {
@@ -766,9 +778,6 @@
           }
         }
       }
-    },
-    "Nearby Devices" : {
-
     },
     "NEARBY_DEVICES" : {
       "localizations" : {
@@ -972,6 +981,9 @@
         }
       }
     },
+    "Query Device Information" : {
+
+    },
     "Questionnaire" : {
       "comment" : "Tile Type",
       "localizations" : {
@@ -1020,9 +1032,6 @@
         }
       }
     },
-    "Scanning ..." : {
-
-    },
     "Schedule" : {
       "comment" : "Schedule Title",
       "localizations" : {
@@ -1053,6 +1062,9 @@
           }
         }
       }
+    },
+    "Searching for nearby devices ..." : {
+
     },
     "Seconds" : {
       "localizations" : {
@@ -1115,6 +1127,9 @@
           }
         }
       }
+    },
+    "Serial Number" : {
+
     },
     "SERIAL_NUMBER" : {
       "localizations" : {

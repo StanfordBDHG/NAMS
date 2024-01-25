@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -10,12 +10,12 @@ import SwiftUI
 
 
 struct ListRow<Value: View>: View {
-    private let name: LocalizedStringResource
+    private let name: Text
     private let value: Value
 
     var body: some View {
         HStack {
-            Text(name)
+            name
             Spacer()
             value
                 .foregroundColor(.secondary)
@@ -23,8 +23,14 @@ struct ListRow<Value: View>: View {
             .accessibilityElement(children: .combine)
     }
 
+    @_disfavoredOverload
+    init(_ string: String, @ViewBuilder value: () -> Value) {
+        self.name = Text(verbatim: string)
+        self.value = value()
+    }
+
     init(_ name: LocalizedStringResource, @ViewBuilder value: () -> Value) {
-        self.name = name
+        self.name = Text(name)
         self.value = value()
     }
 }

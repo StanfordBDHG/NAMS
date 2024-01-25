@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -124,22 +124,57 @@ extension SamplingConfiguration {
 // swiftlint:enable identifier_name
 
 
-extension SamplingConfiguration: ByteCodable {
+extension SamplingConfiguration.LowPassFilter: ByteCodable {
     init?(from byteBuffer: inout ByteBuffer) {
-        guard byteBuffer.readableBytes >= 10 else {
+        guard let value = UInt8(from: &byteBuffer) else {
             return nil
         }
+        self.init(rawValue: value)
+    }
 
-        guard let channelsBitMask = byteBuffer.readInteger(as: UInt32.self),
-              let lowPassFilterValue = byteBuffer.readInteger(as: UInt8.self),
-              let lowPassFilter = LowPassFilter(rawValue: lowPassFilterValue),
-              let highPassFilterValue = byteBuffer.readInteger(as: UInt8.self),
-              let highPassFilter = HighPassFilter(rawValue: highPassFilterValue),
-              let hardwareSamplingRate = byteBuffer.readInteger(as: UInt16.self),
-              let impedanceFrequency = byteBuffer.readInteger(as: UInt8.self),
-              let impedanceScale = byteBuffer.readInteger(as: UInt8.self),
-              let softwareLowPassFilterValue = byteBuffer.readInteger(as: UInt8.self),
-              let softwareLowPassFilter = SoftwareLowPassFilter(rawValue: softwareLowPassFilterValue) else {
+    func encode(to byteBuffer: inout ByteBuffer) {
+        rawValue.encode(to: &byteBuffer)
+    }
+}
+
+
+extension SamplingConfiguration.HighPassFilter: ByteCodable {
+    init?(from byteBuffer: inout ByteBuffer) {
+        guard let value = UInt8(from: &byteBuffer) else {
+            return nil
+        }
+        self.init(rawValue: value)
+    }
+
+    func encode(to byteBuffer: inout ByteBuffer) {
+        rawValue.encode(to: &byteBuffer)
+    }
+}
+
+
+extension SamplingConfiguration.SoftwareLowPassFilter: ByteCodable {
+    init?(from byteBuffer: inout ByteBuffer) {
+        guard let value = UInt8(from: &byteBuffer) else {
+            return nil
+        }
+        self.init(rawValue: value)
+    }
+
+    func encode(to byteBuffer: inout ByteBuffer) {
+        rawValue.encode(to: &byteBuffer)
+    }
+}
+
+
+extension SamplingConfiguration: ByteCodable {
+    init?(from byteBuffer: inout ByteBuffer) {
+        guard let channelsBitMask = byteBuffer.readInteger(endianness: .big, as: UInt32.self),
+              let lowPassFilter = LowPassFilter(from: &byteBuffer),
+              let highPassFilter = HighPassFilter(from: &byteBuffer),
+              let hardwareSamplingRate = byteBuffer.readInteger(endianness: .big, as: UInt16.self),
+              let impedanceFrequency = UInt8(from: &byteBuffer),
+              let impedanceScale = UInt8(from: &byteBuffer),
+              let softwareLowPassFilter = SoftwareLowPassFilter(from: &byteBuffer) else {
             return nil
         }
 
@@ -155,12 +190,12 @@ extension SamplingConfiguration: ByteCodable {
     func encode(to byteBuffer: inout ByteBuffer) {
         byteBuffer.reserveCapacity(10)
 
-        byteBuffer.writeInteger(channelsBitMask)
-        byteBuffer.writeInteger(lowPassFilter.rawValue)
-        byteBuffer.writeInteger(highPassFilter.rawValue)
-        byteBuffer.writeInteger(hardwareSamplingRate)
-        byteBuffer.writeInteger(impedanceFrequency)
-        byteBuffer.writeInteger(impedanceScale)
-        byteBuffer.writeInteger(softwareLowPassFilter.rawValue)
+        byteBuffer.writeInteger(channelsBitMask, endianness: .big)
+        lowPassFilter.encode(to: &byteBuffer)
+        highPassFilter.encode(to: &byteBuffer)
+        byteBuffer.writeInteger(hardwareSamplingRate, endianness: .big)
+        impedanceFrequency.encode(to: &byteBuffer)
+        impedanceScale.encode(to: &byteBuffer)
+        softwareLowPassFilter.encode(to: &byteBuffer)
     }
 }

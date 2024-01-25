@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -18,8 +18,8 @@ struct EEGRecording: View {
     private var dismiss
 
     private let eegModel: EEGViewModel
-    @Environment(BiopotDevice.self) // TODO: make optional
-    private var biopot
+    @Environment(BiopotDevice.self)
+    private var biopot: BiopotDevice?
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -32,7 +32,7 @@ struct EEGRecording: View {
 
     var body: some View {
         ZStack {
-            if !biopot.connected && eegModel.activeDevice == nil {
+            if !(biopot?.connected ?? false) && eegModel.activeDevice == nil {
                 NoInformationText {
                     Text("No Device connected!")
                 } caption: {

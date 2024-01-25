@@ -1,11 +1,12 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
 
+import BluetoothServices
 import NIOCore
 import OSLog
 import Spezi
@@ -24,11 +25,11 @@ class BiopotService: BluetoothService {
     var samplingConfiguration: SamplingConfiguration?
     @Characteristic(id: .biopotDataControlCharacteristic)
     var dataControl: DataControl?
+    @Characteristic(id: .biopotImpedanceMeasurementCharacteristic)
+    var impedanceMeasurement: ImpedanceMeasurement?
 
     @Characteristic(id: .biopotDataAcquisitionCharacteristic)
-    var dataAcquisition: Data? // TODO: ByteBuffer doesn't really make sense to by ByteDecodable?
-    @Characteristic(id: .biopotImpedanceMeasurementCharacteristic)
-    var impedanceMeasurement: Data? // TODO: find a type for it!
+    var dataAcquisition: Data? // either `DataAcquisition10` or `DataAcquisition11` depending on the configuration.
 
     init() {}
 }
@@ -40,56 +41,74 @@ class BiopotService: BluetoothService {
 /// * https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model
 /// * https://www.bluetooth.com/blog/a-developers-guide-to-bluetooth
 /// * https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
-class BiopotDevice: BluetoothDevice {
+class BiopotDevice: BluetoothDevice, Identifiable {
     private let logger = Logger(subsystem: "edu.stanford.nams", category: "BiopotDevice")
 
+    @DeviceState(\.id)
+    var id
     @DeviceState(\.state)
     var state
+    @DeviceState(\.name)
+    var name
 
     var connected: Bool {
         state == .connected
     }
 
-    // TODO: add a device information service!
 
+    @Service(id: .deviceInformationService)
+    var deviceInformation = DeviceInformationService() // TODO: make sure we read once we are connected!
     @Service(id: .biopotService)
     var service = BiopotService()
 
     @MainActor var startDate: Date?
 
-    @Binding @ObservationIgnored private var recordingSession: EEGRecordingSession?
+    @Binding private var recordingSession: EEGRecordingSession?
 
     required init() {
         self._recordingSession = .constant(nil)
+
+        service.$dataAcquisition
+            .onChange(perform: handleDataAcquisition)
     }
 
     func associate(_ model: EEGViewModel) { // TODO: handle this everytime it gets newly created?
         self._recordingSession = model.recordingSessionBinding
     }
 
+    private func handleChange(of state: PeripheralState) {
+        if case .connected = state {
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(500)) // TODO: better timing?
+                logger.debug("Querying device information!")
+                do {
+                    try await deviceInformation.retrieveDeviceInformation()
+                } catch {
+                    logger.error("Failed to retrieve device information: \(error)")
+                }
+            }
+        }
+    }
+
     func enableRecording() async {
         do {
-            try await setDataControl(false)
+            try await service.$dataControl.write(false)
 
-            _ = try await service.$deviceConfiguration.read() // TODO: use the result?
+            // make sure the value is up to date
+            _ = try await service.$deviceConfiguration.read()
 
             await MainActor.run {
                 startDate = .now
             }
-            try await setDataControl(true)
+
+            try await service.$dataControl.write(true)
             _ = try await service.$samplingConfiguration.read()
         } catch {
             logger.error("Failed to enable Biopot recording: \(error)")
         }
     }
 
-    func setDataControl(_ enable: Bool) async throws {
-        let control = DataControl(dataAcquisitionEnabled: enable)
-        _ = try await service.$dataControl.write(control) // TODO: what's the response here?
-    }
-
-    // TODO: actually call this handler on change of @Characteristic!
-    private func handleDataAcquisition(buffer: inout ByteBuffer) async {
+    private func handleDataAcquisition(data: Data) {
         guard let deviceConfiguration = service.deviceConfiguration else {
             logger.warning("Received data acquisition without having device configuration ready!")
             return
@@ -101,25 +120,25 @@ class BiopotDevice: BluetoothDevice {
             return
         }
 
-        let data: DataAcquisition?
+        let acquisition: DataAcquisition?
         if case .off = deviceConfiguration.accelerometerStatus {
-            data = DataAcquisition10(from: &buffer)
+            acquisition = DataAcquisition10(data: data)
         } else {
-            data = DataAcquisition11(from: &buffer)
+            acquisition = DataAcquisition11(data: data)
         }
 
-        guard let data else {
+        guard let acquisition else {
             return
         }
 
-        await MainActor.run {
+        Task { @MainActor in
             guard let recordingSession else {
                 return
             }
 
             let baseDate = startDate ?? .now
 
-            let series: [EEGSeries] = data.samples.map { sample in
+            let series: [EEGSeries] = acquisition.samples.map { sample in
                 var readings: [EEGReading] = []
                 readings.reserveCapacity(8)
 
@@ -134,7 +153,7 @@ class BiopotDevice: BluetoothDevice {
 
                 // We currently register all samples within a packet at the same timestamp. We might need to research
                 // how each sample within a packet is evenly distributed.
-                let timestamp = baseDate.addingTimeInterval(Double(data.timestamps) / 1000.0)
+                let timestamp = baseDate.addingTimeInterval(Double(acquisition.timestamps) / 1000.0)
                 return EEGSeries(timestamp: timestamp, readings: readings)
             }
 
@@ -144,29 +163,34 @@ class BiopotDevice: BluetoothDevice {
 }
 
 
+extension BiopotDevice: Hashable {
+    static func == (lhs: BiopotDevice, rhs: BiopotDevice) -> Bool {
+        ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+}
+
+
 extension CBUUID {
-    static let biopotService = CBUUID(string: "0000FFF0-0000-1000-8000-00805F9B34FB")
+    static let biopotService = CBUUID(string: "FFF0")
 
     // Access properties: R: read, W: write, N: notify
     // naming is currently guess work
 
     /// Characteristic 1, as per the manual. RWN.
-    static let biopotDeviceConfigurationCharacteristic = CBUUID(string: "0000FFF1-0000-1000-8000-00805F9B34FB")
+    static let biopotDeviceConfigurationCharacteristic = CBUUID(string: "FFF1")
     /// Characteristic 2, as per the manual. RW.
-    static let biopotDataControlCharacteristic = CBUUID(string: "0000FFF2-0000-1000-8000-00805F9B34FB")
+    static let biopotDataControlCharacteristic = CBUUID(string: "FFF2")
     /// Characteristic 3, as per the manual. RW.
-    static let biopotImpedanceMeasurementCharacteristic = CBUUID(string: "0000FFF3-0000-1000-8000-00805F9B34FB")
+    static let biopotImpedanceMeasurementCharacteristic = CBUUID(string: "FFF3")
     /// Characteristic 4, as per the manual. RN.
-    static let biopotDataAcquisitionCharacteristic = CBUUID(string: "0000FFF4-0000-1000-8000-00805F9B34FB")
+    static let biopotDataAcquisitionCharacteristic = CBUUID(string: "FFF4")
     /// Characteristic 5, as per the manual. RW.
-    static let biopotSamplingConfigurationCharacteristic = CBUUID(string: "0000FFF5-0000-1000-8000-00805F9B34FB")
+    static let biopotSamplingConfigurationCharacteristic = CBUUID(string: "FFF5")
+    // swiftlint:disable:previous identifier_name
     /// Characteristic 6, as per the manual. RN.
-    static let biopotDeviceInfoCharacteristic = CBUUID(string: "0000FFF6-0000-1000-8000-00805F9B34FB")
-}
-
-
-extension Data {
-    func hexString() -> String { // TODO: is this part of XCTBluetooth? or just Bluetooth?
-        map { String(format: "%02hhx", $0) }.joined()
-    }
+    static let biopotDeviceInfoCharacteristic = CBUUID(string: "FFF6")
 }

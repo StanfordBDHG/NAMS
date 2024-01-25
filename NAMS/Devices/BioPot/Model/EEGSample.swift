@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -26,7 +26,7 @@ extension EEGChannelSample: RawRepresentable {
     }
 
 
-    init?(rawValue: Int32) {
+    init(rawValue: Int32) {
         self.init(sample: rawValue)
     }
 }

@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -24,28 +24,22 @@ struct DeviceInformation {
 
 extension DeviceInformation: ByteDecodable, Equatable {
     init?(from byteBuffer: inout ByteBuffer) {
-        guard byteBuffer.readableBytes >= 15 else {
+        guard let syncRatio = byteBuffer.readInteger(endianness: .big, as: UInt64.self),
+              let syncMode = Bool(from: &byteBuffer),
+              let memoryWriteNumber = byteBuffer.readInteger(endianness: .big, as: UInt16.self),
+              let memoryEraseMode = Bool(from: &byteBuffer),
+              let batteryLevel = UInt8(from: &byteBuffer),
+              let temperatureValue = UInt8(from: &byteBuffer),
+              let batteryCharging = Bool(from: &byteBuffer) else {
             return nil
         }
 
-        guard let syncRatioData = byteBuffer.readData(length: 8),
-              let syncMode = byteBuffer.readInteger(as: UInt8.self),
-              let memoryWriteNumber = byteBuffer.readInteger(as: UInt16.self),
-              let memoryEraseMode = byteBuffer.readInteger(as: UInt8.self),
-              let batteryLevel = byteBuffer.readInteger(as: UInt8.self),
-              let temperatureValue = byteBuffer.readInteger(as: UInt8.self),
-              let batteryCharging = byteBuffer.readInteger(as: UInt8.self) else {
-            return nil
-        }
-
-        self .syncRatio = syncRatioData.withUnsafeBytes { pointer in
-            pointer.load(as: Double.self)
-        }
-        self.syncMode = syncMode == 1
+        self.syncRatio = Double(bitPattern: syncRatio)
+        self.syncMode = syncMode
         self.memoryWriteNumber = memoryWriteNumber
-        self.memoryEraseMode = memoryEraseMode == 1
+        self.memoryEraseMode = memoryEraseMode
         self.batteryLevel = batteryLevel
         self.temperatureValue = temperatureValue
-        self.batteryCharging = !(batteryCharging == 1) // documentation is wrong, this bit is flipped for some reason
+        self.batteryCharging = !(batteryCharging) // documentation is wrong, this bit is flipped for some reason
     }
 }

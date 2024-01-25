@@ -242,6 +242,10 @@
 		A9BCB58D2AE84E6D00DA8588 /* CurrentPatientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */; };
 		A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
+		A9C82F922B608756004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
+		A9C82F932B60899B004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
+		A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F942B6089C8004703E0 /* BluetoothServices */; };
+		A9C82F972B6089D2004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F962B6089D2004703E0 /* BluetoothServices */; };
 		A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */; };
 		A9CE84512B1A9A14009CE3F4 /* DevicesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* DevicesSheet.swift */; };
 		A9CE84522B1A9A14009CE3F4 /* DevicesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* DevicesSheet.swift */; };
@@ -399,6 +403,7 @@
 		A9BCB5882AE83F7E00DA8588 /* PatientListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListModel.swift; sourceTree = "<group>"; };
 		A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPatientLabel.swift; sourceTree = "<group>"; };
 		A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInformationText.swift; sourceTree = "<group>"; };
+		A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpedanceMeasurement.swift; sourceTree = "<group>"; };
 		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
 		A9CE84502B1A9A14009CE3F4 /* DevicesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesSheet.swift; sourceTree = "<group>"; };
 		A9D83F912B081A47000D0C78 /* BiopotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotTests.swift; sourceTree = "<group>"; };
@@ -426,6 +431,7 @@
 				A92E34F02ADB9B7E00FE0B51 /* OrderedCollections in Frameworks */,
 				2FE5DC7529EDD8E6004B9AB4 /* SpeziFirebaseAccount in Frameworks */,
 				2F49B7762980407C00BCB272 /* Spezi in Frameworks */,
+				A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */,
 				2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */,
 				2FE5DC8129EDD91D004B9AB4 /* SpeziOnboarding in Frameworks */,
 				2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */,
@@ -463,6 +469,7 @@
 				A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
+				A9C82F972B6089D2004703E0 /* BluetoothServices in Frameworks */,
 				A988FEA82B03FB5A00022A61 /* SpeziBluetooth in Frameworks */,
 				A926D7B42AB7A552000C4C2F /* SpeziOnboarding in Frameworks */,
 				A926D7B52AB7A552000C4C2F /* SpeziFirestore in Frameworks */,
@@ -768,6 +775,7 @@
 				A907DA382B195D4800FB69FB /* AccelerometerSample.swift */,
 				A907DA3B2B195ED800FB69FB /* EEGSample.swift */,
 				A907DA3E2B1964B500FB69FB /* ByteBuffer+Int24.swift */,
+				A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -885,6 +893,7 @@
 				A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */,
 				A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */,
 				A988FEA52B03FB4A00022A61 /* SpeziBluetooth */,
+				A9C82F942B6089C8004703E0 /* BluetoothServices */,
 			);
 			productName = NAMS;
 			productReference = 653A254D283387FE005D4D48 /* NAMS.app */;
@@ -960,6 +969,7 @@
 				A92E34F12ADB9B9000FE0B51 /* OrderedCollections */,
 				A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */,
 				A988FEA72B03FB5A00022A61 /* SpeziBluetooth */,
+				A9C82F962B6089D2004703E0 /* BluetoothServices */,
 			);
 			productName = NAMS;
 			productReference = A926D7C32AB7A552000C4C2F /* NAMS Muse.app */;
@@ -1115,6 +1125,7 @@
 			files = (
 				A907DA3C2B195ED800FB69FB /* EEGSample.swift in Sources */,
 				A94534002AEAE1110095AAD3 /* Questionnaire+NAMS.swift in Sources */,
+				A9C82F922B608756004703E0 /* ImpedanceMeasurement.swift in Sources */,
 				A926D8302AB7B430000C4C2F /* EEGViewModel.swift in Sources */,
 				A94A42AE2AE9EBE300A3F9E5 /* AccountSheet.swift in Sources */,
 				A926D7FF2AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */,
@@ -1288,6 +1299,7 @@
 				A926D7912AB7A552000C4C2F /* CodableArray+RawRepresentable.swift in Sources */,
 				A926D7922AB7A552000C4C2F /* FeatureFlags.swift in Sources */,
 				A988FEB62B0453E100022A61 /* DeviceInformation.swift in Sources */,
+				A9C82F932B60899B004703E0 /* ImpedanceMeasurement.swift in Sources */,
 				A9F2ECD12AEC5EF50057C7DD /* MeasurementTask.swift in Sources */,
 				A9BCB5832AE8307800DA8588 /* SearchToken.swift in Sources */,
 				A926D7932AB7A552000C4C2F /* Bundle+Image.swift in Sources */,
@@ -2235,7 +2247,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
 			requirement = {
-				branch = "feature/client-model";
+				branch = "feature/unit-testing-setup";
 				kind = branch;
 			};
 		};
@@ -2386,6 +2398,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2FE5DC8D29EDD980004B9AB4 /* XCRemoteSwiftPackageReference "SpeziViews" */;
 			productName = SpeziPersonalInfo;
+		};
+		A9C82F942B6089C8004703E0 /* BluetoothServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = BluetoothServices;
+		};
+		A9C82F962B6089D2004703E0 /* BluetoothServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = BluetoothServices;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

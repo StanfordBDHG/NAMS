@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -21,18 +21,44 @@ struct Biopot: View {
     @State private var viewState: ViewState = .idle
 
     var body: some View {
-        ListRow("Nearby Devices") {
-            Text(verbatim: "\(bluetooth.nearbyDevices(for: BiopotDevice.self).count)")
+        let devices = bluetooth.nearbyDevices(for: BiopotDevice.self)
+
+        // TODO: We need some place to put our modifiers!
+        Section {
+            Text("Make sure your device is connected and nearby!")
+                .listRowBackground(Color.clear)
+                .listRowInsets(.init(top: 0, leading: 0.2, bottom: 0, trailing: 0.2))
+                .viewStateAlert(state: $viewState)
+                .scanNearbyDevices(with: bluetooth, autoConnect: true)
         }
-        ListRow("Device") {
-            if let biopot {
-                Text(biopot.state.localizedStringResource)
-            } else {
-                Text("Scanning ...")
+
+        if devices.isEmpty {
+            VStack { // TODO: Reuse!
+                Text("Searching for nearby devices ...")
+                    .foregroundColor(.secondary)
+                ProgressView()
+            }
+            .frame(maxWidth: .infinity)
+            .listRowBackground(Color.clear)
+        } else {
+            Section {
+                ForEach(devices) { device in
+                    if let name = device.name {
+                        ListRow(name) {
+                            Text(device.state.localizedStringResource)
+                        }
+                    }
+                }
+            } header: {
+                HStack { // TODO: reuse!
+                    Text("Devices")
+                        .padding(.trailing, 10)
+                    if bluetooth.isScanning {
+                        ProgressView()
+                    }
+                }
             }
         }
-            .viewStateAlert(state: $viewState)
-            .scanNearbyDevices(with: bluetooth, autoConnect: true)
 
         testingSupport
 
@@ -52,10 +78,25 @@ struct Biopot: View {
                 ListRow("Temperature") {
                     Text("\(info.temperatureValue) °C")
                 }
+                if let serialNumber = biopot.deviceInformation.serialNumber {
+                    ListRow("Serial Number") {
+                        Text(serialNumber)
+                    }
+                }
+                if let firmwareVersion = biopot.deviceInformation.firmwareRevision {
+                    ListRow("Firmware Version") {
+                        Text(firmwareVersion)
+                    }
+                }
+                if let hardwareVersion = biopot.deviceInformation.hardwareRevision {
+                    ListRow("Hardware Version") {
+                        Text(hardwareVersion)
+                    }
+                }
             }
 
             actionButtons
-        } else {
+        } else if biopot != nil {
             Section {
                 ProgressView()
                     .listRowBackground(Color.clear)
@@ -86,6 +127,9 @@ struct Biopot: View {
 
     @MainActor @ViewBuilder private var actionButtons: some View {
         Section("Actions") { // section of testing actions
+            AsyncButton("Query Device Information", state: $viewState) {
+                try await biopot?.deviceInformation.retrieveDeviceInformation()
+            }
             AsyncButton("Read Device Configuration", state: $viewState) {
                 try await biopot?.service.$deviceInfo.read()
             }

@@ -1,5 +1,5 @@
 //
-// This source file is part of the Stanford Spezi Template Application project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
 // SPDX-FileCopyrightText: 2023 Stanford University
 //

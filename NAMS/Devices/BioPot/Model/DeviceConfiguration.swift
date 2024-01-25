@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -32,6 +32,20 @@ struct DeviceConfiguration {
 }
 
 
+extension AccelerometerStatus: ByteCodable {
+    init?(from byteBuffer: inout ByteBuffer) {
+        guard let value = UInt8(from: &byteBuffer) else {
+            return nil
+        }
+        self.init(rawValue: value)
+    }
+
+    func encode(to byteBuffer: inout ByteBuffer) {
+        rawValue.encode(to: &byteBuffer)
+    }
+}
+
+
 extension DeviceConfiguration: ByteCodable, Equatable {
     init?(from byteBuffer: inout ByteBuffer) {
         guard byteBuffer.readableBytes >= 16 else {
@@ -40,26 +54,25 @@ extension DeviceConfiguration: ByteCodable, Equatable {
 
         byteBuffer.moveReaderIndex(to: 5) // reserved bytes
 
-        guard let channelCount = byteBuffer.readInteger(as: UInt8.self),
-              let accelerometerStatusNum = byteBuffer.readInteger(as: UInt8.self),
-              let accelerometerStatus = AccelerometerStatus(rawValue: accelerometerStatusNum),
-              let impedanceStatus = byteBuffer.readInteger(as: UInt8.self),
-              let memoryStatus = byteBuffer.readInteger(as: UInt8.self),
-              let samplesPerChannel = byteBuffer.readInteger(as: UInt8.self),
-              let dataSize = byteBuffer.readInteger(as: UInt8.self),
-              let syncEnabled = byteBuffer.readInteger(as: UInt8.self),
-              let serialNumber = byteBuffer.readInteger(as: UInt32.self) else {
+        guard let channelCount = UInt8(from: &byteBuffer),
+              let accelerometerStatus = AccelerometerStatus(from: &byteBuffer),
+              let impedanceStatus = Bool(from: &byteBuffer),
+              let memoryStatus = Bool(from: &byteBuffer),
+              let samplesPerChannel = UInt8(from: &byteBuffer),
+              let dataSize = UInt8(from: &byteBuffer),
+              let syncEnabled = Bool(from: &byteBuffer),
+              let serialNumber = byteBuffer.readInteger(endianness: .big, as: UInt32.self) else {
             return nil
         }
 
 
         self.channelCount = channelCount
         self.accelerometerStatus = accelerometerStatus
-        self.impedanceStatus = impedanceStatus == 1
-        self.memoryStatus = memoryStatus == 1
+        self.impedanceStatus = impedanceStatus
+        self.memoryStatus = memoryStatus
         self.samplesPerChannel = samplesPerChannel
         self.dataSize = dataSize
-        self.syncEnabled = syncEnabled == 1
+        self.syncEnabled = syncEnabled
         self.serialNumber = serialNumber
     }
 
@@ -69,13 +82,13 @@ extension DeviceConfiguration: ByteCodable, Equatable {
 
         byteBuffer.writeRepeatingByte(0, count: 5) // reserved bytes, we just write zeros for now
 
-        byteBuffer.writeInteger(channelCount)
-        byteBuffer.writeInteger(accelerometerStatus.rawValue)
-        byteBuffer.writeInteger(impedanceStatus ? 1 : 0, as: UInt8.self)
-        byteBuffer.writeInteger(memoryStatus ? 1 : 0, as: UInt8.self)
-        byteBuffer.writeInteger(samplesPerChannel)
-        byteBuffer.writeInteger(dataSize)
-        byteBuffer.writeInteger(syncEnabled ? 1 : 0, as: UInt8.self)
-        byteBuffer.writeInteger(serialNumber)
+        channelCount.encode(to: &byteBuffer)
+        accelerometerStatus.encode(to: &byteBuffer)
+        impedanceStatus.encode(to: &byteBuffer)
+        memoryStatus.encode(to: &byteBuffer)
+        samplesPerChannel.encode(to: &byteBuffer)
+        dataSize.encode(to: &byteBuffer)
+        syncEnabled.encode(to: &byteBuffer)
+        byteBuffer.writeInteger(serialNumber, endianness: .big)
     }
 }

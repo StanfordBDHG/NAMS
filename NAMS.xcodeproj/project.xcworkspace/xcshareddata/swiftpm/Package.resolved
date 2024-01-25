@@ -158,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
-        "branch" : "feature/client-model",
-        "revision" : "6113cf3991665ef9ff1468c3f70c1291be8bec39"
+        "branch" : "feature/unit-testing-setup",
+        "revision" : "f9db62d3b53475b52cc6f56ed92242482dd4f72d"
       }
     },
     {
@@ -194,8 +194,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziOnboarding.git",
       "state" : {
-        "revision" : "3ee713576eaeaa03200ba26bbc1269ceeb6abb25",
-        "version" : "1.0.1"
+        "revision" : "8fb6d9f1a080661c0cc564a93b82ead3c8d44d4f",
+        "version" : "1.0.2"
       }
     },
     {
@@ -248,8 +248,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio.git",
       "state" : {
-        "revision" : "702cd7c56d5d44eeba73fdf83918339b26dc855c",
-        "version" : "2.62.0"
+        "revision" : "635b2589494c97e48c62514bc8b37ced762e0a62",
+        "version" : "2.63.0"
       }
     },
     {
@@ -259,6 +259,15 @@
       "state" : {
         "revision" : "65e8f29b2d63c4e38e736b25c27b83e012159be8",
         "version" : "1.25.2"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system.git",
+      "state" : {
+        "revision" : "025bcb1165deab2e20d4eaba79967ce73013f496",
+        "version" : "1.2.1"
       }
     },
     {

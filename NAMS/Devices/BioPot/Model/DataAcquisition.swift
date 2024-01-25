@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -32,10 +32,6 @@ protocol DataAcquisition: ByteDecodable {
 
 
 extension DataAcquisition {
-    fileprivate static func readTimestamp(from byteBuffer: inout ByteBuffer) -> UInt32? {
-        byteBuffer.readInteger(endianness: .little, as: UInt32.self)
-    }
-
     // swiftlint:disable:next discouraged_optional_collection
     fileprivate static func readSamples(from byteBuffer: inout ByteBuffer, count: Int) -> [EEGSample]? {
         var samples: [EEGSample] = []
@@ -59,7 +55,7 @@ extension DataAcquisition10 {
             return nil
         }
 
-        guard let timestamps = Self.readTimestamp(from: &byteBuffer),
+        guard let timestamps = UInt32(from: &byteBuffer),
               let samples = Self.readSamples(from: &byteBuffer, count: 10) else {
             return nil
         }
@@ -76,7 +72,7 @@ extension DataAcquisition11 {
             return nil
         }
 
-        guard let timestamps = Self.readTimestamp(from: &byteBuffer),
+        guard let timestamps = UInt32(from: &byteBuffer),
               let samples = Self.readSamples(from: &byteBuffer, count: 9),
               let accelerometerSample = AccelerometerSample(from: &byteBuffer) else {
             return nil

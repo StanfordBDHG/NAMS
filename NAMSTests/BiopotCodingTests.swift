@@ -8,6 +8,9 @@
 
 @testable import NAMS
 import NIOCore
+import SpeziBluetooth
+// TODO: @_spi(TestingSupport) import SpeziBluetooth // swiftlint:disable:this attributes
+// TODO: import XCTBluetooth
 import XCTest
 
 

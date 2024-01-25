@@ -26,6 +26,8 @@ struct HomeView: View {
 
     @Environment(Account.self)
     private var account
+    @Environment(BiopotDevice.self)
+    private var biopot: BiopotDevice?
 
     @State private var patientList = PatientListModel()
 
@@ -103,6 +105,8 @@ struct HomeView: View {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return HomeView()
-        .environment(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .previewWith {
+            AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
+        }
 }
 #endif
