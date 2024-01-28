@@ -9,6 +9,8 @@
 import Foundation
 
 
+// TODO: move some of these files to the Muse folder?
+
 enum ConnectionState {
     case unknown
     case connected
@@ -40,6 +42,7 @@ enum ConnectionState {
 extension ConnectionState: Equatable {}
 
 
+// TODO: are any of these still used?
 extension ConnectionState: CustomLocalizedStringResourceConvertible {
     public var localizedStringResource: LocalizedStringResource {
         switch self {

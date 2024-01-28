@@ -39,9 +39,11 @@ struct MeasurementTile: View {
                 Text(task.title)
                     .font(.title)
                     .fontWeight(.semibold)
+                    .multilineTextAlignment(.center) // works better for larger text sizes
                 Text("\(task.expectedCompletionMinutes) min")
                     .foregroundColor(.secondary)
                     .font(.subheadline)
+                    .multilineTextAlignment(.center)
             } footer: {
                 tileDescription
             }

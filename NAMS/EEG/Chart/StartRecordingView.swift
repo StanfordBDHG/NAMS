@@ -12,9 +12,8 @@ import SwiftUI
 
 
 struct StartRecordingView: View {
-    private let eegModel: EEGViewModel
-    @Environment(BiopotDevice.self)
-    private var biopot: BiopotDevice?
+    @Environment(EEGRecordings.self)
+    private var eegModel
 
     var body: some View {
         OnboardingView(
@@ -42,28 +41,23 @@ struct StartRecordingView: View {
             ],
             actionText: "Start Recording",
             action: {
-                eegModel.startRecordingSession()
-                if let biopot, biopot.connected {
-                    Task {
-                        await biopot.enableRecording()
-                    }
-                }
+                try await eegModel.startRecordingSession()
             }
         )
-        .tint(.pink)
+            .tint(.pink)
     }
 
 
-    init(eegModel: EEGViewModel) {
-        self.eegModel = eegModel
+    init() {
     }
 }
 
 
 #if DEBUG
 #Preview {
-    StartRecordingView(eegModel: EEGViewModel(mock: MockEEGDevice(name: "Device 1", model: "Mock", state: .connected)))
+    StartRecordingView()
         .previewWith {
+            EEGRecordings()
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
             }

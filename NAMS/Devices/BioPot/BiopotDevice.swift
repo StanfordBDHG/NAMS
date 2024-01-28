@@ -12,7 +12,6 @@ import OSLog
 import Spezi
 import SpeziBluetooth
 import class CoreBluetooth.CBUUID
-import SwiftUI
 
 
 class BiopotService: BluetoothService {
@@ -51,7 +50,12 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     @DeviceState(\.name)
     var name
 
-    var connected: Bool {
+    @DeviceAction(\.connect)
+    var connect
+    @DeviceAction(\.disconnect)
+    var disconnect
+
+    var connected: Bool { // TODO: remove?
         state == .connected
     }
 
@@ -61,19 +65,13 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     @Service(id: .biopotService)
     var service = BiopotService()
 
-    @MainActor var startDate: Date?
-
-    @Binding private var recordingSession: EEGRecordingSession?
+    @MainActor private var recordingSession: EEGRecordingSession?
+    @MainActor private var startDate: Date?
 
     required init() {
-        self._recordingSession = .constant(nil)
-
         service.$dataAcquisition
             .onChange(perform: handleDataAcquisition)
-    }
-
-    func associate(_ model: EEGViewModel) { // TODO: handle this everytime it gets newly created?
-        self._recordingSession = model.recordingSessionBinding
+        $state.onChange(perform: handleChange)
     }
 
     private func handleChange(of state: PeripheralState) {
@@ -90,21 +88,33 @@ class BiopotDevice: BluetoothDevice, Identifiable {
         }
     }
 
-    func enableRecording() async {
+    @MainActor
+    func startRecording(_ session: EEGRecordingSession) async throws {
+        recordingSession = session
+        try await self.enableRecording()
+    }
+
+    @MainActor
+    func stopRecording() {
+        recordingSession = nil
+        // TODO: async operation to stop data collection
+    }
+
+    @MainActor
+    func enableRecording() async throws {
         do {
             try await service.$dataControl.write(false)
 
             // make sure the value is up to date
             _ = try await service.$deviceConfiguration.read()
 
-            await MainActor.run {
-                startDate = .now
-            }
+            startDate = .now
 
             try await service.$dataControl.write(true)
             _ = try await service.$samplingConfiguration.read()
         } catch {
             logger.error("Failed to enable Biopot recording: \(error)")
+            throw error
         }
     }
 
@@ -157,7 +167,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
                 return EEGSeries(timestamp: timestamp, readings: readings)
             }
 
-            recordingSession.measurements[.all, default: []].append(contentsOf: series)
+            recordingSession.append(series: series, for: .all)
         }
     }
 }
@@ -174,6 +184,16 @@ extension BiopotDevice: Hashable {
 }
 
 
+extension BiopotDevice: GenericBluetoothPeripheral {
+    var label: String {
+        // TODO: default naming?
+        name ?? "unknown device" // TODO: maybe strip out the mac address?
+    }
+    // TODO: have dedicated accessibility label?
+}
+
+
+// TODO: move that
 extension CBUUID {
     static let biopotService = CBUUID(string: "FFF0")
 

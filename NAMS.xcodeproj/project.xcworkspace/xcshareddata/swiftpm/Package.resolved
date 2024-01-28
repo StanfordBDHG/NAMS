@@ -77,8 +77,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "115f75e43851774934d695449a4836123c3246e1",
-        "version" : "3.2.0"
+        "revision" : "76135c9f4e1ac85459d5fec61b6f76ac47ab3a4c",
+        "version" : "3.3.1"
       }
     },
     {
@@ -122,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKit",
       "state" : {
-        "revision" : "cf79a15c7d8c436f98937fe93e72e880dd2f73e4",
-        "version" : "2.2.20"
+        "revision" : "209164ed20592a2213c4bd69cefcb078d9de0692",
+        "version" : "2.2.21"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKitOnFHIR",
       "state" : {
-        "revision" : "7dc09f7acd7fb19673594e0fdd4d72d0869ee006",
-        "version" : "1.0.0"
+        "revision" : "ea4d9691591594177e7dfbc8c246324855d73eb5",
+        "version" : "1.0.1"
       }
     },
     {
@@ -159,7 +159,7 @@
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
         "branch" : "feature/unit-testing-setup",
-        "revision" : "f9db62d3b53475b52cc6f56ed92242482dd4f72d"
+        "revision" : "e6e1b009b00463d39bfa99d3b491fa3b1b562098"
       }
     },
     {
@@ -203,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziQuestionnaire.git",
       "state" : {
-        "revision" : "930a4099db1aca9db0b6ed4e77687141c4780052",
-        "version" : "1.0.0"
+        "revision" : "fac0bb02f7027b4c09bd7afdad55eb7b47ec67f3",
+        "version" : "1.0.1"
       }
     },
     {

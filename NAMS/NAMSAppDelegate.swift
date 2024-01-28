@@ -34,6 +34,9 @@ class NAMSAppDelegate: SpeziAppDelegate {
             }
             firestore
 
+            DeviceCoordinator()
+            EEGRecordings()
+
             Bluetooth {
                 // TODO: can this be based on the type of BiopotDevice service property?
                 Discover(BiopotDevice.self, by: .advertisedService(.biopotService))

@@ -9,7 +9,7 @@
 import Foundation
 
 
-class EEGMeasurementGenerator {
+class MockMeasurementGenerator {
     private let sampleRate: Int
     private let baseValue: Double
 

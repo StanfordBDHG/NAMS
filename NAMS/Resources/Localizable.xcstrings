@@ -31,6 +31,9 @@
         }
       }
     },
+    "..." : {
+
+    },
     "%@ " : {
       "comment" : "Image prefix placeholder",
       "localizations" : {
@@ -141,6 +144,7 @@
       }
     },
     "ATTENTION_REQUIRED" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -149,6 +153,12 @@
           }
         }
       }
+    },
+    "Auto Connect" : {
+
+    },
+    "Auto Connect Background" : {
+
     },
     "BATTERY" : {
       "localizations" : {
@@ -170,9 +180,6 @@
         }
       }
     },
-    "Biopot" : {
-
-    },
     "Bluetooth Off" : {
 
     },
@@ -186,6 +193,7 @@
 
     },
     "BLUETOOTH_OFF" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -200,12 +208,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth is turned off. Please turn on Bluetooth in Control Center or Settings in order to use your Muse Headband."
+            "value" : "Bluetooth is turned off. Please turn on Bluetooth in Control Center or Settings, in order to connect to a nearby device."
           }
         }
       }
     },
     "BLUETOOTH_PROHIBITED" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -220,7 +229,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth is required to make connections to your Muse Headband. Please allow Bluetooth connections in your Privacy settings."
+            "value" : "Bluetooth is required to make connections to a nearby device. Please allow Bluetooth connections in your Privacy settings."
           }
         }
       }
@@ -230,7 +239,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "We have troubles with the Bluetooth communication. Please try again."
+            "value" : "We have troubles with the Bluetooth communication.\\n\nPlease try again."
           }
         }
       }
@@ -387,9 +396,6 @@
     "Device" : {
 
     },
-    "Device Type" : {
-
-    },
     "DEVICE_DETAILS" : {
       "localizations" : {
         "en" : {
@@ -522,6 +528,7 @@
       }
     },
     "Firmware update required." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -617,6 +624,9 @@
           }
         }
       }
+    },
+    "Intervention Required" : {
+
     },
     "INTERVENTION_MUSE_FIRMWARE" : {
       "localizations" : {
@@ -765,9 +775,6 @@
           }
         }
       }
-    },
-    "Muse" : {
-
     },
     "Name" : {
       "localizations" : {
@@ -1020,6 +1027,9 @@
           }
         }
       }
+    },
+    "Requires Attention" : {
+
     },
     "Reset" : {
       "extractionState" : "stale",

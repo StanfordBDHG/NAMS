@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Spezi
 import SpeziBluetooth
 import SpeziQuestionnaire
 import SpeziViews
@@ -16,10 +17,8 @@ extension Questionnaire: Identifiable {} // TODO: move somewhere!
 
 @MainActor
 struct TilesView: View {
-    private let eegModel: EEGViewModel
-
-    @Environment(BiopotDevice.self)
-    private var biopot: BiopotDevice?
+    @Environment(DeviceCoordinator.self)
+    private var deviceCoordinator
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -47,7 +46,7 @@ struct TilesView: View {
                         MeasurementTile(
                             task: measurement,
                             presentingEEGRecording: $presentingEEGRecording,
-                            deviceConnected: eegModel.activeDevice != nil || biopot?.connected == true
+                            deviceConnected: deviceCoordinator.isConnected
                         )
                     }
                 }
@@ -77,16 +76,14 @@ struct TilesView: View {
                 }
                 .sheet(isPresented: $presentingEEGRecording) {
                     NavigationStack {
-                        EEGRecording(eegModel: eegModel)
+                        EEGRecording()
                     }
                 }
         }
     }
 
 
-    init(eegModel: EEGViewModel) {
-        self.eegModel = eegModel
-    }
+    init() {}
 
 
     private func taskList<T: PatientTask>(_ tasks: [T]) -> [T] {
@@ -105,22 +102,31 @@ struct TilesView: View {
 #Preview {
     let patientList = PatientListModel()
     patientList.completedTasks = []
-    return TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+    return TilesView()
         .environment(patientList)
+        .environment(EEGRecordings())
         .previewWith {
-            Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
-            }
+            DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
         }
 }
 
 #Preview {
-    TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
-        .environment(PatientListModel())
+    let patientList = PatientListModel()
+    patientList.completedTasks = []
+    return TilesView()
+        .environment(patientList)
+        .environment(EEGRecordings())
         .previewWith {
-            Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
-            }
+            DeviceCoordinator()
+        }
+}
+
+#Preview {
+    TilesView()
+        .environment(PatientListModel())
+        .environment(EEGRecordings())
+        .previewWith {
+            DeviceCoordinator()
         }
 }
 #endif

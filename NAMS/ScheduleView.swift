@@ -12,11 +12,6 @@ import SwiftUI
 
 
 struct ScheduleView: View {
-#if MUSE
-    @State var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
-#else
-    @State var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
-#endif
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
 
@@ -45,18 +40,18 @@ struct ScheduleView: View {
                             .padding()
                     }
                 } else {
-                    TilesView(eegModel: eegModel)
+                    TilesView()
                 }
             }
                 .navigationTitle(Text("Schedule", comment: "Schedule Title"))
                 .sheet(isPresented: $presentingMuseList) {
-                    DevicesSheet(eegModel: eegModel)
+                    NearbyDevicesView()
                 }
                 .sheet(isPresented: $presentPatientSheet) {
                     PatientListSheet(activePatientId: $activePatientId)
                 }
                 .onAppear {
-                    biopot?.associate(eegModel) // TODO: that has to change!
+                    // TODO: biopot?.associate(eegModel) // TODO: that has to change!
                 }
                 .toolbar {
                     toolbar
@@ -98,7 +93,9 @@ struct ScheduleView: View {
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
         .environment(PatientListModel())
+        .environment(EEGRecordings())
         .previewWith {
+            DeviceCoordinator()
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
             }
@@ -111,7 +108,9 @@ struct ScheduleView: View {
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
         .environment(PatientListModel())
+        .environment(EEGRecordings())
         .previewWith {
+            DeviceCoordinator()
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
             }

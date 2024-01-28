@@ -81,7 +81,7 @@ struct EEGChart: View {
 
 
 #if DEBUG
-private let randomSamples = EEGMeasurementGenerator(sampleRate: 60)
+private let randomSamples = MockMeasurementGenerator(sampleRate: 60)
 private let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
 
 #Preview {

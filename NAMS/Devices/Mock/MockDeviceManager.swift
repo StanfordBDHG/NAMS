@@ -6,44 +6,68 @@
 // SPDX-License-Identifier: MIT
 //
 
-import Combine
+import Observation
+import SpeziBluetooth
 
 
-class MockDeviceManager: DeviceManager {
-    static var defaultNearbyDevices: [EEGDevice] {
+@Observable
+class MockDeviceManager {
+    static var defaultNearbyDevices: [MockDevice] {
         [
-            MockEEGDevice(name: "Device 2", model: "Mock"),
-            MockEEGDevice(name: "Device 1", model: "Mock")
+            MockDevice(name: "Mock Device 1"),
+            MockDevice(name: "Mock Device 2")
         ]
     }
 
-    @Published var nearbyDevices: [EEGDevice] = []
+    private let storedDevicesList: [MockDevice]
 
-    let deviceList: [EEGDevice]
-
-    var devicePublisher: Published<[EEGDevice]>.Publisher {
-        $nearbyDevices
+    // TODO: isScanning property?
+    var nearbyDevices: [MockDevice] = []
+    @ObservationIgnored private var task: Task<Void, Never>? {
+        willSet {
+            task?.cancel()
+        }
     }
 
 
-    init(nearbyDevices: [EEGDevice] = MockDeviceManager.defaultNearbyDevices, immediate: Bool = false) {
-        self.deviceList = nearbyDevices
+    init(nearbyDevices: [MockDevice] = MockDeviceManager.defaultNearbyDevices, immediate: Bool = false) {
+        self.storedDevicesList = nearbyDevices
         if immediate {
-            self.nearbyDevices = deviceList
+            self.nearbyDevices = nearbyDevices
         }
     }
 
 
     func startScanning() {
-        Task { @MainActor in
-            try? await Task.sleep(for: .seconds(1))
-            nearbyDevices = deviceList
+        task = Task { @MainActor in
+            // TODO: instant discovery of previously discovered devices
+            try? await Task.sleep(for: .seconds(2))
+            guard !Task.isCancelled else {
+                return
+            }
+            nearbyDevices = storedDevicesList
         }
     }
 
-    func stopScanning() {}
+    func stopScanning() {
+        task = Task { @MainActor in
+            nearbyDevices.removeAll { device in
+                device.state == .disconnected
+            }
+        }
+    }
+}
 
-    func retrieveDeviceList() -> [EEGDevice] {
-        nearbyDevices
+
+extension MockDeviceManager: BluetoothScanner {
+    var hasConnectedDevices: Bool {
+        nearbyDevices.contains { device in
+            device.state != .disconnected
+        }
+    }
+
+    func scanNearbyDevices(autoConnect: Bool) async {
+        precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
+        self.startScanning()
     }
 }

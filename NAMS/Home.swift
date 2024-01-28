@@ -18,7 +18,9 @@ struct HomeView: View {
         case contact
         case mockUpload
     }
-    
+
+    // TODO: EEGViewModel should be here?
+
     @AppStorage(StorageKeys.homeTabSelection)
     private var selectedTab = Tabs.schedule
     @AppStorage(StorageKeys.selectedPatient)
@@ -28,6 +30,11 @@ struct HomeView: View {
     private var account
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
+
+    @State var mockDeviceManager = MockDeviceManager()
+#if MUSE
+    @State var museDeviceManager = MuseDeviceManager()
+#endif
 
     @State private var patientList = PatientListModel()
 
@@ -48,6 +55,10 @@ struct HomeView: View {
                 }
         }
             .environment(patientList)
+            .environment(mockDeviceManager)
+#if MUSE
+            .environment(museDeviceManager)
+#endif
             .viewStateAlert(state: $viewState)
             .onAppear {
                 if FeatureFlags.injectDefaultPatient {
@@ -106,6 +117,8 @@ struct HomeView: View {
 
     return HomeView()
         .previewWith {
+            DeviceCoordinator()
+            EEGRecordings()
             AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
         }
 }

@@ -9,17 +9,20 @@
 import SwiftUI
 
 
-struct EEGDeviceDetails: View {
+struct MuseDeviceDetailsView: View {
+    private let model: String
+    private let state: ConnectionState
+    private let deviceInformation: MuseDeviceInformation
+    private let disconnectClosure: () -> Void
+
     @Environment(\.dismiss)
     private var dismiss
     @Environment(\.locale)
     private var locale
 
-    private let device: ConnectedDevice
-
     var body: some View {
         List {
-            if case let .interventionRequired(message) = device.state {
+            if case let .interventionRequired(message) = state {
                 interventionRequiredHeader(message: message)
             }
 
@@ -28,36 +31,36 @@ struct EEGDeviceDetails: View {
 
             headbandFit
 
-            if !device.aboutInformation.isEmpty {
-                Section("About") {
-                    ForEach(device.aboutInformation.elements, id: \.key) { element in
-                        ListRow(element.key) {
-                            Text(verbatim: element.value.description)
-                        }
-                    }
+            Section("About") {
+                ListRow("FIRMWARE_VERSION") {
+                    Text(verbatim: deviceInformation.firmwareVersion)
+                }
+                ListRow("SERIAL_NUMBER") {
+                    Text(verbatim: deviceInformation.serialNumber)
                 }
             }
 
             Button(action: {
-                device.disconnect()
+                disconnectClosure()
                 dismiss()
             }) {
                 Text("DISCONNECT")
                     .frame(maxWidth: .infinity)
             }
-                .disabled(!device.state.associatedConnection)
+                .disabled(!state.associatedConnection)
         }
-            .navigationTitle(Text(verbatim: device.device.model))
+            .navigationTitle(Text(verbatim: model))
             .navigationBarTitleDisplayMode(.inline)
     }
 
     @ViewBuilder private var battery: some View {
-        if let remainingBattery = device.remainingBatteryPercentage {
+        if let remainingBattery = deviceInformation.remainingBatteryPercentage {
             Section {
                 ListRow("BATTERY") {
                     BatteryIcon(percentage: Int(remainingBattery))
                 }
             } footer: {
+                // TODO: hint separate view!
                 let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
                 Text("PROBLEMS_BATTERY_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Muse-Battery-Troubleshooting?language=\(locale.identifier))")
             }
@@ -67,31 +70,36 @@ struct EEGDeviceDetails: View {
     @ViewBuilder private var headbandFit: some View {
         Section {
             ListRow("WEARING") {
-                if device.wearingHeadband {
+                if deviceInformation.wearingHeadband {
                     Text("Yes")
                 } else {
                     Text("No")
                 }
             }
             
-            if device.wearingHeadband {
-                ListRow("HEADBAND_FIT") {
-                    let fit = device.fit.overallFit
-                    Text(fit.localizedStringResource)
-                        .foregroundStyle(fit.style)
+            if deviceInformation.wearingHeadband,
+               let fit = deviceInformation.fit {
+                ListRow("HEADBAND_FIT") { // TODO: detailed fit!
+                    let overallFit = fit.overallFit
+                    Text(overallFit.localizedStringResource)
+                        .foregroundStyle(overallFit.style)
                 }
             }
         } header: {
             Text("HEADBAND")
         } footer: {
+            // TODO: hint separate view!
             let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
             Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
         }
     }
 
 
-    init(device: ConnectedDevice) {
-        self.device = device
+    init(model: String, state: ConnectionState, _ deviceInformation: MuseDeviceInformation, disconnect: @escaping () -> Void) {
+        self.model = model
+        self.state = state
+        self.deviceInformation = deviceInformation
+        self.disconnectClosure = disconnect
     }
 
 
@@ -120,20 +128,45 @@ struct EEGDeviceDetails: View {
 
 #if DEBUG
 #Preview {
-    let model = EEGViewModel(mock: MockEEGDevice(name: "Mock Device", model: "Mock", state: .connected))
-    return NavigationStack {
-        EEGDeviceDetails(device: model.activeDevice!) // swiftlint:disable:this force_unwrapping
+    NavigationStack {
+        MuseDeviceDetailsView(
+            model: "Mock Device",
+            state: .connected,
+            .init(serialNumber: "0xAABBCCDD", firmwareVersion: "1.0", remainingBatteryPercentage: 75)
+        ) {
+            print("Disconnect Device")
+        }
+    }
+}
+
+
+#Preview {
+    NavigationStack {
+        MuseDeviceDetailsView(
+            model: "Mock Device",
+            state: .connected,
+            .init(
+                serialNumber: "0xAABBCCDD",
+                firmwareVersion: "1.0",
+                remainingBatteryPercentage: 75,
+                wearingHeadband: true,
+                fit: HeadbandFit(tp9Fit: .good, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .good)
+            )
+        ) {
+            print("Disconnect Device")
+        }
     }
 }
 
 #Preview {
-    let modelIntervention = EEGViewModel(mock: MockEEGDevice(
-        name: "Mock Device",
-        model: "Mock",
-        state: .interventionRequired("INTERVENTION_MUSE_FIRMWARE")
-    ))
-    return NavigationStack {
-        EEGDeviceDetails(device: modelIntervention.activeDevice!) // swiftlint:disable:this force_unwrapping
+    NavigationStack {
+        MuseDeviceDetailsView(
+            model: "Mock Device",
+            state: .interventionRequired("INTERVENTION_MUSE_FIRMWARE"),
+            .init(serialNumber: "0xAABBCCDD", firmwareVersion: "1.0", remainingBatteryPercentage: 75)
+        ) {
+            print("Disconnect Device")
+        }
     }
 }
 #endif

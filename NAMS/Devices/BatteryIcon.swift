@@ -10,22 +10,30 @@ import SwiftUI
 
 struct BatteryIcon: View {
     private let percentage: Int
+    private let isCharging: Bool
 
+    
     var body: some View {
-        Text(verbatim: "\(percentage) %")
-        batteryIcon(percentage: percentage) // hides accessibility, only text will be shown
-            .foregroundStyle(.primary)
+        HStack {
+            Text(verbatim: "\(percentage) %")
+            batteryIcon // hides accessibility, only text will be shown
+                .foregroundStyle(.primary)
+        }
+            .accessibilityRepresentation {
+                if !isCharging {
+                    Text(verbatim: "\(percentage) %")
+                } else {
+                    Text(verbatim: "\(percentage) %, is charging")
+                }
+            }
     }
 
 
-    init(percentage: Int) {
-        self.percentage = percentage
-    }
-
-    @ViewBuilder
-    func batteryIcon(percentage: Int) -> some View {
+    @ViewBuilder var batteryIcon: some View {
         Group {
-            if percentage >= 90 {
+            if isCharging {
+                Image(systemName: "battery.100percent.bolt")
+            } else if percentage >= 90 {
                 Image(systemName: "battery.100")
             } else if percentage >= 65 {
                 Image(systemName: "battery.75")
@@ -42,7 +50,18 @@ struct BatteryIcon: View {
                     .foregroundColor(.red)
             }
         }
-        .accessibilityHidden(true)
+            .accessibilityHidden(true)
+    }
+
+
+    init(percentage: Int, isCharging: Bool) {
+        self.percentage = percentage
+        self.isCharging = isCharging
+    }
+
+    init(percentage: Int) {
+        // isCharging=false is the same behavior as having no charging information
+        self.init(percentage: percentage, isCharging: false)
     }
 }
 
@@ -50,6 +69,10 @@ struct BatteryIcon: View {
 #if DEBUG
 #Preview {
     BatteryIcon(percentage: 100)
+}
+
+#Preview {
+    BatteryIcon(percentage: 85, isCharging: true)
 }
 
 #Preview {

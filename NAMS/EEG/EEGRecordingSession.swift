@@ -11,5 +11,16 @@ import Foundation
 
 @Observable
 class EEGRecordingSession {
-    var measurements: [EEGFrequency: [EEGSeries]] = [:]
+    private(set) var measurements: [EEGFrequency: [EEGSeries]] = [:]
+
+
+    func append(series: EEGSeries, for frequency: EEGFrequency) {
+        measurements[frequency, default: []]
+            .append(series)
+    }
+
+    func append(series: [EEGSeries], for frequency: EEGFrequency) {
+        measurements[frequency, default: []]
+            .append(contentsOf: series)
+    }
 }

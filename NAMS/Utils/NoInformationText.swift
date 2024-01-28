@@ -14,7 +14,7 @@ struct NoInformationText<Header: View, Caption: View>: View {
     private let header: Header
     private let caption: Caption
 
-    var body: some View {
+    var body: some View { // TODO: verify with large text and move to SpeziViews?
         VStack {
             header
                 .font(.title2)
