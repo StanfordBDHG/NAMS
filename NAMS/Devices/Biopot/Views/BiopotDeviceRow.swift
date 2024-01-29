@@ -19,15 +19,13 @@ struct BiopotDeviceRow: View {
 
 
     var body: some View {
+        // TODO: how to UI test the biopot?
         NearbyDeviceRow(peripheral: device) {
             Task {
                 await deviceCoordinator.tapDevice(.biopot(device))
             }
         } secondaryAction: {
-            // TODO: we assume I button only shows if this is true!
-            if device.state == .connected {
-                presentingActiveDevice = device
-            }
+            presentingActiveDevice = device
         }
             .navigationDestination(item: $presentingActiveDevice) { device in
                 BiopotDeviceDetailsView(device: device) {

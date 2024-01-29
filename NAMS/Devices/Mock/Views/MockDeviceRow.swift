@@ -24,17 +24,13 @@ struct MockDeviceRow: View {
                 await deviceCoordinator.tapDevice(.mock(device))
             }
         } secondaryAction: {
-            if device.state == .connected {
-                presentingActiveDevice = device
-            }
+            presentingActiveDevice = device
         }
             .navigationDestination(item: $presentingActiveDevice) { device in
-                if let info = device.deviceInformation {
-                    MuseDeviceDetailsView(model: device.label, state: device.connectionState, info) {
-                        device.disconnect()
-                        // TODO: this needs a better approach
-                        deviceCoordinator.hintDisconnect()
-                    }
+                MuseDeviceDetailsView(model: device.label, state: device.connectionState, device.deviceInformation) {
+                    device.disconnect()
+                    // TODO: this needs a better approach
+                    deviceCoordinator.hintDisconnect()
                 }
             }
     }
@@ -47,5 +43,15 @@ struct MockDeviceRow: View {
 
 
 #if DEBUG
-// TODO: preview
+#Preview {
+    NavigationStack {
+        List {
+            MockDeviceRow(device: MockDevice(name: "Device 1"))
+            MockDeviceRow(device: MockDevice(name: "Device 2", state: .connected))
+        }
+        .previewWith {
+            DeviceCoordinator()
+        }
+    }
+}
 #endif

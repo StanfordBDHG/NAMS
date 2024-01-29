@@ -15,6 +15,7 @@ import SpeziBluetooth
 class MuseDeviceInformation {
     let serialNumber: String
     let firmwareVersion: String
+    let hardwareVersion: String
 
     /// Remaining battery percentage in percent [0.0;100.0]
     var remainingBatteryPercentage: Double?
@@ -26,20 +27,20 @@ class MuseDeviceInformation {
 
     /// Determines if the last second of data is considered good
     var isGood: (Bool, Bool, Bool, Bool) = (false, false, false, false) // swiftlint:disable:this large_tuple
-    // TODO: change above thingy! (similar to below!)
-
     /// The current fit of the headband
     var fit: HeadbandFit?
 
     init(
         serialNumber: String,
         firmwareVersion: String,
-        remainingBatteryPercentage: Double?,
+        hardwareVersion: String,
+        remainingBatteryPercentage: Double? = nil,
         wearingHeadband: Bool = false,
         fit: HeadbandFit? = nil
     ) {
         self.serialNumber = serialNumber
         self.firmwareVersion = firmwareVersion
+        self.hardwareVersion = hardwareVersion
         self.remainingBatteryPercentage = remainingBatteryPercentage
         self.wearingHeadband = wearingHeadband
         self.fit = fit
@@ -60,7 +61,7 @@ class MuseDevice: Identifiable {
         .alphaAbsolute, // 8-16 Hz
         .betaAbsolute, // 16-32 Hz
         .gammaAbsolute, // 32-64 Hz
-        // .eeg, // TODO: we are interested in querying ALL data!
+        // .eeg, // enables collection of raw data
 
         .hsiPrecision
     ]
@@ -111,8 +112,7 @@ class MuseDevice: Identifiable {
         self.connectionState = ConnectionState(from: muse.getConnectionState())
 
         self.connectionListener = ConnectionListener(device: self)
-        self.muse.setNumConnectTries(0) // TODO: does this interfere with anything?
-        // TODO: error listener?
+        self.muse.setNumConnectTries(0)
     }
 
     func connect() {
@@ -138,11 +138,10 @@ class MuseDevice: Identifiable {
     @MainActor
     func startRecording(_ session: EEGRecordingSession) async throws {
         self.recordingSession = session
-        // TODO: only enable recording upon request?
     }
 
     @MainActor
-    func stopRecording() {
+    func stopRecording() async throws {
         self.recordingSession = nil
     }
 
@@ -172,21 +171,26 @@ class MuseDevice: Identifiable {
 
         logger.debug("\(self.label): Connected. Versions: \(version.versionString); Configuration: \(configuration.configurationString)")
 
-        self.deviceInformation = MuseDeviceInformation( // TODO: other info that is relevant?
+        self.deviceInformation = MuseDeviceInformation(
             serialNumber: configuration.getSerialNumber(),
             firmwareVersion: version.getFirmwareVersion(),
+            hardwareVersion: version.getHardwareVersion(),
             remainingBatteryPercentage: configuration.getBatteryPercentRemaining()
         )
     }
 
 
     @MainActor
-    private func receive(_ packet: IXNMuseDataPacket, muse: IXNMuse) {
+    private func receive(_ packet: IXNMuseDataPacket, muse: IXNMuse) { // swiftlint:disable:this cyclomatic_complexity
+        guard let deviceInformation else {
+            return
+        }
+
         switch packet.packetType() {
         case .hsiPrecision:
             let fit = HeadbandFit(from: packet)
-            if deviceInformation?.fit != fit { // TODO: replace all the optional accesses (we have a class now)
-                deviceInformation?.fit = fit
+            if deviceInformation.fit != fit {
+                deviceInformation.fit = fit
             }
         case .eeg:
             recordingSession?.append(series: EEGSeries(from: packet), for: .all)
@@ -199,9 +203,9 @@ class MuseDevice: Identifiable {
         case .gammaAbsolute:
             recordingSession?.append(series: EEGSeries(from: packet), for: .gamma)
         case .battery:
-            deviceInformation?.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
+            deviceInformation.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
         case .isGood:
-            deviceInformation?.isGood = (
+            deviceInformation.isGood = (
                 packet.getEegChannelValue(.EEG1) == 1.0,
                 packet.getEegChannelValue(.EEG2) == 1.0,
                 packet.getEegChannelValue(.EEG3) == 1.0,

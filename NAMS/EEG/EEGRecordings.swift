@@ -39,10 +39,10 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
     @MainActor
-    func stopRecordingSession() {
-        self.recordingSession = nil
+    func stopRecordingSession() async throws {
         if let device = deviceCoordinator.connectedDevice {
-            device.stopRecording() // TODO async?
+            try await device.stopRecording()
         }
+        self.recordingSession = nil
     }
 }

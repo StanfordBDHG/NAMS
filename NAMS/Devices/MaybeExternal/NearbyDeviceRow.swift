@@ -17,7 +17,7 @@ public protocol GenericBluetoothPeripheral {
 
     var state: PeripheralState { get }
 
-    var requiresUserAttention: Bool { get } // TODO: optional?
+    var requiresUserAttention: Bool { get }
 }
 
 
@@ -81,7 +81,7 @@ public struct NearbyDeviceRow: View {
                     }
                 }
             }
-                .frame(maxWidth: .infinity) // required for UI tests // TODO: does this break stuff?
+                // .frame(maxWidth: .infinity) // required for UI tests // TODO: does this break stuff? yes breaks visuals?
 
             if secondaryActionClosure != nil, case .connected = peripheral.state {
                 Button("DEVICE_DETAILS", systemImage: "info.circle", action: deviceDetailsAction)
@@ -110,7 +110,6 @@ public struct NearbyDeviceRow: View {
 
     @ViewBuilder var accessibilityRepresentation: some View {
         let button = Button(action: devicePrimaryAction) {
-            // TODO: how to provide a different primary label (for Muse?)?
             Text(verbatim: peripheral.accessibilityLabel)
             if let localizationSecondaryLabel {
                 Text(localizationSecondaryLabel)
@@ -169,16 +168,20 @@ public struct NearbyDeviceRow: View {
     List {
         NearbyDeviceRow(peripheral: MockBluetoothDevice(label: "MyDevice 1", state: .connecting)) {
             print("Clicked")
-        } secondaryAction: {}
+        } secondaryAction: {
+        }
         NearbyDeviceRow(peripheral: MockBluetoothDevice(label: "MyDevice 2", state: .connected)) {
             print("Clicked")
-        } secondaryAction: {}
+        } secondaryAction: {
+        }
         NearbyDeviceRow(peripheral: MockBluetoothDevice(label: "Long MyDevice 3", state: .connected, requiresUserAttention: true)) {
             print("Clicked")
-        } secondaryAction: {}
+        } secondaryAction: {
+        }
         NearbyDeviceRow(peripheral: MockBluetoothDevice(label: "MyDevice 4", state: .disconnecting)) {
             print("Clicked")
-        } secondaryAction: {}
+        } secondaryAction: {
+        }
     }
 }
 #endif

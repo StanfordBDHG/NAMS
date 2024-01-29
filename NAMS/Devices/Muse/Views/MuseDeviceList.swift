@@ -24,18 +24,3 @@ struct MuseDeviceList: View {
     init() {}
 }
 #endif
-
-
-/*
- //TODO: move to mock preview? 
-#if DEBUG
-#Preview {
-    NavigationStack {
-        List {
-            MuseDeviceList()
-        }
-    }
-        .environment(EEGViewModel(deviceManager: MockDeviceManager(immediate: true)))
-}
-#endif
-*/

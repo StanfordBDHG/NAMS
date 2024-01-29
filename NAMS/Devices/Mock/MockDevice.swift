@@ -85,7 +85,12 @@ class MockDevice {
     }
 
     private func handleConnected() {
-        self.deviceInformation = MuseDeviceInformation(serialNumber: "0xAABBCCDD", firmwareVersion: "1.2.0", remainingBatteryPercentage: 75)
+        self.deviceInformation = MuseDeviceInformation(
+            serialNumber: "0xAABBCCDD",
+            firmwareVersion: "1.2",
+            hardwareVersion: "1.0",
+            remainingBatteryPercentage: 75
+        )
 
         task = Task { @MainActor [weak self] in
             try? await Task.sleep(for: .seconds(3))
@@ -120,7 +125,7 @@ class MockDevice {
     }
 
     @MainActor
-    func stopRecording() {
+    func stopRecording() async throws {
         self.eegTimer = nil
         self.recordingSession = nil
     }

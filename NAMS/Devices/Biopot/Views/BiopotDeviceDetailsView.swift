@@ -28,7 +28,7 @@ struct BiopotDeviceDetailsView: View {
 
             Section("About") {
                 if let firmware = biopot.deviceInformation.firmwareRevision {
-                    ListRow("FIRMWARE_VERSION") {
+                    ListRow("Firmware Version") {
                         Text(verbatim: firmware)
                     }
                 }
@@ -38,7 +38,7 @@ struct BiopotDeviceDetailsView: View {
                     }
                 }
                 if let serialNumber = biopot.deviceInformation.serialNumber {
-                    ListRow("SERIAL_NUMBER") {
+                    ListRow("Serial Number") {
                         Text(verbatim: serialNumber)
                     }
                 }
@@ -48,13 +48,18 @@ struct BiopotDeviceDetailsView: View {
                 disconnectClosure()
                 dismiss()
             }) {
-                Text("DISCONNECT")
+                Text("Disconnect")
                     .frame(maxWidth: .infinity)
             }
-                // TODO: .disabled(!state.associatedConnection)
+                .disabled(biopot.state == .disconnected || biopot.state == .disconnecting)
         }
-            .navigationTitle(Text(verbatim: biopot.name!)) // TODO: avoid!
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(Text(verbatim: biopot.name ?? ""))
+            .onChange(of: biopot.state) {
+                if biopot.state == .disconnected || biopot.state == .disconnecting {
+                    dismiss()
+                }
+            }
     }
 
 

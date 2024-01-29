@@ -46,7 +46,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     @DeviceState(\.id)
     var id
     @DeviceState(\.state)
-    var state
+    var state // TODO: state update doesn't really work well (sometimes stale!)
     @DeviceState(\.name)
     var name
 
@@ -62,7 +62,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
 
     @Service(id: .deviceInformationService)
     var deviceInformation = DeviceInformationService() // TODO: make sure we read once we are connected!
-    @Service(id: .biopotService)
+    @Service(id: .biopotService) // TODO: have the service self-contained by having the id in there, allows type based discovery criteria
     var service = BiopotService()
 
     @MainActor private var recordingSession: EEGRecordingSession?
@@ -95,9 +95,10 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     }
 
     @MainActor
-    func stopRecording() {
+    func stopRecording() async throws {
+        try await service.$dataControl.write(false)
+        startDate = nil
         recordingSession = nil
-        // TODO: async operation to stop data collection
     }
 
     @MainActor

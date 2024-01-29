@@ -21,7 +21,7 @@ class MockDeviceManager {
 
     private let storedDevicesList: [MockDevice]
 
-    // TODO: isScanning property?
+    @ObservationIgnored private var previouslyDiscovered = false
     var nearbyDevices: [MockDevice] = []
     @ObservationIgnored private var task: Task<Void, Never>? {
         willSet {
@@ -39,12 +39,16 @@ class MockDeviceManager {
 
 
     func startScanning() {
-        task = Task { @MainActor in
-            // TODO: instant discovery of previously discovered devices
-            try? await Task.sleep(for: .seconds(2))
-            guard !Task.isCancelled else {
-                return
+        if !previouslyDiscovered {
+            task = Task { @MainActor in
+                try? await Task.sleep(for: .seconds(2))
+                guard !Task.isCancelled else {
+                    return
+                }
+                nearbyDevices = storedDevicesList
+                previouslyDiscovered = true
             }
+        } else {
             nearbyDevices = storedDevicesList
         }
     }

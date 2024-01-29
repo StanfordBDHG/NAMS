@@ -27,7 +27,7 @@ extension Alignment: PreferenceKey {
 public struct DynamicHStack<Content: View>: View { // TODO: move to Spezi Views
     private let realignAfter: DynamicTypeSize
     private let verticalAlignment: VerticalAlignment
-    private let horizontalAlignment: HorizontalAlignment
+    private let horizontalAlignment: HorizontalAlignment // TODO: switch naming!
     private let spacing: CGFloat?
     private let content: Content
 
@@ -118,7 +118,6 @@ public struct ListRow<Label: View, Content: View>: View {
     }
 
 
-    // TODO: make arbitrary label view!
     public init(@ViewBuilder _ label: () -> Label, @ViewBuilder content: () -> Content) {
         self.label = label()
         self.content = content()

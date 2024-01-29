@@ -66,13 +66,17 @@ struct EEGRecording: View {
             }
         }
             .onAppear {
+                #if MUSE
                 if case .muse = deviceCoordinator.connectedDevice {
                     frequency = .theta
                 }
+                #endif
             }
             .onDisappear {
                 // TODO: discarding confirmation?
-                eegModel.stopRecordingSession()
+                Task {
+                    try await eegModel.stopRecordingSession()
+                }
             }
             .toolbar {
                 Button("Close") {

@@ -10,11 +10,12 @@
 import SwiftUI
 
 
+// TODO: move to SpeziViews
 struct NoInformationText<Header: View, Caption: View>: View {
     private let header: Header
     private let caption: Caption
 
-    var body: some View { // TODO: verify with large text and move to SpeziViews?
+    var body: some View {
         VStack {
             header
                 .font(.title2)
@@ -25,6 +26,7 @@ struct NoInformationText<Header: View, Caption: View>: View {
                 .foregroundColor(.secondary)
         }
             .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
     }
 
     init(@ViewBuilder header: () -> Header, @ViewBuilder caption: () -> Caption) {
@@ -40,6 +42,21 @@ struct NoInformationText<Header: View, Caption: View>: View {
         Text(verbatim: "No Information")
     } caption: {
         Text(verbatim: "Please add information to show some information.")
+    }
+}
+
+#Preview {
+    GeometryReader { proxy in
+        List {
+            NoInformationText {
+                Text(verbatim: "No Information")
+            } caption: {
+                Text(verbatim: "Please add information to show some information.")
+            }
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowBackground(Color.clear)
+            .frame(height: proxy.size.height-100)
+        }
     }
 }
 #endif

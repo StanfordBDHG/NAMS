@@ -14,8 +14,8 @@ extension IXNMuseVersion {
         firmware: \(getFirmwareVersion()) (\(getFirmwareBuildNumber()), \(getFirmwareType())), \
         hardware: \(getHardwareVersion()), \
         protocol: \(getProtocolVersion()), \
-        bsp: \(getBspVersion()) \
-        bootloaderVersion: \(getBootloaderVersion()) \
+        bsp: \(getBspVersion()), \
+        bootloaderVersion: \(getBootloaderVersion()), \
         runningState: \(getRunningState())
         """
     }

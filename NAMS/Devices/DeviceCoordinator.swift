@@ -59,16 +59,16 @@ enum SomeDevice { // TODO: move to separate file
     }
 
     @MainActor
-    func stopRecording() {
+    func stopRecording() async throws {
         switch self {
             #if MUSE
         case let .muse(muse):
-            muse.stopRecording()
+            try await muse.stopRecording()
             #endif
         case let .biopot(biopot):
-            biopot.stopRecording()
+            try await biopot.stopRecording()
         case let .mock(mock):
-            mock.stopRecording()
+            try await mock.stopRecording()
         }
     }
 }

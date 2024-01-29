@@ -66,9 +66,6 @@
         }
       }
     },
-    "%u °C" : {
-
-    },
     "About" : {
       "localizations" : {
         "en" : {
@@ -78,9 +75,6 @@
           }
         }
       }
-    },
-    "Actions" : {
-
     },
     "Add Notes" : {
       "localizations" : {
@@ -102,6 +96,12 @@
           }
         }
       }
+    },
+    "AF7" : {
+
+    },
+    "AF8" : {
+
     },
     "All" : {
       "localizations" : {
@@ -181,12 +181,6 @@
       }
     },
     "Bluetooth Off" : {
-
-    },
-    "Bluetooth On" : {
-
-    },
-    "Bluetooth Unauthorized" : {
 
     },
     "Bluetooth Unsupported" : {
@@ -290,7 +284,7 @@
         }
       }
     },
-    "Charging" : {
+    "Channels" : {
 
     },
     "Close" : {
@@ -321,6 +315,7 @@
 
     },
     "CONNECTED" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -334,6 +329,7 @@
 
     },
     "CONNECTING" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -419,7 +415,11 @@
         }
       }
     },
+    "Disconnect" : {
+
+    },
     "DISCONNECT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -429,10 +429,8 @@
         }
       }
     },
-    "Disconnected" : {
-
-    },
     "DISCONNECTED" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -542,6 +540,7 @@
 
     },
     "FIRMWARE_VERSION" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -582,7 +581,11 @@
         }
       }
     },
+    "good" : {
+      "comment" : "Muse headband fit"
+    },
     "GOOD_FIT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -604,6 +607,9 @@
           }
         }
       }
+    },
+    "Headband Fit" : {
+
     },
     "HEADBAND_FIT" : {
       "localizations" : {
@@ -649,6 +655,7 @@
       }
     },
     "INTERVENTION_REQUIRED" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -722,9 +729,6 @@
         }
       }
     },
-    "Make sure your device is connected and nearby!" : {
-
-    },
     "Mark completed" : {
       "localizations" : {
         "en" : {
@@ -745,7 +749,11 @@
         }
       }
     },
+    "mediocre" : {
+      "comment" : "Muse headband fit"
+    },
     "MEDIOCRE_FIT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -887,6 +895,9 @@
         }
       }
     },
+    "Overall" : {
+
+    },
     "Patient Details" : {
       "localizations" : {
         "en" : {
@@ -948,7 +959,11 @@
         }
       }
     },
+    "poor" : {
+      "comment" : "Muse headband fit"
+    },
     "POOR_FIT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -988,9 +1003,6 @@
         }
       }
     },
-    "Query Device Information" : {
-
-    },
     "Questionnaire" : {
       "comment" : "Tile Type",
       "localizations" : {
@@ -1001,21 +1013,6 @@
           }
         }
       }
-    },
-    "Read Data Acquisition" : {
-
-    },
-    "Read Data Control" : {
-
-    },
-    "Read Device Configuration" : {
-
-    },
-    "Read Sample Configuration" : {
-
-    },
-    "Receive Device Info" : {
-
     },
     "Recording" : {
       "comment" : "Tile Type",
@@ -1072,9 +1069,6 @@
           }
         }
       }
-    },
-    "Searching for nearby devices ..." : {
-
     },
     "Seconds" : {
       "localizations" : {
@@ -1142,6 +1136,7 @@
 
     },
     "SERIAL_NUMBER" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1191,12 +1186,6 @@
     "Start Recording" : {
 
     },
-    "Status" : {
-
-    },
-    "Temperature" : {
-
-    },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
       "localizations" : {
         "en" : {
@@ -1228,6 +1217,12 @@
         }
       }
     },
+    "TP9" : {
+
+    },
+    "TP10" : {
+
+    },
     "TROUBLESHOOTING" : {
       "localizations" : {
         "en" : {
@@ -1258,9 +1253,6 @@
           }
         }
       }
-    },
-    "Unknown" : {
-
     },
     "WEARING" : {
       "localizations" : {

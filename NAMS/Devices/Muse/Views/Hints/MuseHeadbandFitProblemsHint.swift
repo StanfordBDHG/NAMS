@@ -9,16 +9,23 @@
 import SwiftUI
 
 
-struct MuseTroublesConnectingHint: View {
+struct MuseHeadbandFitProblemsHint: View {
     @Environment(\.locale)
     private var locale
 
     var body: some View {
         HStack {
             let troubleshooting: LocalizedStringResource = "TROUBLESHOOTING"
-            Text("PROBLEMS_CONNECTING_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Bluetooth-Troubleshooting?language=\(locale.identifier))")
+            Text("PROBLEMS_HEADBAND_FIT_HINT") + Text(" [\(troubleshooting)](https://choosemuse.my.site.com/s/article/Sensor-Quality-Troubleshooting?language=\(locale.identifier))")
         }
     }
 
     init() {}
 }
+
+
+#if DEBUG
+#Preview {
+    MuseHeadbandFitProblemsHint()
+}
+#endif

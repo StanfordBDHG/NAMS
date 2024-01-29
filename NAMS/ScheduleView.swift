@@ -50,9 +50,6 @@ struct ScheduleView: View {
                 .sheet(isPresented: $presentPatientSheet) {
                     PatientListSheet(activePatientId: $activePatientId)
                 }
-                .onAppear {
-                    // TODO: biopot?.associate(eegModel) // TODO: that has to change!
-                }
                 .toolbar {
                     toolbar
                 }

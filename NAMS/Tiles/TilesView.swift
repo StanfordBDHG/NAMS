@@ -12,8 +12,6 @@ import SpeziQuestionnaire
 import SpeziViews
 import SwiftUI
 
-extension Questionnaire: Identifiable {} // TODO: move somewhere!
-
 
 @MainActor
 struct TilesView: View {

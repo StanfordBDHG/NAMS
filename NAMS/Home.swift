@@ -19,8 +19,6 @@ struct HomeView: View {
         case mockUpload
     }
 
-    // TODO: EEGViewModel should be here?
-
     @AppStorage(StorageKeys.homeTabSelection)
     private var selectedTab = Tabs.schedule
     @AppStorage(StorageKeys.selectedPatient)
@@ -31,6 +29,7 @@ struct HomeView: View {
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
 
+    // TODO: how to toggle mock device manager?
     @State var mockDeviceManager = MockDeviceManager()
 #if MUSE
     @State var museDeviceManager = MuseDeviceManager()
