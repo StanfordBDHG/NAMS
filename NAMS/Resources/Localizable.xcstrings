@@ -181,6 +181,7 @@
       }
     },
     "Bluetooth Off" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -191,6 +192,7 @@
       }
     },
     "Bluetooth Unsupported" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -201,6 +203,7 @@
       }
     },
     "BLUETOOTH_OFF_HINT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -211,6 +214,7 @@
       }
     },
     "BLUETOOTH_PROHIBITED_HINT" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -221,6 +225,7 @@
       }
     },
     "BLUETOOTH_UNKNOWN" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -231,6 +236,7 @@
       }
     },
     "BLUETOOTH_UNSUPPORTED" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -332,6 +338,7 @@
       }
     },
     "Connected" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -342,6 +349,7 @@
       }
     },
     "Connecting" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -405,6 +413,7 @@
       }
     },
     "DEVICE_DETAILS" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -445,6 +454,7 @@
       }
     },
     "Disconnecting" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -629,6 +639,7 @@
       }
     },
     "Intervention Required" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1026,6 +1037,7 @@
       }
     },
     "Requires Attention" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import BluetoothViews
 import Spezi
 import SpeziBluetooth
 import SwiftUI
@@ -76,13 +77,13 @@ struct NearbyDevicesView: View {
                             }
                         }
                     } header: {
-                        LoadingSectionHeader("Devices", loading: isScanning)
+                        LoadingSectionHeaderView("Devices", loading: isScanning)
                     } footer: {
                         MuseTroublesConnectingHint() // TODO: that doesn't apply to all devices?
                     }
                 } else {
                     Section {
-                        BluetoothStateHints(state: bluetooth.state)
+                        BluetoothStateHint(bluetooth.state)
                     }
                 }
             }

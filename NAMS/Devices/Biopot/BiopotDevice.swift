@@ -7,7 +7,7 @@
 //
 
 import BluetoothServices
-import NIOCore
+import BluetoothViews
 import OSLog
 import Spezi
 @_spi(TestingSupport) import SpeziBluetooth // swiftlint:disable:this attributes

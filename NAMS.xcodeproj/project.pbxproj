@@ -194,6 +194,8 @@
 		A94A42B72AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */; };
 		A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
 		A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
+		A95EEAE32B6B54D3009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */; };
+		A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */; };
 		A967061C2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
 		A967061D2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
 		A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
@@ -232,12 +234,6 @@
 		A9C82F932B60899B004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
 		A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F942B6089C8004703E0 /* BluetoothServices */; };
 		A9C82F972B6089D2004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F962B6089D2004703E0 /* BluetoothServices */; };
-		A9C82FB72B632EE6004703E0 /* BluetoothStateHints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FB62B632EE6004703E0 /* BluetoothStateHints.swift */; };
-		A9C82FB92B633906004703E0 /* LoadingSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FB82B633906004703E0 /* LoadingSectionHeader.swift */; };
-		A9C82FBA2B633906004703E0 /* LoadingSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FB82B633906004703E0 /* LoadingSectionHeader.swift */; };
-		A9C82FBB2B63390E004703E0 /* BluetoothStateHints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FB62B632EE6004703E0 /* BluetoothStateHints.swift */; };
-		A9C82FBD2B63418C004703E0 /* NearbyDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */; };
-		A9C82FBE2B63418C004703E0 /* NearbyDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */; };
 		A9C9B6B42ADE191100C8C46D /* MockDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* MockDeviceTests.swift */; };
 		A9CE84512B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
 		A9CE84522B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
@@ -411,9 +407,6 @@
 		A9BCB5882AE83F7E00DA8588 /* PatientListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListModel.swift; sourceTree = "<group>"; };
 		A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPatientLabel.swift; sourceTree = "<group>"; };
 		A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpedanceMeasurement.swift; sourceTree = "<group>"; };
-		A9C82FB62B632EE6004703E0 /* BluetoothStateHints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHints.swift; sourceTree = "<group>"; };
-		A9C82FB82B633906004703E0 /* LoadingSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSectionHeader.swift; sourceTree = "<group>"; };
-		A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDeviceRow.swift; sourceTree = "<group>"; };
 		A9C9B6B32ADE191100C8C46D /* MockDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeviceTests.swift; sourceTree = "<group>"; };
 		A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDevicesView.swift; sourceTree = "<group>"; };
 		A9D4B8CC2B685D800054E27C /* MuseDeviceDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceDetailsView.swift; sourceTree = "<group>"; };
@@ -444,6 +437,7 @@
 			files = (
 				A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */,
 				2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */,
+				A95EEAE32B6B54D3009B4CF8 /* BluetoothViews in Frameworks */,
 				A988FEA62B03FB4A00022A61 /* SpeziBluetooth in Frameworks */,
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
 				2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */,
@@ -487,6 +481,7 @@
 				A926D7AD2AB7A552000C4C2F /* SpeziSecureStorage in Frameworks */,
 				A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */,
 				A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */,
+				A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */,
 				A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
@@ -844,20 +839,9 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		A9C82FB52B632EC3004703E0 /* MaybeExternal */ = {
-			isa = PBXGroup;
-			children = (
-				A9C82FB62B632EE6004703E0 /* BluetoothStateHints.swift */,
-				A9C82FB82B633906004703E0 /* LoadingSectionHeader.swift */,
-				A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */,
-			);
-			path = MaybeExternal;
-			sourceTree = "<group>";
-		};
 		A9CE844F2B1A99FE009CE3F4 /* Devices */ = {
 			isa = PBXGroup;
 			children = (
-				A9C82FB52B632EC3004703E0 /* MaybeExternal */,
 				A988FEAE2B04529B00022A61 /* Biopot */,
 				A926D8342AB7C2CC000C4C2F /* Mock */,
 				A99522402AA61D82009272F4 /* Muse */,
@@ -946,6 +930,7 @@
 				A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */,
 				A988FEA52B03FB4A00022A61 /* SpeziBluetooth */,
 				A9C82F942B6089C8004703E0 /* BluetoothServices */,
+				A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */,
 			);
 			productName = NAMS;
 			productReference = 653A254D283387FE005D4D48 /* NAMS.app */;
@@ -1022,6 +1007,7 @@
 				A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */,
 				A988FEA72B03FB5A00022A61 /* SpeziBluetooth */,
 				A9C82F962B6089D2004703E0 /* BluetoothServices */,
+				A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */,
 			);
 			productName = NAMS;
 			productReference = A926D7C32AB7A552000C4C2F /* NAMS Muse.app */;
@@ -1196,7 +1182,6 @@
 				A94A42B62AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */,
 				A926D82A2AB7B430000C4C2F /* EEGChart.swift in Sources */,
 				A9F2ECC62AEB27B10057C7DD /* MeasurementTile.swift in Sources */,
-				A9C82FB72B632EE6004703E0 /* BluetoothStateHints.swift in Sources */,
 				A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */,
 				A926D8202AB7B430000C4C2F /* EEGChannelMark.swift in Sources */,
 				A916ADD92AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift in Sources */,
@@ -1260,9 +1245,7 @@
 				2DC17C29AA0382E9F5F2AA4D /* MockMeasurementGenerator.swift in Sources */,
 				2DC17F5243570D8FF743EADD /* PatientInformation.swift in Sources */,
 				2DC17C341155F06C17225169 /* NewPatientModel.swift in Sources */,
-				A9C82FBD2B63418C004703E0 /* NearbyDeviceRow.swift in Sources */,
 				A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */,
-				A9C82FB92B633906004703E0 /* LoadingSectionHeader.swift in Sources */,
 				A9D4B8D52B685D800054E27C /* MuseDeviceDetailsView.swift in Sources */,
 				2DC1718A3F968CF02D7AF0EC /* PatientList.swift in Sources */,
 				2DC172753D306AE733D7FDC8 /* TileType.swift in Sources */,
@@ -1314,10 +1297,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A907DA3D2B195ED800FB69FB /* EEGSample.swift in Sources */,
-				A9C82FBA2B633906004703E0 /* LoadingSectionHeader.swift in Sources */,
 				A94534012AEAE1110095AAD3 /* Questionnaire+NAMS.swift in Sources */,
 				A94A42AF2AE9EBE300A3F9E5 /* AccountSheet.swift in Sources */,
-				A9C82FBB2B63390E004703E0 /* BluetoothStateHints.swift in Sources */,
 				A926D8002AB7B41C000C4C2F /* IXNMuseModel+Description.swift in Sources */,
 				A9BCB5872AE8347E00DA8588 /* CollectionReference+AsyncAwait.swift in Sources */,
 				A926D77F2AB7A552000C4C2F /* StorageKeys.swift in Sources */,
@@ -1402,7 +1383,6 @@
 				A9DF79E12AE8A82300AB5983 /* PatientRow.swift in Sources */,
 				A9D4B8E12B685DF30054E27C /* MuseInterventionRequiredHint.swift in Sources */,
 				2DC176E7B29173393F43A357 /* MockDevice.swift in Sources */,
-				A9C82FBE2B63418C004703E0 /* NearbyDeviceRow.swift in Sources */,
 				2DC179F4A6B69C07C1A440D2 /* MockMeasurementGenerator.swift in Sources */,
 				A9F2ECCA2AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC17686B3AEB09A8F60AB8E /* PatientList.swift in Sources */,
@@ -2217,8 +2197,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziViews.git";
 			requirement = {
-				branch = "feature/listrow-accessibility";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
 			};
 		};
 		2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -2444,6 +2424,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = BluetoothViews;
+		};
+		A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = BluetoothViews;
 		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
 			isa = XCSwiftPackageProductDependency;
