@@ -45,7 +45,7 @@ struct LoadingSectionHeader: View {
 #Preview {
     List {
         Section {
-            Text("...")
+            Text(verbatim: "...")
         } header: {
             LoadingSectionHeader(verbatim: "Devices", loading: true)
         }

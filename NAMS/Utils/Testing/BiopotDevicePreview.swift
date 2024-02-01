@@ -15,7 +15,7 @@ private class PreviewDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration {
             Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
         }
     }

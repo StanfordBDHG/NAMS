@@ -46,6 +46,7 @@ struct BluetoothStateHints: View {
 
 
     var body: some View {
+        // TODO: replae with ContentUnavailaleView!
         if titleMessage != nil || subtitleMessage != nil {
             VStack {
                 if let titleMessage {

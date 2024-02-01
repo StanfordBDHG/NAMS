@@ -10,24 +10,37 @@ import BluetoothServices
 import NIOCore
 import OSLog
 import Spezi
-import SpeziBluetooth
+@_spi(TestingSupport) import SpeziBluetooth // swiftlint:disable:this attributes
 import class CoreBluetooth.CBUUID
 
 
+/// The primary Biopot service
+///
+/// - Note: Notation within the docs: Access properties: R: read, W: write, N: notify.
+///     Naming is currently guess work.
 class BiopotService: BluetoothService {
-    @Characteristic(id: .biopotDeviceInfoCharacteristic, notify: true)
+    static let id = CBUUID(string: "FFF0")
+
+    /// Characteristic 6, as per the manual. RN.
+    @Characteristic(id: "FFF6", notify: true)
     var deviceInfo: DeviceInformation?
 
-    @Characteristic(id: .biopotDeviceConfigurationCharacteristic, notify: true)
+    /// Characteristic 1, as per the manual. RW.
+    /// Note: Even though Bluetooth reports this as notify it isn't!!
+    @Characteristic(id: "FFF1")
     var deviceConfiguration: DeviceConfiguration?
-    @Characteristic(id: .biopotSamplingConfigurationCharacteristic)
+    /// Characteristic 5, as per the manual. RW.
+    @Characteristic(id: "FFF5")
     var samplingConfiguration: SamplingConfiguration?
-    @Characteristic(id: .biopotDataControlCharacteristic)
+    /// Characteristic 2, as per the manual. RW.
+    @Characteristic(id: "FFF2")
     var dataControl: DataControl?
-    @Characteristic(id: .biopotImpedanceMeasurementCharacteristic)
+    /// Characteristic 3, as per the manual. RW.
+    @Characteristic(id: "FFF3")
     var impedanceMeasurement: ImpedanceMeasurement?
 
-    @Characteristic(id: .biopotDataAcquisitionCharacteristic)
+    /// Characteristic 4, as per the manual. RN.
+    @Characteristic(id: "FFF4", notify: true)
     var dataAcquisition: Data? // either `DataAcquisition10` or `DataAcquisition11` depending on the configuration.
 
     init() {}
@@ -46,7 +59,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     @DeviceState(\.id)
     var id
     @DeviceState(\.state)
-    var state // TODO: state update doesn't really work well (sometimes stale!)
+    var state
     @DeviceState(\.name)
     var name
 
@@ -55,37 +68,37 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     @DeviceAction(\.disconnect)
     var disconnect
 
-    var connected: Bool { // TODO: remove?
-        state == .connected
-    }
 
-
-    @Service(id: .deviceInformationService)
-    var deviceInformation = DeviceInformationService() // TODO: make sure we read once we are connected!
-    @Service(id: .biopotService) // TODO: have the service self-contained by having the id in there, allows type based discovery criteria
-    var service = BiopotService()
+    @Service var deviceInformation = DeviceInformationService()
+    @Service var service = BiopotService()
 
     @MainActor private var recordingSession: EEGRecordingSession?
     @MainActor private var startDate: Date?
+    @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     required init() {
         service.$dataAcquisition
             .onChange(perform: handleDataAcquisition)
-        $state.onChange(perform: handleChange)
+        $state
+            .onChange(perform: handleChange)
     }
 
+    @MainActor
     private func handleChange(of state: PeripheralState) {
-        if case .connected = state {
-            Task { @MainActor in
-                try? await Task.sleep(for: .milliseconds(500)) // TODO: better timing?
-                logger.debug("Querying device information!")
-                do {
-                    try await deviceInformation.retrieveDeviceInformation()
-                } catch {
-                    logger.error("Failed to retrieve device information: \(error)")
-                }
+        // TODO: this is not called if the device is instantly destroyed!
+        logger.debug("Biopot device is now \(state)")
+
+        if state == .disconnected || state == .disconnecting {
+            if let disconnectHandler {
+                self.disconnectHandler = nil
+                disconnectHandler(.biopot(self))
             }
         }
+    }
+
+    @MainActor
+    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
+        self.disconnectHandler = handler
     }
 
     @MainActor
@@ -121,7 +134,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
 
     private func handleDataAcquisition(data: Data) {
         guard let deviceConfiguration = service.deviceConfiguration else {
-            logger.warning("Received data acquisition without having device configuration ready!")
+            logger.debug("Received data acquisition without having device configuration ready!")
             return
         }
 
@@ -139,6 +152,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
         }
 
         guard let acquisition else {
+            logger.error("Failed to decode data acquisition: \(data.hexString())")
             return
         }
 
@@ -187,31 +201,15 @@ extension BiopotDevice: Hashable {
 
 extension BiopotDevice: GenericBluetoothPeripheral {
     var label: String {
-        // TODO: default naming?
-        name ?? "unknown device" // TODO: maybe strip out the mac address?
+        name ?? "unknown device"
     }
-    // TODO: have dedicated accessibility label?
-}
 
-
-// TODO: move that
-extension CBUUID {
-    static let biopotService = CBUUID(string: "FFF0")
-
-    // Access properties: R: read, W: write, N: notify
-    // naming is currently guess work
-
-    /// Characteristic 1, as per the manual. RWN.
-    static let biopotDeviceConfigurationCharacteristic = CBUUID(string: "FFF1")
-    /// Characteristic 2, as per the manual. RW.
-    static let biopotDataControlCharacteristic = CBUUID(string: "FFF2")
-    /// Characteristic 3, as per the manual. RW.
-    static let biopotImpedanceMeasurementCharacteristic = CBUUID(string: "FFF3")
-    /// Characteristic 4, as per the manual. RN.
-    static let biopotDataAcquisitionCharacteristic = CBUUID(string: "FFF4")
-    /// Characteristic 5, as per the manual. RW.
-    static let biopotSamplingConfigurationCharacteristic = CBUUID(string: "FFF5")
-    // swiftlint:disable:previous identifier_name
-    /// Characteristic 6, as per the manual. RN.
-    static let biopotDeviceInfoCharacteristic = CBUUID(string: "FFF6")
+    var accessibilityLabel: String {
+        let label = label
+        if label.starts(with: "SML BIO") {
+            return "SensoMedical Biopot"
+        } else {
+            return label
+        }
+    }
 }

@@ -9,8 +9,25 @@
 import OSLog
 import Spezi
 
+enum EEGRecordingError: LocalizedError {
+    case noConnectedDevice
 
-// TODO: search and replace .environment(EEGRecordings())
+
+    var errorDescription: String? {
+        switch self {
+        case .noConnectedDevice:
+            String(localized: "No connected device")
+        }
+    }
+
+    var failureReason: String? {
+        switch self {
+        case .noConnectedDevice:
+            String(localized: "EEG recording could not be started as no connected device was found.")
+        }
+    }
+}
+
 
 @Observable
 class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
@@ -28,13 +45,10 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
         self.recordingSession = session
 
         guard let device = deviceCoordinator.connectedDevice else {
-            // TODO: throw an error!
-            logger.error("Tried to start EEG recording but no connected device was found!")
-            return
+            throw EEGRecordingError.noConnectedDevice
         }
 
-        // TODO: get current device and enable recording session? on device coordinator (so they can handle changing devices?)
-        // TODO: handle the case where the device disconnects when an ongoing recording is in progress?
+        // TODO: handle the case where the device disconnects when an ongoing recording is in progress? => Issue
         try await device.startRecording(session)
     }
 

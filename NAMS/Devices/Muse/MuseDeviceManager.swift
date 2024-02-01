@@ -21,7 +21,6 @@ class MuseDeviceManager {
 
     /// The list of nearby muse devices.
     private(set) var nearbyMuses: [MuseDevice] = []
-    // TODO: isScanning property
 
     init() {
         self.museManager = IXNMuseManagerIos()
@@ -41,7 +40,6 @@ class MuseDeviceManager {
 
     func stopScanning() {
         logger.debug("Stopped scanning for nearby Muse devices!")
-        // TODO: check if we are still scanning?
         self.museManager.stopListening()
     }
 
@@ -81,6 +79,10 @@ extension MuseDeviceManager: BluetoothScanner {
     func scanNearbyDevices(autoConnect: Bool) async {
         precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
         self.startScanning()
+    }
+
+    func setAutoConnect(_ autoConnect: Bool) async {
+        precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
     }
 }
 

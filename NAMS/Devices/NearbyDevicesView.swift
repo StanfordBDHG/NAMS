@@ -29,7 +29,6 @@ struct NearbyDevicesView: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    // TODO: implement!
     @AppStorage(StorageKeys.autoConnect)
     private var autoConnect = true
     @AppStorage(StorageKeys.autoConnectBackground)
@@ -49,23 +48,17 @@ struct NearbyDevicesView: View {
         // TODO: remove closure length!
         // swiftlint:disable:next closure_body_length
         NavigationStack {
-            List { // swiftlint:disable:this closure_body_length
+            List {
                 Section {
                     Toggle("Auto Connect", isOn: $autoConnect)
                     if autoConnect {
-                        Toggle("Auto Connect Background", isOn: $autoConnectBackground) // TODO: make it a selection navigation destination?
+                        Toggle("Continuous Background Search", isOn: $autoConnectBackground) // TODO: make it a selection navigation destination?
                     }
+                } footer: {
+                    Text("Automatically connect to SensoMedical BIOPOT3 devices.")
                 }
 
                 if consideredPoweredOn {
-                    Section { // TODO: think about this placement?
-                        Text("TURN_ON_HEADBAND_HINT")
-                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity)
-                    }
-
                     // TODO: sort all devices by initial discovery (descending?, latest at the top!)
                     Section {
                         #if MUSE
@@ -85,7 +78,7 @@ struct NearbyDevicesView: View {
                     } header: {
                         LoadingSectionHeader("Devices", loading: isScanning)
                     } footer: {
-                        MuseTroublesConnectingHint()
+                        MuseTroublesConnectingHint() // TODO: that doesn't apply to all devices?
                     }
                 } else {
                     Section {
@@ -101,10 +94,8 @@ struct NearbyDevicesView: View {
                     }
                 }
         }
-            // TODO: this probably conflicts with a global .autoConnect modifier!
             // TODO: auto-connect also conflicts with Muse devices? (enough to disable autoConnect if we have something connected?)
-            .scanNearbyDevices(with: bluetooth, autoConnect: false) // TODO: allow to dynamically disable autoConnect!
-            // TODO: how to handle optional modifiers?
+            .scanNearbyDevices(with: bluetooth, autoConnect: autoConnect && !deviceCoordinator.isConnected)
             .scanNearbyDevices(enabled: mockDeviceManager != nil, with: mockDeviceManager ?? MockDeviceManager())
 #if MUSE
             .scanNearbyDevices(enabled: bluetooth.state == .poweredOn, with: museDeviceManager)
@@ -130,7 +121,7 @@ struct NearbyDevicesView: View {
         .previewWith {
             DeviceCoordinator()
             Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
         }
 #if MUSE
@@ -144,7 +135,7 @@ struct NearbyDevicesView: View {
         .previewWith {
             DeviceCoordinator()
             Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
         }
 #if MUSE

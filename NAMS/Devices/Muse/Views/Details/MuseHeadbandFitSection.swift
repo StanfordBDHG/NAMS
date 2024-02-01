@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziViews
 import SwiftUI
 
 
@@ -28,13 +29,13 @@ struct MuseHeadbandFitSection: View {
                 NavigationLink {
                     MuseHeadbandFitView(fit)
                 } label: {
-                    ListRow("HEADBAND_FIT") {
+                    ListRow("Headband Fit") {
                         FitLabel(fit.overallFit)
                     }
                 }
             }
         } header: {
-            Text("HEADBAND")
+            Text("Headband")
         } footer: {
             MuseHeadbandFitProblemsHint()
         }
@@ -82,7 +83,6 @@ struct MuseHeadbandFitSection: View {
 }
 
 #Preview {
-    let fit = HeadbandFit(tp9Fit: .poor, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .mediocre)
     return NavigationStack {
         List {
             MuseHeadbandFitSection(

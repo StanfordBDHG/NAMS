@@ -159,7 +159,7 @@
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
         "branch" : "feature/unit-testing-setup",
-        "revision" : "e6e1b009b00463d39bfa99d3b491fa3b1b562098"
+        "revision" : "b31c420dd72378216c850cb8609d52636be9b9bb"
       }
     },
     {
@@ -221,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziViews.git",
       "state" : {
-        "revision" : "0137e69d156bf4001a8d6bf5661c9a37b2bbd0aa",
-        "version" : "1.0.0"
+        "branch" : "feature/listrow-accessibility",
+        "revision" : "84898439b712b2084926ed67b1c05aa95cba56d5"
       }
     },
     {

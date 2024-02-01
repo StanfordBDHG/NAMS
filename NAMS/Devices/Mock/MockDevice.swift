@@ -23,6 +23,7 @@ class MockDevice {
 
     /// The currently associated recording session.
     @MainActor private var recordingSession: EEGRecordingSession?
+    @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     var connectionState: ConnectionState {
         switch state {
@@ -49,6 +50,7 @@ class MockDevice {
     }
 
 
+    @MainActor
     init(name: String, state: PeripheralState = .disconnected) {
         self.id = UUID()
         self.name = name
@@ -67,6 +69,12 @@ class MockDevice {
         case .disconnected:
             break
         }
+    }
+
+
+    @MainActor
+    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
+        self.disconnectHandler = handler
     }
 
 
@@ -105,11 +113,16 @@ class MockDevice {
         }
     }
 
+    @MainActor
     func disconnect() {
         state = .disconnected
         deviceInformation = nil
         task = nil
         eegTimer = nil
+        if let disconnectHandler {
+            self.disconnectHandler = nil
+            disconnectHandler(.mock(self))
+        }
     }
 
     @MainActor

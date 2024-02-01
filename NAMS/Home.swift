@@ -7,6 +7,7 @@
 //
 
 import SpeziAccount
+import SpeziBluetooth
 import SpeziViews
 import SwiftUI
 
@@ -26,10 +27,15 @@ struct HomeView: View {
 
     @Environment(Account.self)
     private var account
+    @Environment(DeviceCoordinator.self)
+    private var deviceCoordinator
+    @Environment(Bluetooth.self)
+    private var bluetooth
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
 
     // TODO: how to toggle mock device manager?
+
     @State var mockDeviceManager = MockDeviceManager()
 #if MUSE
     @State var museDeviceManager = MuseDeviceManager()
@@ -39,6 +45,9 @@ struct HomeView: View {
 
     @State private var viewState: ViewState = .idle
     @State private var presentingAccount = false
+
+    @AppStorage(StorageKeys.autoConnectBackground)
+    private var autoConnectBackground = false // TODO: does this binding update?
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -53,12 +62,13 @@ struct HomeView: View {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
                 }
         }
+            .viewStateAlert(state: $viewState)
             .environment(patientList)
             .environment(mockDeviceManager)
 #if MUSE
             .environment(museDeviceManager)
 #endif
-            .viewStateAlert(state: $viewState)
+            .autoConnect(enabled: autoConnectBackground && !deviceCoordinator.isConnected, with: bluetooth)
             .onAppear {
                 if FeatureFlags.injectDefaultPatient {
                     Task {
@@ -77,6 +87,16 @@ struct HomeView: View {
                 patientList.removeActivePatientListener()
             }
             .onChange(of: activePatientId, handlePatientIdChange)
+            .onChange(of: biopot != nil) {
+                guard let biopot else {
+                    return
+                }
+
+                // a new device is connected now
+                // TODO: remove
+                print("NEW BIOPOT WITH STATE \(biopot.state)")
+                deviceCoordinator.notifyConnectedDevice(.biopot(biopot))
+            }
             .onChange(of: viewState) { oldValue, newValue in
                 if case .error = oldValue,
                    case .idle = newValue {
@@ -119,6 +139,9 @@ struct HomeView: View {
             DeviceCoordinator()
             EEGRecordings()
             AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
+            }
         }
 }
 #endif

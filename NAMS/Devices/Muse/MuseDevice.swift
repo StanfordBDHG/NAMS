@@ -78,6 +78,7 @@ class MuseDevice: Identifiable {
 
     /// The currently associated recording session.
     @MainActor private var recordingSession: EEGRecordingSession?
+    @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     var name: String {
         muse.getName().replacingOccurrences(of: "Muse-", with: "")
@@ -113,6 +114,11 @@ class MuseDevice: Identifiable {
 
         self.connectionListener = ConnectionListener(device: self)
         self.muse.setNumConnectTries(0)
+    }
+
+    @MainActor
+    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
+        self.disconnectHandler = handler
     }
 
     func connect() {
@@ -157,6 +163,10 @@ class MuseDevice: Identifiable {
         case .disconnected:
             deviceInformation = nil
             connectionListener = nil
+            if let disconnectHandler {
+                self.disconnectHandler = nil
+                disconnectHandler(.muse(self))
+            }
         default:
             break
         }

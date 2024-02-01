@@ -35,10 +35,10 @@ struct EEGRecording: View {
     var body: some View {
         ZStack {
             if !deviceCoordinator.isConnected {
-                NoInformationText {
-                    Text("No Device connected!")
-                } caption: {
-                    Text("Please connect to a nearby EEG headband first.")
+                ContentUnavailableView {
+                    Label("No Device", systemImage: "brain.head.profile")
+                } description: {
+                    Text("Please connect to a\nnearby EEG headband first.")
                 }
                     .navigationTitle("EEG Recording")
                     .navigationBarTitleDisplayMode(.inline)
@@ -137,7 +137,7 @@ struct EEGRecording: View {
             .previewWith {
                 DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
                 Bluetooth {
-                    Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                    Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
                 }
             }
     }
@@ -147,8 +147,8 @@ struct EEGRecording: View {
     NavigationStack {
         EEGRecording()
             .environment(PatientListModel())
-            .environment(EEGRecordings())
             .previewWith {
+                EEGRecordings()
                 DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
             }
     }
@@ -158,8 +158,8 @@ struct EEGRecording: View {
     NavigationStack {
         EEGRecording()
             .environment(PatientListModel())
-            .environment(EEGRecordings())
             .previewWith {
+                EEGRecordings()
                 DeviceCoordinator()
             }
     }

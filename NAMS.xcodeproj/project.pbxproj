@@ -26,6 +26,7 @@
 		2DC173F479B53B9054330880 /* MuseDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17FBF21126FAA3A35B601 /* MuseDeviceRow.swift */; };
 		2DC174CC46386A3F7E20786B /* IXNMuseVersion+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */; };
 		2DC174CCCA1DAC48C45CDAC4 /* BiopotDevicePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177B4AFB1C891EDB8152B /* BiopotDevicePreview.swift */; };
+		2DC1751E71FB3A81CDAB38BB /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17AEF81E62461D4AA3E67 /* ConnectedDevice.swift */; };
 		2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
 		2DC175D2C49F2DCB07A85C1B /* BiopotDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17949BAE6AB7C5F3CDBFC /* BiopotDeviceRow.swift */; };
 		2DC1762E730B0472308EEFFC /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */; };
@@ -46,6 +47,7 @@
 		2DC17A3ADA039E3FD901D8CF /* HeadbandFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171992FCBFA6C59936A3E /* HeadbandFit.swift */; };
 		2DC17A843968AEFAB1B64C3B /* MuseDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC179BED6FAAD175304A875 /* MuseDeviceList.swift */; };
 		2DC17ADF934F839FC66BF7A0 /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177BFA6C401C2C87FCD5C /* TileType.swift */; };
+		2DC17B03DF6BBAC4A5C09F6D /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17AEF81E62461D4AA3E67 /* ConnectedDevice.swift */; };
 		2DC17B21929D86939F8EB566 /* ConnectionState+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */; };
 		2DC17B2C2E86A238A9EB9227 /* BiopotDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171C8F82A592D576A4E33 /* BiopotDeviceDetailsView.swift */; };
 		2DC17B4DB25C9775EF301CD0 /* BiopotDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171C8F82A592D576A4E33 /* BiopotDeviceDetailsView.swift */; };
@@ -213,8 +215,6 @@
 		A989112D2A36687B00E66E3A /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
 		A989112F2A36688A00E66E3A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
 		A98911322A36689D00E66E3A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
-		A9A179562AC62BE500B180D8 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A179552AC62BE500B180D8 /* ListRow.swift */; };
-		A9A179572AC62BE500B180D8 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A179552AC62BE500B180D8 /* ListRow.swift */; };
 		A9BCB57C2AE7435E00DA8588 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A9BCB57B2AE7435E00DA8588 /* Localizable.xcstrings */; };
 		A9BCB57D2AE7435E00DA8588 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A9BCB57B2AE7435E00DA8588 /* Localizable.xcstrings */; };
 		A9BCB57F2AE82FFC00DA8588 /* PatientSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB57E2AE82FFC00DA8588 /* PatientSearchModel.swift */; };
@@ -228,8 +228,6 @@
 		A9BCB58A2AE83F7E00DA8588 /* PatientListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB5882AE83F7E00DA8588 /* PatientListModel.swift */; };
 		A9BCB58C2AE84E6D00DA8588 /* CurrentPatientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */; };
 		A9BCB58D2AE84E6D00DA8588 /* CurrentPatientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */; };
-		A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
-		A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */; };
 		A9C82F922B608756004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
 		A9C82F932B60899B004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
 		A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F942B6089C8004703E0 /* BluetoothServices */; };
@@ -240,7 +238,7 @@
 		A9C82FBB2B63390E004703E0 /* BluetoothStateHints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FB62B632EE6004703E0 /* BluetoothStateHints.swift */; };
 		A9C82FBD2B63418C004703E0 /* NearbyDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */; };
 		A9C82FBE2B63418C004703E0 /* NearbyDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */; };
-		A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */; };
+		A9C9B6B42ADE191100C8C46D /* MockDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* MockDeviceTests.swift */; };
 		A9CE84512B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
 		A9CE84522B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
 		A9D4B8D52B685D800054E27C /* MuseDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8CC2B685D800054E27C /* MuseDeviceDetailsView.swift */; };
@@ -327,6 +325,7 @@
 		2DC1794C7379ACE157EE11C4 /* MockDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockDeviceRow.swift; path = Views/MockDeviceRow.swift; sourceTree = "<group>"; };
 		2DC179BED6FAAD175304A875 /* MuseDeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceList.swift; sourceTree = "<group>"; };
 		2DC17A06799FC1470D4DDC0D /* PatientList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
+		2DC17AEF81E62461D4AA3E67 /* ConnectedDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectedDevice.swift; sourceTree = "<group>"; };
 		2DC17C8A120ECD3394366958 /* MuseDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDevice.swift; sourceTree = "<group>"; };
 		2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseDataPacketType+Type.swift"; sourceTree = "<group>"; };
 		2DC17D172D8299600ED13D60 /* MockDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDevice.swift; sourceTree = "<group>"; };
@@ -405,19 +404,17 @@
 		A98911312A36689D00E66E3A /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
 		A99522432AA61DA6009272F4 /* Muse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Muse.framework; sourceTree = "<group>"; };
 		A99522462AA61FE5009272F4 /* NAMS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NAMS-Bridging-Header.h"; sourceTree = "<group>"; };
-		A9A179552AC62BE500B180D8 /* ListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
 		A9BCB57B2AE7435E00DA8588 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		A9BCB57E2AE82FFC00DA8588 /* PatientSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientSearchModel.swift; sourceTree = "<group>"; };
 		A9BCB5812AE8307800DA8588 /* SearchToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchToken.swift; sourceTree = "<group>"; };
 		A9BCB5852AE8347E00DA8588 /* CollectionReference+AsyncAwait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionReference+AsyncAwait.swift"; sourceTree = "<group>"; };
 		A9BCB5882AE83F7E00DA8588 /* PatientListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListModel.swift; sourceTree = "<group>"; };
 		A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPatientLabel.swift; sourceTree = "<group>"; };
-		A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInformationText.swift; sourceTree = "<group>"; };
 		A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpedanceMeasurement.swift; sourceTree = "<group>"; };
 		A9C82FB62B632EE6004703E0 /* BluetoothStateHints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothStateHints.swift; sourceTree = "<group>"; };
 		A9C82FB82B633906004703E0 /* LoadingSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingSectionHeader.swift; sourceTree = "<group>"; };
 		A9C82FBC2B63418C004703E0 /* NearbyDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDeviceRow.swift; sourceTree = "<group>"; };
-		A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGDeviceTests.swift; sourceTree = "<group>"; };
+		A9C9B6B32ADE191100C8C46D /* MockDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeviceTests.swift; sourceTree = "<group>"; };
 		A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDevicesView.swift; sourceTree = "<group>"; };
 		A9D4B8CC2B685D800054E27C /* MuseDeviceDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseDeviceDetailsView.swift; sourceTree = "<group>"; };
 		A9D4B8CD2B685D800054E27C /* MuseHeadbandFitSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseHeadbandFitSection.swift; sourceTree = "<group>"; };
@@ -618,12 +615,12 @@
 		653A256A28338800005D4D48 /* NAMSUITests */ = {
 			isa = PBXGroup;
 			children = (
+				A9D83F912B081A47000D0C78 /* BiopotTests.swift */,
 				2F4E23862989DB360013F3D9 /* ContactsTests.swift */,
-				A9C9B6B32ADE191100C8C46D /* EEGDeviceTests.swift */,
+				A9C9B6B32ADE191100C8C46D /* MockDeviceTests.swift */,
 				2F4E237D2989A2FE0013F3D9 /* OnboardingTests.swift */,
 				A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */,
 				A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */,
-				A9D83F912B081A47000D0C78 /* BiopotTests.swift */,
 			);
 			path = NAMSUITests;
 			sourceTree = "<group>";
@@ -841,9 +838,7 @@
 				A94534152AEB0D850095AAD3 /* Errors */,
 				2FE5DC3D29EDD7E4004B9AB4 /* Helper */,
 				A9DF79E82AE9B97C00AB5983 /* Testing */,
-				A9BCB58F2AE8588B00DA8588 /* NoInformationText.swift */,
 				2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */,
-				A9A179552AC62BE500B180D8 /* ListRow.swift */,
 				2DC174AABEF6E6015EFA8B4B /* Questionnaire+Identifiable.swift */,
 			);
 			path = Utils;
@@ -869,6 +864,7 @@
 				A988FEAB2B043AED00022A61 /* BatteryIcon.swift */,
 				A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */,
 				2DC172078D2802AD6068AC7E /* DeviceCoordinator.swift */,
+				2DC17AEF81E62461D4AA3E67 /* ConnectedDevice.swift */,
 			);
 			path = Devices;
 			sourceTree = "<group>";
@@ -1216,7 +1212,6 @@
 				A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */,
 				2FE5DC4729EDD7F2004B9AB4 /* CodableArray+RawRepresentable.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
-				A9BCB5902AE8588B00DA8588 /* NoInformationText.swift in Sources */,
 				A907DA362B1942B800FB69FB /* DataAcquisition.swift in Sources */,
 				A9D4B8EC2B686D380054E27C /* ScreeningTileHeader.swift in Sources */,
 				2FE5DC4629EDD7F2004B9AB4 /* Bundle+Image.swift in Sources */,
@@ -1249,7 +1244,6 @@
 				A9D4B8DA2B685D800054E27C /* MuseConnectingProblemsHint.swift in Sources */,
 				A988FEB22B0452C400022A61 /* DeviceConfiguration.swift in Sources */,
 				2DC17FE0AC1DD98C29B417F1 /* IXNMusePreset+Description.swift in Sources */,
-				A9A179562AC62BE500B180D8 /* ListRow.swift in Sources */,
 				2DC175AEF3E3A716DF747E21 /* EEGFrequency.swift in Sources */,
 				2DC179D0C1180EF9B1E8F276 /* MuseDeviceManager.swift in Sources */,
 				A94534132AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift in Sources */,
@@ -1289,6 +1283,7 @@
 				2DC171EFD6619742C29254CE /* Fit.swift in Sources */,
 				2DC17E6D396A8A2B50E1D44F /* Questionnaire+Identifiable.swift in Sources */,
 				A9D4B8DB2B685D800054E27C /* MuseHeadbandFitProblemsHint.swift in Sources */,
+				2DC17B03DF6BBAC4A5C09F6D /* ConnectedDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1305,7 +1300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9C9B6B42ADE191100C8C46D /* EEGDeviceTests.swift in Sources */,
+				A9C9B6B42ADE191100C8C46D /* MockDeviceTests.swift in Sources */,
 				A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */,
 				A9D83F922B081A47000D0C78 /* BiopotTests.swift in Sources */,
 				2F4E23872989DB360013F3D9 /* ContactsTests.swift in Sources */,
@@ -1350,7 +1345,6 @@
 				A926D78C2AB7A552000C4C2F /* Home.swift in Sources */,
 				A94A42B32AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
 				A926D8252AB7B430000C4C2F /* EEGSeries.swift in Sources */,
-				A9BCB5912AE8588B00DA8588 /* NoInformationText.swift in Sources */,
 				A9D4B8E42B685DFA0054E27C /* MuseBatteryProblemsHint.swift in Sources */,
 				A97E4F242B1EA21800E25505 /* EEGChannel+Biopot.swift in Sources */,
 				A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */,
@@ -1393,7 +1387,6 @@
 				A988FEB32B0452C400022A61 /* DeviceConfiguration.swift in Sources */,
 				2DC173E694F96E89EAB63FE0 /* IXNMuseConfiguration+Description.swift in Sources */,
 				2DC17924E7D44FE1A2562528 /* IXNMusePreset+Description.swift in Sources */,
-				A9A179572AC62BE500B180D8 /* ListRow.swift in Sources */,
 				2DC17D159C62F690B2137E65 /* EEGFrequency.swift in Sources */,
 				A94534142AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift in Sources */,
 				2DC1713C311BAA65EE0E2748 /* MuseDeviceManager.swift in Sources */,
@@ -1430,6 +1423,7 @@
 				2DC1707B04BFF1D66B3F913D /* ConnectionState.swift in Sources */,
 				2DC17BAFF043EBD5240BDD76 /* Fit.swift in Sources */,
 				2DC172F25F327CB4B718D589 /* Questionnaire+Identifiable.swift in Sources */,
+				2DC1751E71FB3A81CDAB38BB /* ConnectedDevice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2223,8 +2217,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziViews.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = "feature/listrow-accessibility";
+				kind = branch;
 			};
 		};
 		2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {

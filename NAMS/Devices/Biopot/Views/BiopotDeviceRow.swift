@@ -31,7 +31,6 @@ struct BiopotDeviceRow: View {
                 BiopotDeviceDetailsView(device: device) {
                     Task {
                         await device.disconnect()
-                        deviceCoordinator.hintDisconnect()
                     }
                 }
             }

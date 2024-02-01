@@ -33,9 +33,9 @@ struct PatientList: View {
             let searchResults = searchModel.search(in: patients)
 
             if searchResults.isEmpty {
-                NoInformationText {
-                    Text("No Patients")
-                } caption: {
+                ContentUnavailableView {
+                    Label("No Patients", systemImage: "person.3.sequence.fill")
+                } description: {
                     Text("Patients will appear here,\nonce they are added.")
                 }
             } else {

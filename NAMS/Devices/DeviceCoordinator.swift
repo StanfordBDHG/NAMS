@@ -11,107 +11,12 @@ import OSLog
 import Spezi
 import SpeziBluetooth
 
-enum SomeDevice { // TODO: move to separate file
-#if MUSE
-    case muse(_ muse: MuseDevice)
-#endif
-    case biopot(_ biopot: BiopotDevice)
-    case mock(_ mock: MockDevice)
-
-    func connect() async {
-        switch self {
-#if MUSE
-        case let .muse(muse):
-            muse.connect()
-#endif
-        case let .biopot(biopot):
-            await biopot.connect()
-        case let .mock(mock):
-            mock.connect()
-        }
-    }
-
-    func disconnect() async {
-        switch self {
-#if MUSE
-        case let .muse(muse):
-            muse.disconnect()
-#endif
-        case let .biopot(biopot):
-            await biopot.disconnect()
-        case let .mock(mock):
-            mock.disconnect()
-        }
-    }
-
-    @MainActor
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            try await muse.startRecording(session)
-            #endif
-        case let .biopot(biopot):
-            try await biopot.startRecording(session)
-        case let .mock(mock):
-            try await mock.startRecording(session)
-        }
-    }
-
-    @MainActor
-    func stopRecording() async throws {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            try await muse.stopRecording()
-            #endif
-        case let .biopot(biopot):
-            try await biopot.stopRecording()
-        case let .mock(mock):
-            try await mock.stopRecording()
-        }
-    }
-}
-
-extension SomeDevice: Hashable {}
-
-
-extension SomeDevice: GenericBluetoothPeripheral {
-    var label: String {
-        switch self {
-#if MUSE
-        case let .muse(muse):
-            muse.label
-#endif
-        case let .biopot(biopot):
-            biopot.label
-        case let .mock(mock):
-            mock.label
-        }
-    }
-
-    var state: SpeziBluetooth.PeripheralState {
-        switch self {
-#if MUSE
-        case let .muse(muse):
-            muse.state
-#endif
-        case let .biopot(biopot):
-            biopot.state
-        case let .mock(mock):
-            mock.state
-        }
-    }
-
-    // TODO: forward all the other protocol requirements!!
-}
-
 
 @Observable
 class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
     let logger = Logger(subsystem: "edu.stanford.NAMS", category: "DeviceCoordinator")
 
-    private(set) var connectedDevice: SomeDevice?
+    private(set) var connectedDevice: ConnectedDevice?
 
     var isConnected: Bool {
         connectedDevice != nil
@@ -127,8 +32,9 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
 
+    /// Device is tapped by the user in the nearby devices view.
     @MainActor
-    func tapDevice(_ device: SomeDevice) async {
+    func tapDevice(_ device: ConnectedDevice) async {
         if let connectedDevice {
             logger.info("Disconnecting previously connected device \(connectedDevice.label)...")
             // either we tapped on the same device or on another one, in any case disconnect the currently connected device
@@ -144,11 +50,36 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
         logger.info("Connecting to nearby device \(device.label)...")
 
         await device.connect()
-        self.connectedDevice = device
+        self.associateDevice(device)
     }
 
-    func hintDisconnect() {
-        // TODO: this must also trigger on an external disconnect!
-        self.connectedDevice = nil // This is not ideal right now
+    @MainActor
+    func notifyConnectedDevice(_ device: ConnectedDevice) {
+        if let connectedDevice {
+            if connectedDevice != device {
+                logger.info("Nearby device automatically connected, though we already have a connected device. Disconnecting it again...")
+                Task {
+                    await device.disconnect()
+                }
+            }
+        } else {
+            logger.info("Nearby device automatically connected: \(device.label)")
+            self.associateDevice(device)
+        }
+    }
+
+    @MainActor
+    private func associateDevice(_ device: ConnectedDevice) {
+        assert(connectedDevice == nil, "Cannot override an existing device!")
+        self.connectedDevice = device
+        device.setupDisconnectHandler { @MainActor [weak self] device in
+            guard let self = self,
+                  self.connectedDevice == device else {
+                return
+            }
+            logger.debug("Removing association for device disconnecting in background: \(device.label).")
+            // TODO: deal with auto connecting muse device (after reconnect?)
+            self.connectedDevice = nil
+        }
     }
 }

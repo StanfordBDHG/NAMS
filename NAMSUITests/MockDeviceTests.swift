@@ -9,7 +9,7 @@
 import XCTest
 import XCTestExtensions
 
-class EEGDeviceTests: XCTestCase {
+class MockDeviceTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
 
@@ -35,23 +35,22 @@ class EEGDeviceTests: XCTestCase {
         app.navigationBars.buttons["Nearby Devices"].tap()
 
         XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
-        XCTAssertTrue(app.staticTexts["Make sure your headband is turned on and nearby."].waitForExistence(timeout: 0.5))
 
         // we don't check for the existence of the progress view as we probably cannot time that precisely
 
-        XCTAssertTrue(app.buttons["Mock, Device 1"].waitForExistence(timeout: 5.0))
-        app.buttons["Mock, Device 1"].tap()
+        XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0))
+        app.buttons["Mock Device 1"].tap()
 
 
-        XCTAssertTrue(app.buttons["Mock, Device 1, Connected"].waitForExistence(timeout: 5.0))
-        XCTAssertTrue(app.buttons["Mock, Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
+        XCTAssertTrue(app.buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(app.buttons["Mock Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
         app.buttons["Device Details"].tap()
 
 
         // DEVICE DETAILS
-        XCTAssertTrue(app.navigationBars.staticTexts["Mock"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.navigationBars.staticTexts["Mock Device 1"].waitForExistence(timeout: 2.0))
 
 
         XCTAssertTrue(app.staticTexts["Battery, 75 %"].waitForExistence(timeout: 0.5))
@@ -63,14 +62,14 @@ class EEGDeviceTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Issues maintaining a good fit? Troubleshooting"].waitForExistence(timeout: 0.5))
 
         XCTAssertTrue(app.staticTexts["ABOUT"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Serial Number, AA BB CC DD"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Firmware Version, 1.2.0"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Serial Number, 0xAABBCCDD"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Firmware Version, 1.2"].waitForExistence(timeout: 0.5))
 
         // DISCONNECT
         XCTAssertTrue(app.buttons["Disconnect"].waitForExistence(timeout: 0.5))
         app.buttons["Disconnect"].tap()
 
-        XCTAssertTrue(app.buttons["Mock, Device 1"].waitForExistence(timeout: 5.0)) // ensure not connected
+        XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0)) // ensure not connected
     }
 
     func testEEGRecordings() {
@@ -96,9 +95,9 @@ class EEGDeviceTests: XCTestCase {
 
         XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
 
-        XCTAssertTrue(app.buttons["Mock, Device 1"].waitForExistence(timeout: 5.0))
-        app.buttons["Mock, Device 1"].tap()
-        XCTAssertTrue(app.buttons["Mock, Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0))
+        app.buttons["Mock Device 1"].tap()
+        XCTAssertTrue(app.buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
 
         XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
         app.navigationBars.buttons["Close"].tap()

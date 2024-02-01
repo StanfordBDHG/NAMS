@@ -59,7 +59,7 @@ struct PatientRow: View {
 
     @ViewBuilder private var selectPatientButton: some View {
         Button(action: selectPatientAction) {
-            HStack {
+            HStack { // TODO: dynamicHStack?
                 UserProfileView(name: patient.name)
                     .frame(height: 30)
                 Text(verbatim: patientName)

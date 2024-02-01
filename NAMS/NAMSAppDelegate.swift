@@ -38,8 +38,7 @@ class NAMSAppDelegate: SpeziAppDelegate {
             EEGRecordings()
 
             Bluetooth {
-                // TODO: can this be based on the type of BiopotDevice service property?
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
         }
     }

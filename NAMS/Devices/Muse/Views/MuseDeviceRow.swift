@@ -29,8 +29,6 @@ struct MuseDeviceRow: View {
             .navigationDestination(item: $presentingActiveDevice) { device in
                 MuseDeviceDetailsView(model: device.model, state: device.connectionState, device.deviceInformation) {
                     device.disconnect()
-                    // TODO: reconsider this architecture to catch external disconnects
-                    deviceCoordinator.hintDisconnect()
                 }
             }
     }

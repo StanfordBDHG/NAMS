@@ -8,6 +8,7 @@
 
 import SpeziAccount
 import SpeziBluetooth
+import SpeziViews
 import SwiftUI
 
 
@@ -25,19 +26,17 @@ struct ScheduleView: View {
         NavigationStack {
             ZStack {
                 if activePatientId == nil {
-                    VStack {
-                        NoInformationText {
-                            Text("No Patient selected")
-                        } caption: {
-                            Text("Select a patient to continue.")
-                        }
-
+                    ContentUnavailableView {
+                        Label("No Patient selected", systemImage: "person.fill")
+                    } description: {
+                        Text("Select a patient to continue.")
+                    } actions: {
                         Button(action: {
                             presentPatientSheet = true
                         }) {
                             Text("Select Patient")
                         }
-                            .padding()
+                        .padding()
                     }
                 } else {
                     TilesView()
@@ -90,11 +89,11 @@ struct ScheduleView: View {
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
         .environment(PatientListModel())
-        .environment(EEGRecordings())
         .previewWith {
+            EEGRecordings()
             DeviceCoordinator()
             Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
             AccountConfiguration {
                 MockUserIdPasswordAccountService()
@@ -105,11 +104,11 @@ struct ScheduleView: View {
 #Preview {
     ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
         .environment(PatientListModel())
-        .environment(EEGRecordings())
         .previewWith {
+            EEGRecordings()
             DeviceCoordinator()
             Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
             AccountConfiguration {
                 MockUserIdPasswordAccountService()

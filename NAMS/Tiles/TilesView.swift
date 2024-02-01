@@ -102,8 +102,8 @@ struct TilesView: View {
     patientList.completedTasks = []
     return TilesView()
         .environment(patientList)
-        .environment(EEGRecordings())
         .previewWith {
+            EEGRecordings()
             DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
         }
 }
@@ -113,8 +113,8 @@ struct TilesView: View {
     patientList.completedTasks = []
     return TilesView()
         .environment(patientList)
-        .environment(EEGRecordings())
         .previewWith {
+            EEGRecordings()
             DeviceCoordinator()
         }
 }
@@ -122,8 +122,8 @@ struct TilesView: View {
 #Preview {
     TilesView()
         .environment(PatientListModel())
-        .environment(EEGRecordings())
         .previewWith {
+            EEGRecordings()
             DeviceCoordinator()
         }
 }

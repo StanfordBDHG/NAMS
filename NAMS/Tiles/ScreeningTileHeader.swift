@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziViews
 import SwiftUI
 
 
@@ -16,18 +17,24 @@ struct ScreeningTileHeader: View {
 
     @Environment(\.dynamicTypeSize)
     private var dynamicTypeSize
+    @Environment(\.horizontalSizeClass)
+    private var horizontalSizeClass // for iPad or landscape we want to stay horizontal
 
-    @State private var subheadlineAlignment: Alignment?
+    @State private var subheadlineLayout: DynamicLayout?
+
+    private var iconGloballyPlaced: Bool {
+        horizontalSizeClass == .regular || dynamicTypeSize < Self.iconRealignSize
+    }
 
     var body: some View {
         HStack {
-            if dynamicTypeSize < Self.iconRealignSize {
+            if iconGloballyPlaced {
                 clipboard
             }
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    if dynamicTypeSize >= Self.iconRealignSize {
+                    if !iconGloballyPlaced {
                         clipboard
                     }
                     Text(task.title)
@@ -47,10 +54,10 @@ struct ScreeningTileHeader: View {
     }
 
     @ViewBuilder var subheadline: some View {
-        DynamicHStack(realignAfter: .xxxLarge, horizontalAlignment: .leading) {
+        DynamicHStack(realignAfter: .xxxLarge) {
             Text(task.tileType.localizedStringResource)
 
-            if subheadlineAlignment == .horizontal {
+            if subheadlineLayout == .horizontal {
                 Spacer()
             }
 
@@ -59,8 +66,8 @@ struct ScreeningTileHeader: View {
         .font(.subheadline)
         .foregroundColor(.secondary)
         .accessibilityElement(children: .combine)
-        .onPreferenceChange(Alignment.self) { alignment in
-            subheadlineAlignment = alignment
+        .onPreferenceChange(DynamicLayout.self) { layout in
+            subheadlineLayout = layout
         }
     }
 

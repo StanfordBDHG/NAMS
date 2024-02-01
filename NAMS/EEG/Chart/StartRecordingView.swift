@@ -59,7 +59,7 @@ struct StartRecordingView: View {
         .previewWith {
             EEGRecordings()
             Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
         }
 }

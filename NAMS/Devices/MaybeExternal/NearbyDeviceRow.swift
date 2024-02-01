@@ -7,6 +7,7 @@
 //
 
 import SpeziBluetooth
+import SpeziViews
 import SwiftUI
 
 
@@ -71,7 +72,6 @@ public struct NearbyDeviceRow: View {
         let stack = HStack {
             Button(action: devicePrimaryAction) {
                 HStack {
-                    // TODO: allow for italics "unknown device"?
                     ListRow(verbatim: peripheral.label) {
                         deviceSecondaryLabel
                     }
@@ -92,15 +92,9 @@ public struct NearbyDeviceRow: View {
             }
         }
 
-        #if DEBUG
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil { // TODO: verify flag!
-            // accessibility actions cannot be unit tested
-            stack
-        } else {
-            stack.accessibilityRepresentation {
-                accessibilityRepresentation
-            }
-        }
+        #if TEST
+        // accessibility actions cannot be unit tested
+        stack
         #else
         stack.accessibilityRepresentation {
             accessibilityRepresentation
