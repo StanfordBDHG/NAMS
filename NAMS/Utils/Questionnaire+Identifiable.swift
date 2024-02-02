@@ -6,7 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if !VISION
 import SpeziQuestionnaire
 
 
 extension Questionnaire: Identifiable {}
+#endif

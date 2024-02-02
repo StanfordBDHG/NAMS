@@ -1,12 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "abseil-cpp-binary",
+      "identity" : "abseil-cpp-swiftpm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/abseil-cpp-binary.git",
+      "location" : "https://github.com/firebase/abseil-cpp-SwiftPM.git",
       "state" : {
-        "revision" : "bfc0b6f81adc06ce5121eb23f628473638d67c5c",
-        "version" : "1.2022062300.0"
+        "revision" : "06e7506b74bfc47c70f3353e2927ea3e2275230c",
+        "version" : "0.20220623.1"
       }
     },
     {
@@ -16,6 +16,15 @@
       "state" : {
         "revision" : "3e464dad87dad2d29bb29a97836789bf0f8f67d2",
         "version" : "10.18.1"
+      }
+    },
+    {
+      "identity" : "boringssl-swiftpm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/firebase/boringssl-SwiftPM.git",
+      "state" : {
+        "revision" : "dd3eda2b05a3f459fc3073695ad1b28659066eab",
+        "version" : "0.9.1"
       }
     },
     {
@@ -64,12 +73,12 @@
       }
     },
     {
-      "identity" : "grpc-binary",
+      "identity" : "grpc-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/google/grpc-binary.git",
+      "location" : "https://github.com/grpc/grpc-ios.git",
       "state" : {
-        "revision" : "a673bc2937fbe886dd1f99c401b01b6d977a9c98",
-        "version" : "1.49.1"
+        "revision" : "da8a2405e9fdf3dfb127cefc5af56c29be8df2f2",
+        "version" : "1.49.2"
       }
     },
     {
@@ -194,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziOnboarding.git",
       "state" : {
-        "revision" : "8fb6d9f1a080661c0cc564a93b82ead3c8d44d4f",
-        "version" : "1.0.2"
+        "branch" : "feature/vision-os",
+        "revision" : "a11d24e8917c11c1bc226eb970a7419047a035f7"
       }
     },
     {
@@ -221,8 +230,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziViews.git",
       "state" : {
-        "revision" : "138d3326ca348761ebb3fe5d275dd5c89a1cc51d",
-        "version" : "1.1.1"
+        "branch" : "feature/platform-support",
+        "revision" : "a469d40b0a02dffd77807c50db89c54f6af629e7"
       }
     },
     {

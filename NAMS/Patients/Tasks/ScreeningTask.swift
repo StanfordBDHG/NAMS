@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if !VISION
 import Foundation
 import SpeziQuestionnaire
 
@@ -49,3 +50,4 @@ extension ScreeningTask {
         )
     }()
 }
+#endif

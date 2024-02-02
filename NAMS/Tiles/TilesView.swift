@@ -8,7 +8,9 @@
 
 import Spezi
 import SpeziBluetooth
+#if !VISION
 import SpeziQuestionnaire
+#endif
 import SpeziViews
 import SwiftUI
 
@@ -23,12 +25,15 @@ struct TilesView: View {
 
     @State private var viewState: ViewState = .idle
 
-    @State private var presentingQuestionnaire: Questionnaire?
     @State private var presentingEEGRecording = false
+
+    #if !VISION
+    @State private var presentingQuestionnaire: Questionnaire?
 
     private var questionnaires: [ScreeningTask] {
         taskList(ScreeningTask.all)
     }
+    #endif
 
     private var measurements: [MeasurementTask] {
         taskList(MeasurementTask.all)
@@ -49,13 +54,16 @@ struct TilesView: View {
                     }
                 }
 
+                #if !VISION
                 Section("Screening") {
                     ForEach(questionnaires) { questionnaire in
                         ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
                     }
                 }
+                #endif
             }
                 .viewStateAlert(state: $viewState)
+                #if !VISION
                 .sheet(item: $presentingQuestionnaire) { questionnaire in
                     QuestionnaireView(questionnaire: questionnaire) { result in
                         presentingQuestionnaire = nil
@@ -72,6 +80,7 @@ struct TilesView: View {
                     }
                         .interactiveDismissDisabled()
                 }
+                #endif
                 .sheet(isPresented: $presentingEEGRecording) {
                     NavigationStack {
                         EEGRecording()

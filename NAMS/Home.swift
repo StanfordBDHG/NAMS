@@ -36,7 +36,7 @@ struct HomeView: View {
 
     // TODO: how to toggle mock device manager?
 
-    @State var mockDeviceManager: MockDeviceManager? // TODO:  = MockDeviceManager()
+    @State var mockDeviceManager = MockDeviceManager() // TODO:  = MockDeviceManager()
 #if MUSE
     @State var museDeviceManager = MuseDeviceManager()
 #endif
@@ -91,6 +91,7 @@ struct HomeView: View {
                 guard let biopot else {
                     return
                 }
+                // TODO: we kinda also need connecting state!
 
                 // a new device is connected now
                 // TODO: remove

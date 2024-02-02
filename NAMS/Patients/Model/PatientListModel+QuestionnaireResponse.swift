@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if !VISION
 import SpeziFirestore
 import SpeziQuestionnaire
 
@@ -28,3 +29,4 @@ extension PatientListModel {
         try await add(task: task)
     }
 }
+#endif

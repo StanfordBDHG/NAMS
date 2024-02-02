@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if !VISION
 import SpeziViews
 import SwiftUI
 
@@ -84,4 +85,5 @@ struct ScreeningTileHeader: View {
         ScreeningTileHeader(.mChatRF)
     }
 }
+#endif
 #endif

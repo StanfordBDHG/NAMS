@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if !VISION
 import SpeziQuestionnaire
 import SwiftUI
 
@@ -82,4 +83,6 @@ struct ScreeningTile: View {
             .environment(patientList)
     }
 }
+#endif
+
 #endif

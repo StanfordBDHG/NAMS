@@ -7,11 +7,15 @@
 //
 
 import FirebaseFirestoreSwift
+#if !VISION
 import SpeziQuestionnaire
+#endif
 
 
 enum TaskContent {
+    #if !VISION
     case questionnaireResponse(_ response: QuestionnaireResponse)
+    #endif
     case eegRecording // currently empty
 }
 
@@ -23,7 +27,7 @@ struct CompletedTask: Codable {
 }
 
 
-extension TaskContent: Codable {
+extension TaskContent: Codable { // TODO: this codable conformance breaks with visionOs? is that a big deal?
     private enum CodingKeys: String, CodingKey {
         case type
         case questionnaireResponse
@@ -42,9 +46,11 @@ extension TaskContent: Codable {
 
         let type = try container.decode(String.self, forKey: .type)
         switch type {
+        #if !VISION
         case Self.questionnaireResponseType:
             let response = try container.decode(QuestionnaireResponse.self, forKey: .questionnaireResponse)
             self = .questionnaireResponse(response)
+        #endif
         case Self.eegRecordingType:
             self = .eegRecording
         default:
@@ -56,9 +62,11 @@ extension TaskContent: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         switch self {
+        #if !VISION
         case let .questionnaireResponse(response):
             try container.encode(Self.questionnaireResponseType, forKey: .type)
             try container.encode(response, forKey: .questionnaireResponse)
+        #endif
         case .eegRecording:
             try container.encode(Self.eegRecordingType, forKey: .type)
             // nothing to encode yet

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if !VISION
 import Foundation
 import SpeziQuestionnaire
 
@@ -31,3 +32,4 @@ extension Questionnaire {
         questionnaire(withName: "M_CHAT_R_F-en-US-v1.1", bundle: .main)
     }()
 }
+#endif
