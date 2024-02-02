@@ -157,7 +157,7 @@
     "Auto Connect" : {
 
     },
-    "Automatically connect to SensoMedical BIOPOT3 devices." : {
+    "Automatically connect to nearby SensoMedical BIOPOT3 devices." : {
 
     },
     "BATTERY" : {
@@ -176,72 +176,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beta"
-          }
-        }
-      }
-    },
-    "Bluetooth Off" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth Off"
-          }
-        }
-      }
-    },
-    "Bluetooth Unsupported" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth Unsupported"
-          }
-        }
-      }
-    },
-    "BLUETOOTH_OFF_HINT" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth is turned off. Please turn on Bluetooth in Control Center or Settings, in order to connect to a nearby device."
-          }
-        }
-      }
-    },
-    "BLUETOOTH_PROHIBITED_HINT" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth is required to make connections to a nearby device. Please allow Bluetooth connections in your Privacy settings."
-          }
-        }
-      }
-    },
-    "BLUETOOTH_UNKNOWN" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "We have troubles with the Bluetooth communication.\\n\nPlease try again."
-          }
-        }
-      }
-    },
-    "BLUETOOTH_UNSUPPORTED" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth is unsupported on this device!"
           }
         }
       }
@@ -337,28 +271,6 @@
         }
       }
     },
-    "Connected" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connected"
-          }
-        }
-      }
-    },
-    "Connecting" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connecting"
-          }
-        }
-      }
-    },
     "CONTACTS_NAVIGATION_TITLE" : {
       "localizations" : {
         "en" : {
@@ -412,17 +324,6 @@
         }
       }
     },
-    "DEVICE_DETAILS" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Device Details"
-          }
-        }
-      }
-    },
     "Devices" : {
       "localizations" : {
         "en" : {
@@ -449,17 +350,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disconnect"
-          }
-        }
-      }
-    },
-    "Disconnecting" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disconnecting"
           }
         }
       }
@@ -634,17 +524,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Headband Fit"
-          }
-        }
-      }
-    },
-    "Intervention Required" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Intervention Required"
           }
         }
       }
@@ -999,7 +878,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you have problems connecting?"
+            "value" : "Do you have problems connecting to your Muse device?"
           }
         }
       }
@@ -1032,17 +911,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Recording"
-          }
-        }
-      }
-    },
-    "Requires Attention" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Requires Attention"
           }
         }
       }

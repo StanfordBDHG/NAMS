@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import BluetoothViews
 import SpeziPersonalInfo
 import SpeziViews
 import SwiftUI
@@ -35,44 +36,42 @@ struct PatientRow: View {
                 PatientInformation(patient: patient, activePatientId: $activePatientId)
             }
             .accessibilityRepresentation {
-                let button = Button(action: selectPatientAction) {
+                Button(action: selectPatientAction) {
                     Text(verbatim: patientName)
                     if patient.isSelectedPatient(active: activePatientId) {
                         Text("Selected", comment: "Selected Patient")
                     }
                 }
-
+#if !TEST
+                .accessibilityAction(named: "Patient Details", detailsButtonAction)
+#else
                 // accessibility actions cannot be unit tested
-                if !FeatureFlags.renderAccessibilityActions {
-                    button
-                        .accessibilityAction(named: "Patient Details", detailsButtonAction)
-                } else {
-                    HStack {
-                        button
-                            .frame(maxWidth: .infinity)
-                        detailsButton
-                            .accessibilityLabel("\(patientName), Patient Details")
-                    }
-                }
+                .frame(maxWidth: .infinity)
+#endif
+
+#if TEST
+                detailsButton
+                    .accessibilityLabel("\(patientName), Patient Details")
+#endif
             }
     }
 
     @ViewBuilder private var selectPatientButton: some View {
         Button(action: selectPatientAction) {
-            HStack { // TODO: dynamicHStack?
-                UserProfileView(name: patient.name)
-                    .frame(height: 30)
-                Text(verbatim: patientName)
-                    .foregroundColor(.primary)
-                Spacer()
-
+            ListRow {
+                HStack {
+                    UserProfileView(name: patient.name)
+                        .frame(height: 30)
+                    Text(verbatim: patientName)
+                        .foregroundColor(.primary)
+                }
+            } content: {
                 if editMode?.wrappedValue.isEditing != true
                     && patient.isSelectedPatient(active: activePatientId) {
                     Text("Selected", comment: "Selected Patient")
                         .foregroundColor(.secondary)
                 }
             }
-                .frame(maxWidth: .infinity)
         }
     }
 

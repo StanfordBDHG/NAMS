@@ -165,6 +165,8 @@
 		A926D8292AB7B430000C4C2F /* EEGReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8132AB7B430000C4C2F /* EEGReading.swift */; };
 		A926D82A2AB7B430000C4C2F /* EEGChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8142AB7B430000C4C2F /* EEGChart.swift */; };
 		A926D82B2AB7B430000C4C2F /* EEGChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8142AB7B430000C4C2F /* EEGChart.swift */; };
+		A92BB0382B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json in Resources */ = {isa = PBXBuildFile; fileRef = A92BB0372B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json */; };
+		A92BB0392B6C204600788753 /* M_CHAT_R_F-en-US-v1.1.json in Resources */ = {isa = PBXBuildFile; fileRef = A92BB0372B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json */; };
 		A92E34F02ADB9B7E00FE0B51 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */; };
 		A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A92E34F12ADB9B9000FE0B51 /* OrderedCollections */; };
 		A9405B562A36856300C75412 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
@@ -174,8 +176,6 @@
 		A94533FE2AEADCC00095AAD3 /* ScreeningTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533FC2AEADCC00095AAD3 /* ScreeningTask.swift */; };
 		A94534002AEAE1110095AAD3 /* Questionnaire+NAMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533FF2AEAE1110095AAD3 /* Questionnaire+NAMS.swift */; };
 		A94534012AEAE1110095AAD3 /* Questionnaire+NAMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533FF2AEAE1110095AAD3 /* Questionnaire+NAMS.swift */; };
-		A94534062AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = A94534052AEAE2FF0095AAD3 /* M_CHAT_R_F-en-US-v1.0.json */; };
-		A94534072AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = A94534052AEAE2FF0095AAD3 /* M_CHAT_R_F-en-US-v1.0.json */; };
 		A94534092AEAE3490095AAD3 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534082AEAE3490095AAD3 /* ScheduleView.swift */; };
 		A945340A2AEAE3490095AAD3 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534082AEAE3490095AAD3 /* ScheduleView.swift */; };
 		A945340C2AEAE6380095AAD3 /* TilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340B2AEAE6380095AAD3 /* TilesView.swift */; };
@@ -374,11 +374,11 @@
 		A926D8122AB7B430000C4C2F /* EEGChannel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGChannel.swift; sourceTree = "<group>"; };
 		A926D8132AB7B430000C4C2F /* EEGReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGReading.swift; sourceTree = "<group>"; };
 		A926D8142AB7B430000C4C2F /* EEGChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EEGChart.swift; sourceTree = "<group>"; };
+		A92BB0372B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "M_CHAT_R_F-en-US-v1.1.json"; sourceTree = "<group>"; };
 		A9405B552A36856300C75412 /* AddPatientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientView.swift; sourceTree = "<group>"; };
 		A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTile.swift; sourceTree = "<group>"; };
 		A94533FC2AEADCC00095AAD3 /* ScreeningTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTask.swift; sourceTree = "<group>"; };
 		A94533FF2AEAE1110095AAD3 /* Questionnaire+NAMS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Questionnaire+NAMS.swift"; sourceTree = "<group>"; };
-		A94534052AEAE2FF0095AAD3 /* M_CHAT_R_F-en-US-v1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "M_CHAT_R_F-en-US-v1.0.json"; sourceTree = "<group>"; };
 		A94534082AEAE3490095AAD3 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		A945340B2AEAE6380095AAD3 /* TilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TilesView.swift; sourceTree = "<group>"; };
 		A945340F2AEAF2AE0095AAD3 /* CompletedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTask.swift; sourceTree = "<group>"; };
@@ -389,6 +389,7 @@
 		A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupHeader.swift; sourceTree = "<group>"; };
 		A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRecordingSession.swift; sourceTree = "<group>"; };
+		A97A99E12B6CB8680021D80A /* NAMS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NAMS copy-Info.plist"; path = "/Users/andi/XcodeProjects/Stanford/NAMS/NAMS copy-Info.plist"; sourceTree = "<absolute>"; };
 		A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRecordingView.swift; sourceTree = "<group>"; };
 		A97E4F222B1EA21800E25505 /* EEGChannel+Biopot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EEGChannel+Biopot.swift"; sourceTree = "<group>"; };
 		A988FEA92B0414FD00022A61 /* BiopotDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDevice.swift; sourceTree = "<group>"; };
@@ -531,7 +532,7 @@
 		2FE5DC2D29EDD792004B9AB4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				A94534052AEAE2FF0095AAD3 /* M_CHAT_R_F-en-US-v1.0.json */,
+				A92BB0372B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json */,
 				653A255428338800005D4D48 /* Assets.xcassets */,
 				A9BCB57B2AE7435E00DA8588 /* Localizable.xcstrings */,
 				2FE5DC2C29EDD78E004B9AB4 /* ConsentDocument.md */,
@@ -562,6 +563,7 @@
 				653A256028338800005D4D48 /* NAMSTests */,
 				653A256A28338800005D4D48 /* NAMSUITests */,
 				653A254E283387FE005D4D48 /* Products */,
+				A97A99E12B6CB8680021D80A /* NAMS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1082,7 +1084,7 @@
 				653A255528338800005D4D48 /* Assets.xcassets in Resources */,
 				A9BCB57C2AE7435E00DA8588 /* Localizable.xcstrings in Resources */,
 				2F6025CB29BBE70F0045459E /* GoogleService-Info.plist in Resources */,
-				A94534062AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */,
+				A92BB0382B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1104,12 +1106,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A92BB0392B6C204600788753 /* M_CHAT_R_F-en-US-v1.1.json in Resources */,
 				A926D7B82AB7A552000C4C2F /* ConsentDocument.md in Resources */,
 				A926D7B92AB7A552000C4C2F /* AppIcon.png in Resources */,
 				A926D7BA2AB7A552000C4C2F /* Assets.xcassets in Resources */,
 				A9BCB57D2AE7435E00DA8588 /* Localizable.xcstrings in Resources */,
 				A926D7BD2AB7A552000C4C2F /* GoogleService-Info.plist in Resources */,
-				A94534072AEAE3000095AAD3 /* M_CHAT_R_F-en-US-v1.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

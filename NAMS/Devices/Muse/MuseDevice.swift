@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import BluetoothViews
 import Foundation
 import OSLog
 import SpeziBluetooth
@@ -61,7 +62,7 @@ class MuseDevice: Identifiable {
         .alphaAbsolute, // 8-16 Hz
         .betaAbsolute, // 16-32 Hz
         .gammaAbsolute, // 32-64 Hz
-        // .eeg, // enables collection of raw data
+        .eeg, // enables collection of raw data
 
         .hsiPrecision
     ]

@@ -31,9 +31,9 @@ struct NearbyDevicesView: View {
     private var dismiss
 
     @AppStorage(StorageKeys.autoConnect)
-    private var autoConnect = true
+    private var autoConnect = false
     @AppStorage(StorageKeys.autoConnectBackground)
-    private var autoConnectBackground = false
+    private var autoConnectBackground = false // TODO: declared twice?
 
 
     private var consideredPoweredOn: Bool {
@@ -56,7 +56,7 @@ struct NearbyDevicesView: View {
                         Toggle("Continuous Background Search", isOn: $autoConnectBackground) // TODO: make it a selection navigation destination?
                     }
                 } footer: {
-                    Text("Automatically connect to SensoMedical BIOPOT3 devices.")
+                    Text("Automatically connect to nearby SensoMedical BIOPOT3 devices.")
                 }
 
                 if consideredPoweredOn {

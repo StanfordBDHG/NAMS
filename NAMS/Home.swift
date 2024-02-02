@@ -36,7 +36,7 @@ struct HomeView: View {
 
     // TODO: how to toggle mock device manager?
 
-    @State var mockDeviceManager = MockDeviceManager()
+    @State var mockDeviceManager: MockDeviceManager? // TODO:  = MockDeviceManager()
 #if MUSE
     @State var museDeviceManager = MuseDeviceManager()
 #endif

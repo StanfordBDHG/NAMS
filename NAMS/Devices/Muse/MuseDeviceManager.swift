@@ -30,7 +30,7 @@ class MuseDeviceManager {
             logger.debug("Initialized Muse Manager with API version \(apiVersion.getString())")
         }
 
-        self.museManager.removeFromList(after: 6) // stale timeout if there isn't an updated advertisement
+        self.museManager.removeFromList(after: 10) // stale timeout if there isn't an updated advertisement
     }
 
     func startScanning() {

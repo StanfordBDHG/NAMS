@@ -16,7 +16,7 @@ final class BiopotTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--test-biopot"]
+        app.launchArguments = ["--skipOnboarding"]
         app.launch()
     }
 
