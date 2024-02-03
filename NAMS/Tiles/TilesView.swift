@@ -8,7 +8,7 @@
 
 import Spezi
 import SpeziBluetooth
-#if !VISION
+#if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire
 #endif
 import SpeziViews
@@ -27,7 +27,7 @@ struct TilesView: View {
 
     @State private var presentingEEGRecording = false
 
-    #if !VISION
+    #if canImport(SpeziQuestionnaire)
     @State private var presentingQuestionnaire: Questionnaire?
 
     private var questionnaires: [ScreeningTask] {
@@ -54,7 +54,7 @@ struct TilesView: View {
                     }
                 }
 
-                #if !VISION
+                #if canImport(SpeziQuestionnaire)
                 Section("Screening") {
                     ForEach(questionnaires) { questionnaire in
                         ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
@@ -63,7 +63,7 @@ struct TilesView: View {
                 #endif
             }
                 .viewStateAlert(state: $viewState)
-                #if !VISION
+                #if canImport(SpeziQuestionnaire)
                 .sheet(item: $presentingQuestionnaire) { questionnaire in
                     QuestionnaireView(questionnaire: questionnaire) { result in
                         presentingQuestionnaire = nil

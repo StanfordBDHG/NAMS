@@ -7,13 +7,13 @@
 //
 
 import FirebaseFirestoreSwift
-#if !VISION
+#if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire
 #endif
 
 
 enum TaskContent {
-    #if !VISION
+    #if canImport(SpeziQuestionnaire)
     case questionnaireResponse(_ response: QuestionnaireResponse)
     #endif
     case eegRecording // currently empty
@@ -46,7 +46,7 @@ extension TaskContent: Codable { // TODO: this codable conformance breaks with v
 
         let type = try container.decode(String.self, forKey: .type)
         switch type {
-        #if !VISION
+        #if canImport(SpeziQuestionnaire)
         case Self.questionnaireResponseType:
             let response = try container.decode(QuestionnaireResponse.self, forKey: .questionnaireResponse)
             self = .questionnaireResponse(response)
@@ -62,7 +62,7 @@ extension TaskContent: Codable { // TODO: this codable conformance breaks with v
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         switch self {
-        #if !VISION
+        #if canImport(SpeziQuestionnaire)
         case let .questionnaireResponse(response):
             try container.encode(Self.questionnaireResponseType, forKey: .type)
             try container.encode(response, forKey: .questionnaireResponse)

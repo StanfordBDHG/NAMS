@@ -89,7 +89,7 @@
 		2FE5DC7729EDD8E6004B9AB4 /* SpeziFirebaseConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC7629EDD8E6004B9AB4 /* SpeziFirebaseConfiguration */; };
 		2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC7829EDD8E6004B9AB4 /* SpeziFirestore */; };
 		2FE5DC8129EDD91D004B9AB4 /* SpeziOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8029EDD91D004B9AB4 /* SpeziOnboarding */; };
-		2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8329EDD934004B9AB4 /* SpeziQuestionnaire */; };
+		2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = 2FE5DC8329EDD934004B9AB4 /* SpeziQuestionnaire */; };
 		2FE5DC8A29EDD972004B9AB4 /* SpeziLocalStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8929EDD972004B9AB4 /* SpeziLocalStorage */; };
 		2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8B29EDD972004B9AB4 /* SpeziSecureStorage */; };
 		2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */ = {isa = PBXBuildFile; productRef = 2FE5DC8E29EDD980004B9AB4 /* SpeziViews */; };
@@ -132,7 +132,7 @@
 		A926D7A82AB7A552000C4C2F /* Muse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A99522432AA61DA6009272F4 /* Muse.framework */; };
 		A926D7A92AB7A552000C4C2F /* SpeziAccount in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7672AB7A552000C4C2F /* SpeziAccount */; };
 		A926D7AA2AB7A552000C4C2F /* SpeziContact in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7692AB7A552000C4C2F /* SpeziContact */; };
-		A926D7AB2AB7A552000C4C2F /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7732AB7A552000C4C2F /* SpeziQuestionnaire */; };
+		A926D7AB2AB7A552000C4C2F /* SpeziQuestionnaire in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = A926D7732AB7A552000C4C2F /* SpeziQuestionnaire */; };
 		A926D7AC2AB7A552000C4C2F /* SpeziLocalStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7772AB7A552000C4C2F /* SpeziLocalStorage */; };
 		A926D7AD2AB7A552000C4C2F /* SpeziSecureStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A926D7792AB7A552000C4C2F /* SpeziSecureStorage */; };
 		A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */ = {isa = PBXBuildFile; productRef = A926D76D2AB7A552000C4C2F /* SpeziFirebaseAccount */; };
@@ -198,135 +198,6 @@
 		A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */; };
 		A967061C2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
 		A967061D2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
-		A97A99FE2B6CB9450021D80A /* EEGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA3B2B195ED800FB69FB /* EEGSample.swift */; };
-		A97A99FF2B6CB9450021D80A /* Questionnaire+NAMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533FF2AEAE1110095AAD3 /* Questionnaire+NAMS.swift */; };
-		A97A9A002B6CB9450021D80A /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
-		A97A9A012B6CB9450021D80A /* AccountSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42A92AE9EBE200A3F9E5 /* AccountSheet.swift */; };
-		A97A9A022B6CB9450021D80A /* IXNMuseModel+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F52AB7B41B000C4C2F /* IXNMuseModel+Description.swift */; };
-		A97A9A032B6CB9450021D80A /* StorageKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3F29EDD7EE004B9AB4 /* StorageKeys.swift */; };
-		A97A9A042B6CB9450021D80A /* SearchToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB5812AE8307800DA8588 /* SearchToken.swift */; };
-		A97A9A052B6CB9450021D80A /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
-		A97A9A062B6CB9450021D80A /* ScreeningTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533FC2AEADCC00095AAD3 /* ScreeningTask.swift */; };
-		A97A9A072B6CB9450021D80A /* EEGChannel+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7FA2AB7B41B000C4C2F /* EEGChannel+Muse.swift */; };
-		A97A9A082B6CB9450021D80A /* EEGRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D80F2AB7B430000C4C2F /* EEGRecording.swift */; };
-		A97A9A092B6CB9450021D80A /* NotificationPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD42AB60227006960DF /* NotificationPermissions.swift */; };
-		A97A9A0A2B6CB9450021D80A /* DataControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA2F2B192FD500FB69FB /* DataControl.swift */; };
-		A97A9A0B2B6CB9450021D80A /* ScreeningTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */; };
-		A97A9A0C2B6CB9450021D80A /* CurrentPatientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */; };
-		A97A9A0D2B6CB9450021D80A /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3429EDD7CA004B9AB4 /* Welcome.swift */; };
-		A97A9A0E2B6CB9450021D80A /* MuseInterventionRequiredHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8D12B685D800054E27C /* MuseInterventionRequiredHint.swift */; };
-		A97A9A0F2B6CB9450021D80A /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534082AEAE3490095AAD3 /* ScheduleView.swift */; };
-		A97A9A102B6CB9450021D80A /* Binding+Negate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4229EDD7F2004B9AB4 /* Binding+Negate.swift */; };
-		A97A9A112B6CB9450021D80A /* ProcessInfo+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */; };
-		A97A9A122B6CB9450021D80A /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */; };
-		A97A9A132B6CB9450021D80A /* EEGChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8142AB7B430000C4C2F /* EEGChart.swift */; };
-		A97A9A142B6CB9450021D80A /* MeasurementTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */; };
-		A97A9A152B6CB9450021D80A /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
-		A97A9A162B6CB9450021D80A /* EEGChannelMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D80E2AB7B430000C4C2F /* EEGChannelMark.swift */; };
-		A97A9A172B6CB9450021D80A /* OnboardingFlow+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */; };
-		A97A9A182B6CB9450021D80A /* PatientListSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112C2A36687B00E66E3A /* PatientListSheet.swift */; };
-		A97A9A192B6CB9450021D80A /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC975A72978F11A00BA99FE /* Home.swift */; };
-		A97A9A1A2B6CB9450021D80A /* AccountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AB2AE9EBE200A3F9E5 /* AccountButton.swift */; };
-		A97A9A1B2B6CB9450021D80A /* MuseBatteryDetailsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8CE2B685D800054E27C /* MuseBatteryDetailsSection.swift */; };
-		A97A9A1C2B6CB9450021D80A /* EEGSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8112AB7B430000C4C2F /* EEGSeries.swift */; };
-		A97A9A1D2B6CB9450021D80A /* EEGChannel+Biopot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F222B1EA21800E25505 /* EEGChannel+Biopot.swift */; };
-		A97A9A1E2B6CB9450021D80A /* MuseHeadbandFitSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8CD2B685D800054E27C /* MuseHeadbandFitSection.swift */; };
-		A97A9A1F2B6CB9450021D80A /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3129EDD7CA004B9AB4 /* OnboardingFlow.swift */; };
-		A97A9A202B6CB9450021D80A /* MuseBatteryProblemsHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8D42B685D800054E27C /* MuseBatteryProblemsHint.swift */; };
-		A97A9A212B6CB9450021D80A /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
-		A97A9A222B6CB9450021D80A /* CodableArray+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4429EDD7F2004B9AB4 /* CodableArray+RawRepresentable.swift */; };
-		A97A9A232B6CB9450021D80A /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC3E29EDD7ED004B9AB4 /* FeatureFlags.swift */; };
-		A97A9A242B6CB9450021D80A /* DataAcquisition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA352B1942B800FB69FB /* DataAcquisition.swift */; };
-		A97A9A252B6CB9450021D80A /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
-		A97A9A262B6CB9450021D80A /* Bundle+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC4329EDD7F2004B9AB4 /* Bundle+Image.swift */; };
-		A97A9A272B6CB9450021D80A /* DeviceInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB42B0453E100022A61 /* DeviceInformation.swift */; };
-		A97A9A282B6CB9450021D80A /* MeasurementTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */; };
-		A97A9A292B6CB9450021D80A /* CollectionReference+AsyncAwait.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB5852AE8347E00DA8588 /* CollectionReference+AsyncAwait.swift */; };
-		A97A9A2A2B6CB9450021D80A /* EEGSeries+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F92AB7B41B000C4C2F /* EEGSeries+Muse.swift */; };
-		A97A9A2B2B6CB9450021D80A /* NAMSTestingSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4E23822989D51F0013F3D9 /* NAMSTestingSetup.swift */; };
-		A97A9A2C2B6CB9450021D80A /* SamplingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA322B193C9700FB69FB /* SamplingConfiguration.swift */; };
-		A97A9A2D2B6CB9450021D80A /* NAMSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5E32BC297E05EA003432F8 /* NAMSAppDelegate.swift */; };
-		A97A9A2E2B6CB9450021D80A /* QuestionnaireError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534172AEB0DB20095AAD3 /* QuestionnaireError.swift */; };
-		A97A9A2F2B6CB9450021D80A /* NAMSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653A2550283387FE005D4D48 /* NAMSApp.swift */; };
-		A97A9A302B6CB9450021D80A /* PatientRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A989112E2A36688A00E66E3A /* PatientRow.swift */; };
-		A97A9A312B6CB9450021D80A /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
-		A97A9A322B6CB9450021D80A /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2529EDD38A004B9AB4 /* Contacts.swift */; };
-		A97A9A332B6CB9450021D80A /* CompletedTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340F2AEAF2AE0095AAD3 /* CompletedTask.swift */; };
-		A97A9A342B6CB9450021D80A /* BatteryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEAB2B043AED00022A61 /* BatteryIcon.swift */; };
-		A97A9A352B6CB9450021D80A /* FinishedSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC173772F6FD3C05EBFCE52 /* FinishedSetup.swift */; };
-		A97A9A362B6CB9450021D80A /* BiopotDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEA92B0414FD00022A61 /* BiopotDevice.swift */; };
-		A97A9A372B6CB9450021D80A /* PatientListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB5882AE83F7E00DA8588 /* PatientListModel.swift */; };
-		A97A9A382B6CB9450021D80A /* EEGChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8122AB7B430000C4C2F /* EEGChannel.swift */; };
-		A97A9A392B6CB9450021D80A /* EEGReading+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D7F82AB7B41B000C4C2F /* EEGReading+Muse.swift */; };
-		A97A9A3A2B6CB9450021D80A /* EEGReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926D8132AB7B430000C4C2F /* EEGReading.swift */; };
-		A97A9A3B2B6CB9450021D80A /* PatientSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB57E2AE82FFC00DA8588 /* PatientSearchModel.swift */; };
-		A97A9A3C2B6CB9450021D80A /* ConnectionState+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1775D695F23F9EB05697F /* ConnectionState+Muse.swift */; };
-		A97A9A3D2B6CB9450021D80A /* MockDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC175A8D7EDF6EE1B55E859 /* MockDeviceManager.swift */; };
-		A97A9A3E2B6CB9450021D80A /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
-		A97A9A3F2B6CB9450021D80A /* IXNMuseVersion+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17020D7BBBECE54A765C6 /* IXNMuseVersion+String.swift */; };
-		A97A9A402B6CB9450021D80A /* IXNMuseConfiguration+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1785634B3460C4FB953C7 /* IXNMuseConfiguration+Description.swift */; };
-		A97A9A412B6CB9450021D80A /* MuseConnectingProblemsHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8D22B685D800054E27C /* MuseConnectingProblemsHint.swift */; };
-		A97A9A422B6CB9450021D80A /* DeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */; };
-		A97A9A432B6CB9450021D80A /* IXNMusePreset+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1751EE233BB85004ECA90 /* IXNMusePreset+Description.swift */; };
-		A97A9A442B6CB9450021D80A /* EEGFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174A86A693CF5B0ADE824 /* EEGFrequency.swift */; };
-		A97A9A452B6CB9450021D80A /* MuseDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17DCD9F44F68CF55EC3BE /* MuseDeviceManager.swift */; };
-		A97A9A462B6CB9450021D80A /* PatientListModel+QuestionnaireResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94534122AEAFB0E0095AAD3 /* PatientListModel+QuestionnaireResponse.swift */; };
-		A97A9A472B6CB9450021D80A /* IXNMuseDataPacketType+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17CDCBE427101B2ACE5FB /* IXNMuseDataPacketType+Type.swift */; };
-		A97A9A482B6CB9450021D80A /* TilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A945340B2AEAE6380095AAD3 /* TilesView.swift */; };
-		A97A9A492B6CB9450021D80A /* AccelerometerSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA382B195D4800FB69FB /* AccelerometerSample.swift */; };
-		A97A9A4A2B6CB9450021D80A /* SimpleTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */; };
-		A97A9A4B2B6CB9450021D80A /* HeadbandFit+Muse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FEC8B57C8C069AF84F /* HeadbandFit+Muse.swift */; };
-		A97A9A4C2B6CB9450021D80A /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
-		A97A9A4D2B6CB9450021D80A /* ByteBuffer+Int24.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA3E2B1964B500FB69FB /* ByteBuffer+Int24.swift */; };
-		A97A9A4E2B6CB9450021D80A /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
-		A97A9A4F2B6CB9450021D80A /* MuseHeadbandFitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8E52B6860AC0054E27C /* MuseHeadbandFitView.swift */; };
-		A97A9A502B6CB9450021D80A /* MockDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D172D8299600ED13D60 /* MockDevice.swift */; };
-		A97A9A512B6CB9450021D80A /* MockMeasurementGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17D48217697F558657E69 /* MockMeasurementGenerator.swift */; };
-		A97A9A522B6CB9450021D80A /* PatientInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174FE89AC206431F90166 /* PatientInformation.swift */; };
-		A97A9A532B6CB9450021D80A /* NewPatientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1739D3D10EFC5B9F67646 /* NewPatientModel.swift */; };
-		A97A9A542B6CB9450021D80A /* CompletedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */; };
-		A97A9A552B6CB9450021D80A /* MuseDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8CC2B685D800054E27C /* MuseDeviceDetailsView.swift */; };
-		A97A9A562B6CB9450021D80A /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17A06799FC1470D4DDC0D /* PatientList.swift */; };
-		A97A9A572B6CB9450021D80A /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177BFA6C401C2C87FCD5C /* TileType.swift */; };
-		A97A9A582B6CB9450021D80A /* PatientTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC170F68232B993528F84FE /* PatientTask.swift */; };
-		A97A9A592B6CB9450021D80A /* BiopotDevicePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177B4AFB1C891EDB8152B /* BiopotDevicePreview.swift */; };
-		A97A9A5A2B6CB9450021D80A /* MuseDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17C8A120ECD3394366958 /* MuseDevice.swift */; };
-		A97A9A5B2B6CB9450021D80A /* MuseAboutDetailsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8CF2B685D800054E27C /* MuseAboutDetailsSection.swift */; };
-		A97A9A5C2B6CB9450021D80A /* DeviceCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC172078D2802AD6068AC7E /* DeviceCoordinator.swift */; };
-		A97A9A5D2B6CB9450021D80A /* MuseDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17FBF21126FAA3A35B601 /* MuseDeviceRow.swift */; };
-		A97A9A5E2B6CB9450021D80A /* MuseDeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC179BED6FAAD175304A875 /* MuseDeviceList.swift */; };
-		A97A9A5F2B6CB9450021D80A /* MockDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC1794C7379ACE157EE11C4 /* MockDeviceRow.swift */; };
-		A97A9A602B6CB9450021D80A /* BiopotDeviceRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17949BAE6AB7C5F3CDBFC /* BiopotDeviceRow.swift */; };
-		A97A9A612B6CB9450021D80A /* BiopotDeviceDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171C8F82A592D576A4E33 /* BiopotDeviceDetailsView.swift */; };
-		A97A9A622B6CB9450021D80A /* EEGRecordings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171E38A5303E2CE997FF6 /* EEGRecordings.swift */; };
-		A97A9A632B6CB9450021D80A /* HeadbandFit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC171992FCBFA6C59936A3E /* HeadbandFit.swift */; };
-		A97A9A642B6CB9450021D80A /* ConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC179219FC061D5D0282BF2 /* ConnectionState.swift */; };
-		A97A9A652B6CB9450021D80A /* FitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8E82B6863D60054E27C /* FitLabel.swift */; };
-		A97A9A662B6CB9450021D80A /* Fit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC177DBF00CB14CAC4C7E82 /* Fit.swift */; };
-		A97A9A672B6CB9450021D80A /* Questionnaire+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC174AABEF6E6015EFA8B4B /* Questionnaire+Identifiable.swift */; };
-		A97A9A682B6CB9450021D80A /* MuseHeadbandFitProblemsHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8D32B685D800054E27C /* MuseHeadbandFitProblemsHint.swift */; };
-		A97A9A692B6CB9450021D80A /* ConnectedDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC17AEF81E62461D4AA3E67 /* ConnectedDevice.swift */; };
-		A97A9A6B2B6CB9450021D80A /* SpeziPersonalInfo in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99F82B6CB9450021D80A /* SpeziPersonalInfo */; };
-		A97A9A6C2B6CB9450021D80A /* SpeziAccount in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99E52B6CB9450021D80A /* SpeziAccount */; };
-		A97A9A6D2B6CB9450021D80A /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99FC2B6CB9450021D80A /* BluetoothViews */; };
-		A97A9A6E2B6CB9450021D80A /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99F92B6CB9450021D80A /* SpeziBluetooth */; };
-		A97A9A6F2B6CB9450021D80A /* SpeziContact in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99E72B6CB9450021D80A /* SpeziContact */; };
-		A97A9A712B6CB9450021D80A /* SpeziLocalStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99F12B6CB9450021D80A /* SpeziLocalStorage */; };
-		A97A9A722B6CB9450021D80A /* SpeziSecureStorage in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99F32B6CB9450021D80A /* SpeziSecureStorage */; };
-		A97A9A732B6CB9450021D80A /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99F62B6CB9450021D80A /* OrderedCollections */; };
-		A97A9A742B6CB9450021D80A /* SpeziFirebaseAccount in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99E92B6CB9450021D80A /* SpeziFirebaseAccount */; };
-		A97A9A752B6CB9450021D80A /* Spezi in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99E32B6CB9450021D80A /* Spezi */; };
-		A97A9A762B6CB9450021D80A /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99FB2B6CB9450021D80A /* BluetoothServices */; };
-		A97A9A772B6CB9450021D80A /* SpeziViews in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99F42B6CB9450021D80A /* SpeziViews */; };
-		A97A9A782B6CB9450021D80A /* SpeziOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99ED2B6CB9450021D80A /* SpeziOnboarding */; };
-		A97A9A792B6CB9450021D80A /* SpeziFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99EC2B6CB9450021D80A /* SpeziFirestore */; };
-		A97A9A7A2B6CB9450021D80A /* SpeziFirebaseConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = A97A99EB2B6CB9450021D80A /* SpeziFirebaseConfiguration */; };
-		A97A9A7C2B6CB9450021D80A /* ConsentDocument.md in Resources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2C29EDD78E004B9AB4 /* ConsentDocument.md */; };
-		A97A9A7D2B6CB9450021D80A /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FE5DC2A29EDD78D004B9AB4 /* AppIcon.png */; };
-		A97A9A7E2B6CB9450021D80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 653A255428338800005D4D48 /* Assets.xcassets */; };
-		A97A9A7F2B6CB9450021D80A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A9BCB57B2AE7435E00DA8588 /* Localizable.xcstrings */; };
-		A97A9A802B6CB9450021D80A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2F6025CA29BBE70F0045459E /* GoogleService-Info.plist */; };
-		A97A9A812B6CB9450021D80A /* M_CHAT_R_F-en-US-v1.1.json in Resources */ = {isa = PBXBuildFile; fileRef = A92BB0372B6C1F7600788753 /* M_CHAT_R_F-en-US-v1.1.json */; };
 		A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
 		A97E4F202B1EA0D600E25505 /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
 		A97E4F232B1EA21800E25505 /* EEGChannel+Biopot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F222B1EA21800E25505 /* EEGChannel+Biopot.swift */; };
@@ -519,8 +390,6 @@
 		A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRecordingSession.swift; sourceTree = "<group>"; };
 		A97A99E12B6CB8680021D80A /* NAMS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NAMS copy-Info.plist"; path = "/Users/andi/XcodeProjects/Stanford/NAMS/NAMS copy-Info.plist"; sourceTree = "<absolute>"; };
-		A97A9A872B6CB9450021D80A /* NAMS Vision.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NAMS Vision.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A97A9A882B6CB9450021D80A /* NAMS copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NAMS copy2-Info.plist"; path = "/Users/andi/XcodeProjects/Stanford/NAMS/NAMS copy2-Info.plist"; sourceTree = "<absolute>"; };
 		A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRecordingView.swift; sourceTree = "<group>"; };
 		A97E4F222B1EA21800E25505 /* EEGChannel+Biopot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EEGChannel+Biopot.swift"; sourceTree = "<group>"; };
 		A988FEA92B0414FD00022A61 /* BiopotDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDevice.swift; sourceTree = "<group>"; };
@@ -625,28 +494,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A97A9A6A2B6CB9450021D80A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A97A9A6B2B6CB9450021D80A /* SpeziPersonalInfo in Frameworks */,
-				A97A9A6C2B6CB9450021D80A /* SpeziAccount in Frameworks */,
-				A97A9A6D2B6CB9450021D80A /* BluetoothViews in Frameworks */,
-				A97A9A6E2B6CB9450021D80A /* SpeziBluetooth in Frameworks */,
-				A97A9A6F2B6CB9450021D80A /* SpeziContact in Frameworks */,
-				A97A9A712B6CB9450021D80A /* SpeziLocalStorage in Frameworks */,
-				A97A9A722B6CB9450021D80A /* SpeziSecureStorage in Frameworks */,
-				A97A9A732B6CB9450021D80A /* OrderedCollections in Frameworks */,
-				A97A9A742B6CB9450021D80A /* SpeziFirebaseAccount in Frameworks */,
-				A97A9A752B6CB9450021D80A /* Spezi in Frameworks */,
-				A97A9A762B6CB9450021D80A /* BluetoothServices in Frameworks */,
-				A97A9A772B6CB9450021D80A /* SpeziViews in Frameworks */,
-				A97A9A782B6CB9450021D80A /* SpeziOnboarding in Frameworks */,
-				A97A9A792B6CB9450021D80A /* SpeziFirestore in Frameworks */,
-				A97A9A7A2B6CB9450021D80A /* SpeziFirebaseConfiguration in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -717,7 +564,6 @@
 				653A256A28338800005D4D48 /* NAMSUITests */,
 				653A254E283387FE005D4D48 /* Products */,
 				A97A99E12B6CB8680021D80A /* NAMS copy-Info.plist */,
-				A97A9A882B6CB9450021D80A /* NAMS copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -728,7 +574,6 @@
 				653A255D28338800005D4D48 /* NAMSTests.xctest */,
 				653A256728338800005D4D48 /* NAMSUITests.xctest */,
 				A926D7C32AB7A552000C4C2F /* NAMS Muse.app */,
-				A97A9A872B6CB9450021D80A /* NAMS Vision.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1170,41 +1015,6 @@
 			productReference = A926D7C32AB7A552000C4C2F /* NAMS Muse.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A97A99E22B6CB9450021D80A /* NAMS Vision */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A97A9A832B6CB9450021D80A /* Build configuration list for PBXNativeTarget "NAMS Vision" */;
-			buildPhases = (
-				A97A99FD2B6CB9450021D80A /* Sources */,
-				A97A9A6A2B6CB9450021D80A /* Frameworks */,
-				A97A9A7B2B6CB9450021D80A /* Resources */,
-				A97A9A822B6CB9450021D80A /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "NAMS Vision";
-			packageProductDependencies = (
-				A97A99E32B6CB9450021D80A /* Spezi */,
-				A97A99E52B6CB9450021D80A /* SpeziAccount */,
-				A97A99E72B6CB9450021D80A /* SpeziContact */,
-				A97A99E92B6CB9450021D80A /* SpeziFirebaseAccount */,
-				A97A99EB2B6CB9450021D80A /* SpeziFirebaseConfiguration */,
-				A97A99EC2B6CB9450021D80A /* SpeziFirestore */,
-				A97A99ED2B6CB9450021D80A /* SpeziOnboarding */,
-				A97A99F12B6CB9450021D80A /* SpeziLocalStorage */,
-				A97A99F32B6CB9450021D80A /* SpeziSecureStorage */,
-				A97A99F42B6CB9450021D80A /* SpeziViews */,
-				A97A99F62B6CB9450021D80A /* OrderedCollections */,
-				A97A99F82B6CB9450021D80A /* SpeziPersonalInfo */,
-				A97A99F92B6CB9450021D80A /* SpeziBluetooth */,
-				A97A99FB2B6CB9450021D80A /* BluetoothServices */,
-				A97A99FC2B6CB9450021D80A /* BluetoothViews */,
-			);
-			productName = NAMS;
-			productReference = A97A9A872B6CB9450021D80A /* NAMS Vision.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1213,7 +1023,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					653A254C283387FE005D4D48 = {
 						CreatedOnToolsVersion = 13.4;
@@ -1258,7 +1068,6 @@
 			targets = (
 				653A254C283387FE005D4D48 /* NAMS */,
 				A926D7642AB7A552000C4C2F /* NAMS Muse */,
-				A97A99E22B6CB9450021D80A /* NAMS Vision */,
 				653A255C28338800005D4D48 /* NAMSTests */,
 				653A256628338800005D4D48 /* NAMSUITests */,
 			);
@@ -1306,19 +1115,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A97A9A7B2B6CB9450021D80A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A97A9A7C2B6CB9450021D80A /* ConsentDocument.md in Resources */,
-				A97A9A7D2B6CB9450021D80A /* AppIcon.png in Resources */,
-				A97A9A7E2B6CB9450021D80A /* Assets.xcassets in Resources */,
-				A97A9A7F2B6CB9450021D80A /* Localizable.xcstrings in Resources */,
-				A97A9A802B6CB9450021D80A /* GoogleService-Info.plist in Resources */,
-				A97A9A812B6CB9450021D80A /* M_CHAT_R_F-en-US-v1.1.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1341,24 +1137,6 @@
 			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n  if which swiftlint > /dev/null; then\n    swiftlint\n  else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n  fi\nfi\n";
 		};
 		A926D7BE2AB7A552000C4C2F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n  if which swiftlint > /dev/null; then\n    swiftlint\n  else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n  fi\nfi\n";
-		};
-		A97A9A822B6CB9450021D80A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -1631,121 +1409,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A97A99FD2B6CB9450021D80A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A97A99FE2B6CB9450021D80A /* EEGSample.swift in Sources */,
-				A97A99FF2B6CB9450021D80A /* Questionnaire+NAMS.swift in Sources */,
-				A97A9A002B6CB9450021D80A /* ImpedanceMeasurement.swift in Sources */,
-				A97A9A012B6CB9450021D80A /* AccountSheet.swift in Sources */,
-				A97A9A022B6CB9450021D80A /* IXNMuseModel+Description.swift in Sources */,
-				A97A9A032B6CB9450021D80A /* StorageKeys.swift in Sources */,
-				A97A9A042B6CB9450021D80A /* SearchToken.swift in Sources */,
-				A97A9A052B6CB9450021D80A /* AddPatientView.swift in Sources */,
-				A97A9A062B6CB9450021D80A /* ScreeningTask.swift in Sources */,
-				A97A9A072B6CB9450021D80A /* EEGChannel+Muse.swift in Sources */,
-				A97A9A082B6CB9450021D80A /* EEGRecording.swift in Sources */,
-				A97A9A092B6CB9450021D80A /* NotificationPermissions.swift in Sources */,
-				A97A9A0A2B6CB9450021D80A /* DataControl.swift in Sources */,
-				A97A9A0B2B6CB9450021D80A /* ScreeningTile.swift in Sources */,
-				A97A9A0C2B6CB9450021D80A /* CurrentPatientLabel.swift in Sources */,
-				A97A9A0D2B6CB9450021D80A /* Welcome.swift in Sources */,
-				A97A9A0E2B6CB9450021D80A /* MuseInterventionRequiredHint.swift in Sources */,
-				A97A9A0F2B6CB9450021D80A /* ScheduleView.swift in Sources */,
-				A97A9A102B6CB9450021D80A /* Binding+Negate.swift in Sources */,
-				A97A9A112B6CB9450021D80A /* ProcessInfo+PreviewSimulator.swift in Sources */,
-				A97A9A122B6CB9450021D80A /* AccountSetupHeader.swift in Sources */,
-				A97A9A132B6CB9450021D80A /* EEGChart.swift in Sources */,
-				A97A9A142B6CB9450021D80A /* MeasurementTile.swift in Sources */,
-				A97A9A152B6CB9450021D80A /* SelectedPatientCard.swift in Sources */,
-				A97A9A162B6CB9450021D80A /* EEGChannelMark.swift in Sources */,
-				A97A9A172B6CB9450021D80A /* OnboardingFlow+PreviewSimulator.swift in Sources */,
-				A97A9A182B6CB9450021D80A /* PatientListSheet.swift in Sources */,
-				A97A9A192B6CB9450021D80A /* Home.swift in Sources */,
-				A97A9A1A2B6CB9450021D80A /* AccountButton.swift in Sources */,
-				A97A9A1B2B6CB9450021D80A /* MuseBatteryDetailsSection.swift in Sources */,
-				A97A9A1C2B6CB9450021D80A /* EEGSeries.swift in Sources */,
-				A97A9A1D2B6CB9450021D80A /* EEGChannel+Biopot.swift in Sources */,
-				A97A9A1E2B6CB9450021D80A /* MuseHeadbandFitSection.swift in Sources */,
-				A97A9A1F2B6CB9450021D80A /* OnboardingFlow.swift in Sources */,
-				A97A9A202B6CB9450021D80A /* MuseBatteryProblemsHint.swift in Sources */,
-				A97A9A212B6CB9450021D80A /* AccountOnboarding.swift in Sources */,
-				A97A9A222B6CB9450021D80A /* CodableArray+RawRepresentable.swift in Sources */,
-				A97A9A232B6CB9450021D80A /* FeatureFlags.swift in Sources */,
-				A97A9A242B6CB9450021D80A /* DataAcquisition.swift in Sources */,
-				A97A9A252B6CB9450021D80A /* ScreeningTileHeader.swift in Sources */,
-				A97A9A262B6CB9450021D80A /* Bundle+Image.swift in Sources */,
-				A97A9A272B6CB9450021D80A /* DeviceInformation.swift in Sources */,
-				A97A9A282B6CB9450021D80A /* MeasurementTask.swift in Sources */,
-				A97A9A292B6CB9450021D80A /* CollectionReference+AsyncAwait.swift in Sources */,
-				A97A9A2A2B6CB9450021D80A /* EEGSeries+Muse.swift in Sources */,
-				A97A9A2B2B6CB9450021D80A /* NAMSTestingSetup.swift in Sources */,
-				A97A9A2C2B6CB9450021D80A /* SamplingConfiguration.swift in Sources */,
-				A97A9A2D2B6CB9450021D80A /* NAMSAppDelegate.swift in Sources */,
-				A97A9A2E2B6CB9450021D80A /* QuestionnaireError.swift in Sources */,
-				A97A9A2F2B6CB9450021D80A /* NAMSApp.swift in Sources */,
-				A97A9A302B6CB9450021D80A /* PatientRow.swift in Sources */,
-				A97A9A312B6CB9450021D80A /* Patient.swift in Sources */,
-				A97A9A322B6CB9450021D80A /* Contacts.swift in Sources */,
-				A97A9A332B6CB9450021D80A /* CompletedTask.swift in Sources */,
-				A97A9A342B6CB9450021D80A /* BatteryIcon.swift in Sources */,
-				A97A9A352B6CB9450021D80A /* FinishedSetup.swift in Sources */,
-				A97A9A362B6CB9450021D80A /* BiopotDevice.swift in Sources */,
-				A97A9A372B6CB9450021D80A /* PatientListModel.swift in Sources */,
-				A97A9A382B6CB9450021D80A /* EEGChannel.swift in Sources */,
-				A97A9A392B6CB9450021D80A /* EEGReading+Muse.swift in Sources */,
-				A97A9A3A2B6CB9450021D80A /* EEGReading.swift in Sources */,
-				A97A9A3B2B6CB9450021D80A /* PatientSearchModel.swift in Sources */,
-				A97A9A3C2B6CB9450021D80A /* ConnectionState+Muse.swift in Sources */,
-				A97A9A3D2B6CB9450021D80A /* MockDeviceManager.swift in Sources */,
-				A97A9A3E2B6CB9450021D80A /* EEGRecordingSession.swift in Sources */,
-				A97A9A3F2B6CB9450021D80A /* IXNMuseVersion+String.swift in Sources */,
-				A97A9A402B6CB9450021D80A /* IXNMuseConfiguration+Description.swift in Sources */,
-				A97A9A412B6CB9450021D80A /* MuseConnectingProblemsHint.swift in Sources */,
-				A97A9A422B6CB9450021D80A /* DeviceConfiguration.swift in Sources */,
-				A97A9A432B6CB9450021D80A /* IXNMusePreset+Description.swift in Sources */,
-				A97A9A442B6CB9450021D80A /* EEGFrequency.swift in Sources */,
-				A97A9A452B6CB9450021D80A /* MuseDeviceManager.swift in Sources */,
-				A97A9A462B6CB9450021D80A /* PatientListModel+QuestionnaireResponse.swift in Sources */,
-				A97A9A472B6CB9450021D80A /* IXNMuseDataPacketType+Type.swift in Sources */,
-				A97A9A482B6CB9450021D80A /* TilesView.swift in Sources */,
-				A97A9A492B6CB9450021D80A /* AccelerometerSample.swift in Sources */,
-				A97A9A4A2B6CB9450021D80A /* SimpleTile.swift in Sources */,
-				A97A9A4B2B6CB9450021D80A /* HeadbandFit+Muse.swift in Sources */,
-				A97A9A4C2B6CB9450021D80A /* StartRecordingView.swift in Sources */,
-				A97A9A4D2B6CB9450021D80A /* ByteBuffer+Int24.swift in Sources */,
-				A97A9A4E2B6CB9450021D80A /* NearbyDevicesView.swift in Sources */,
-				A97A9A4F2B6CB9450021D80A /* MuseHeadbandFitView.swift in Sources */,
-				A97A9A502B6CB9450021D80A /* MockDevice.swift in Sources */,
-				A97A9A512B6CB9450021D80A /* MockMeasurementGenerator.swift in Sources */,
-				A97A9A522B6CB9450021D80A /* PatientInformation.swift in Sources */,
-				A97A9A532B6CB9450021D80A /* NewPatientModel.swift in Sources */,
-				A97A9A542B6CB9450021D80A /* CompletedTile.swift in Sources */,
-				A97A9A552B6CB9450021D80A /* MuseDeviceDetailsView.swift in Sources */,
-				A97A9A562B6CB9450021D80A /* PatientList.swift in Sources */,
-				A97A9A572B6CB9450021D80A /* TileType.swift in Sources */,
-				A97A9A582B6CB9450021D80A /* PatientTask.swift in Sources */,
-				A97A9A592B6CB9450021D80A /* BiopotDevicePreview.swift in Sources */,
-				A97A9A5A2B6CB9450021D80A /* MuseDevice.swift in Sources */,
-				A97A9A5B2B6CB9450021D80A /* MuseAboutDetailsSection.swift in Sources */,
-				A97A9A5C2B6CB9450021D80A /* DeviceCoordinator.swift in Sources */,
-				A97A9A5D2B6CB9450021D80A /* MuseDeviceRow.swift in Sources */,
-				A97A9A5E2B6CB9450021D80A /* MuseDeviceList.swift in Sources */,
-				A97A9A5F2B6CB9450021D80A /* MockDeviceRow.swift in Sources */,
-				A97A9A602B6CB9450021D80A /* BiopotDeviceRow.swift in Sources */,
-				A97A9A612B6CB9450021D80A /* BiopotDeviceDetailsView.swift in Sources */,
-				A97A9A622B6CB9450021D80A /* EEGRecordings.swift in Sources */,
-				A97A9A632B6CB9450021D80A /* HeadbandFit.swift in Sources */,
-				A97A9A642B6CB9450021D80A /* ConnectionState.swift in Sources */,
-				A97A9A652B6CB9450021D80A /* FitLabel.swift in Sources */,
-				A97A9A662B6CB9450021D80A /* Fit.swift in Sources */,
-				A97A9A672B6CB9450021D80A /* Questionnaire+Identifiable.swift in Sources */,
-				A97A9A682B6CB9450021D80A /* MuseHeadbandFitProblemsHint.swift in Sources */,
-				A97A9A692B6CB9450021D80A /* ConnectedDevice.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1766,6 +1429,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1828,6 +1492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1927,15 +1592,16 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Debug;
 		};
@@ -1986,14 +1652,15 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Release;
 		};
@@ -2126,16 +1793,17 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG MUSE";
 				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Debug;
 		};
@@ -2187,189 +1855,11 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = MUSE;
-				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		A97A9A842B6CB9450021D80A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
-				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "NAMS copy2-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses the step count to demonstrate Spezi's integration with HealthKit.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses the step count to demonstrate Spezi's integration with HealthKit.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This message should never appear. Please adjust this when you start using location information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This message should never appear. Please adjust this when you start using location information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This message should never appear. Please adjust this when you start using microphone information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "This message should never appear. Please adjust this when you start using motion information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This message should never appear. Please adjust this when you start using speecg information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UINAMSlicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UINAMSlicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG VISION";
-				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-			};
-			name = Debug;
-		};
-		A97A9A852B6CB9450021D80A /* Test */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
-				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "NAMS copy2-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses the step count to demonstrate Spezi's integration with HealthKit.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses the step count to demonstrate Spezi's integration with HealthKit.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This message should never appear. Please adjust this when you start using location information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This message should never appear. Please adjust this when you start using location information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This message should never appear. Please adjust this when you start using microphone information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "This message should never appear. Please adjust this when you start using motion information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This message should never appear. Please adjust this when you start using speecg information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UINAMSlicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UINAMSlicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "TEST VISION";
-				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-			};
-			name = Test;
-		};
-		A97A9A862B6CB9450021D80A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 637867499T;
-				ENABLE_PREVIEWS = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "NAMS copy2-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
-				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses the step count to demonstrate Spezi's integration with HealthKit.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "The Neurodevelopment Assessment and Monitoring System (NAMS) uses the step count to demonstrate Spezi's integration with HealthKit.";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This message should never appear. Please adjust this when you start using location information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This message should never appear. Please adjust this when you start using location information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This message should never appear. Please adjust this when you start using microphone information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSMotionUsageDescription = "This message should never appear. Please adjust this when you start using motion information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "This message should never appear. Please adjust this when you start using speecg information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UINAMSlicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UINAMSlicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = VISION;
 				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
@@ -2382,6 +1872,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -2487,15 +1978,16 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Test;
 		};
@@ -2547,16 +2039,17 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "TEST MUSE";
 				"SWIFT_ELicenseRef-NAMS_LOC_STRINGS" = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NAMS/Supporting Files/NAMS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
 			};
 			name = Test;
 		};
@@ -2648,16 +2141,6 @@
 				A926D7C02AB7A552000C4C2F /* Debug */,
 				A9EC7BFC2AE715F9003D572E /* Test */,
 				A926D7C22AB7A552000C4C2F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A97A9A832B6CB9450021D80A /* Build configuration list for PBXNativeTarget "NAMS Vision" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A97A9A842B6CB9450021D80A /* Debug */,
-				A97A9A852B6CB9450021D80A /* Test */,
-				A97A9A862B6CB9450021D80A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2817,78 +2300,6 @@
 				minimumVersion = 1.0.5;
 			};
 		};
-		A97A99E42B6CB9450021D80A /* XCRemoteSwiftPackageReference "Spezi" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/Spezi";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		A97A99E62B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziAccount" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziAccount.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.0;
-			};
-		};
-		A97A99E82B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziContact" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziContact.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		A97A99EA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziFirebase" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziFirebase.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		A97A99EE2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziOnboarding" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziOnboarding.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		A97A99F22B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziStorage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziStorage.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		A97A99F52B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziViews" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziViews.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
-		A97A99F72B6CB9450021D80A /* XCRemoteSwiftPackageReference "swift-collections" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-collections.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
-			};
-		};
-		A97A99FA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
-			requirement = {
-				branch = "feature/unit-testing-setup";
-				kind = branch;
-			};
-		};
 		A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
@@ -3033,81 +2444,6 @@
 		A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = BluetoothViews;
-		};
-		A97A99E32B6CB9450021D80A /* Spezi */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99E42B6CB9450021D80A /* XCRemoteSwiftPackageReference "Spezi" */;
-			productName = Spezi;
-		};
-		A97A99E52B6CB9450021D80A /* SpeziAccount */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99E62B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziAccount" */;
-			productName = SpeziAccount;
-		};
-		A97A99E72B6CB9450021D80A /* SpeziContact */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99E82B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziContact" */;
-			productName = SpeziContact;
-		};
-		A97A99E92B6CB9450021D80A /* SpeziFirebaseAccount */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99EA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziFirebase" */;
-			productName = SpeziFirebaseAccount;
-		};
-		A97A99EB2B6CB9450021D80A /* SpeziFirebaseConfiguration */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99EA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziFirebase" */;
-			productName = SpeziFirebaseConfiguration;
-		};
-		A97A99EC2B6CB9450021D80A /* SpeziFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99EA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziFirebase" */;
-			productName = SpeziFirestore;
-		};
-		A97A99ED2B6CB9450021D80A /* SpeziOnboarding */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99EE2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziOnboarding" */;
-			productName = SpeziOnboarding;
-		};
-		A97A99F12B6CB9450021D80A /* SpeziLocalStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99F22B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziStorage" */;
-			productName = SpeziLocalStorage;
-		};
-		A97A99F32B6CB9450021D80A /* SpeziSecureStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99F22B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziStorage" */;
-			productName = SpeziSecureStorage;
-		};
-		A97A99F42B6CB9450021D80A /* SpeziViews */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99F52B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziViews" */;
-			productName = SpeziViews;
-		};
-		A97A99F62B6CB9450021D80A /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99F72B6CB9450021D80A /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
-		A97A99F82B6CB9450021D80A /* SpeziPersonalInfo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99F52B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziViews" */;
-			productName = SpeziPersonalInfo;
-		};
-		A97A99F92B6CB9450021D80A /* SpeziBluetooth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99FA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = SpeziBluetooth;
-		};
-		A97A99FB2B6CB9450021D80A /* BluetoothServices */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99FA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = BluetoothServices;
-		};
-		A97A99FC2B6CB9450021D80A /* BluetoothViews */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A97A99FA2B6CB9450021D80A /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
 			productName = BluetoothViews;
 		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
