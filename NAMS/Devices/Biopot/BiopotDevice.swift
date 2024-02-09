@@ -85,7 +85,6 @@ class BiopotDevice: BluetoothDevice, Identifiable {
 
     @MainActor
     private func handleChange(of state: PeripheralState) {
-        // TODO: this is not called if the device is instantly destroyed!
         logger.debug("Biopot device is now \(state)")
 
         if state == .disconnected || state == .disconnecting {

@@ -16,11 +16,11 @@ struct ScheduleView: View {
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
 
-    @State var presentingMuseList = false
-    @State var presentPatientSheet = false
-    @Binding var presentingAccount: Bool
+    @State private var presentingMuseList = false
+    @State private var presentPatientSheet = false
+    @Binding private var presentingAccount: Bool
 
-    @Binding var activePatientId: String?
+    @Binding private var activePatientId: String?
 
     var body: some View {
         NavigationStack {

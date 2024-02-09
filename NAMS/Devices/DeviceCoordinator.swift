@@ -6,10 +6,10 @@
 // SPDX-License-Identifier: MIT
 //
 
-import Foundation
 import OSLog
 import Spezi
 import SpeziBluetooth
+import SwiftUI
 
 
 @Observable
@@ -18,8 +18,42 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
     private(set) var connectedDevice: ConnectedDevice?
 
+    @AppStorage(StorageKeys.autoConnect)
+    @ObservationIgnored private var _autoConnect = false
+    @AppStorage(StorageKeys.autoConnectBackground)
+    @ObservationIgnored private var _autoConnectBackground = false
+
     var isConnected: Bool {
         connectedDevice != nil
+    }
+
+    var autoConnect: Bool {
+        get {
+            access(keyPath: \.autoConnect)
+            return _autoConnect
+        }
+        set {
+            withMutation(keyPath: \.autoConnect) {
+                _autoConnect = newValue
+            }
+        }
+    }
+
+    var autoConnectBackground: Bool {
+        get {
+            access(keyPath: \.autoConnectBackground)
+            return _autoConnectBackground
+        }
+        set {
+            withMutation(keyPath: \.autoConnectBackground) {
+                _autoConnectBackground = newValue
+            }
+        }
+    }
+
+
+    var shouldAutoConnectBiopot: Bool {
+        _autoConnectBackground && !isConnected
     }
 
 

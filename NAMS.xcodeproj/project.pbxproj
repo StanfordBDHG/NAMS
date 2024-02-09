@@ -260,6 +260,7 @@
 		A9D4B8EC2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
 		A9D4B8ED2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
 		A9D83F922B081A47000D0C78 /* BiopotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D83F912B081A47000D0C78 /* BiopotTests.swift */; };
+		A9DA40002B72D65600012E6A /* ObsevableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DA3FFF2B72D65600012E6A /* ObsevableTests.swift */; };
 		A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 		A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
 		A9DF79DF2AE8A81F00AB5983 /* AddPatientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9405B552A36856300C75412 /* AddPatientView.swift */; };
@@ -422,6 +423,7 @@
 		A9D4B8E82B6863D60054E27C /* FitLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitLabel.swift; sourceTree = "<group>"; };
 		A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTileHeader.swift; sourceTree = "<group>"; };
 		A9D83F912B081A47000D0C78 /* BiopotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotTests.swift; sourceTree = "<group>"; };
+		A9DA3FFF2B72D65600012E6A /* ObsevableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObsevableTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTile.swift; sourceTree = "<group>"; };
 		A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTile.swift; sourceTree = "<group>"; };
@@ -596,6 +598,7 @@
 				2FC9759D2978E30800BA99FE /* Supporting Files */,
 				A945340E2AEAF2860095AAD3 /* Tiles */,
 				A9BCB58E2AE8586A00DA8588 /* Utils */,
+				A9DA3FFF2B72D65600012E6A /* ObsevableTests.swift */,
 			);
 			path = NAMS;
 			sourceTree = "<group>";
@@ -636,6 +639,7 @@
 				A926D8102AB7B430000C4C2F /* Recording */,
 				A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */,
 				2DC171E38A5303E2CE997FF6 /* EEGRecordings.swift */,
+				A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */,
 			);
 			path = EEG;
 			sourceTree = "<group>";
@@ -746,7 +750,6 @@
 				A926D80E2AB7B430000C4C2F /* EEGChannelMark.swift */,
 				A926D8142AB7B430000C4C2F /* EEGChart.swift */,
 				A926D80F2AB7B430000C4C2F /* EEGRecording.swift */,
-				A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -1240,6 +1243,7 @@
 				A9F2ECCD2AEC58B00057C7DD /* SimpleTile.swift in Sources */,
 				2DC179421EE83DA24520EABB /* HeadbandFit+Muse.swift in Sources */,
 				A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */,
+				A9DA40002B72D65600012E6A /* ObsevableTests.swift in Sources */,
 				A907DA3F2B1964B500FB69FB /* ByteBuffer+Int24.swift in Sources */,
 				A9CE84512B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */,
 				A9D4B8E62B6860AC0054E27C /* MuseHeadbandFitView.swift in Sources */,
@@ -1593,7 +1597,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=xros*]" = "Stanford BDHG NeuroNest - Development Andi 2";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=xros*]" = "Stanford BDHG NeuroNest - Development Andi";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1981,7 +1985,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=xros*]" = "Stanford BDHG NeuroNest - Development Andi 2";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=xros*]" = "Stanford BDHG NeuroNest - Development Andi";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -2212,8 +2216,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziViews.git";
 			requirement = {
-				branch = "feature/platform-support";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
 			};
 		};
 		2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {

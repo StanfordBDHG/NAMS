@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk.git",
       "state" : {
-        "revision" : "b880ec8ec927a838c51c12862c6222c30d7097d7",
-        "version" : "10.20.0"
+        "revision" : "f91c8167141d0279726c6f6d9d4a47c026785cbc",
+        "version" : "10.21.0"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "ceec9f28dea12b7cf3dabf18b5ed7621c88fd4aa",
-        "version" : "10.20.0"
+        "revision" : "cb8617fab75d181270a1d8f763f26b15c73e2e1e",
+        "version" : "10.21.0"
       }
     },
     {
@@ -122,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKit",
       "state" : {
-        "revision" : "209164ed20592a2213c4bd69cefcb078d9de0692",
-        "version" : "2.2.21"
+        "revision" : "66f2fca769dc103de5801bb491b1d8ceafcd281e",
+        "version" : "2.2.23"
       }
     },
     {
@@ -159,7 +159,7 @@
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
         "branch" : "feature/unit-testing-setup",
-        "revision" : "ba022198596e3d8e6573ef0868ea8089aa0d22dc"
+        "revision" : "974e52e1f197caa1191a25741e0d88edafabe353"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFoundation.git",
       "state" : {
-        "revision" : "d1e6d4cddcf236038d21a73d671806d8ba51b01c",
-        "version" : "1.0.1"
+        "revision" : "0346857e2f1d6fd4b1d950d271be6c82df97107f",
+        "version" : "1.0.2"
       }
     },
     {
@@ -221,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziViews.git",
       "state" : {
-        "branch" : "feature/platform-support",
-        "revision" : "a3fa40cc2f226200ece7c520048451edcc01812b"
+        "revision" : "7210f72d6821d2eeb93438b29cb854a8ce334164",
+        "version" : "1.2.0"
       }
     },
     {
@@ -239,8 +239,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "d029d9d39c87bed85b1c50adee7c41795261a192",
-        "version" : "1.0.6"
+        "revision" : "94cf62b3ba8d4bed62680a282d4c25f9c63c2efb",
+        "version" : "1.1.0"
       }
     },
     {

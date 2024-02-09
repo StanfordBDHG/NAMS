@@ -15,6 +15,8 @@ import SpeziQuestionnaire
 enum TaskContent {
     #if canImport(SpeziQuestionnaire)
     case questionnaireResponse(_ response: QuestionnaireResponse)
+    #else
+    case questionnaireResponse
     #endif
     case eegRecording // currently empty
 }
@@ -27,7 +29,7 @@ struct CompletedTask: Codable {
 }
 
 
-extension TaskContent: Codable { // TODO: this codable conformance breaks with visionOs? is that a big deal?
+extension TaskContent: Codable {
     private enum CodingKeys: String, CodingKey {
         case type
         case questionnaireResponse
@@ -46,11 +48,13 @@ extension TaskContent: Codable { // TODO: this codable conformance breaks with v
 
         let type = try container.decode(String.self, forKey: .type)
         switch type {
-        #if canImport(SpeziQuestionnaire)
         case Self.questionnaireResponseType:
+            #if canImport(SpeziQuestionnaire)
             let response = try container.decode(QuestionnaireResponse.self, forKey: .questionnaireResponse)
             self = .questionnaireResponse(response)
-        #endif
+            #else
+            self = .questionnaireResponse
+            #endif
         case Self.eegRecordingType:
             self = .eegRecording
         default:

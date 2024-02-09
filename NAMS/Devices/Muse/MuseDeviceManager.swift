@@ -23,6 +23,7 @@ class MuseDeviceManager {
     private(set) var nearbyMuses: [MuseDevice] = []
 
     init() {
+        // TODO: sometimes devices are stale after app open. Look into checking advertising stats or just reconstructing the whole muse manager if nothing is connected upon scanning?
         self.museManager = IXNMuseManagerIos()
         self.museListener = MuseListener(deviceManager: self)
 

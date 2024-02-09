@@ -46,9 +46,6 @@ struct HomeView: View {
     @State private var viewState: ViewState = .idle
     @State private var presentingAccount = false
 
-    @AppStorage(StorageKeys.autoConnectBackground)
-    private var autoConnectBackground = false // TODO: does this binding update?
-
     var body: some View {
         TabView(selection: $selectedTab) {
             ScheduleView(presentingAccount: $presentingAccount, activePatientId: $activePatientId)
@@ -68,7 +65,7 @@ struct HomeView: View {
 #if MUSE
             .environment(museDeviceManager)
 #endif
-            .autoConnect(enabled: autoConnectBackground && !deviceCoordinator.isConnected, with: bluetooth)
+            .autoConnect(enabled: deviceCoordinator.shouldAutoConnectBiopot, with: bluetooth)
             .onAppear {
                 if FeatureFlags.injectDefaultPatient {
                     Task {
@@ -91,11 +88,9 @@ struct HomeView: View {
                 guard let biopot else {
                     return
                 }
-                // TODO: we kinda also need connecting state!
+                // TODO: we kinda also need connecting state!? just change Bluetooth behavior?
 
                 // a new device is connected now
-                // TODO: remove
-                print("NEW BIOPOT WITH STATE \(biopot.state)")
                 deviceCoordinator.notifyConnectedDevice(.biopot(biopot))
             }
             .onChange(of: viewState) { oldValue, newValue in

@@ -20,7 +20,6 @@ struct BiopotDeviceRow: View {
 
 
     var body: some View {
-        // TODO: how to UI test the biopot?
         NearbyDeviceRow(peripheral: device) {
             Task {
                 await deviceCoordinator.tapDevice(.biopot(device))

@@ -42,7 +42,6 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     @MainActor
     func startRecordingSession() async throws {
         let session = EEGRecordingSession()
-        self.recordingSession = session
 
         guard let device = deviceCoordinator.connectedDevice else {
             throw EEGRecordingError.noConnectedDevice
@@ -50,6 +49,11 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
 
         // TODO: handle the case where the device disconnects when an ongoing recording is in progress? => Issue
         try await device.startRecording(session)
+
+        // We set the recording session after recording was enabled on the device.
+        // Otherwise, we would navigate away to early from the Splash screen and would result in this
+        // task being cancelled.
+        self.recordingSession = session
     }
 
     @MainActor
