@@ -7,42 +7,62 @@
 //
 
 @testable import NAMS
+@_spi(TestingSupport)
+import SpeziBluetooth
 import XCTest
 
-// TODO: was that file the issue?
 
 final class BiopotDeviceTests: XCTestCase {
-    // TODO: How to we test our device test?
-
-    /*
     private var device: BiopotDevice! // swiftlint:disable:this implicitly_unwrapped_optional
 
     override func setUpWithError() throws {
-        let device = BiopotDevice()
-
-        // this is a workaround to call the Spezi initializer here, to inject all dependencies.
-        _ = EmptyView()
-            .spezi(TestDelegate(device: device))
-
-        self.device = device
+        self.device = BiopotDevice.createMock()
     }
 
-    @MainActor
-    func testReceiveDeviceInformation() async throws {
-        let data = try XCTUnwrap(Data(hex: "0x000000000000000000000001561c010000000000"))
+    func testDataAcquisition() async throws {
+        let data = try XCTUnwrap(Data(
+            hex: """
+                 0x1b000000\
+                 6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
+                 1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
+                 75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
+                 ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
+                 d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
+                 2889a72889a72889a72889a72889a72889a72889a72889a7\
+                 4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
+                 1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
+                 b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
+                 87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
+                 """
+        ))
 
-        await device.recieve(data, service: BiopotDevice.Service.biopot, characteristic: BiopotDevice.Characteristic.biopotDeviceInfo)
-
-        let expected = DeviceInformation(
-            syncRatio: 0,
-            syncMode: false,
-            memoryWriteNumber: 0,
-            memoryEraseMode: true,
-            batteryLevel: 86,
-            temperatureValue: 28,
-            batteryCharging: false
+        let configuration = DeviceConfiguration(
+            channelCount: 8,
+            accelerometerStatus: .off,
+            impedanceStatus: false,
+            memoryStatus: false,
+            samplesPerChannel: 9,
+            dataSize: 24,
+            syncEnabled: false,
+            serialNumber: 127
         )
 
-        XCTAssertEqual(device.deviceInfo, expected)
-    }*/
+
+        device.service.$deviceConfiguration.inject(configuration)
+        device.service.$dataAcquisition.inject(data)
+
+        let session = EEGRecordingSession()
+
+        do {
+            try await device.startRecording(session)
+        } catch {
+            // this will throw because there is no peripheral connected, but we only care about assigning the session
+        }
+
+        device.handleDataAcquisition(data: data)
+
+        try await Task.sleep(for: .milliseconds(100))
+        print(session.measurements)
+        // TODO: assert measurements
+    }
 }

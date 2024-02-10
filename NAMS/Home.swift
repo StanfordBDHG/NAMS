@@ -34,6 +34,8 @@ struct HomeView: View {
 
 #if TEST || DEBUG
     @State var mockDeviceManager = MockDeviceManager()
+#else
+    @State var mockDeviceManager: MockDeviceManager?
 #endif
     
 #if MUSE

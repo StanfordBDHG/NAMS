@@ -38,22 +38,21 @@ struct PatientRow: View {
                 PatientInformation(patient: patient)
             }
             .accessibilityRepresentation { @MainActor in
-                Button(action: selectPatientAction) {
-                    Text(verbatim: patientName)
-                    if patient.isSelectedPatient(active: patientList.activePatientId) {
-                        Text("Selected", comment: "Selected Patient")
+                HStack { @MainActor in
+                    Button(action: selectPatientAction) {
+                        Text(verbatim: patientName)
+                        Spacer()
+                        if patient.isSelectedPatient(active: patientList.activePatientId) {
+                            Text("Selected", comment: "Selected Patient")
+                        }
                     }
+#if TEST
+                    detailsButton
+                        .accessibilityLabel("\(patientName), Patient Details")
+#endif
                 }
 #if !TEST
-                .accessibilityAction(named: "Patient Details", detailsButtonAction)
-#else
-                // accessibility actions cannot be unit tested
-                .frame(maxWidth: .infinity)
-#endif
-
-#if TEST
-                detailsButton
-                    .accessibilityLabel("\(patientName), Patient Details")
+                    .accessibilityAction(named: "Patient Details", detailsButtonAction)
 #endif
             }
     }

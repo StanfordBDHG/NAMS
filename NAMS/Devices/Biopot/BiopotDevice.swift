@@ -115,7 +115,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     }
 
     @MainActor
-    func enableRecording() async throws {
+    private func enableRecording() async throws {
         do {
             try await service.$dataControl.write(false)
 
@@ -132,7 +132,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
         }
     }
 
-    private func handleDataAcquisition(data: Data) {
+    func handleDataAcquisition(data: Data) {
         guard let deviceConfiguration = service.deviceConfiguration else {
             logger.debug("Received data acquisition without having device configuration ready!")
             return
