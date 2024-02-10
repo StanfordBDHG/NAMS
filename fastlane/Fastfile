@@ -23,7 +23,7 @@ platform :ios do
       code_coverage: true,
       devices: ["iPhone 15 Pro"],
       force_quit_simulator: true,
-      reset_simulator: true,
+      reset_simulator: false,
       prelaunch_simulator: false,
       concurrent_workers: 1,
       max_concurrent_simulators: 1,
