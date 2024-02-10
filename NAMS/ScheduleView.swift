@@ -65,7 +65,7 @@ struct ScheduleView: View {
             }
         }
 
-        ToolbarItem(placement: .principal) { // TODO: placement as a ornament on visionOS
+        ToolbarItem(placement: .principal) {
             Button(action: {
                 presentPatientSheet = true
             }, label: {

@@ -75,13 +75,12 @@ struct NearbyDevicesView: View {
             .scanNearbyDevices(with: bluetooth, autoConnect: deviceCoordinator.shouldAutoConnectBiopot)
             .scanNearbyDevices(enabled: mockDeviceManager != nil, with: mockDeviceManager ?? MockDeviceManager())
 #if MUSE
-            .scanNearbyDevices(enabled: bluetooth.state == .poweredOn, with: museDeviceManager)
+            .scanNearbyDevices(with: museDeviceManager)
             .onChange(of: bluetooth.state) {
                 if case .poweredOn = bluetooth.state {
                     museDeviceManager.startScanning()
                 } else {
-                    // this will still trigger an API MISUSE, but otherwise we end up in undefined state
-                    // TODO: museDeviceManager.stopScanning()
+                    museDeviceManager.stopScanning(state: bluetooth.state)
                 }
             }
 #endif

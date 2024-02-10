@@ -120,7 +120,6 @@ struct PatientList: View {
                 "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
             ],
             viewState: .constant(.idle)
-            // TODO: activePatientId: .constant("1")
         )
             .environment(PatientSearchModel())
             .environment(PatientListModel())
@@ -135,7 +134,6 @@ struct PatientList: View {
                 "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
             ],
             viewState: .constant(.idle)
-            // TODO: activePatientId: .constant("1")
         )
             .environment(PatientSearchModel())
             .environment(PatientListModel())

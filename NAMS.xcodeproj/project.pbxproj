@@ -396,7 +396,6 @@
 		A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSetupHeader.swift; sourceTree = "<group>"; };
 		A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOnboarding.swift; sourceTree = "<group>"; };
 		A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRecordingSession.swift; sourceTree = "<group>"; };
-		A97A99E12B6CB8680021D80A /* NAMS copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "NAMS copy-Info.plist"; path = "/Users/andi/XcodeProjects/Stanford/NAMS/NAMS copy-Info.plist"; sourceTree = "<absolute>"; };
 		A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRecordingView.swift; sourceTree = "<group>"; };
 		A97E4F222B1EA21800E25505 /* EEGChannel+Biopot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EEGChannel+Biopot.swift"; sourceTree = "<group>"; };
 		A988FEA92B0414FD00022A61 /* BiopotDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDevice.swift; sourceTree = "<group>"; };
@@ -571,7 +570,6 @@
 				653A256028338800005D4D48 /* NAMSTests */,
 				653A256A28338800005D4D48 /* NAMSUITests */,
 				653A254E283387FE005D4D48 /* Products */,
-				A97A99E12B6CB8680021D80A /* NAMS copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};

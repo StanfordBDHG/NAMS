@@ -9,11 +9,13 @@
 import Observation
 import OSLog
 import SpeziBluetooth
+import SwiftUI
 
 
 #if MUSE
 @Observable
 class MuseDeviceManager {
+    private static let discoveryTimeout: Int64 = 10
     private let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseDeviceManager")
 
     private let museManager: IXNMuseManager
@@ -21,15 +23,25 @@ class MuseDeviceManager {
 
     /// The list of nearby muse devices.
     private(set) var nearbyMuses: [MuseDevice] = []
+    /// When the app gets to sleep Muse doesn't continue to count down their stale timer and doesn't remove devices.
+    /// Therefore, we hide them base on the last seen time. However, we don't get notified when the device is suddenly discoverable again.
+    /// So we will actively poll hidden devices if we have some.
+    private var hiddenMuseDevices: Set<IXNMuse> = []
+    private var hiddenDevicesTimer: Timer? {
+        willSet {
+            hiddenDevicesTimer?.invalidate()
+        }
+    }
 
-    var connectedMuse: MuseDevice? {
+    private var lastKnownBluetoothState: BluetoothState = .unknown
+
+    @MainActor var connectedMuse: MuseDevice? {
         nearbyMuses.first { muse in
             muse.state == .connected
         }
     }
 
     init() {
-        // TODO: sometimes devices are stale after app open. Look into checking advertising stats or just reconstructing the whole muse manager if nothing is connected upon scanning?
         self.museManager = IXNMuseManagerIos()
         self.museListener = MuseListener(deviceManager: self)
 
@@ -37,25 +49,90 @@ class MuseDeviceManager {
             logger.debug("Initialized Muse Manager with API version \(apiVersion.getString())")
         }
 
-        self.museManager.removeFromList(after: 10) // stale timeout if there isn't an updated advertisement
+        self.museManager.removeFromList(after: Self.discoveryTimeout) // stale timeout if there isn't an updated advertisement
     }
 
+    @MainActor
     func startScanning() {
         logger.debug("Start scanning for nearby Muse devices...")
+        if lastKnownBluetoothState == .poweredOff {
+            self.museManager.stopListening() // make sure it is balanced
+        }
+
+        self.lastKnownBluetoothState = .poweredOn
         self.museManager.startListening()
+        handleUpdatedDeviceList(museManager.getMuses())
     }
 
-    func stopScanning() {
+    @MainActor
+    func stopScanning(state: BluetoothState) {
         logger.debug("Stopped scanning for nearby Muse devices!")
-        self.museManager.stopListening()
+        self.lastKnownBluetoothState = state
+        if state == .poweredOn {
+            self.museManager.stopListening()
+        }
+
+        if state != .poweredOn {
+            // MuseManager stops its stale timer once we stop listening.
+            // If we are stopping because Bluetooth turned off, we just assume all devices to be hidden.
+            for device in nearbyMuses {
+                logger.debug("\(device.label) is considered hidden as bluetooth was disabled.")
+                hiddenMuseDevices.insert(device.underlyingDevice)
+            }
+            nearbyMuses.removeAll()
+
+            checkHiddenTimerScheduled()
+        }
+    }
+
+    @MainActor
+    func stopScanning() {
+        // we are called from the modifier, so state must be powered on
+        stopScanning(state: .poweredOn)
+    }
+
+    private func isHiddenDevice(_ muse: IXNMuse) -> Bool {
+        if lastKnownBluetoothState == .poweredOff {
+            return true // we consider all devices hidden when bluetooth is off
+        }
+
+        let lastTime = muse.getLastDiscoveredTime()
+        guard !lastTime.isNaN || muse.getConnectionState() == .disconnected else {
+            return false // just accept those that don't expose a time
+        }
+
+        // that's how muse calculates the discovered time
+        let now = CACurrentMediaTime() * 1000.0 * 1000.0
+
+        let delta = max(0, now - lastTime)
+
+        return delta > (Double(Self.discoveryTimeout) * 1000.0 * 1000.0)
     }
 
 
-    private func handleUpdatedDeviceList() {
-        let nearbyMuses = museManager.getMuses()
+    @MainActor
+    private func handleUpdatedDeviceList(_ museList: [IXNMuse]) {
+        MainActor.assertIsolated("Muse List was not updated on Main Actor!")
+        var nearbyMuses = Set(museList)
+
+        // check if a hidden muse is gone now
+        for muse in hiddenMuseDevices where !nearbyMuses.contains(muse) {
+            hiddenMuseDevices.remove(muse)
+        }
+
+        // check if muse is hidden or a hidden one is not hidden anymore?
+        for (index, muse) in zip(nearbyMuses.indices, nearbyMuses).reversed() {
+            if isHiddenDevice(muse) {
+                hiddenMuseDevices.insert(muse)
+                nearbyMuses.remove(at: index)
+                logger.debug("\(muse.getModel()) - \(muse.getName()) is stale and we are hiding it.")
+            } else {
+                hiddenMuseDevices.remove(muse)
+            }
+        }
 
         // remove all muses that went away
-        for (index, removedMuse) in self.nearbyMuses.enumerated() {
+        for (index, removedMuse) in zip(self.nearbyMuses.indices, self.nearbyMuses).reversed() {
             guard !nearbyMuses.contains(removedMuse.underlyingDevice) else {
                 continue
             }
@@ -67,6 +144,43 @@ class MuseDeviceManager {
                 continue
             }
             self.nearbyMuses.append(MuseDevice(addedMuse))
+        }
+
+        checkHiddenTimerScheduled()
+    }
+
+    @MainActor
+    private func checkHiddenMuseDevices() {
+        var hiddenDeviceUpdated = false
+
+        for device in hiddenMuseDevices where !isHiddenDevice(device) {
+            // device updated again
+            logger.debug("\(device.getModel()) - \(device.getName()) is not hidden anymore!")
+            hiddenDeviceUpdated = true
+            break
+        }
+
+        if hiddenDeviceUpdated {
+            hiddenDevicesTimer = nil
+            handleUpdatedDeviceList(museManager.getMuses())
+        }
+    }
+
+    @MainActor
+    private func checkHiddenTimerScheduled() {
+        if hiddenMuseDevices.isEmpty {
+            hiddenDevicesTimer = nil
+        } else if hiddenDevicesTimer == nil {
+            let timer = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                MainActor.assumeIsolated {
+                    self.checkHiddenMuseDevices()
+                }
+            }
+            hiddenDevicesTimer = timer
+            RunLoop.main.add(timer, forMode: .common)
         }
     }
 
@@ -85,7 +199,7 @@ extension MuseDeviceManager: BluetoothScanner {
 
     func scanNearbyDevices(autoConnect: Bool) async {
         precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
-        self.startScanning()
+        await self.startScanning()
     }
 
     func setAutoConnect(_ autoConnect: Bool) async {
@@ -109,7 +223,12 @@ extension MuseDeviceManager {
             guard let deviceManager else {
                 return
             }
-            deviceManager.handleUpdatedDeviceList()
+
+            let museList = deviceManager.museManager.getMuses()
+
+            Task { @MainActor in
+                deviceManager.handleUpdatedDeviceList(museList)
+            }
         }
 
         deinit {

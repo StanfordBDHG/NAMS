@@ -101,8 +101,12 @@ class MuseDevice: Identifiable {
         muse.getRssi()
     }
 
-    var lastDiscoveredTime: Double {
-        muse.getLastDiscoveredTime()
+    var lastDiscoveredTime: Double? {
+        let time = muse.getLastDiscoveredTime()
+        guard !time.isNaN else {
+            return nil
+        }
+        return time
     }
 
     var underlyingDevice: IXNMuse {
