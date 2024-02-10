@@ -83,7 +83,7 @@ struct MuseHeadbandFitSection: View {
 }
 
 #Preview {
-    return NavigationStack {
+    NavigationStack {
         List {
             MuseHeadbandFitSection(
                 .init(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1")

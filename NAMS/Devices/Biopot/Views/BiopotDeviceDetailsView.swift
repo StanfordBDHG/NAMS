@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziBluetooth
 import SpeziViews
 import SwiftUI
 
@@ -17,6 +18,25 @@ struct BiopotDeviceDetailsView: View {
     @Environment(\.dismiss)
     private var dismiss
 
+    var hasAboutInformation: Bool {
+        let deviceInformation = biopot.deviceInformation
+        return deviceInformation.firmwareRevision != nil
+            || deviceInformation.hardwareRevision != nil
+            || deviceInformation.serialNumber != nil
+    }
+
+    var title: Text {
+        if let name = biopot.name {
+            Text(verbatim: name)
+        } else {
+            Text("Unknown Device")
+        }
+    }
+
+    var isDisconnected: Bool {
+        biopot.state == .disconnected || biopot.state == .disconnecting
+    }
+
     var body: some View {
         List {
             if let info = biopot.service.deviceInfo {
@@ -27,40 +47,51 @@ struct BiopotDeviceDetailsView: View {
                 }
             }
 
-            Section("About") {
-                if let firmware = biopot.deviceInformation.firmwareRevision {
-                    ListRow("Firmware Version") {
-                        Text(verbatim: firmware)
+            if hasAboutInformation {
+                Section("About") {
+                    if let firmware = biopot.deviceInformation.firmwareRevision {
+                        ListRow("Firmware Version") {
+                            Text(verbatim: firmware)
+                        }
                     }
-                }
-                if let hardware = biopot.deviceInformation.hardwareRevision {
-                    ListRow("Hardware Version") {
-                        Text(verbatim: hardware)
+                    if let hardware = biopot.deviceInformation.hardwareRevision {
+                        ListRow("Hardware Version") {
+                            Text(verbatim: hardware)
+                        }
                     }
-                }
-                if let serialNumber = biopot.deviceInformation.serialNumber {
-                    ListRow("Serial Number") {
-                        Text(verbatim: serialNumber)
+                    if let serialNumber = biopot.deviceInformation.serialNumber {
+                        ListRow("Serial Number") {
+                            Text(verbatim: serialNumber)
+                        }
                     }
                 }
             }
 
+            disconnectButton
+        }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(title)
+            .onChange(of: biopot.state) {
+                if isDisconnected {
+                    dismiss()
+                }
+            }
+    }
+
+    @ViewBuilder var disconnectButton: some View {
+        Section {
             Button(action: {
                 disconnectClosure()
-                dismiss()
             }) {
                 Text("Disconnect")
                     .frame(maxWidth: .infinity)
             }
-                .disabled(biopot.state == .disconnected || biopot.state == .disconnecting)
-        }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle(Text(verbatim: biopot.name ?? ""))
-            .onChange(of: biopot.state) {
-                if biopot.state == .disconnected || biopot.state == .disconnecting {
-                    dismiss()
-                }
+            .disabled(isDisconnected)
+        } footer: {
+            if isDisconnected {
+                Text("This device is no longer connected.")
             }
+        }
     }
 
 
@@ -71,4 +102,27 @@ struct BiopotDeviceDetailsView: View {
 }
 
 
-// TODO: preview
+#if DEBUG
+#Preview {
+    let biopot = BiopotDevice.createMock(state: .connected)
+
+    return NavigationStack {
+        BiopotDeviceDetailsView(device: biopot) {
+            Task {
+                await biopot.disconnect()
+            }
+        }
+    }
+}
+
+#Preview {
+    let biopot = BiopotDevice.createMock()
+    return NavigationStack {
+        BiopotDeviceDetailsView(device: biopot) {
+            Task {
+                await biopot.disconnect()
+            }
+        }
+    }
+}
+#endif

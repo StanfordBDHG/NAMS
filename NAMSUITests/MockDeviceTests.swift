@@ -53,17 +53,32 @@ class MockDeviceTests: XCTestCase {
         XCTAssertTrue(app.navigationBars.staticTexts["Mock Device 1"].waitForExistence(timeout: 2.0))
 
 
-        XCTAssertTrue(app.staticTexts["Battery, 75 %"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Issues with your battery? Troubleshooting"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Battery, 75 %"].exists)
+        XCTAssertTrue(app.staticTexts["Issues with your battery? Troubleshooting"].exists)
 
-        XCTAssertTrue(app.staticTexts["HEADBAND"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Wearing, Yes"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Headband Fit, mediocre"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Issues maintaining a good fit? Troubleshooting"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["HEADBAND"].exists)
+        XCTAssertTrue(app.staticTexts["Wearing, Yes"].exists)
+        XCTAssertTrue(app.staticTexts["Headband Fit, mediocre"].exists)
+        XCTAssertTrue(app.staticTexts["Issues maintaining a good fit? Troubleshooting"].exists)
 
-        XCTAssertTrue(app.staticTexts["ABOUT"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Serial Number, 0xAABBCCDD"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Firmware Version, 1.2"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["ABOUT"].exists)
+        XCTAssertTrue(app.staticTexts["Serial Number, 0xAABBCCDD"].exists)
+        XCTAssertTrue(app.staticTexts["Firmware Version, 1.2"].exists)
+
+        XCTAssertTrue(app.buttons["Headband Fit, mediocre"].exists)
+        app.buttons["Headband Fit, mediocre"].tap()
+
+        // HEADBAND FIT DETAILS
+        XCTAssertTrue(app.navigationBars.staticTexts["Headband Fit"].waitForExistence(timeout: 2.0))
+
+        XCTAssertTrue(app.staticTexts["Overall, mediocre"].exists)
+        XCTAssertTrue(app.staticTexts["TP9, good"].exists)
+        XCTAssertTrue(app.staticTexts["AF7, mediocre"].exists)
+        XCTAssertTrue(app.staticTexts["AF8, poor"].exists)
+        XCTAssertTrue(app.staticTexts["TP10, good"].exists)
+
+        // back button
+        app.navigationBars.buttons.firstMatch.tap()
 
         // DISCONNECT
         XCTAssertTrue(app.buttons["Disconnect"].waitForExistence(timeout: 0.5))

@@ -25,6 +25,21 @@ class PatientListModel {
 
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
 
+    @AppStorage(StorageKeys.selectedPatient)
+    @ObservationIgnored private var _activePatientId: String?
+
+    var activePatientId: String? {
+        get {
+            access(keyPath: \.activePatientId)
+            return _activePatientId
+        }
+        set {
+            withMutation(keyPath: \.activePatientId) {
+                _activePatientId = newValue
+            }
+        }
+    }
+
     var activePatient: Patient?
 
     var completedTasks: [CompletedTask]? // swiftlint:disable:this discouraged_optional_collection
@@ -63,7 +78,11 @@ class PatientListModel {
         patientListListener = patientsCollection
             .order(by: "name.givenName")
             .order(by: "name.familyName")
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else {
+                    return
+                }
+
                 guard let snapshot else {
                     Self.logger.error("Failed to retrieve patient list: \(error)")
                     viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping
@@ -120,13 +139,13 @@ class PatientListModel {
         }
     }
 
-    func remove(patientId: String, viewState: Binding<ViewState>, activePatientId: Binding<String?>) async {
+    func remove(patientId: String, viewState: Binding<ViewState>) async {
         if let activePatient, activePatient.id == patientId {
             removeActivePatientListener()
         }
 
-        if patientId == activePatientId.wrappedValue {
-            activePatientId.wrappedValue = nil
+        if patientId == activePatientId {
+            activePatientId = nil
         }
 
         do {
@@ -137,14 +156,18 @@ class PatientListModel {
         }
     }
 
-    func loadActivePatient(for id: String, viewState: Binding<ViewState>, activePatientId: Binding<String?>) {
+    func loadActivePatient(for id: String, viewState: Binding<ViewState>) {
         if activePatient?.id == id {
             return // already set up
         }
 
         removeActivePatientListener()
 
-        self.activePatientListener = patientsCollection.document(id).addSnapshotListener { snapshot, error in
+        self.activePatientListener = patientsCollection.document(id).addSnapshotListener { [weak self] snapshot, error in
+            guard let self = self else {
+                return
+            }
+
             guard let snapshot else {
                 Self.logger.error("Failed to retrieve active patient: \(error)")
                 viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping
@@ -152,7 +175,7 @@ class PatientListModel {
             }
 
             if !snapshot.exists {
-                activePatientId.wrappedValue = nil
+                self.activePatientId = nil
                 self.removeActivePatientListener()
                 return
             }
@@ -179,7 +202,11 @@ class PatientListModel {
         }
 
         self.activePatientCompletedTaskListener = completedTasksCollection(patientId: patientId)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else {
+                    return
+                }
+
                 guard let snapshot else {
                     Self.logger.error("Failed to retrieve questionnaire responses for active patient: \(error)")
                     viewState.wrappedValue = .error(FirestoreError(error!)) // swiftlint:disable:this force_unwrapping

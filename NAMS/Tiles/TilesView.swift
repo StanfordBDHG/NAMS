@@ -113,7 +113,7 @@ struct TilesView: View {
         .environment(patientList)
         .previewWith {
             EEGRecordings()
-            DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
+            DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
         }
 }
 

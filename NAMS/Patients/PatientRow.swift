@@ -15,13 +15,15 @@ import SwiftUI
 struct PatientRow: View {
     private let patient: Patient
 
+    @Environment(PatientListModel.self)
+    private var patientList
+
     @Environment(\.dismiss)
     private var dismiss
     @Environment(\.editMode)
     private var editMode
 
     @State private var showPatientDetails = false
-    @Binding private var activePatientId: String?
 
     private var patientName: String {
         patient.name.formatted(.name(style: .long))
@@ -33,12 +35,12 @@ struct PatientRow: View {
             detailsButton
         }
             .navigationDestination(isPresented: $showPatientDetails) {
-                PatientInformation(patient: patient, activePatientId: $activePatientId)
+                PatientInformation(patient: patient)
             }
-            .accessibilityRepresentation {
+            .accessibilityRepresentation { @MainActor in
                 Button(action: selectPatientAction) {
                     Text(verbatim: patientName)
-                    if patient.isSelectedPatient(active: activePatientId) {
+                    if patient.isSelectedPatient(active: patientList.activePatientId) {
                         Text("Selected", comment: "Selected Patient")
                     }
                 }
@@ -56,7 +58,7 @@ struct PatientRow: View {
             }
     }
 
-    @ViewBuilder private var selectPatientButton: some View {
+    @ViewBuilder @MainActor private var selectPatientButton: some View {
         Button(action: selectPatientAction) {
             ListRow {
                 HStack {
@@ -67,7 +69,7 @@ struct PatientRow: View {
                 }
             } content: {
                 if editMode?.wrappedValue.isEditing != true
-                    && patient.isSelectedPatient(active: activePatientId) {
+                    && patient.isSelectedPatient(active: patientList.activePatientId) {
                     Text("Selected", comment: "Selected Patient")
                         .foregroundColor(.secondary)
                 }
@@ -84,17 +86,17 @@ struct PatientRow: View {
     }
 
 
-    init(patient: Patient, activePatientId: Binding<String?>) {
+    init(patient: Patient) {
         self.patient = patient
-        self._activePatientId = activePatientId
     }
 
 
+    @MainActor
     func selectPatientAction() {
-        if patient.isSelectedPatient(active: activePatientId) {
-            activePatientId = nil
+        if patient.isSelectedPatient(active: patientList.activePatientId) {
+            patientList.activePatientId = nil
         } else {
-            activePatientId = patient.id
+            patientList.activePatientId = patient.id
         }
 
         dismiss()
@@ -111,21 +113,21 @@ struct PatientRow: View {
     NavigationStack {
         List {
             PatientRow(
-                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
-                activePatientId: .constant(nil)
+                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))
             )
         }
     }
+        .environment(PatientListModel())
 }
 
 #Preview {
     NavigationStack {
         List {
             PatientRow(
-                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
-                activePatientId: .constant("1")
+                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))
             )
         }
     }
+        .environment(PatientListModel())
 }
 #endif

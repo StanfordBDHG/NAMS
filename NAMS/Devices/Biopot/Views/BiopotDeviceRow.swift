@@ -7,6 +7,7 @@
 //
 
 import BluetoothViews
+import SpeziBluetooth
 import SwiftUI
 
 
@@ -42,4 +43,15 @@ struct BiopotDeviceRow: View {
 }
 
 
-// TODO: preview
+#if DEBUG
+#Preview {
+    let biopot = BiopotDevice.createMock(state: .connected)
+    return NavigationStack {
+        List {
+            BiopotDeviceRow(device: biopot)
+            BiopotDeviceRow(device: BiopotDevice.createMock(serial: "0xDDEEFFGG"))
+        }
+    }
+        .environment(DeviceCoordinator(mock: .biopot(biopot)))
+}
+#endif

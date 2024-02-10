@@ -18,42 +18,28 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
     private(set) var connectedDevice: ConnectedDevice?
 
-    @AppStorage(StorageKeys.autoConnect)
-    @ObservationIgnored private var _autoConnect = false
-    @AppStorage(StorageKeys.autoConnectBackground)
-    @ObservationIgnored private var _autoConnectBackground = false
+    @AppStorage(StorageKeys.autoConnectOption)
+    @ObservationIgnored private var _autoConnectOption: AutoConnectConfiguration = .off
 
     var isConnected: Bool {
         connectedDevice != nil
     }
 
-    var autoConnect: Bool {
+    var autoConnectOption: AutoConnectConfiguration {
         get {
-            access(keyPath: \.autoConnect)
-            return _autoConnect
+            access(keyPath: \.autoConnectOption)
+            return _autoConnectOption
         }
         set {
-            withMutation(keyPath: \.autoConnect) {
-                _autoConnect = newValue
-            }
-        }
-    }
-
-    var autoConnectBackground: Bool {
-        get {
-            access(keyPath: \.autoConnectBackground)
-            return _autoConnectBackground
-        }
-        set {
-            withMutation(keyPath: \.autoConnectBackground) {
-                _autoConnectBackground = newValue
+            withMutation(keyPath: \.autoConnectOption) {
+                _autoConnectOption = newValue
             }
         }
     }
 
 
     var shouldAutoConnectBiopot: Bool {
-        _autoConnectBackground && !isConnected
+        autoConnectOption == .background && !isConnected
     }
 
 
@@ -61,8 +47,8 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
 
     /// Shorthand for easy previewing devices.
-    init(mock: MockDevice) {
-        self.connectedDevice = .mock(mock)
+    init(mock: ConnectedDevice) {
+        self.connectedDevice = mock
     }
 
 

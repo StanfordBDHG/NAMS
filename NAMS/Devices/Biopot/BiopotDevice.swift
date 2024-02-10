@@ -10,7 +10,8 @@ import BluetoothServices
 import BluetoothViews
 import OSLog
 import Spezi
-@_spi(TestingSupport) import SpeziBluetooth // swiftlint:disable:this attributes
+@_spi(TestingSupport)
+import SpeziBluetooth
 import class CoreBluetooth.CBUUID
 
 
@@ -210,5 +211,45 @@ extension BiopotDevice: GenericBluetoothPeripheral {
         } else {
             return label
         }
+    }
+}
+
+
+extension BiopotDevice {
+    static func createMock(serial: String = "0xAABBCCDD", state: PeripheralState = .disconnected) -> BiopotDevice {
+        let biopot = BiopotDevice()
+        biopot.service.$deviceInfo.inject(DeviceInformation(
+            syncRatio: 0,
+            syncMode: false,
+            memoryWriteNumber: 0,
+            memoryEraseMode: false,
+            batteryLevel: 75,
+            temperatureValue: 23,
+            batteryCharging: true
+        ))
+        biopot.deviceInformation.$firmwareRevision.inject("1.2.3")
+        biopot.deviceInformation.$serialNumber.inject(serial)
+        biopot.deviceInformation.$hardwareRevision.inject("3.1")
+
+        biopot.$id.inject(UUID())
+        biopot.$name.inject("SML BIO \(serial)")
+        biopot.$state.inject(state)
+
+        biopot.$connect.inject { @MainActor [weak biopot] in
+            biopot?.$state.inject(.connecting)
+            biopot?.handleChange(of: .connecting)
+
+            try? await Task.sleep(for: .seconds(1))
+
+            biopot?.$state.inject(.connected)
+            biopot?.handleChange(of: .connected)
+        }
+
+        biopot.$disconnect.inject { @MainActor [weak biopot] in
+            biopot?.$state.inject(.disconnected)
+            biopot?.handleChange(of: .disconnected)
+        }
+
+        return biopot
     }
 }

@@ -7,22 +7,9 @@
 //
 
 @testable import NAMS
-import Spezi
-import SpeziBluetooth
-import SwiftUI
 import XCTest
 
-/*
-private class TestDelegate: SpeziAppDelegate {
-    override var configuration: Configuration {
-        Configuration {
-            Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(.biopotService))
-            }
-        }
-    }
-}
- */
+// TODO: was that file the issue?
 
 final class BiopotDeviceTests: XCTestCase {
     // TODO: How to we test our device test?

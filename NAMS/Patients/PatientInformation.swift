@@ -23,8 +23,6 @@ struct PatientInformation: View {
     @State private var viewState: ViewState = .idle
     @State private var presentingDeleteConfirmation = false
 
-    @Binding private var activePatientId: String?
-
     private var name: String {
         patient.name.formatted(.name(style: .long))
     }
@@ -63,10 +61,10 @@ struct PatientInformation: View {
     }
 
     @ViewBuilder private var selectButton: some View {
-        if !patient.isSelectedPatient(active: activePatientId) {
+        if !patient.isSelectedPatient(active: patientList.activePatientId) {
             Section {
                 Button(action: {
-                    activePatientId = patient.id
+                    patientList.activePatientId = patient.id
                     dismiss()
                 }) {
                     Text("Select Patient")
@@ -94,7 +92,7 @@ struct PatientInformation: View {
                             return
                         }
 
-                        await patientList.remove(patientId: patientId, viewState: $viewState, activePatientId: $activePatientId)
+                        await patientList.remove(patientId: patientId, viewState: $viewState)
                         dismiss()
                     }) {
                         Text("Delete")
@@ -108,9 +106,8 @@ struct PatientInformation: View {
     }
 
 
-    init(patient: Patient, activePatientId: Binding<String?>) {
+    init(patient: Patient) {
         self.patient = patient
-        self._activePatientId = activePatientId
     }
 }
 
@@ -118,8 +115,7 @@ struct PatientInformation: View {
 #if DEBUG
 #Preview {
     PatientInformation(
-        patient: Patient(id: "1234", name: .init(givenName: "Andreas", familyName: "Bauer"), note: "These are some notes ..."),
-        activePatientId: .constant(nil)
+        patient: Patient(id: "1234", name: .init(givenName: "Andreas", familyName: "Bauer"), note: "These are some notes ...")
     )
         .environment(PatientListModel())
 }

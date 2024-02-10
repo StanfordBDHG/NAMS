@@ -301,9 +301,6 @@
         }
       }
     },
-    "Continuous Background Search" : {
-
-    },
     "Delete" : {
       "localizations" : {
         "en" : {
@@ -527,6 +524,12 @@
           }
         }
       }
+    },
+    "If background search is enabled, the application will search for nearby devices until a devices was found and connected." : {
+
+    },
+    "In Background" : {
+
     },
     "INTERVENTION_MUSE_FIRMWARE" : {
       "localizations" : {
@@ -781,6 +784,12 @@
         }
       }
     },
+    "Off" : {
+
+    },
+    "On" : {
+
+    },
     "Overall" : {
       "localizations" : {
         "en" : {
@@ -946,6 +955,9 @@
         }
       }
     },
+    "Search in Background" : {
+
+    },
     "Seconds" : {
       "localizations" : {
         "en" : {
@@ -1110,6 +1122,9 @@
         }
       }
     },
+    "This device is no longer connected." : {
+
+    },
     "TP9" : {
       "localizations" : {
         "en" : {
@@ -1150,6 +1165,9 @@
           }
         }
       }
+    },
+    "Unknown Device" : {
+
     },
     "WEARING" : {
       "localizations" : {

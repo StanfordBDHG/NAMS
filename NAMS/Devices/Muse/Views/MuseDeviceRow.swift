@@ -11,6 +11,20 @@ import SwiftUI
 
 
 #if MUSE
+private struct MuseDeviceDestination: View {
+    private let device: MuseDevice
+
+    var body: some View {
+        MuseDeviceDetailsView(model: device.model, state: device.connectionState, device.deviceInformation) {
+            device.disconnect()
+        }
+    }
+
+    init(_ device: MuseDevice) {
+        self.device = device
+    }
+}
+
 struct MuseDeviceRow: View {
     private let device: MuseDevice
 
@@ -28,9 +42,7 @@ struct MuseDeviceRow: View {
             presentingActiveDevice = device
         }
             .navigationDestination(item: $presentingActiveDevice) { device in
-                MuseDeviceDetailsView(model: device.model, state: device.connectionState, device.deviceInformation) {
-                    device.disconnect()
-                }
+                MuseDeviceDestination(device)
             }
     }
 

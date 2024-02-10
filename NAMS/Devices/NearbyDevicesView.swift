@@ -9,6 +9,7 @@
 import BluetoothViews
 import Spezi
 import SpeziBluetooth
+import SpeziViews
 import SwiftUI
 
 
@@ -30,9 +31,17 @@ struct NearbyDevicesView: View {
     @Environment(\.dismiss)
     private var dismiss
 
+#if targetEnvironment(simulator)
+    @State private var mockBiopot = BiopotDevice.createMock()
+#endif
+
 
     private var consideredPoweredOn: Bool {
+#if targetEnvironment(simulator)
+        true // mock biopot is there in every case
+#else
         mockDeviceManager != nil || bluetooth.state == .poweredOn
+#endif
     }
 
 
@@ -42,42 +51,13 @@ struct NearbyDevicesView: View {
 
     var body: some View {
         @Bindable var deviceCoordinator = deviceCoordinator
-        // TODO: remove closure length!
-        // swiftlint:disable:next closure_body_length
+
         NavigationStack {
             List {
-                Section {
-                    // TODO: AutoConnect feature: On, In Background, Off
-                    Toggle("Auto Connect", isOn: $deviceCoordinator.autoConnect)
-                    if deviceCoordinator.autoConnect {
-                        // TODO: make it a selection navigation destination?
-                        Toggle("Continuous Background Search", isOn: $deviceCoordinator.autoConnectBackground)
-                    }
-                } footer: {
-                    Text("Automatically connect to nearby SensoMedical BIOPOT3 devices.")
-                }
+                autoConnectLink
 
                 if consideredPoweredOn {
-                    Section {
-                        #if MUSE
-                        MuseDeviceList()
-                        #endif
-
-                        let biopots = bluetooth.nearbyDevices(for: BiopotDevice.self)
-                        ForEach(biopots) { biopot in
-                            BiopotDeviceRow(device: biopot)
-                        }
-
-                        if let mockDeviceManager {
-                            ForEach(mockDeviceManager.nearbyDevices) { device in
-                                MockDeviceRow(device: device)
-                            }
-                        }
-                    } header: {
-                        LoadingSectionHeaderView("Devices", loading: isScanning)
-                    } footer: {
-                        MuseTroublesConnectingHint()
-                    }
+                    nearbyDevicesSection
                 } else {
                     Section {
                         BluetoothStateHint(bluetooth.state)
@@ -105,6 +85,47 @@ struct NearbyDevicesView: View {
                 }
             }
 #endif
+    }
+
+    @ViewBuilder private var autoConnectLink: some View {
+        Section {
+            NavigationLink {
+                AutoConnectConfigurationView()
+            } label: {
+                ListRow("Auto Connect") {
+                    Text(deviceCoordinator.autoConnectOption.localizedStringResource)
+                }
+            }
+        } footer: {
+            Text("Automatically connect to nearby SensoMedical BIOPOT3 devices.")
+        }
+    }
+
+    @ViewBuilder private var nearbyDevicesSection: some View {
+        Section {
+#if MUSE
+            MuseDeviceList()
+#endif
+
+#if targetEnvironment(simulator)
+            BiopotDeviceRow(device: mockBiopot)
+#endif
+
+            let biopots = bluetooth.nearbyDevices(for: BiopotDevice.self)
+            ForEach(biopots) { biopot in
+                BiopotDeviceRow(device: biopot)
+            }
+
+            if let mockDeviceManager {
+                ForEach(mockDeviceManager.nearbyDevices) { device in
+                    MockDeviceRow(device: device)
+                }
+            }
+        } header: {
+            LoadingSectionHeaderView("Devices", loading: isScanning)
+        } footer: {
+            MuseTroublesConnectingHint()
+        }
     }
 
 

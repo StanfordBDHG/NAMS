@@ -23,15 +23,13 @@ struct PatientListSheet: View {
 
     @State private var searchModel = PatientSearchModel()
 
-    @Binding private var activePatientId: String?
-
     var body: some View {
         NavigationStack {
-            PatientList(patients: patientList.categorizedPatients, viewState: $viewState, activePatientId: $activePatientId)
+            PatientList(patients: patientList.categorizedPatients, viewState: $viewState)
                 .navigationTitle(Text("Patients", comment: "Patient List Title"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: Patient.self) { patient in
-                    PatientInformation(patient: patient, activePatientId: $activePatientId)
+                    PatientInformation(patient: patient)
                 }
                 .environment(searchModel)
                 .sheet(isPresented: $showAddPatientSheet) {
@@ -49,6 +47,10 @@ struct PatientListSheet: View {
                     }
                 })
                 .onAppear {
+                    guard !ProcessInfo.processInfo.isPreviewSimulator else {
+                        return
+                    }
+
                     patientList.retrieveList(viewState: $viewState)
                 }
                 .onDisappear {
@@ -76,15 +78,13 @@ struct PatientListSheet: View {
     }
 
 
-    init(activePatientId: Binding<String?>) {
-        self._activePatientId = activePatientId
-    }
+    init() {}
 }
 
 
 #if DEBUG
 #Preview {
-    PatientListSheet(activePatientId: .constant(nil))
+    PatientListSheet()
         .environment(PatientListModel())
 }
 #endif

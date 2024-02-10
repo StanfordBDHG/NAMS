@@ -32,7 +32,6 @@ struct MuseDeviceDetailsView: View {
 
             Button(action: {
                 disconnectClosure()
-                dismiss()
             }) {
                 Text("Disconnect")
                     .frame(maxWidth: .infinity)
@@ -42,7 +41,7 @@ struct MuseDeviceDetailsView: View {
             .navigationTitle(Text(verbatim: model))
             .navigationBarTitleDisplayMode(.inline)
             .onChange(of: state) {
-                if state == .disconnected {
+                if state == .disconnected { // TODO: this doesn't work?
                     dismiss()
                 }
             }

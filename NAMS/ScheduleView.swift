@@ -15,17 +15,17 @@ import SwiftUI
 struct ScheduleView: View {
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
+    @Environment(PatientListModel.self)
+    private var patientList
 
     @State private var presentingMuseList = false
     @State private var presentPatientSheet = false
     @Binding private var presentingAccount: Bool
 
-    @Binding private var activePatientId: String?
-
     var body: some View {
         NavigationStack {
             ZStack {
-                if activePatientId == nil {
+                if patientList.activePatientId == nil {
                     ContentUnavailableView {
                         Label("No Patient selected", systemImage: "person.fill")
                     } description: {
@@ -47,7 +47,7 @@ struct ScheduleView: View {
                     NearbyDevicesView()
                 }
                 .sheet(isPresented: $presentPatientSheet) {
-                    PatientListSheet(activePatientId: $activePatientId)
+                    PatientListSheet()
                 }
                 .toolbar {
                     toolbar
@@ -65,11 +65,11 @@ struct ScheduleView: View {
             }
         }
 
-        ToolbarItem(placement: .principal) {
+        ToolbarItem(placement: .principal) { // TODO: placement as a ornament on visionOS
             Button(action: {
                 presentPatientSheet = true
             }, label: {
-                CurrentPatientLabel(activePatient: $activePatientId)
+                CurrentPatientLabel()
             })
         }
         ToolbarItem(placement: .primaryAction) {
@@ -78,16 +78,15 @@ struct ScheduleView: View {
     }
 
 
-    init(presentingAccount: Binding<Bool>, activePatientId: Binding<String?>) {
+    init(presentingAccount: Binding<Bool>) {
         self._presentingAccount = presentingAccount
-        self._activePatientId = activePatientId
     }
 }
 
 
 #if DEBUG
 #Preview {
-    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
+    ScheduleView(presentingAccount: .constant(true))
         .environment(PatientListModel())
         .previewWith {
             EEGRecordings()
@@ -102,7 +101,7 @@ struct ScheduleView: View {
 }
 
 #Preview {
-    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
+    ScheduleView(presentingAccount: .constant(true)) // TODO: set active patient!
         .environment(PatientListModel())
         .previewWith {
             EEGRecordings()

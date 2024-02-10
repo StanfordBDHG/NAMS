@@ -8,9 +8,9 @@
 
 @testable import NAMS
 import NIOCore
+@_spi(TestingSupport)
 import SpeziBluetooth
-// TODO: @_spi(TestingSupport) import SpeziBluetooth // swiftlint:disable:this attributes
-// TODO: import XCTBluetooth
+import XCTBluetooth
 import XCTest
 
 
@@ -72,7 +72,7 @@ class BiopotCodingTests: XCTestCase {
 
     func testRealDeviceConfigurationIdentity() throws {
         let data = try XCTUnwrap(Data(hex: "0x0000000000080100010918010000007f"))
-        try testIdentity(of: DeviceConfiguration.self, using: data)
+        try testIdentity(of: DeviceConfiguration.self, from: data)
     }
 
     func testDataControlDisabled() throws {
@@ -82,7 +82,7 @@ class BiopotCodingTests: XCTestCase {
         let control = try XCTUnwrap(DataControl(from: &buffer))
         XCTAssertFalse(control.dataAcquisitionEnabled)
 
-        try testIdentity(of: DataControl.self, using: data)
+        try testIdentity(of: DataControl.self, from: data)
     }
 
     func testDataControlEnabled() throws {
@@ -92,7 +92,7 @@ class BiopotCodingTests: XCTestCase {
         let control = try XCTUnwrap(DataControl(from: &buffer))
         XCTAssertTrue(control.dataAcquisitionEnabled)
 
-        try testIdentity(of: DataControl.self, using: data)
+        try testIdentity(of: DataControl.self, from: data)
     }
 
     func testSamplingConfiguration() throws {
@@ -111,7 +111,7 @@ class BiopotCodingTests: XCTestCase {
 
         // cut of the 2 zero bytes which are not required for proper id check!
         let idData = try XCTUnwrap(Data(hex: "0x000000ff000701f4090304"))
-        try testIdentity(of: SamplingConfiguration.self, using: idData)
+        try testIdentity(of: SamplingConfiguration.self, from: idData)
     }
 
     func testDataAcquisition11_1() throws {
@@ -299,66 +299,5 @@ class BiopotCodingTests: XCTestCase {
 
         XCTAssertEqual(intBE, 7340031)
         XCTAssertEqual(intLE, -145)
-    }
-}
-
-
-func testIdentity<T: ByteCodable>(of type: T.Type, using data: Data) throws {
-    var decodingBuffer = ByteBuffer(data: data)
-
-    let instance: T = try XCTUnwrap(T(from: &decodingBuffer))
-
-    var encodingBuffer = ByteBuffer()
-    encodingBuffer.reserveCapacity(data.count)
-
-    instance.encode(to: &encodingBuffer)
-
-    let encodingData = Data(buffer: encodingBuffer)
-    XCTAssertEqual(encodingData, data)
-}
-
-
-extension Data {
-    init?(hex: String) {
-        // while this seems complicated, and you can do it with shorter code,
-        // this doesn't incur any heap allocations for string. Pretty neat.
-
-        var index = hex.startIndex
-
-        let hexCount: Int
-
-        if hex.hasPrefix("0x") || hex.hasPrefix("0X") {
-            index = hex.index(index, offsetBy: 2)
-            hexCount = hex.count - 2
-        } else {
-            hexCount = hex.count
-        }
-
-        var bytes: [UInt8] = []
-        bytes.reserveCapacity(hexCount / 2 + hexCount % 2)
-
-        if !hexCount.isMultiple(of: 2) {
-            guard let byte = UInt8(String(hex[index]), radix: 16) else {
-                return nil
-            }
-            bytes.append(byte)
-
-            index = hex.index(after: index)
-        }
-
-
-        while index < hex.endIndex {
-            guard let byte = UInt8(hex[index ... hex.index(after: index)], radix: 16) else {
-                return nil
-            }
-            bytes.append(byte)
-
-            index = hex.index(index, offsetBy: 2)
-        }
-
-        guard hexCount / bytes.count == 2 else {
-            return nil
-        }
-        self.init(bytes)
     }
 }

@@ -125,7 +125,7 @@ struct EEGRecording: View {
 
 
 #if DEBUG
-#Preview { // TODO: verify previews
+#Preview {
     let model = EEGRecordings()
     Task { @MainActor in
         try await model.startRecordingSession()
@@ -133,9 +133,9 @@ struct EEGRecording: View {
     return NavigationStack {
         EEGRecording()
             .environment(PatientListModel())
-            .environment(model)
             .previewWith {
-                DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
+                model
+                DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
                 Bluetooth {
                     Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
                 }
@@ -149,7 +149,7 @@ struct EEGRecording: View {
             .environment(PatientListModel())
             .previewWith {
                 EEGRecordings()
-                DeviceCoordinator(mock: MockDevice(name: "Mock Device 1", state: .connected))
+                DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
             }
     }
 }

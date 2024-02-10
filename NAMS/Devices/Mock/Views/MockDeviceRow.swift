@@ -10,6 +10,21 @@ import BluetoothViews
 import SwiftUI
 
 
+private struct MockDeviceDestination: View {
+    private let device: MockDevice
+
+    var body: some View {
+        MuseDeviceDetailsView(model: device.label, state: device.connectionState, device.deviceInformation) {
+            device.disconnect()
+        }
+    }
+
+    init(_ device: MockDevice) {
+        self.device = device
+    }
+}
+
+
 struct MockDeviceRow: View {
     private let device: MockDevice
 
@@ -28,9 +43,7 @@ struct MockDeviceRow: View {
             presentingActiveDevice = device
         }
             .navigationDestination(item: $presentingActiveDevice) { device in
-                MuseDeviceDetailsView(model: device.label, state: device.connectionState, device.deviceInformation) {
-                    device.disconnect()
-                }
+                MockDeviceDestination(device)
             }
     }
 

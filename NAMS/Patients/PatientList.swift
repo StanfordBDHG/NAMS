@@ -20,7 +20,6 @@ struct PatientList: View {
     private var searchModel
 
     @Binding private var viewState: ViewState
-    @Binding private var activePatientId: String?
 
     private var displayedCount: Int {
         patients?.reduce(into: 0, { result, element in
@@ -40,9 +39,9 @@ struct PatientList: View {
                 }
             } else {
                 List {
-                    if let selectedPatient = patientList.activePatient, activePatientId != nil {
+                    if let selectedPatient = patientList.activePatient, patientList.activePatientId != nil {
                         Section {
-                            SelectedPatientCard(patient: selectedPatient, activePatientId: $activePatientId)
+                            SelectedPatientCard(patient: selectedPatient)
                         }
                     }
 
@@ -77,10 +76,9 @@ struct PatientList: View {
     }
 
 
-    init(patients: OrderedDictionary<Character, [Patient]>?, viewState: Binding<ViewState>, activePatientId: Binding<String?>) {
+    init(patients: OrderedDictionary<Character, [Patient]>?, viewState: Binding<ViewState>) {
         self.patients = patients
         self._viewState = viewState
-        self._activePatientId = activePatientId
     }
 
 
@@ -88,7 +86,7 @@ struct PatientList: View {
     @ViewBuilder
     func patientRows(_ patients: [Patient]) -> some View {
         ForEach(patients) { patient in
-            PatientRow(patient: patient, activePatientId: $activePatientId)
+            PatientRow(patient: patient)
         }
             .onDelete { indexSet in
                 Task {
@@ -99,7 +97,7 @@ struct PatientList: View {
                         }
 
 
-                        await patientList.remove(patientId: patientId, viewState: $viewState, activePatientId: $activePatientId)
+                        await patientList.remove(patientId: patientId, viewState: $viewState)
                     }
                 }
             }
@@ -121,8 +119,8 @@ struct PatientList: View {
                 ],
                 "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
             ],
-            viewState: .constant(.idle),
-            activePatientId: .constant("1")
+            viewState: .constant(.idle)
+            // TODO: activePatientId: .constant("1")
         )
             .environment(PatientSearchModel())
             .environment(PatientListModel())
@@ -136,21 +134,21 @@ struct PatientList: View {
                 "L": [Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford"))],
                 "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
             ],
-            viewState: .constant(.idle),
-            activePatientId: .constant("1")
+            viewState: .constant(.idle)
+            // TODO: activePatientId: .constant("1")
         )
             .environment(PatientSearchModel())
             .environment(PatientListModel())
     }
 }
 #Preview {
-    PatientList(patients: [:], viewState: .constant(.idle), activePatientId: .constant(nil))
+    PatientList(patients: [:], viewState: .constant(.idle))
         .environment(PatientSearchModel())
         .environment(PatientListModel())
 }
 
 #Preview {
-    PatientList(patients: nil, viewState: .constant(.idle), activePatientId: .constant(nil))
+    PatientList(patients: nil, viewState: .constant(.idle))
         .environment(PatientSearchModel())
         .environment(PatientListModel())
 }
