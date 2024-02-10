@@ -91,11 +91,19 @@ struct HomeView: View {
                 guard let biopot else {
                     return
                 }
-                // TODO: we kinda also need connecting state!? just change Bluetooth behavior?
 
                 // a new device is connected now
-                deviceCoordinator.notifyConnectedDevice(.biopot(biopot))
+                deviceCoordinator.notifyConnectingDevice(.biopot(biopot))
             }
+#if MUSE
+            .onChange(of: museDeviceManager.connectedMuse) { _, muse in
+                guard let muse else {
+                    return
+                }
+
+                deviceCoordinator.notifyConnectingDevice(.muse(muse))
+            }
+#endif
             .onChange(of: viewState) { oldValue, newValue in
                 if case .error = oldValue,
                    case .idle = newValue {

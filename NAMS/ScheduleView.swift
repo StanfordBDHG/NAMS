@@ -99,19 +99,4 @@ struct ScheduleView: View {
             }
         }
 }
-
-#Preview {
-    ScheduleView(presentingAccount: .constant(true)) // TODO: set active patient!
-        .environment(PatientListModel())
-        .previewWith {
-            EEGRecordings()
-            DeviceCoordinator()
-            Bluetooth {
-                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
-            }
-            AccountConfiguration {
-                MockUserIdPasswordAccountService()
-            }
-        }
-}
 #endif

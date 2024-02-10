@@ -47,7 +47,6 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
             throw EEGRecordingError.noConnectedDevice
         }
 
-        // TODO: handle the case where the device disconnects when an ongoing recording is in progress? => Issue
         try await device.startRecording(session)
 
         // We set the recording session after recording was enabled on the device.

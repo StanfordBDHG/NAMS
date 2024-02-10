@@ -41,7 +41,7 @@ struct MuseDeviceDetailsView: View {
             .navigationTitle(Text(verbatim: model))
             .navigationBarTitleDisplayMode(.inline)
             .onChange(of: state) {
-                if state == .disconnected { // TODO: this doesn't work?
+                if state == .disconnected {
                     dismiss()
                 }
             }

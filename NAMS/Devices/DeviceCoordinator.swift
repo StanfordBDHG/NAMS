@@ -74,7 +74,7 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
     @MainActor
-    func notifyConnectedDevice(_ device: ConnectedDevice) {
+    func notifyConnectingDevice(_ device: ConnectedDevice) {
         if let connectedDevice {
             if connectedDevice != device {
                 logger.info("Nearby device automatically connected, though we already have a connected device. Disconnecting it again...")
@@ -98,7 +98,6 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
                 return
             }
             logger.debug("Removing association for device disconnecting in background: \(device.label).")
-            // TODO: deal with auto connecting muse device (after reconnect?)
             self.connectedDevice = nil
         }
     }

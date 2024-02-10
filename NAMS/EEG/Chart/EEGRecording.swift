@@ -73,7 +73,6 @@ struct EEGRecording: View {
                 #endif
             }
             .onDisappear {
-                // TODO: discarding confirmation?
                 Task {
                     try await eegModel.stopRecordingSession()
                 }
