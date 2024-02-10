@@ -62,7 +62,13 @@ final class BiopotDeviceTests: XCTestCase {
         device.handleDataAcquisition(data: data)
 
         try await Task.sleep(for: .milliseconds(100))
-        print(session.measurements)
-        // TODO: assert measurements
+
+        XCTAssertEqual(session.measurements.count, 1)
+
+        let series = try XCTUnwrap(session.measurements[.all])
+        XCTAssertEqual(series.count, 10)
+
+        let channels = try XCTUnwrap(series.first)
+        XCTAssertEqual(channels.channels.count, 8)
     }
 }
