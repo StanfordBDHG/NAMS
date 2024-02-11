@@ -26,7 +26,8 @@ platform :ios do
       concurrent_workers: 1,
       max_concurrent_simulators: 1,
       result_bundle: true,
-      output_directory: "."
+      output_directory: ".",
+      xcargs: "-skipPackagePluginValidation"
     )
   end
 
@@ -36,7 +37,8 @@ platform :ios do
       scheme: "NAMS",
       skip_archive: true,
       skip_codesigning: true,
-      derived_data_path: ".derivedData"
+      derived_data_path: ".derivedData",
+      xcargs: "-skipPackagePluginValidation"
     )
   end
 
@@ -48,6 +50,7 @@ platform :ios do
       output_directory: ".build",
       archive_path: ".build/NAMS.xcarchive",
       configuration: "Release",
+      xcargs: "-skipPackagePluginValidation",
       export_options: {
         method: "app-store",
         signingStyle: "manual",
