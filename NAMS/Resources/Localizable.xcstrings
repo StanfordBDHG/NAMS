@@ -63,9 +63,6 @@
         }
       }
     },
-    "%u °C" : {
-
-    },
     "About" : {
       "localizations" : {
         "en" : {
@@ -75,9 +72,6 @@
           }
         }
       }
-    },
-    "Actions" : {
-
     },
     "Add Notes" : {
       "localizations" : {
@@ -96,6 +90,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add Patient"
+          }
+        }
+      }
+    },
+    "AF7" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AF7"
+          }
+        }
+      }
+    },
+    "AF8" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AF8"
           }
         }
       }
@@ -140,15 +154,11 @@
         }
       }
     },
-    "ATTENTION_REQUIRED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Attention Required"
-          }
-        }
-      }
+    "Auto Connect" : {
+
+    },
+    "Automatically connect to nearby SensoMedical BIOPOT3 devices." : {
+
     },
     "BATTERY" : {
       "localizations" : {
@@ -170,80 +180,25 @@
         }
       }
     },
-    "Biopot" : {
-
-    },
-    "Bluetooth Off" : {
-
-    },
-    "Bluetooth Unauthorized" : {
-
-    },
-    "BLUETOOTH_OFF" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth Off"
-          }
-        }
-      }
-    },
-    "BLUETOOTH_OFF_HINT" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth is turned off. Please turn on Bluetooth in Control Center or Settings in order to use your Muse Headband."
-          }
-        }
-      }
-    },
-    "BLUETOOTH_PROHIBITED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth Prohibited"
-          }
-        }
-      }
-    },
-    "BLUETOOTH_PROHIBITED_HINT" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth is required to make connections to your Muse Headband. Please allow Bluetooth connections in your Privacy settings."
-          }
-        }
-      }
-    },
-    "BLUETOOTH_UNKNOWN" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "We have troubles with the Bluetooth communication. Please try again."
-          }
-        }
-      }
-    },
-    "BLUETOOTH_UNSUPPORTED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth is unsupported on this device!"
-          }
-        }
-      }
-    },
     "Brain Activity" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brain Activity"
+          }
+        }
+      }
     },
     "Brain activity is visualized in real time." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brain activity is visualized in real time"
+          }
+        }
+      }
     },
     "Brain activity was collected for this patient." : {
       "localizations" : {
@@ -275,8 +230,15 @@
         }
       }
     },
-    "Charging" : {
-
+    "Channels" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Channels"
+          }
+        }
+      }
     },
     "Close" : {
       "localizations" : {
@@ -289,7 +251,14 @@
       }
     },
     "Collect the patient's brain activity using the connected EEG headband." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collect the patient's brain activity using the connected EEG headband."
+          }
+        }
+      }
     },
     "Completed" : {
       "comment" : "Completed Tile. Subtitle",
@@ -298,29 +267,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Completed"
-          }
-        }
-      }
-    },
-    "Connected" : {
-
-    },
-    "CONNECTED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connected"
-          }
-        }
-      }
-    },
-    "CONNECTING" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connecting"
           }
         }
       }
@@ -375,18 +321,12 @@
         }
       }
     },
-    "Device" : {
-
-    },
-    "Device Type" : {
-
-    },
-    "DEVICE_DETAILS" : {
+    "Devices" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Device Details"
+            "value" : "Devices"
           }
         }
       }
@@ -401,25 +341,12 @@
         }
       }
     },
-    "DISCONNECT" : {
+    "Disconnect" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disconnect"
-          }
-        }
-      }
-    },
-    "Disconnected" : {
-
-    },
-    "DISCONNECTED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disconnected"
           }
         }
       }
@@ -440,6 +367,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "EEG Recording"
+          }
+        }
+      }
+    },
+    "EEG recording could not be started as no connected device was found." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EEG recording could not be started as no connected device was found."
           }
         }
       }
@@ -506,17 +443,7 @@
         }
       }
     },
-    "Firmware update required." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Firmware update required."
-          }
-        }
-      }
-    },
-    "FIRMWARE_VERSION" : {
+    "Firmware Version" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -557,7 +484,8 @@
         }
       }
     },
-    "GOOD_FIT" : {
+    "good" : {
+      "comment" : "Muse headband fit",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -567,7 +495,17 @@
         }
       }
     },
-    "HEADBAND" : {
+    "Hardware Version" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hardware Version"
+          }
+        }
+      }
+    },
+    "Headband" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -577,7 +515,7 @@
         }
       }
     },
-    "HEADBAND_FIT" : {
+    "Headband Fit" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -587,15 +525,11 @@
         }
       }
     },
-    "Hello" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hello"
-          }
-        }
-      }
+    "If background search is enabled, the application will search for nearby devices until a devices was found and connected." : {
+
+    },
+    "In Background" : {
+
     },
     "INTERVENTION_MUSE_FIRMWARE" : {
       "localizations" : {
@@ -613,16 +547,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The headband's license is invalid. Please refer to the Muse app for more information."
-          }
-        }
-      }
-    },
-    "INTERVENTION_REQUIRED" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Requires Intervention"
           }
         }
       }
@@ -679,7 +603,14 @@
       }
     },
     "Live Visualization" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Visualization"
+          }
+        }
+      }
     },
     "M-CHAT R/F" : {
       "localizations" : {
@@ -711,7 +642,8 @@
         }
       }
     },
-    "MEDIOCRE_FIT" : {
+    "mediocre" : {
+      "comment" : "Muse headband fit",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -730,20 +662,6 @@
           }
         }
       }
-    },
-    "MOCK_UPLOAD_TAB_TITLE" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mock Web Service"
-          }
-        }
-      }
-    },
-    "Muse" : {
-
     },
     "Name" : {
       "localizations" : {
@@ -775,12 +693,22 @@
         }
       }
     },
-    "No Device connected!" : {
+    "No connected device" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No Device connected!"
+            "value" : "No connected device"
+          }
+        }
+      }
+    },
+    "No Device" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Device"
           }
         }
       }
@@ -856,6 +784,22 @@
         }
       }
     },
+    "Off" : {
+
+    },
+    "On" : {
+
+    },
+    "Overall" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overall"
+          }
+        }
+      }
+    },
     "Patient Details" : {
       "localizations" : {
         "en" : {
@@ -907,17 +851,18 @@
         }
       }
     },
-    "Please connect to a nearby EEG headband first." : {
+    "Please connect to a\nnearby EEG headband first." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Please connect to a nearby EEG headband first."
+            "value" : "Please connect to a\nnearby EEG headband first."
           }
         }
       }
     },
-    "POOR_FIT" : {
+    "poor" : {
+      "comment" : "Muse headband fit",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -942,7 +887,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you have problems connecting?"
+            "value" : "Do you have problems connecting to your Muse device?"
           }
         }
       }
@@ -968,21 +913,6 @@
         }
       }
     },
-    "Read Data Acquisition" : {
-
-    },
-    "Read Data Control" : {
-
-    },
-    "Read Device Configuration" : {
-
-    },
-    "Read Sample Configuration" : {
-
-    },
-    "Receive Device Info" : {
-
-    },
     "Recording" : {
       "comment" : "Tile Type",
       "localizations" : {
@@ -993,20 +923,6 @@
           }
         }
       }
-    },
-    "Reset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reset"
-          }
-        }
-      }
-    },
-    "Scanning ..." : {
-
     },
     "Schedule" : {
       "comment" : "Schedule Title",
@@ -1038,6 +954,9 @@
           }
         }
       }
+    },
+    "Search in Background" : {
+
     },
     "Seconds" : {
       "localizations" : {
@@ -1101,7 +1020,7 @@
         }
       }
     },
-    "SERIAL_NUMBER" : {
+    "Serial Number" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1143,19 +1062,34 @@
       }
     },
     "Start a new EEG recording session for the currently selected patient." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a new EEG recording session for the currently selected patient."
+          }
+        }
+      }
     },
     "Start a new Recording" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start a new Recording"
+          }
+        }
+      }
     },
     "Start Recording" : {
-
-    },
-    "Status" : {
-
-    },
-    "Temperature" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Recording"
+          }
+        }
+      }
     },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
       "localizations" : {
@@ -1188,22 +1122,35 @@
         }
       }
     },
+    "This device is no longer connected." : {
+
+    },
+    "TP9" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TP9"
+          }
+        }
+      }
+    },
+    "TP10" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TP10"
+          }
+        }
+      }
+    },
     "TROUBLESHOOTING" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Troubleshooting"
-          }
-        }
-      }
-    },
-    "TURN_ON_HEADBAND_HINT" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Make sure your headband is turned on and nearby."
           }
         }
       }
@@ -1218,6 +1165,9 @@
           }
         }
       }
+    },
+    "Unknown Device" : {
+
     },
     "WEARING" : {
       "localizations" : {

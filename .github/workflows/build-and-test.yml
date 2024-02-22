@@ -17,20 +17,34 @@ jobs:
   reuse_action:
     name: REUSE Compliance Check
     uses: StanfordBDHG/.github/.github/workflows/reuse.yml@v2
+    permissions:
+      contents: read
   swiftlint:
     name: SwiftLint
     uses: StanfordBDHG/.github/.github/workflows/swiftlint.yml@v2
+    permissions:
+      contents: read
+  markdownlinkcheck:
+    name: Markdown Link Check
+    uses: StanfordBDHG/.github/.github/workflows/markdown-link-check.yml@v2
+    permissions:
+      contents: read
   buildandtest:
     name: Build and Test
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
+    permissions:
+      contents: read
     with:
       artifactname: NAMS.xcresult
       runsonlabels: '["macOS", "self-hosted"]'
       setupfirebaseemulator: true
+      setupSimulators: true
       customcommand: "firebase emulators:exec 'fastlane test'"
   releasebuild:
     name: Build Release
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
+    permissions:
+      contents: read
     secrets: inherit
     with:
       runsonlabels: '["macOS", "self-hosted"]'
@@ -41,5 +55,9 @@ jobs:
     name: Upload Coverage Report
     needs: buildandtest
     uses: StanfordBDHG/.github/.github/workflows/create-and-upload-coverage-report.yml@v2
+    permissions:
+      contents: read
     with:
       coveragereports: NAMS.xcresult
+    secrets:
+      token: ${{ secrets.CODECOV_TOKEN }}

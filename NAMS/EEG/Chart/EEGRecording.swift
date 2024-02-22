@@ -1,12 +1,14 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
 
 import Charts
+import Spezi
+import SpeziBluetooth
 import SpeziOnboarding
 import SpeziViews
 import SwiftUI
@@ -16,9 +18,10 @@ struct EEGRecording: View {
     @Environment(\.dismiss)
     private var dismiss
 
-    private let eegModel: EEGViewModel
-    @Environment(BiopotDevice.self)
-    private var biopot
+    @Environment(EEGRecordings.self)
+    private var eegModel
+    @Environment(DeviceCoordinator.self)
+    private var deviceCoordinator
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -31,11 +34,11 @@ struct EEGRecording: View {
 
     var body: some View {
         ZStack {
-            if !biopot.connected && eegModel.activeDevice == nil {
-                NoInformationText {
-                    Text("No Device connected!")
-                } caption: {
-                    Text("Please connect to a nearby EEG headband first.")
+            if !deviceCoordinator.isConnected {
+                ContentUnavailableView {
+                    Label("No Device", systemImage: "brain.head.profile")
+                } description: {
+                    Text("Please connect to a\nnearby EEG headband first.")
                 }
                     .navigationTitle("EEG Recording")
                     .navigationBarTitleDisplayMode(.inline)
@@ -59,9 +62,21 @@ struct EEGRecording: View {
                     .navigationTitle("EEG Recording")
                     .navigationBarTitleDisplayMode(.inline)
             } else {
-                StartRecordingView(eegModel: eegModel)
+                StartRecordingView()
             }
         }
+            .onAppear {
+                #if MUSE
+                if case .muse = deviceCoordinator.connectedDevice {
+                    frequency = .theta
+                }
+                #endif
+            }
+            .onDisappear {
+                Task {
+                    try await eegModel.stopRecordingSession()
+                }
+            }
             .toolbar {
                 Button("Close") {
                     dismiss()
@@ -84,9 +99,7 @@ struct EEGRecording: View {
         }
     }
 
-    init(eegModel: EEGViewModel) {
-        self.eegModel = eegModel
-    }
+    init() {}
 
 
     @ViewBuilder
@@ -112,30 +125,42 @@ struct EEGRecording: View {
 
 #if DEBUG
 #Preview {
-    let device = MockEEGDevice(name: "Device 1", model: "Mock", state: .connected)
-    let model = EEGViewModel(mock: device)
-    model.startRecordingSession()
-    return NavigationStack {
-        EEGRecording(eegModel: model)
-            .environment(PatientListModel())
-            .biopotPreviewSetup()
+    let model = EEGRecordings()
+    Task { @MainActor in
+        try await model.startRecordingSession()
     }
-}
-
-#Preview {
-    let device = MockEEGDevice(name: "Device 1", model: "Mock", state: .connected)
     return NavigationStack {
-        EEGRecording(eegModel: EEGViewModel(mock: device))
+        EEGRecording()
             .environment(PatientListModel())
-            .biopotPreviewSetup()
+            .previewWith {
+                model
+                DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
+                Bluetooth {
+                    Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
+                }
+            }
     }
 }
 
 #Preview {
     NavigationStack {
-        EEGRecording(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+        EEGRecording()
             .environment(PatientListModel())
-            .biopotPreviewSetup()
+            .previewWith {
+                EEGRecordings()
+                DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
+            }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        EEGRecording()
+            .environment(PatientListModel())
+            .previewWith {
+                EEGRecordings()
+                DeviceCoordinator()
+            }
     }
 }
 #endif

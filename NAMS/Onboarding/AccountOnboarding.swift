@@ -1,5 +1,5 @@
 //
-// This source file is part of the Stanford Spezi Template Application project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
 // SPDX-FileCopyrightText: 2023 Stanford University
 //
@@ -48,7 +48,11 @@ struct AccountOnboarding: View {
 
 #Preview {
     stack
-        .environment(Account(MockUserIdPasswordAccountService()))
+        .previewWith {
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
+        }
 }
 #Preview {
     let details = AccountDetails.Builder()
@@ -56,6 +60,8 @@ struct AccountOnboarding: View {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return stack
-        .environment(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .previewWith {
+            AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
+        }
 }
 #endif

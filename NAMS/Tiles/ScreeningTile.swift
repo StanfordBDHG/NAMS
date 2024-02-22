@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziFHIR
+#if canImport(SpeziQuestionnaire)
+import SpeziQuestionnaire
 import SwiftUI
 
 
@@ -34,7 +35,7 @@ struct ScreeningTile: View {
             }
         } else {
             SimpleTile {
-                tileHeader
+                ScreeningTileHeader(task)
             } footer: {
                 Text(task.description)
                     .font(.callout)
@@ -48,32 +49,6 @@ struct ScreeningTile: View {
                     .buttonStyle(.borderedProminent)
                     .padding(.top, 8)
                     .tint(.mint)
-            }
-        }
-    }
-
-    @ViewBuilder private var tileHeader: some View {
-        HStack {
-            Image(systemName: "list.bullet.clipboard")
-                .foregroundColor(.mint)
-                .font(.custom("Screening Task Icon", size: 30, relativeTo: .headline))
-                .accessibilityHidden(true)
-
-            VStack(alignment: .leading, spacing: 4) {
-                Text(task.title)
-                    .font(.headline)
-
-                HStack {
-                    Text(task.tileType.localizedStringResource)
-
-                    Spacer()
-                    Text("\(task.expectedCompletionMinutes) min", comment: "Expected task completion in minutes.")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .accessibilityElement(children: .combine)
             }
         }
     }
@@ -108,4 +83,6 @@ struct ScreeningTile: View {
             .environment(patientList)
     }
 }
+#endif
+
 #endif

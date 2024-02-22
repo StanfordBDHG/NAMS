@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -14,15 +14,13 @@ import SwiftUI
 struct SelectedPatientCard: View {
     private let patient: Patient
 
-    @Binding private var activePatientId: String?
-
     private var name: String {
         patient.name.formatted(.name(style: .long))
     }
 
     var body: some View {
         NavigationLink {
-            PatientInformation(patient: patient, activePatientId: $activePatientId)
+            PatientInformation(patient: patient)
         } label: {
             HStack {
                 UserProfileView(name: patient.name)
@@ -43,9 +41,8 @@ struct SelectedPatientCard: View {
     }
 
 
-    init(patient: Patient, activePatientId: Binding<String?>) {
+    init(patient: Patient) {
         self.patient = patient
-        self._activePatientId = activePatientId
     }
 }
 
@@ -55,11 +52,11 @@ struct SelectedPatientCard: View {
     NavigationStack {
         List {
             SelectedPatientCard(
-                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
-                activePatientId: .constant("1")
+                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))
             )
         }
             .listStyle(.inset)
     }
+        .environment(PatientListModel())
 }
 #endif

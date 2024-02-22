@@ -6,8 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziFHIR
+#if canImport(SpeziQuestionnaire)
 import SpeziFirestore
+import SpeziQuestionnaire
 
 
 // SpeziFHIR defines the Observation Model which collides with Apples Observation framework naming
@@ -28,3 +29,4 @@ extension PatientListModel {
         try await add(task: task)
     }
 }
+#endif

@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -13,25 +13,25 @@ import Foundation
 extension IXNMuseConfiguration {
     var configurationString: String {
         """
-        model: \(getModel()) \
-        serialNumber: \(getSerialNumber()) \
+        model: \(getModel()), \
+        serialNumber: \(getSerialNumber()), \
         headbandName: \(getHeadbandName()), \
-        bluetoothMac: \(getBluetoothMac()) \
-        batteryDataEnabled: \(getBatteryDataEnabled()) \
-        batteryPercentRemaining: \(getBatteryPercentRemaining()) \
+        bluetoothMac: \(getBluetoothMac()), \
+        batteryDataEnabled: \(getBatteryDataEnabled()), \
+        batteryPercentRemaining: \(getBatteryPercentRemaining()), \
         preset: \(getPreset().description), \
-        microcontrollerId: \(getMicrocontrollerId()) \
-        eegChannelCount: \(getEegChannelCount()) \
-        afeGain: \(getAfeGain()) \
-        downsampleRate: \(getDownsampleRate()) \
-        seroutMode: \(getSeroutMode()) \
-        outputFrequency: \(getOutputFrequency()) \
-        adcFrequency: \(getAdcFrequency()) \
-        notchFilterEnabled: \(getNotchFilterEnabled()) \
-        notchFilter: \(getNotchFilter().description) \
-        accelerometerSampleFrequency: \(getAccelerometerSampleFrequency()) \
-        drlRefEnabled: \(getDrlRefEnabled()) \
-        drlRefFrequency: \(getDrlRefFrequency()) \
+        microcontrollerId: \(getMicrocontrollerId()), \
+        eegChannelCount: \(getEegChannelCount()), \
+        afeGain: \(getAfeGain()), \
+        downsampleRate: \(getDownsampleRate()), \
+        seroutMode: \(getSeroutMode()), \
+        outputFrequency: \(getOutputFrequency()), \
+        adcFrequency: \(getAdcFrequency()), \
+        notchFilterEnabled: \(getNotchFilterEnabled()), \
+        notchFilter: \(getNotchFilter().description), \
+        accelerometerSampleFrequency: \(getAccelerometerSampleFrequency()), \
+        drlRefEnabled: \(getDrlRefEnabled()), \
+        drlRefFrequency: \(getDrlRefFrequency()), \
         licensingNonce: \(getLicenseNonce())
         """
     }

@@ -13,11 +13,9 @@ struct CurrentPatientLabel: View {
     @Environment(PatientListModel.self)
     private var patientList
 
-    @Binding private var activePatientId: String?
-
     var body: some View {
         HStack {
-            if activePatientId == nil {
+            if patientList.activePatientId == nil {
                 selectPatientText
             } else if let patient = patientList.activePatient {
                 Text(verbatim: patient.name.formatted(.name(style: .medium)))
@@ -41,16 +39,14 @@ struct CurrentPatientLabel: View {
     }
 
 
-    init(activePatient: Binding<String?>) {
-        self._activePatientId = activePatient
-    }
+    init() {}
 }
 
 
 #if DEBUG
 #Preview {
     Button(action: {}) {
-        CurrentPatientLabel(activePatient: .constant(nil))
+        CurrentPatientLabel()
             .environment(PatientListModel())
     }
 }

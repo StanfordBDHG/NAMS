@@ -1,5 +1,5 @@
 //
-// This source file is part of the Stanford Spezi Template Application project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
 // SPDX-FileCopyrightText: 2023 Stanford University
 //
@@ -38,24 +38,16 @@ class QuestionnaireTests: XCTestCase {
         XCTAssertTrue(app.navigationBars.buttons["Cancel"].waitForExistence(timeout: 4))
         XCTAssertTrue(app.staticTexts["M-CHAT R/F"].waitForExistence(timeout: 0.5))
 
-        while true {
-            if app.staticTexts["Yes"].exists {
-                app.staticTexts["Yes"].tap()
+        XCTAssertTrue(app.staticTexts["Yes"].waitForExistence(timeout: 2.0))
+        let yesButtons = app.staticTexts.matching(identifier: "Yes").allElementsBoundByIndex
 
-                if app.buttons["Next"].exists {
-                    app.buttons["Next"].tap()
-                    usleep(500_000)
-                } else if app.buttons["Done"].exists {
-                    app.buttons["Done"].tap()
-                    usleep(500_000)
-                    break
-                } else {
-                    XCTFail("Couldn't navigate questionnaire!")
-                }
-            } else {
-                XCTFail("Couldn't navigate questionnaire!")
-            }
+        for button in yesButtons {
+            button.tap()
+            usleep(500_000)
         }
+
+        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 2.0))
+        app.buttons["Done"].tap()
 
 
         XCTAssertTrue(app.staticTexts["Completed"].waitForExistence(timeout: 2.0))

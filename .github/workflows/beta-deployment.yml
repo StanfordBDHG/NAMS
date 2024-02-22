@@ -1,5 +1,5 @@
 #
-# This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
+# This source file is part of the Stanford Spezi Template Application open-source project
 #
 # SPDX-FileCopyrightText: 2023 Stanford University
 #
@@ -18,15 +18,19 @@ jobs:
   buildandtest:
     name: Build and Test
     uses: ./.github/workflows/build-and-test.yml
+    permissions:
+      contents: read
     secrets: inherit
   iosapptestflightdeployment:
     name: iOS App TestFlight Deployment
     needs: buildandtest
     uses: StanfordBDHG/.github/.github/workflows/xcodebuild-or-fastlane.yml@v2
+    permissions:
+      contents: read
     secrets: inherit
     with:
       artifactname: NAMS.xcresult
-      runsonlabels: '["macOS-13"]'
+      runsonlabels: '["macOS", "self-hosted"]'
       fastlanelane: beta
       setupsigning: true
       checkout_submodules: true

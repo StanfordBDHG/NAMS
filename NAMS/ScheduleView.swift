@@ -7,55 +7,47 @@
 //
 
 import SpeziAccount
+import SpeziBluetooth
+import SpeziViews
 import SwiftUI
 
 
 struct ScheduleView: View {
-#if MUSE
-    @State var eegModel = EEGViewModel(deviceManager: MuseDeviceManager())
-#else
-    @State var eegModel = EEGViewModel(deviceManager: MockDeviceManager())
-#endif
     @Environment(BiopotDevice.self)
-    private var biopot
+    private var biopot: BiopotDevice?
+    @Environment(PatientListModel.self)
+    private var patientList
 
-    @State var presentingMuseList = false
-    @State var presentPatientSheet = false
-    @Binding var presentingAccount: Bool
-
-    @Binding var activePatientId: String?
+    @State private var presentingMuseList = false
+    @State private var presentPatientSheet = false
+    @Binding private var presentingAccount: Bool
 
     var body: some View {
         NavigationStack {
             ZStack {
-                if activePatientId == nil {
-                    VStack {
-                        NoInformationText {
-                            Text("No Patient selected")
-                        } caption: {
-                            Text("Select a patient to continue.")
-                        }
-
+                if patientList.activePatientId == nil {
+                    ContentUnavailableView {
+                        Label("No Patient selected", systemImage: "person.fill")
+                    } description: {
+                        Text("Select a patient to continue.")
+                    } actions: {
                         Button(action: {
                             presentPatientSheet = true
                         }) {
                             Text("Select Patient")
                         }
-                            .padding()
+                        .padding()
                     }
                 } else {
-                    TilesView(eegModel: eegModel)
+                    TilesView()
                 }
             }
                 .navigationTitle(Text("Schedule", comment: "Schedule Title"))
                 .sheet(isPresented: $presentingMuseList) {
-                    DevicesSheet(eegModel: eegModel)
+                    NearbyDevicesView()
                 }
                 .sheet(isPresented: $presentPatientSheet) {
-                    PatientListSheet(activePatientId: $activePatientId)
-                }
-                .onAppear {
-                    biopot.associate(eegModel)
+                    PatientListSheet()
                 }
                 .toolbar {
                     toolbar
@@ -77,7 +69,7 @@ struct ScheduleView: View {
             Button(action: {
                 presentPatientSheet = true
             }, label: {
-                CurrentPatientLabel(activePatient: $activePatientId)
+                CurrentPatientLabel()
             })
         }
         ToolbarItem(placement: .primaryAction) {
@@ -86,25 +78,25 @@ struct ScheduleView: View {
     }
 
 
-    init(presentingAccount: Binding<Bool>, activePatientId: Binding<String?>) {
+    init(presentingAccount: Binding<Bool>) {
         self._presentingAccount = presentingAccount
-        self._activePatientId = activePatientId
     }
 }
 
 
 #if DEBUG
 #Preview {
-    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant(nil))
-        .environment(Account(MockUserIdPasswordAccountService()))
+    ScheduleView(presentingAccount: .constant(true))
         .environment(PatientListModel())
-        .biopotPreviewSetup()
-}
-
-#Preview {
-    ScheduleView(presentingAccount: .constant(true), activePatientId: .constant("1"))
-        .environment(Account(MockUserIdPasswordAccountService()))
-        .environment(PatientListModel())
-        .biopotPreviewSetup()
+        .previewWith {
+            EEGRecordings()
+            DeviceCoordinator()
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
+            }
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
+        }
 }
 #endif

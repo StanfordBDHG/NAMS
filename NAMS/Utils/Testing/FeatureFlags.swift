@@ -19,11 +19,6 @@ enum FeatureFlags {
     /// Defines if the application should connect to the local firebase emulator. Always set to true when using the iOS simulator.
     static let useFirebaseEmulator = CommandLine.arguments.contains("--useFirebaseEmulator")
     #endif
-    /// Custom accessibility actions cannot be reliably tested. This flag ensures custom accessibility actions
-    /// are rendered as UI elements.
-    static let renderAccessibilityActions = CommandLine.arguments.contains("--render-accessibility-actions")
     /// A default patient is injected you may use within UI tests.
     static let injectDefaultPatient = CommandLine.arguments.contains("--inject-default-patient")
-    /// Enable test specific functionality for the Biopot platform.
-    static let testBiopot = CommandLine.arguments.contains("--test-biopot")
 }

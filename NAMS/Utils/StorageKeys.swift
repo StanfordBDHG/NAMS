@@ -20,4 +20,7 @@ enum StorageKeys {
     static let homeTabSelection = "home.tabselection"
     /// The currently selected patient.
     static let selectedPatient = "active.patient"
+
+    // MARK: - Nearby Devices
+    static let autoConnectOption = "bluetooth.auto-connect.option"
 }

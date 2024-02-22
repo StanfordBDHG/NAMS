@@ -17,7 +17,7 @@ final class PatientInformationTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--render-accessibility-actions", "--inject-default-patient"]
+        app.launchArguments = ["--skipOnboarding", "--inject-default-patient"]
         app.launch()
     }
 

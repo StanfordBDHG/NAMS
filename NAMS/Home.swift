@@ -7,6 +7,7 @@
 //
 
 import SpeziAccount
+import SpeziBluetooth
 import SpeziViews
 import SwiftUI
 
@@ -18,14 +19,28 @@ struct HomeView: View {
         case contact
         case mockUpload
     }
-    
+
     @AppStorage(StorageKeys.homeTabSelection)
     private var selectedTab = Tabs.schedule
-    @AppStorage(StorageKeys.selectedPatient)
-    private var activePatientId: String?
 
     @Environment(Account.self)
     private var account
+    @Environment(DeviceCoordinator.self)
+    private var deviceCoordinator
+    @Environment(Bluetooth.self)
+    private var bluetooth
+    @Environment(BiopotDevice.self)
+    private var biopot: BiopotDevice?
+
+#if TEST || DEBUG
+    @State var mockDeviceManager = MockDeviceManager()
+#else
+    @State var mockDeviceManager: MockDeviceManager?
+#endif
+    
+#if MUSE
+    @State var museDeviceManager = MuseDeviceManager()
+#endif
 
     @State private var patientList = PatientListModel()
 
@@ -34,7 +49,7 @@ struct HomeView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            ScheduleView(presentingAccount: $presentingAccount, activePatientId: $activePatientId)
+            ScheduleView(presentingAccount: $presentingAccount)
                 .tag(Tabs.schedule)
                 .tabItem {
                     Label("Schedule", systemImage: "list.clipboard")
@@ -45,15 +60,24 @@ struct HomeView: View {
                     Label("CONTACTS_TAB_TITLE", systemImage: "person.fill")
                 }
         }
-            .environment(patientList)
             .viewStateAlert(state: $viewState)
+            .environment(patientList)
+            .environment(mockDeviceManager)
+#if MUSE
+            .environment(museDeviceManager)
+#endif
+            .autoConnect(enabled: deviceCoordinator.shouldAutoConnectBiopot, with: bluetooth)
             .onAppear {
+                guard !ProcessInfo.processInfo.isPreviewSimulator else {
+                    return
+                }
+
                 if FeatureFlags.injectDefaultPatient {
                     Task {
                         let patientId = "default-patient"
                         await patientList.setupTestEnvironment(withPatient: patientId, viewState: $viewState, account: account)
 
-                        activePatientId = patientId // this will trigger the onChange below, loading the patient info
+                        patientList.activePatientId = patientId // this will trigger the onChange below, loading the patient info
                         handlePatientIdChange()
                     }
                     return
@@ -64,16 +88,33 @@ struct HomeView: View {
             .onDisappear {
                 patientList.removeActivePatientListener()
             }
-            .onChange(of: activePatientId, handlePatientIdChange)
+            .onChange(of: patientList.activePatientId, handlePatientIdChange)
+            .onChange(of: biopot != nil) {
+                guard let biopot else {
+                    return
+                }
+
+                // a new device is connected now
+                deviceCoordinator.notifyConnectingDevice(.biopot(biopot))
+            }
+#if MUSE
+            .onChange(of: museDeviceManager.connectedMuse) { _, muse in
+                guard let muse else {
+                    return
+                }
+
+                deviceCoordinator.notifyConnectingDevice(.muse(muse))
+            }
+#endif
             .onChange(of: viewState) { oldValue, newValue in
                 if case .error = oldValue,
                    case .idle = newValue {
-                    activePatientId = nil // reset the current patient on an error
+                    patientList.activePatientId = nil // reset the current patient on an error
                 }
             }
             .onChange(of: account.signedIn) {
                 if !account.signedIn {
-                    activePatientId = nil // reset the current patient, will clear model state!
+                    patientList.activePatientId = nil // reset the current patient, will clear model state!
                 }
             }
             .sheet(isPresented: $presentingAccount) {
@@ -87,8 +128,8 @@ struct HomeView: View {
 
 
     func handlePatientIdChange() {
-        if let activePatientId {
-            patientList.loadActivePatient(for: activePatientId, viewState: $viewState, activePatientId: $activePatientId)
+        if let activePatientId = patientList.activePatientId {
+            patientList.loadActivePatient(for: activePatientId, viewState: $viewState)
         } else {
             patientList.removeActivePatientListener()
         }
@@ -103,6 +144,13 @@ struct HomeView: View {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return HomeView()
-        .environment(Account(building: details, active: MockUserIdPasswordAccountService()))
+        .previewWith {
+            DeviceCoordinator()
+            EEGRecordings()
+            AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
+            Bluetooth {
+                Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
+            }
+        }
 }
 #endif

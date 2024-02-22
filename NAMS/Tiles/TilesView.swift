@@ -6,29 +6,34 @@
 // SPDX-License-Identifier: MIT
 //
 
+import Spezi
+import SpeziBluetooth
+#if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire
+#endif
 import SpeziViews
 import SwiftUI
 
 
 @MainActor
 struct TilesView: View {
-    private let eegModel: EEGViewModel
-
-    @Environment(BiopotDevice.self)
-    private var biopot
+    @Environment(DeviceCoordinator.self)
+    private var deviceCoordinator
     @Environment(PatientListModel.self)
     private var patientList
 
 
     @State private var viewState: ViewState = .idle
 
-    @State private var presentingQuestionnaire: Questionnaire?
     @State private var presentingEEGRecording = false
+
+    #if canImport(SpeziQuestionnaire)
+    @State private var presentingQuestionnaire: Questionnaire?
 
     private var questionnaires: [ScreeningTask] {
         taskList(ScreeningTask.all)
     }
+    #endif
 
     private var measurements: [MeasurementTask] {
         taskList(MeasurementTask.all)
@@ -44,18 +49,21 @@ struct TilesView: View {
                         MeasurementTile(
                             task: measurement,
                             presentingEEGRecording: $presentingEEGRecording,
-                            deviceConnected: eegModel.activeDevice != nil || biopot.connected
+                            deviceConnected: deviceCoordinator.isConnected
                         )
                     }
                 }
 
+                #if canImport(SpeziQuestionnaire)
                 Section("Screening") {
                     ForEach(questionnaires) { questionnaire in
                         ScreeningTile(task: questionnaire, presentingItem: $presentingQuestionnaire)
                     }
                 }
+                #endif
             }
                 .viewStateAlert(state: $viewState)
+                #if canImport(SpeziQuestionnaire)
                 .sheet(item: $presentingQuestionnaire) { questionnaire in
                     QuestionnaireView(questionnaire: questionnaire) { result in
                         presentingQuestionnaire = nil
@@ -72,18 +80,17 @@ struct TilesView: View {
                     }
                         .interactiveDismissDisabled()
                 }
+                #endif
                 .sheet(isPresented: $presentingEEGRecording) {
                     NavigationStack {
-                        EEGRecording(eegModel: eegModel)
+                        EEGRecording()
                     }
                 }
         }
     }
 
 
-    init(eegModel: EEGViewModel) {
-        self.eegModel = eegModel
-    }
+    init() {}
 
 
     private func taskList<T: PatientTask>(_ tasks: [T]) -> [T] {
@@ -102,14 +109,31 @@ struct TilesView: View {
 #Preview {
     let patientList = PatientListModel()
     patientList.completedTasks = []
-    return TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+    return TilesView()
         .environment(patientList)
-        .biopotPreviewSetup()
+        .previewWith {
+            EEGRecordings()
+            DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
+        }
 }
 
 #Preview {
-    TilesView(eegModel: EEGViewModel(deviceManager: MockDeviceManager()))
+    let patientList = PatientListModel()
+    patientList.completedTasks = []
+    return TilesView()
+        .environment(patientList)
+        .previewWith {
+            EEGRecordings()
+            DeviceCoordinator()
+        }
+}
+
+#Preview {
+    TilesView()
         .environment(PatientListModel())
-        .biopotPreviewSetup()
+        .previewWith {
+            EEGRecordings()
+            DeviceCoordinator()
+        }
 }
 #endif

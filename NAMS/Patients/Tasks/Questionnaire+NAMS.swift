@@ -6,8 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
+#if canImport(SpeziQuestionnaire)
 import Foundation
-import SpeziFHIR
+import SpeziQuestionnaire
 
 
 extension Questionnaire {
@@ -28,6 +29,7 @@ extension Questionnaire {
 
 extension Questionnaire {
     static var mChatRF: Questionnaire = {
-        questionnaire(withName: "M_CHAT_R_F-en-US-v1.0", bundle: .main)
+        questionnaire(withName: "M_CHAT_R_F-en-US-v1.1", bundle: .main)
     }()
 }
+#endif

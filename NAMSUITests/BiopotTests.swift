@@ -1,7 +1,7 @@
 //
-// This source file is part of the Stanford Spezi open-source project
+// This source file is part of the Neurodevelopment Assessment and Monitoring System (NAMS) project
 //
-// SPDX-FileCopyrightText: 2023 Stanford University and the project authors (see CONTRIBUTORS.md)
+// SPDX-FileCopyrightText: 2023 Stanford University
 //
 // SPDX-License-Identifier: MIT
 //
@@ -16,7 +16,7 @@ final class BiopotTests: XCTestCase {
         continueAfterFailure = false
 
         let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--test-biopot"]
+        app.launchArguments = ["--skipOnboarding"]
         app.launch()
     }
 
@@ -30,15 +30,26 @@ final class BiopotTests: XCTestCase {
         app.navigationBars.buttons["Nearby Devices"].tap()
 
         XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
-        XCTAssertTrue(app.segmentedControls.buttons["Biopot"].exists)
-        app.segmentedControls.buttons["Biopot"].tap()
 
-        XCTAssertTrue(app.buttons["Receive Device Info"].waitForExistence(timeout: 2.0))
-        app.buttons["Receive Device Info"].tap()
+        XCTAssertTrue(app.buttons["SML BIO 0xAABBCCDD"].waitForExistence(timeout: 2.0))
+        app.buttons["SML BIO 0xAABBCCDD"].tap()
 
-        XCTAssertTrue(app.staticTexts["STATUS"].waitForExistence(timeout: 2.0))
-        XCTAssertTrue(app.staticTexts["Battery, 80 %"].exists)
-        XCTAssertTrue(app.staticTexts["Charging, No"].exists)
-        XCTAssertTrue(app.staticTexts["Temperature, 23 °C"].exists)
+
+        XCTAssertTrue(app.buttons["SML BIO 0xAABBCCDD, Connected"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
+        app.buttons["Device Details"].tap()
+
+
+        XCTAssertTrue(app.navigationBars.staticTexts["SML BIO 0xAABBCCDD"].waitForExistence(timeout: 2.0))
+
+        XCTAssertTrue(app.staticTexts["Battery, 75 %, is charging"].exists)
+        XCTAssertTrue(app.staticTexts["Firmware Version, 1.2.3"].exists)
+        XCTAssertTrue(app.staticTexts["Hardware Version, 3.1"].exists)
+        XCTAssertTrue(app.staticTexts["Serial Number, 0xAABBCCDD"].exists)
+
+        XCTAssertTrue(app.buttons["Disconnect"].exists)
+        app.buttons["Disconnect"].tap()
+
+        XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
     }
 }
