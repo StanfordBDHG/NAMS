@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziAccount.git",
       "state" : {
-        "revision" : "714f01ae1e67bf9c1c0e7c07624380f9bea772b7",
-        "version" : "1.1.0"
+        "branch" : "fix/password-ui-tests",
+        "revision" : "c6f477d6dfbb273643afa874849975c08fe2e79e"
       }
     },
     {
@@ -275,8 +275,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/XCTestExtensions.git",
       "state" : {
-        "revision" : "fb7fcee97c574b950e03b0a53874e26db27db2fe",
-        "version" : "0.4.8"
+        "revision" : "1fe9b8e76aeb7a132af37bfa0892160c9b662dcc",
+        "version" : "0.4.10"
       }
     },
     {
