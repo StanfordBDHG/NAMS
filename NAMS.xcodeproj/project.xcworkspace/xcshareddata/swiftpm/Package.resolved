@@ -149,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziAccount.git",
       "state" : {
-        "branch" : "fix/password-ui-tests",
-        "revision" : "c6f477d6dfbb273643afa874849975c08fe2e79e"
+        "revision" : "a7d289ef3be54de62b25dc92e8f7ff1a0f093906",
+        "version" : "1.2.1"
       }
     },
     {
