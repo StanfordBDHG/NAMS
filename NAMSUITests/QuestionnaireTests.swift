@@ -30,7 +30,7 @@ class QuestionnaireTests: XCTestCase {
 
         XCTAssertTrue(app.staticTexts["SCREENING"].waitForExistence(timeout: 2.0))
         XCTAssertTrue(app.staticTexts["M-CHAT R/F"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["Questionnaire, 5-10 min"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Questionnaire, takes 5 to 10 min"].waitForExistence(timeout: 0.5))
 
         XCTAssertTrue(app.buttons["Start Questionnaire"].waitForExistence(timeout: 0.5))
         app.buttons["Start Questionnaire"].tap()
