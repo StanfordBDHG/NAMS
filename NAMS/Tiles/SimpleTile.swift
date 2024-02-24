@@ -34,6 +34,7 @@ struct SimpleTile<Header: View, Footer: View, ActionLabel: View>: View {
             }
         }
             .containerShape(Rectangle())
+        #if !TEST // it's easier to UI test for us without the accessibility representation
             .accessibilityRepresentation {
                 if let action {
                     Button(action: action.action) {
@@ -44,6 +45,7 @@ struct SimpleTile<Header: View, Footer: View, ActionLabel: View>: View {
                         .accessibilityElement(children: .combine)
                 }
             }
+        #endif
     }
 
 
