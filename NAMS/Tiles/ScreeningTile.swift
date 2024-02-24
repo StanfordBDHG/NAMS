@@ -39,17 +39,12 @@ struct ScreeningTile: View {
             } footer: {
                 Text(task.description)
                     .font(.callout)
-
-                Button(action: {
-                    presentingItem = task.questionnaire
-                }) {
-                    Text("Start \(task.tileType.localizedStringResource)")
-                        .frame(maxWidth: .infinity, minHeight: 30)
-                }
-                    .buttonStyle(.borderedProminent)
-                    .padding(.top, 8)
-                    .tint(.mint)
+            } action: {
+                presentingItem = task.questionnaire
+            } actionLabel: {
+                Text("Start \(task.tileType.localizedStringResource)")
             }
+                .tint(.mint)
         }
     }
 

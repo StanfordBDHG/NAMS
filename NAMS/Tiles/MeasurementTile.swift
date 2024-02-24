@@ -44,9 +44,16 @@ struct MeasurementTile: View {
                     .foregroundColor(.secondary)
                     .font(.subheadline)
                     .multilineTextAlignment(.center)
+                    .accessibilityLabel("takes \(task.expectedCompletionMinutes) min")
             } footer: {
                 tileDescription
+            } action: {
+                presentingEEGRecording = true
+            } actionLabel: {
+                Text("Start \(task.tileType.localizedStringResource)")
             }
+                .tint(.pink)
+                .disabled(task.requiresConnectedDevice && !deviceConnected)
         }
     }
 
@@ -68,17 +75,6 @@ struct MeasurementTile: View {
                 .padding([.leading, .trailing])
                 .accessibilityLabel(Text(label))
         }
-
-        Button(action: {
-            presentingEEGRecording = true
-        }) {
-            Text("Start \(task.tileType.localizedStringResource)")
-                .frame(maxWidth: .infinity, minHeight: 30)
-        }
-            .buttonStyle(.borderedProminent)
-            .padding(.top, 8)
-            .tint(.pink)
-            .disabled(task.requiresConnectedDevice && !deviceConnected)
     }
 
 
