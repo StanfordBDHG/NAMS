@@ -21,6 +21,10 @@ struct ScreeningTask: PatientTask {
     let tileType: TileType = .questionnaire
     let expectedCompletionMinutes: String
 
+    var expectedCompletionMinutesSpoken: String {
+        expectedCompletionMinutes.replacingOccurrences(of: "-", with: " to ")
+    }
+
     init(
         id: String,
         title: LocalizedStringResource,

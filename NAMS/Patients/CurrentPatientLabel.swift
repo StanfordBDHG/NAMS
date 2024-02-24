@@ -31,6 +31,7 @@ struct CurrentPatientLabel: View {
                 .accessibilityHidden(true)
         }
             .foregroundColor(.primary)
+            .accessibilityAddTraits(.isHeader)
     }
 
     @ViewBuilder private var selectPatientText: some View {

@@ -42,6 +42,7 @@ struct PatientInformation: View {
                 .listRowBackground(Color.clear)
                 .accessibilityRepresentation {
                     Text(verbatim: name)
+                        .accessibilityAddTraits(.isHeader)
                 }
 
             if let note = patient.note {

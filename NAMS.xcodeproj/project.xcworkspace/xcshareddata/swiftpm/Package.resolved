@@ -113,8 +113,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
       "state" : {
-        "revision" : "e70e889c0196c76d22759eb50d6a0270ca9f1d9e",
-        "version" : "2.3.1"
+        "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
+        "version" : "2.4.0"
       }
     },
     {
@@ -122,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKit",
       "state" : {
-        "revision" : "66f2fca769dc103de5801bb491b1d8ceafcd281e",
-        "version" : "2.2.23"
+        "revision" : "15f06cf7c1d2d22805b7b939823536bc78ad63a6",
+        "version" : "2.2.25"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKitOnFHIR",
       "state" : {
-        "revision" : "ea4d9691591594177e7dfbc8c246324855d73eb5",
-        "version" : "1.0.1"
+        "revision" : "7f65fe3d94ed0bf44b681547944cc9657816edc5",
+        "version" : "1.1.0"
       }
     },
     {
@@ -140,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/Spezi",
       "state" : {
-        "revision" : "c8482d05efbd2ba93abefc309a86f7b77d10fca0",
-        "version" : "1.2.0"
+        "revision" : "0ced3efbc2af9513c07ac913ad762c773a00a6c8",
+        "version" : "1.2.1"
       }
     },
     {
@@ -203,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziQuestionnaire.git",
       "state" : {
-        "revision" : "fac0bb02f7027b4c09bd7afdad55eb7b47ec67f3",
-        "version" : "1.0.1"
+        "revision" : "f25580e95bfdad02383980dcb94406cf97b08ea8",
+        "version" : "1.0.2"
       }
     },
     {

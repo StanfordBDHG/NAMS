@@ -63,6 +63,7 @@ struct ScreeningTileHeader: View {
             }
 
             Text("\(task.expectedCompletionMinutes) min", comment: "Expected task completion in minutes.")
+                .accessibilityLabel("takes \(task.expectedCompletionMinutesSpoken) min")
         }
         .font(.subheadline)
         .foregroundColor(.secondary)

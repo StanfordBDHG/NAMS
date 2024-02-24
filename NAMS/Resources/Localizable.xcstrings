@@ -1091,6 +1091,9 @@
         }
       }
     },
+    "takes %@ min" : {
+
+    },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
       "localizations" : {
         "en" : {
