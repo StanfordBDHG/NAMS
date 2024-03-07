@@ -6,58 +6,27 @@
 // SPDX-License-Identifier: MIT
 //
 
+import ByteCoding
+import EDFFormat
 import NIOCore
-import SpeziBluetooth
-
-
-struct EEGChannelSample { // we always deal with 24-bits channel samples
-    let sample: Int32
-}
 
 
 struct EEGSample { // we always deal with 8 channel samples
-    let channels: [EEGChannelSample]
-}
-
-
-extension EEGChannelSample: RawRepresentable {
-    var rawValue: Int32 {
-        sample
-    }
-
-
-    init(rawValue: Int32) {
-        self.init(sample: rawValue)
-    }
-}
-
-
-extension EEGChannelSample: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard byteBuffer.readableBytes >= 3 else {
-            return nil
-        }
-
-        guard let sample = byteBuffer.read24Int(endianness: .little) else {
-            return nil
-        }
-
-        self.sample = sample
-    }
+    let channels: [BDFSample]
 }
 
 
 extension EEGSample: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer) {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
         guard byteBuffer.readableBytes >= 24 else {
             return nil
         }
 
-        var channels: [EEGChannelSample] = []
+        var channels: [BDFSample] = []
         channels.reserveCapacity(8)
 
         for _ in 0..<8 {
-            guard let channel = EEGChannelSample(from: &byteBuffer) else {
+            guard let channel = BDFSample(from: &byteBuffer, preferredEndianness: endianness) else {
                 return nil
             }
             channels.append(channel)

@@ -109,7 +109,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
 
     @MainActor
     func stopRecording() async throws {
-        try await service.$dataControl.write(false)
+        try await service.$dataControl.write(.paused)
         startDate = nil
         recordingSession = nil
     }
@@ -117,15 +117,24 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     @MainActor
     private func enableRecording() async throws {
         do {
-            try await service.$dataControl.write(false)
+            try await service.$dataControl.write(.paused)
+
+            // TODO: what does biopot app do
+            //  - .RequestMtuAsync(251)
+            //  - read device configuration (e.g., channel count)
+
 
             // make sure the value is up to date
-            _ = try await service.$deviceConfiguration.read()
+            _ = try await service.$deviceConfiguration.read() // TODO: check their on subscribe method
+            _ = try await service.$samplingConfiguration.read()
+
+            // TODO: we need channel count and sampling rate right?
+
+            // TODO: make sure we always have the latest sampling rate!
 
             startDate = .now
 
-            try await service.$dataControl.write(true)
-            _ = try await service.$samplingConfiguration.read()
+            try await service.$dataControl.write(.started)
         } catch {
             logger.error("Failed to enable Biopot recording: \(error)")
             throw error
@@ -151,6 +160,8 @@ class BiopotDevice: BluetoothDevice, Identifiable {
             acquisition = DataAcquisition11(data: data)
         }
 
+        // TODO: record the elapsed time between two consecutive data packets (first one is zero!)
+
         guard let acquisition else {
             logger.error("Failed to decode data acquisition: \(data.hexString())")
             return
@@ -172,7 +183,7 @@ class BiopotDevice: BluetoothDevice, Identifiable {
                         continue
                     }
 
-                    readings.append(EEGReading(channel: channel, value: Double(sample.channels[index - 1].sample)))
+                    readings.append(EEGReading(channel: channel, value: Double(sample.channels[index - 1].value)))
                 }
 
 

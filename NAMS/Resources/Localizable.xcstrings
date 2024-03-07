@@ -683,6 +683,9 @@
         }
       }
     },
+    "Neurodevelopmental Assessment and Monitoring System" : {
+
+    },
     "No" : {
       "localizations" : {
         "en" : {
@@ -1187,7 +1190,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The NAMS App helps you to manage multiple patients at once."
+            "value" : "The NeuroNest App helps you to manage multiple patients at once."
           }
         }
       }
@@ -1207,7 +1210,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NAMS provides you with several questionnaires to assess conditions of your patients."
+            "value" : "NeuroNest provides you with several questionnaires to assess conditions of your patients."
           }
         }
       }
@@ -1227,7 +1230,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NAMS offers integration with consumer-grade EEG headbands for easy and scalable EEG measurements."
+            "value" : "NeuroNest offers integration with consumer-grade EEG headbands for easy and scalable EEG measurements."
           }
         }
       }
@@ -1247,7 +1250,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neurodevelopment Assessment and Monitoring System (NAMS)"
+            "value" : "NeuroNest"
           }
         }
       }
@@ -1300,7 +1303,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data."
+            "value" : "NeuroNest uses your account to connect and manage patient data."
           }
         }
       }

@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+import ByteCoding
 import NIOCore
-import SpeziBluetooth
 
 
 struct DataAcquisition10: DataAcquisition {
@@ -33,12 +33,12 @@ protocol DataAcquisition: ByteDecodable {
 
 extension DataAcquisition {
     // swiftlint:disable:next discouraged_optional_collection
-    fileprivate static func readSamples(from byteBuffer: inout ByteBuffer, count: Int) -> [EEGSample]? {
+    fileprivate static func readSamples(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness, count: Int) -> [EEGSample]? {
         var samples: [EEGSample] = []
         samples.reserveCapacity(count)
 
         for _ in 0 ..< count {
-            guard let sample = EEGSample(from: &byteBuffer) else {
+            guard let sample = EEGSample(from: &byteBuffer, preferredEndianness: endianness) else {
                 return nil
             }
             samples.append(sample)
@@ -50,13 +50,13 @@ extension DataAcquisition {
 
 
 extension DataAcquisition10 {
-    init?(from byteBuffer: inout ByteBuffer) {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
         guard byteBuffer.readableBytes >= 244 else { // 244 bytes for type 10
             return nil
         }
 
-        guard let timestamps = UInt32(from: &byteBuffer),
-              let samples = Self.readSamples(from: &byteBuffer, count: 10) else {
+        guard let timestamps = UInt32(from: &byteBuffer, preferredEndianness: endianness),
+              let samples = Self.readSamples(from: &byteBuffer, preferredEndianness: endianness, count: 10) else {
             return nil
         }
 
@@ -67,14 +67,14 @@ extension DataAcquisition10 {
 
 
 extension DataAcquisition11 {
-    init?(from byteBuffer: inout ByteBuffer) {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
         guard byteBuffer.readableBytes >= 232 else { // 232 bytes for type 11
             return nil
         }
 
-        guard let timestamps = UInt32(from: &byteBuffer),
-              let samples = Self.readSamples(from: &byteBuffer, count: 9),
-              let accelerometerSample = AccelerometerSample(from: &byteBuffer) else {
+        guard let timestamps = UInt32(from: &byteBuffer, preferredEndianness: endianness),
+              let samples = Self.readSamples(from: &byteBuffer, preferredEndianness: endianness, count: 9),
+              let accelerometerSample = AccelerometerSample(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
 

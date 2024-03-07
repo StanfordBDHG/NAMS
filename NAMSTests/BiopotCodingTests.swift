@@ -267,37 +267,4 @@ class BiopotCodingTests: XCTestCase {
 
         XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.sample }, expectedCH1Sample)
     }
-
-    func testInt24Big() throws {
-        let data = try XCTUnwrap(Data(hex: "0xFF0000"))
-        var buffer = ByteBuffer(data: data)
-
-        let uint = try XCTUnwrap(buffer.get24UInt(at: 0, endianness: .big))
-        let int = try XCTUnwrap(buffer.read24Int(endianness: .big))
-
-        XCTAssertEqual(uint, 0xFF0000)
-        XCTAssertEqual(int, -65536)
-    }
-
-    func testInt24Little() throws {
-        let data = try XCTUnwrap(Data(hex: "0x0000FF"))
-        var buffer = ByteBuffer(data: data)
-
-        let uint = try XCTUnwrap(buffer.get24UInt(at: 0, endianness: .little))
-        let int = try XCTUnwrap(buffer.read24Int(endianness: .little))
-
-        XCTAssertEqual(uint, 0xFF0000)
-        XCTAssertEqual(int, -65536)
-    }
-
-    func testInt24Reading() throws {
-        let data = try XCTUnwrap(Data(hex: "0x6fffff"))
-        let buffer = ByteBuffer(data: data)
-
-        let intBE = try XCTUnwrap(buffer.get24Int(at: 0, endianness: .big))
-        let intLE = try XCTUnwrap(buffer.get24Int(at: 0, endianness: .little))
-
-        XCTAssertEqual(intBE, 7340031)
-        XCTAssertEqual(intLE, -145)
-    }
 }

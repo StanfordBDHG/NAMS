@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+import ByteCoding
 import NIOCore
-import SpeziBluetooth
 
 
 struct Point {
@@ -24,14 +24,14 @@ struct AccelerometerSample {
 
 
 extension Point: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer) {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
         guard byteBuffer.readableBytes >= 6 else {
             return nil
         }
 
-        guard let x = Int16(from: &byteBuffer), // swiftlint:disable:this identifier_name
-              let y = Int16(from: &byteBuffer), // swiftlint:disable:this identifier_name
-              let z = Int16(from: &byteBuffer) else { // swiftlint:disable:this identifier_name
+        guard let x = Int16(from: &byteBuffer, preferredEndianness: endianness), // swiftlint:disable:this identifier_name
+              let y = Int16(from: &byteBuffer, preferredEndianness: endianness), // swiftlint:disable:this identifier_name
+              let z = Int16(from: &byteBuffer, preferredEndianness: endianness) else { // swiftlint:disable:this identifier_name
             return nil
         }
 
@@ -43,13 +43,13 @@ extension Point: ByteDecodable {
 
 
 extension AccelerometerSample: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer) {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
         guard byteBuffer.readableBytes >= 12 else {
             return nil
         }
 
-        guard let point1 = Point(from: &byteBuffer),
-              let point2 = Point(from: &byteBuffer) else {
+        guard let point1 = Point(from: &byteBuffer, preferredEndianness: endianness),
+              let point2 = Point(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
 

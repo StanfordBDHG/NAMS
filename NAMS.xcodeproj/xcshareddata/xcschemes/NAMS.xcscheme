@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "653A254C283387FE005D4D48"
-               BuildableName = "NAMS.app"
+               BuildableName = "NeuroNest.app"
                BlueprintName = "NAMS"
                ReferencedContainer = "container:NAMS.xcodeproj">
             </BuildableReference>
@@ -49,7 +49,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "653A254C283387FE005D4D48"
-            BuildableName = "NAMS.app"
+            BuildableName = "NeuroNest.app"
             BlueprintName = "NAMS"
             ReferencedContainer = "container:NAMS.xcodeproj">
          </BuildableReference>
@@ -79,7 +79,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "653A254C283387FE005D4D48"
-            BuildableName = "NAMS.app"
+            BuildableName = "NeuroNest.app"
             BlueprintName = "NAMS"
             ReferencedContainer = "container:NAMS.xcodeproj">
          </BuildableReference>

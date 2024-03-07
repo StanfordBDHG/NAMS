@@ -107,8 +107,6 @@
 		A907DA3A2B195D4800FB69FB /* AccelerometerSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA382B195D4800FB69FB /* AccelerometerSample.swift */; };
 		A907DA3C2B195ED800FB69FB /* EEGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA3B2B195ED800FB69FB /* EEGSample.swift */; };
 		A907DA3D2B195ED800FB69FB /* EEGSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA3B2B195ED800FB69FB /* EEGSample.swift */; };
-		A907DA3F2B1964B500FB69FB /* ByteBuffer+Int24.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA3E2B1964B500FB69FB /* ByteBuffer+Int24.swift */; };
-		A907DA402B1964B500FB69FB /* ByteBuffer+Int24.swift in Sources */ = {isa = PBXBuildFile; fileRef = A907DA3E2B1964B500FB69FB /* ByteBuffer+Int24.swift */; };
 		A91459762A4AF4E000A04641 /* QuestionnaireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */; };
 		A916ADD52AB60227006960DF /* NotificationPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD42AB60227006960DF /* NotificationPermissions.swift */; };
 		A916ADD72AB62012006960DF /* ProcessInfo+PreviewSimulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */; };
@@ -201,6 +199,11 @@
 		A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
 		A95EEAE32B6B54D3009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */; };
 		A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */; };
+		A95F4B312B990803006778E5 /* ByteCoding in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B302B990803006778E5 /* ByteCoding */; };
+		A95F4B332B990803006778E5 /* EDFFormat in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B322B990803006778E5 /* EDFFormat */; };
+		A95F4B352B990803006778E5 /* XCTByteCoding in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B342B990803006778E5 /* XCTByteCoding */; };
+		A95F4B372B99081D006778E5 /* ByteCoding in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B362B99081D006778E5 /* ByteCoding */; };
+		A95F4B392B99081D006778E5 /* EDFFormat in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B382B99081D006778E5 /* EDFFormat */; };
 		A967061C2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
 		A967061D2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
 		A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
@@ -351,7 +354,7 @@
 		2FE5DC4229EDD7F2004B9AB4 /* Binding+Negate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Binding+Negate.swift"; sourceTree = "<group>"; };
 		2FE5DC4329EDD7F2004B9AB4 /* Bundle+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+Image.swift"; sourceTree = "<group>"; };
 		2FE5DC4429EDD7F2004B9AB4 /* CodableArray+RawRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CodableArray+RawRepresentable.swift"; sourceTree = "<group>"; };
-		653A254D283387FE005D4D48 /* NAMS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NAMS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		653A254D283387FE005D4D48 /* NeuroNest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroNest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		653A2550283387FE005D4D48 /* NAMSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSApp.swift; sourceTree = "<group>"; };
 		653A255428338800005D4D48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		653A255D28338800005D4D48 /* NAMSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NAMSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,12 +366,11 @@
 		A907DA352B1942B800FB69FB /* DataAcquisition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAcquisition.swift; sourceTree = "<group>"; };
 		A907DA382B195D4800FB69FB /* AccelerometerSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerSample.swift; sourceTree = "<group>"; };
 		A907DA3B2B195ED800FB69FB /* EEGSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGSample.swift; sourceTree = "<group>"; };
-		A907DA3E2B1964B500FB69FB /* ByteBuffer+Int24.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ByteBuffer+Int24.swift"; sourceTree = "<group>"; };
 		A91459752A4AF4E000A04641 /* QuestionnaireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireTests.swift; sourceTree = "<group>"; };
 		A916ADD42AB60227006960DF /* NotificationPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissions.swift; sourceTree = "<group>"; };
 		A916ADD62AB62012006960DF /* ProcessInfo+PreviewSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+PreviewSimulator.swift"; sourceTree = "<group>"; };
 		A916ADD82AB6217D006960DF /* OnboardingFlow+PreviewSimulator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingFlow+PreviewSimulator.swift"; sourceTree = "<group>"; };
-		A926D7C32AB7A552000C4C2F /* NAMS Muse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NAMS Muse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A926D7C32AB7A552000C4C2F /* NeuroNest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeuroNest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A926D7F52AB7B41B000C4C2F /* IXNMuseModel+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IXNMuseModel+Description.swift"; sourceTree = "<group>"; };
 		A926D7F82AB7B41B000C4C2F /* EEGReading+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EEGReading+Muse.swift"; sourceTree = "<group>"; };
 		A926D7F92AB7B41B000C4C2F /* EEGSeries+Muse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EEGSeries+Muse.swift"; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */,
+				A95F4B332B990803006778E5 /* EDFFormat in Frameworks */,
 				2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */,
 				A95EEAE32B6B54D3009B4CF8 /* BluetoothViews in Frameworks */,
 				A988FEA62B03FB4A00022A61 /* SpeziBluetooth in Frameworks */,
@@ -455,6 +458,7 @@
 				2F49B7762980407C00BCB272 /* Spezi in Frameworks */,
 				A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */,
 				2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */,
+				A95F4B312B990803006778E5 /* ByteCoding in Frameworks */,
 				2FE5DC8129EDD91D004B9AB4 /* SpeziOnboarding in Frameworks */,
 				2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */,
 				2FE5DC7729EDD8E6004B9AB4 /* SpeziFirebaseConfiguration in Frameworks */,
@@ -465,6 +469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A95F4B352B990803006778E5 /* XCTByteCoding in Frameworks */,
 				A93B82CF2B76EE0700C5DF3D /* XCTBluetooth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,6 +486,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A95F4B372B99081D006778E5 /* ByteCoding in Frameworks */,
 				A926D7A82AB7A552000C4C2F /* Muse.framework in Frameworks */,
 				A926D7A92AB7A552000C4C2F /* SpeziAccount in Frameworks */,
 				A926D7AA2AB7A552000C4C2F /* SpeziContact in Frameworks */,
@@ -490,6 +496,7 @@
 				A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */,
 				A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */,
 				A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */,
+				A95F4B392B99081D006778E5 /* EDFFormat in Frameworks */,
 				A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
@@ -576,10 +583,10 @@
 		653A254E283387FE005D4D48 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				653A254D283387FE005D4D48 /* NAMS.app */,
+				653A254D283387FE005D4D48 /* NeuroNest.app */,
 				653A255D28338800005D4D48 /* NAMSTests.xctest */,
 				653A256728338800005D4D48 /* NAMSUITests.xctest */,
-				A926D7C32AB7A552000C4C2F /* NAMS Muse.app */,
+				A926D7C32AB7A552000C4C2F /* NeuroNest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -787,7 +794,6 @@
 				A907DA352B1942B800FB69FB /* DataAcquisition.swift */,
 				A907DA382B195D4800FB69FB /* AccelerometerSample.swift */,
 				A907DA3B2B195ED800FB69FB /* EEGSample.swift */,
-				A907DA3E2B1964B500FB69FB /* ByteBuffer+Int24.swift */,
 				A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */,
 			);
 			path = Characteristics;
@@ -941,9 +947,11 @@
 				A988FEA52B03FB4A00022A61 /* SpeziBluetooth */,
 				A9C82F942B6089C8004703E0 /* BluetoothServices */,
 				A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */,
+				A95F4B302B990803006778E5 /* ByteCoding */,
+				A95F4B322B990803006778E5 /* EDFFormat */,
 			);
 			productName = NAMS;
-			productReference = 653A254D283387FE005D4D48 /* NAMS.app */;
+			productReference = 653A254D283387FE005D4D48 /* NeuroNest.app */;
 			productType = "com.apple.product-type.application";
 		};
 		653A255C28338800005D4D48 /* NAMSTests */ = {
@@ -962,6 +970,7 @@
 			name = NAMSTests;
 			packageProductDependencies = (
 				A93B82CE2B76EE0700C5DF3D /* XCTBluetooth */,
+				A95F4B342B990803006778E5 /* XCTByteCoding */,
 			);
 			productName = NAMSTests;
 			productReference = 653A255D28338800005D4D48 /* NAMSTests.xctest */;
@@ -1019,9 +1028,11 @@
 				A988FEA72B03FB5A00022A61 /* SpeziBluetooth */,
 				A9C82F962B6089D2004703E0 /* BluetoothServices */,
 				A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */,
+				A95F4B362B99081D006778E5 /* ByteCoding */,
+				A95F4B382B99081D006778E5 /* EDFFormat */,
 			);
 			productName = NAMS;
-			productReference = A926D7C32AB7A552000C4C2F /* NAMS Muse.app */;
+			productReference = A926D7C32AB7A552000C4C2F /* NeuroNest.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1070,6 +1081,7 @@
 				2FE5DC9729EDD9D9004B9AB4 /* XCRemoteSwiftPackageReference "XCTestExtensions" */,
 				A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */,
+				A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
 			projectDirPath = "";
@@ -1251,7 +1263,6 @@
 				A9F2ECCD2AEC58B00057C7DD /* SimpleTile.swift in Sources */,
 				2DC179421EE83DA24520EABB /* HeadbandFit+Muse.swift in Sources */,
 				A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */,
-				A907DA3F2B1964B500FB69FB /* ByteBuffer+Int24.swift in Sources */,
 				A9CE84512B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */,
 				A9D4B8E62B6860AC0054E27C /* MuseHeadbandFitView.swift in Sources */,
 				2DC17F8981E53AEED0CFD1BD /* MockDevice.swift in Sources */,
@@ -1393,7 +1404,6 @@
 				A97E4F202B1EA0D600E25505 /* StartRecordingView.swift in Sources */,
 				A9D4B8E72B68636A0054E27C /* MuseHeadbandFitView.swift in Sources */,
 				2DC17FB80AB25F5356A59FEE /* HeadbandFit+Muse.swift in Sources */,
-				A907DA402B1964B500FB69FB /* ByteBuffer+Int24.swift in Sources */,
 				A9CE84522B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */,
 				A9DF79E12AE8A82300AB5983 /* PatientRow.swift in Sources */,
 				A9D4B8E12B685DF30054E27C /* MuseInterventionRequiredHint.swift in Sources */,
@@ -1580,7 +1590,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
+				INFOPLIST_KEY_CFBundleDisplayName = NeuroNest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1602,7 +1612,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NeuroNest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=xros*]" = "Stanford BDHG NeuroNest - Development Andi";
@@ -1640,7 +1650,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
+				INFOPLIST_KEY_CFBundleDisplayName = NeuroNest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1662,7 +1672,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NeuroNest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
@@ -1776,7 +1786,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
+				INFOPLIST_KEY_CFBundleDisplayName = NeuroNest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1798,7 +1808,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NeuroNest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1837,7 +1847,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "MUSE=1";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
+				INFOPLIST_KEY_CFBundleDisplayName = NeuroNest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1859,7 +1869,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NeuroNest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1960,7 +1970,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
+				INFOPLIST_KEY_CFBundleDisplayName = NeuroNest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -1982,7 +1992,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NeuroNest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=xros*]" = "Stanford BDHG NeuroNest - Development Andi";
@@ -2022,7 +2032,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NAMS/Supporting Files/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = NAMS;
+				INFOPLIST_KEY_CFBundleDisplayName = NeuroNest;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to connect to EEG headbands.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This message should never appear. Please adjust this when you start using camera information. We have to put this in here as ResearchKit has the possibility to use it and not putting it here returns an error on AppStore Connect.";
@@ -2044,7 +2054,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NeuroNest;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -2305,12 +2315,20 @@
 				minimumVersion = 1.0.5;
 			};
 		};
+		A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordSpezi/SpeziFileFormats";
+			requirement = {
+				branch = "feature/edf-file";
+				kind = branch;
+			};
+		};
 		A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = "feature/spezi-file-formats";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2455,6 +2473,31 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
 			productName = BluetoothViews;
+		};
+		A95F4B302B990803006778E5 /* ByteCoding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
+			productName = ByteCoding;
+		};
+		A95F4B322B990803006778E5 /* EDFFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
+			productName = EDFFormat;
+		};
+		A95F4B342B990803006778E5 /* XCTByteCoding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
+			productName = XCTByteCoding;
+		};
+		A95F4B362B99081D006778E5 /* ByteCoding */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
+			productName = ByteCoding;
+		};
+		A95F4B382B99081D006778E5 /* EDFFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
+			productName = EDFFormat;
 		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
 			isa = XCSwiftPackageProductDependency;
