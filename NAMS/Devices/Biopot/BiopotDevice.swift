@@ -8,6 +8,7 @@
 
 import BluetoothServices
 import BluetoothViews
+import EDFFormat
 import OSLog
 import Spezi
 @_spi(TestingSupport)
@@ -172,18 +173,18 @@ class BiopotDevice: BluetoothDevice, Identifiable {
                 return
             }
 
-            let baseDate = startDate ?? .now
+            let baseDate = self.startDate ?? .now
 
             let series: [EEGSeries] = acquisition.samples.map { sample in
                 var readings: [EEGReading] = []
                 readings.reserveCapacity(8)
 
                 for index in 1...sample.channels.count {
-                    guard let channel = EEGChannel(biopotNum: index) else {
+                    guard let location = EEGLocation(biopotNum: index) else {
                         continue
                     }
 
-                    readings.append(EEGReading(channel: channel, value: Double(sample.channels[index - 1].value)))
+                    readings.append(EEGReading(location: location, value: Double(sample.channels[index - 1].value)))
                 }
 
 

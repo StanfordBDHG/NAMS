@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 import Observation
 import OrderedCollections
 import OSLog
+import Spezi
 import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziFirestore
@@ -20,7 +21,7 @@ import SwiftUI
 
 @MainActor
 @Observable
-class PatientListModel {
+class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
     static let logger = Logger(subsystem: "edu.stanford.NAMS", category: "PatientListModel")
 
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
@@ -61,7 +62,7 @@ class PatientListModel {
     }
 
 
-    init() {}
+    required init() {}
 
 
     func completedTasksCollection(patientId: String) -> CollectionReference {

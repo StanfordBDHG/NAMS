@@ -11,7 +11,7 @@ import SpeziViews
 import SwiftUI
 
 
-struct PatientList: View {
+struct PatientListView: View {
     private let patients: OrderedDictionary<Character, [Patient]>?
 
     @Environment(PatientListModel.self)
@@ -108,7 +108,7 @@ struct PatientList: View {
 #if DEBUG
 #Preview {
     NavigationStack {
-        PatientList(
+        PatientListView(
             patients: [
                 "A": [Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))],
                 "E": [Patient(id: "6", name: .init(givenName: "Erik", familyName: "Gross"))],
@@ -122,12 +122,14 @@ struct PatientList: View {
             viewState: .constant(.idle)
         )
             .environment(PatientSearchModel())
-            .environment(PatientListModel())
+            .previewWith {
+                PatientListModel()
+            }
     }
 }
 #Preview {
     NavigationStack {
-        PatientList(
+        PatientListView(
             patients: [
                 "A": [Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))],
                 "L": [Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford"))],
@@ -136,18 +138,24 @@ struct PatientList: View {
             viewState: .constant(.idle)
         )
             .environment(PatientSearchModel())
-            .environment(PatientListModel())
+            .previewWith {
+                PatientListModel()
+            }
     }
 }
 #Preview {
-    PatientList(patients: [:], viewState: .constant(.idle))
+    PatientListView(patients: [:], viewState: .constant(.idle))
         .environment(PatientSearchModel())
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 
 #Preview {
-    PatientList(patients: nil, viewState: .constant(.idle))
+    PatientListView(patients: nil, viewState: .constant(.idle))
         .environment(PatientSearchModel())
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif

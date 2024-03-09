@@ -112,8 +112,8 @@ struct EEGRecording: View {
                 let baseTime = first.timestamp.timeIntervalSince1970
 
                 VStack {
-                    ForEach(first.channels, id: \.self) { channel in
-                        EEGChart(measurements: suffix, for: channel, baseTime: baseTime)
+                    ForEach(first.locations, id: \.self) { location in
+                        EEGChart(measurements: suffix, for: location, baseTime: baseTime)
                     }
                 }
             }
@@ -131,10 +131,10 @@ struct EEGRecording: View {
     }
     return NavigationStack {
         EEGRecording()
-            .environment(PatientListModel())
             .previewWith {
                 model
                 DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
+                PatientListModel()
                 Bluetooth {
                     Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
                 }
@@ -145,10 +145,10 @@ struct EEGRecording: View {
 #Preview {
     NavigationStack {
         EEGRecording()
-            .environment(PatientListModel())
             .previewWith {
                 EEGRecordings()
                 DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
+                PatientListModel()
             }
     }
 }
@@ -156,10 +156,10 @@ struct EEGRecording: View {
 #Preview {
     NavigationStack {
         EEGRecording()
-            .environment(PatientListModel())
             .previewWith {
                 EEGRecordings()
                 DeviceCoordinator()
+                PatientListModel()
             }
     }
 }

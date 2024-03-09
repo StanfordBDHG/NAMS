@@ -31,6 +31,8 @@ struct HomeView: View {
     private var bluetooth
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
+    @Environment(PatientListModel.self)
+    private var patientList
 
 #if TEST || DEBUG
     @State var mockDeviceManager = MockDeviceManager()
@@ -41,8 +43,6 @@ struct HomeView: View {
 #if MUSE
     @State var museDeviceManager = MuseDeviceManager()
 #endif
-
-    @State private var patientList = PatientListModel()
 
     @State private var viewState: ViewState = .idle
     @State private var presentingAccount = false
@@ -61,7 +61,6 @@ struct HomeView: View {
                 }
         }
             .viewStateAlert(state: $viewState)
-            .environment(patientList)
             .environment(mockDeviceManager)
 #if MUSE
             .environment(museDeviceManager)
@@ -151,6 +150,7 @@ struct HomeView: View {
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
+            PatientListModel()
         }
 }
 #endif

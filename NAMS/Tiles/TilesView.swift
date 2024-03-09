@@ -130,8 +130,8 @@ struct TilesView: View {
 
 #Preview {
     TilesView()
-        .environment(PatientListModel())
         .previewWith {
+            PatientListModel()
             EEGRecordings()
             DeviceCoordinator()
         }

@@ -6,17 +6,18 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
 import Foundation
 
 
 struct EEGReading {
-    let channel: EEGChannel
+    let location: EEGLocation
     /// Value in micro volts
     let value: Double
 
 
-    init(channel: EEGChannel, value: Double) {
-        self.channel = channel
+    init(location: EEGLocation, value: Double) {
+        self.location = location
         self.value = value
     }
 }

@@ -20,7 +20,7 @@ struct EEGChannelMark: ChartContent {
             y: .value("Micro-Volt", reading.value)
         )
             .lineStyle(StrokeStyle(lineWidth: 2.0))
-            .foregroundStyle(by: .value("Channel", reading.channel.rawValue))
+            .foregroundStyle(by: .value("Channel", reading.location.rawValue))
     }
 
 

@@ -35,7 +35,7 @@ struct PatientRow: View {
             detailsButton
         }
             .navigationDestination(isPresented: $showPatientDetails) {
-                PatientInformation(patient: patient)
+                PatientInformationView(patient: patient)
             }
             .accessibilityRepresentation { @MainActor in
                 HStack { @MainActor in
@@ -116,7 +116,9 @@ struct PatientRow: View {
             )
         }
     }
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 
 #Preview {
@@ -127,6 +129,8 @@ struct PatientRow: View {
             )
         }
     }
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif

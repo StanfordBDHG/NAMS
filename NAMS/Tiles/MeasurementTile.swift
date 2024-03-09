@@ -90,14 +90,18 @@ struct MeasurementTile: View {
 #Preview {
     List {
         MeasurementTile(task: .eegMeasurement, presentingEEGRecording: .constant(false), deviceConnected: true)
-            .environment(PatientListModel())
+            .previewWith {
+                PatientListModel()
+            }
     }
 }
 
 #Preview {
     List {
         MeasurementTile(task: .eegMeasurement, presentingEEGRecording: .constant(false), deviceConnected: false)
-            .environment(PatientListModel())
+            .previewWith {
+                PatientListModel()
+            }
     }
 }
 #endif

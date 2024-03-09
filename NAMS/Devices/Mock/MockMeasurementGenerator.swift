@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
 import Foundation
 
 
@@ -19,7 +20,7 @@ class MockMeasurementGenerator {
 
 
     // properties for stateful generation.
-    private var values: [EEGChannel: Double]
+    private var values: [EEGLocation: Double]
     private var currentTime: TimeInterval
 
 
@@ -46,12 +47,12 @@ class MockMeasurementGenerator {
     }
 
 
-    private func generate(values: inout [EEGChannel: Double], time: inout Double) -> EEGSeries {
+    private func generate(values: inout [EEGLocation: Double], time: inout Double) -> EEGSeries {
         time += sampleDuration
 
-        let readings = [EEGChannel.tp9, .af7, .af8, .tp10].map { channel in
-            values[channel, default: baseValue] += Double.random(in: -3.35...3.5)
-            return EEGReading(channel: channel, value: values[channel, default: baseValue])
+        let readings = [EEGLocation.tp9, .af7, .af8, .tp10].map { location in
+            values[location, default: baseValue] += Double.random(in: -3.35...3.5)
+            return EEGReading(location: location, value: values[location, default: baseValue])
         }
 
         return EEGSeries(timestamp: Date(timeIntervalSince1970: time), readings: readings)
@@ -76,7 +77,7 @@ class MockMeasurementGenerator {
         let samples = Int(sampleTime * Double(sampleRate))
 
         var result: [EEGSeries] = []
-        var values: [EEGChannel: Double] = [:]
+        var values: [EEGLocation: Double] = [:]
         var currentTime = firstSampleSince1970
 
         for _ in 0..<samples {

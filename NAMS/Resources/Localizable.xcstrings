@@ -180,6 +180,9 @@
         }
       }
     },
+    "Birthdate" : {
+
+    },
     "Brain Activity" : {
       "localizations" : {
         "en" : {
@@ -249,6 +252,9 @@
           }
         }
       }
+    },
+    "Code" : {
+
     },
     "Collect the patient's brain activity using the connected EEG headband." : {
       "localizations" : {
@@ -321,6 +327,9 @@
         }
       }
     },
+    "Details" : {
+
+    },
     "Devices" : {
       "localizations" : {
         "en" : {
@@ -381,6 +390,9 @@
         }
       }
     },
+    "EEG recording could not be started as no patient was selected." : {
+
+    },
     "enter first name" : {
       "localizations" : {
         "en" : {
@@ -422,6 +434,9 @@
           }
         }
       }
+    },
+    "Female" : {
+
     },
     "FINISHED_SETUP_TEXT" : {
       "localizations" : {
@@ -622,6 +637,9 @@
         }
       }
     },
+    "Male" : {
+
+    },
     "Mark completed" : {
       "localizations" : {
         "en" : {
@@ -727,6 +745,9 @@
         }
       }
     },
+    "No patient selected" : {
+
+    },
     "No Patient selected" : {
       "localizations" : {
         "en" : {
@@ -746,6 +767,9 @@
           }
         }
       }
+    },
+    "Not Disclosed" : {
+
     },
     "Notes" : {
       "localizations" : {
@@ -791,6 +815,9 @@
 
     },
     "On" : {
+
+    },
+    "Other" : {
 
     },
     "Overall" : {
@@ -1032,6 +1059,9 @@
           }
         }
       }
+    },
+    "Sex" : {
+
     },
     "Start" : {
       "localizations" : {

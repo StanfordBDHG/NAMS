@@ -7,12 +7,13 @@
 //
 
 import Charts
+import EDFFormat
 import SwiftUI
 
 
 struct EEGChart: View {
     private let measurements: ArraySlice<EEGSeries>
-    private let channel: EEGChannel
+    private let location: EEGLocation
     /// The base time interval since 1970.
     private let baseTime: TimeInterval?
 
@@ -37,7 +38,7 @@ struct EEGChart: View {
             // base time exists if there is at least one measurement
             let baseTime = baseTime ?? 0
 
-            EEGChannelMark(time: max(0.0, series.timestamp.timeIntervalSince1970 - baseTime), reading: series.reading(for: channel))
+            EEGChannelMark(time: max(0.0, series.timestamp.timeIntervalSince1970 - baseTime), reading: series.reading(for: location))
         }
             .chartXScale(domain: lowerScale...upperScale)
             .chartXAxis {
@@ -72,9 +73,9 @@ struct EEGChart: View {
     }
 
 
-    init(measurements: ArraySlice<EEGSeries>, for channel: EEGChannel, baseTime: TimeInterval?) {
+    init(measurements: ArraySlice<EEGSeries>, for location: EEGLocation, baseTime: TimeInterval?) {
         self.measurements = measurements
-        self.channel = channel
+        self.location = location
         self.baseTime = baseTime
     }
 }

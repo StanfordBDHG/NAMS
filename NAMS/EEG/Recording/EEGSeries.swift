@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
 import Foundation
 
 
@@ -15,21 +16,21 @@ struct EEGSeries: Identifiable {
     }
 
     let timestamp: Date
-    private let readingsDictionary: [EEGChannel: EEGReading]
+    private let readingsDictionary: [EEGLocation: EEGReading]
 
-    var channels: [EEGChannel] {
+    var locations: [EEGLocation] {
         Array(readingsDictionary.keys)
     }
 
     init(timestamp: Date, readings: [EEGReading]) {
         self.timestamp = timestamp
         self.readingsDictionary = readings.reduce(into: [:]) { result, reading in
-            result[reading.channel] = reading
+            result[reading.location] = reading
         }
     }
 
 
-    func reading(for channel: EEGChannel) -> EEGReading {
+    func reading(for channel: EEGLocation) -> EEGReading {
         guard let reading = readingsDictionary[channel] else {
             preconditionFailure("Tried to access channel \(channel) which wasn't present")
         }

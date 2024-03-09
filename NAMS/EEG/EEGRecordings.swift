@@ -10,11 +10,14 @@ import OSLog
 import Spezi
 
 enum EEGRecordingError: LocalizedError {
+    case noSelectedPatient
     case noConnectedDevice
 
 
     var errorDescription: String? {
         switch self {
+        case .noSelectedPatient:
+            String(localized: "No patient selected")
         case .noConnectedDevice:
             String(localized: "No connected device")
         }
@@ -22,6 +25,8 @@ enum EEGRecordingError: LocalizedError {
 
     var failureReason: String? {
         switch self {
+        case .noSelectedPatient:
+            String(localized: "EEG recording could not be started as no patient was selected.")
         case .noConnectedDevice:
             String(localized: "EEG recording could not be started as no connected device was found.")
         }
@@ -34,6 +39,7 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseViewModel")
 
     @Dependency @ObservationIgnored private var deviceCoordinator: DeviceCoordinator
+    @Dependency @ObservationIgnored private var patientList: PatientListModel
 
     private(set) var recordingSession: EEGRecordingSession?
 
@@ -41,11 +47,19 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
 
     @MainActor
     func startRecordingSession() async throws {
-        let session = EEGRecordingSession()
+        guard let patient = patientList.activePatient else {
+            throw EEGRecordingError.noSelectedPatient
+        }
 
         guard let device = deviceCoordinator.connectedDevice else {
             throw EEGRecordingError.noConnectedDevice
         }
+
+
+        // TODO: create temporary file?
+        // TODO: pass a proper url!
+
+        let session = EEGRecordingSession(url: URL(fileURLWithPath: "asdf"), patient: patient, device: device)
 
         try await device.startRecording(session)
 

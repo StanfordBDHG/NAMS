@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1520"
+   LastUpgradeVersion = "1530"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A926D7642AB7A552000C4C2F"
-               BuildableName = "NeuroNest.app"
+               BuildableName = "NAMS Muse.app"
                BlueprintName = "NAMS Muse"
                ReferencedContainer = "container:NAMS.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A926D7642AB7A552000C4C2F"
-            BuildableName = "NeuroNest.app"
+            BuildableName = "NAMS Muse.app"
             BlueprintName = "NAMS Muse"
             ReferencedContainer = "container:NAMS.xcodeproj">
          </BuildableReference>
@@ -60,6 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A926D7642AB7A552000C4C2F"
+            BuildableName = "NAMS Muse.app"
+            BlueprintName = "NAMS Muse"
+            ReferencedContainer = "container:NAMS.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

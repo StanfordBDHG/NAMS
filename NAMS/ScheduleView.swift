@@ -87,10 +87,10 @@ struct ScheduleView: View {
 #if DEBUG
 #Preview {
     ScheduleView(presentingAccount: .constant(true))
-        .environment(PatientListModel())
         .previewWith {
             EEGRecordings()
             DeviceCoordinator()
+            PatientListModel()
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }

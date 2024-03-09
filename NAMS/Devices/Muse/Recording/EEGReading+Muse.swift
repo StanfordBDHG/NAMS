@@ -6,12 +6,14 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
+
 
 #if MUSE
 extension EEGReading {
-    init(from packet: IXNMuseDataPacket, _ channel: EEGChannel) {
-        self.channel = channel
-        self.value = packet.getEegChannelValue(channel.ixnEEG)
+    init(from packet: IXNMuseDataPacket, _ location: EEGLocation) {
+        self.location = location
+        self.value = packet.getEegChannelValue(location.ixnEEG)
     }
 }
 #endif

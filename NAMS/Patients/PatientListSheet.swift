@@ -25,11 +25,11 @@ struct PatientListSheet: View {
 
     var body: some View {
         NavigationStack {
-            PatientList(patients: patientList.categorizedPatients, viewState: $viewState)
+            PatientListView(patients: patientList.categorizedPatients, viewState: $viewState)
                 .navigationTitle(Text("Patients", comment: "Patient List Title"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: Patient.self) { patient in
-                    PatientInformation(patient: patient)
+                    PatientInformationView(patient: patient)
                 }
                 .environment(searchModel)
                 .sheet(isPresented: $showAddPatientSheet) {
@@ -85,6 +85,8 @@ struct PatientListSheet: View {
 #if DEBUG
 #Preview {
     PatientListSheet()
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif

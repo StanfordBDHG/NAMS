@@ -6,44 +6,51 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziPersonalInfo
 import SpeziViews
 import SwiftUI
 
 
 @MainActor
-struct PatientInformation: View {
+struct PatientInformationView: View {
     private let patient: Patient
 
     @Environment(\.dismiss)
     private var dismiss
+    @Environment(\.locale)
+    private var locale
+
     @Environment(PatientListModel.self)
     private var patientList
 
     @State private var viewState: ViewState = .idle
     @State private var presentingDeleteConfirmation = false
 
-    private var name: String {
-        patient.name.formatted(.name(style: .long))
+    private var dateFormatStyle: Date.FormatStyle {
+        .init()
+        .locale(locale)
+        .year(.defaultDigits)
+        .month(locale.identifier == "en_US" ? .abbreviated : .defaultDigits)
+        .day(.defaultDigits)
     }
 
     var body: some View {
         List {
-            VStack {
-                UserProfileView(name: patient.name)
-                    .frame(height: 60)
-                Text(verbatim: name)
-                    .foregroundColor(.primary)
-                    .font(.title)
-                    .fontWeight(.semibold)
-            }
-                .frame(maxWidth: .infinity)
-                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                .listRowBackground(Color.clear)
-                .accessibilityRepresentation {
-                    Text(verbatim: name)
-                        .accessibilityAddTraits(.isHeader)
+            PatientInformationHeader(patient: patient)
+
+            if patient.sex != nil || patient.birthdate != nil {
+                Section("Details") {
+                    if let sex = patient.sex {
+                        ListRow("Sex") {
+                            Text(sex.localizedStringResource)
+                        }
+                    }
+                    if let birthdate = patient.birthdate {
+                        ListRow("Birthdate") {
+                            Text(verbatim: birthdate.formatted(dateFormatStyle))
+                        }
+                    }
                 }
+            }
 
             if let note = patient.note {
                 Section("Notes") {
@@ -115,9 +122,18 @@ struct PatientInformation: View {
 
 #if DEBUG
 #Preview {
-    PatientInformation(
-        patient: Patient(id: "1234", name: .init(givenName: "Andreas", familyName: "Bauer"), note: "These are some notes ...")
+    PatientInformationView(
+        patient: Patient(
+            id: "1234",
+            name: .init(givenName: "Andreas", familyName: "Bauer"),
+            code: "AB1234",
+            sex: .male,
+            birthdate: .now,
+            note: "These are some notes ..."
+        )
     )
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif
