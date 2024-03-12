@@ -54,7 +54,7 @@ struct MuseHeadbandFitSection: View {
     return NavigationStack {
         List {
             MuseHeadbandFitSection(
-                .init(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1", wearingHeadband: true, fit: fit)
+                .mock(firmwareVersion: "1.2", hardwareVersion: "20.1", wearingHeadband: true, fit: fit)
             )
         }
     }
@@ -65,7 +65,7 @@ struct MuseHeadbandFitSection: View {
     return NavigationStack {
         List {
             MuseHeadbandFitSection(
-                .init(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1", wearingHeadband: true, fit: fit)
+                .mock(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1", wearingHeadband: true, fit: fit)
             )
         }
     }
@@ -76,7 +76,7 @@ struct MuseHeadbandFitSection: View {
     return NavigationStack {
         List {
             MuseHeadbandFitSection(
-                .init(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1", wearingHeadband: true, fit: fit)
+                .mock(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1", wearingHeadband: true, fit: fit)
             )
         }
     }
@@ -86,7 +86,7 @@ struct MuseHeadbandFitSection: View {
     NavigationStack {
         List {
             MuseHeadbandFitSection(
-                .init(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1")
+                .mock(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1")
             )
         }
     }

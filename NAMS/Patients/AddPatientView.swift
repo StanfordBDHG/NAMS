@@ -78,7 +78,7 @@ struct AddPatientView: View {
 
                     Section {
                         VerifiableTextField("required", text: $newPatient.code)
-                            .validate(input: newPatient.code, rules: .nonEmpty)
+                            .validate(input: newPatient.code, rules: .nonEmpty, .patientCodeMaxLength)
                     } header: {
                         Text("Patient Code")
                     } footer: {
@@ -184,6 +184,15 @@ struct AddPatientView: View {
 
 
     init() {}
+}
+
+
+extension ValidationRule {
+    fileprivate static var patientCodeMaxLength: ValidationRule {
+        ValidationRule(rule: { input in
+            input.count <= 64
+        }, message: "The patient code cannot be longer than 64 characters.")
+    }
 }
 
 

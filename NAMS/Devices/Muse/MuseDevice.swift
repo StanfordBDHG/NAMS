@@ -7,61 +7,21 @@
 //
 
 import BluetoothViews
+import EDFFormat
 import Foundation
 import OSLog
 import SpeziBluetooth
 
 
-@Observable
-class MuseDeviceInformation {
-    let serialNumber: String
-    let firmwareVersion: String
-    let hardwareVersion: String
-
-    /// Remaining battery percentage in percent [0.0;100.0]
-    var remainingBatteryPercentage: Double?
-
-    // artifacts muse supports
-    var wearingHeadband = false
-    var eyeBlink = false
-    var jawClench = false
-
-    /// Determines if the last second of data is considered good
-    var isGood: (Bool, Bool, Bool, Bool) = (false, false, false, false) // swiftlint:disable:this large_tuple
-    /// The current fit of the headband
-    var fit: HeadbandFit?
-
-    init(
-        serialNumber: String,
-        firmwareVersion: String,
-        hardwareVersion: String,
-        remainingBatteryPercentage: Double? = nil,
-        wearingHeadband: Bool = false,
-        fit: HeadbandFit? = nil
-    ) {
-        self.serialNumber = serialNumber
-        self.firmwareVersion = firmwareVersion
-        self.hardwareVersion = hardwareVersion
-        self.remainingBatteryPercentage = remainingBatteryPercentage
-        self.wearingHeadband = wearingHeadband
-        self.fit = fit
-    }
-}
-
 #if MUSE
 @Observable
-class MuseDevice: Identifiable {
+class MuseDevice: Identifiable, SomeConnectedDevice {
     /// List of data packets we are registering to.
     private static let packetTypes: [IXNMuseDataPacketType] = [
         .artifacts,
         .battery,
         .isGood,
 
-        // Might want to read https://www.learningeeg.com/terminology-and-waveforms for a short intro into EEG frequency ranges
-        .thetaAbsolute, // 4-8 Hz
-        .alphaAbsolute, // 8-16 Hz
-        .betaAbsolute, // 16-32 Hz
-        .gammaAbsolute, // 32-64 Hz
         .eeg, // enables collection of raw data
 
         .hsiPrecision
@@ -78,7 +38,7 @@ class MuseDevice: Identifiable {
     var deviceInformation: MuseDeviceInformation?
 
     /// The currently associated recording session.
-    @MainActor private var recordingSession: EEGRecordingSession?
+    private var recordingSession: EEGRecordingSession?
     @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     var name: String {
@@ -113,6 +73,42 @@ class MuseDevice: Identifiable {
         muse
     }
 
+    var equipmentCode: String {
+        "MUSE_\(deviceInformation?.serialNumber ?? "0")" // TODO: update model description
+    }
+
+    var signalDescription: [Signal]? { // swiftlint:disable:this discouraged_optional_collection
+        guard let deviceInformation else {
+            return nil // TODO: or make it throwing?
+        }
+
+        /*
+         // format according to EDF+/BDF+ spec
+         var prefilter = "HP:\(samplingConfiguration.highPassFilter.edfString)"
+         if let lowPass = samplingConfiguration.softwareLowPassFilter.edfString {
+         prefilter += " LP:\(lowPass)"
+         TODO: add Notch filter!
+         }
+         */
+
+        return [EEGLocation.tp9, .af7, .af8, .tp10].map { location in
+            Signal(
+                label: .eeg(location: location, prefix: .micro),
+                transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
+                // TODO: prefiltering: prefilter,
+                sampleCount: deviceInformation.sampleRate,
+                physicalMinimum: -20_000,
+                physicalMaximum: 20_0000,
+                digitalMinimum: -8_388_608,
+                digitalMaximum: 8_388_607
+            )
+        }
+    }
+
+    var recordDuration: Int {
+        1
+    }
+
     init(_ muse: IXNMuse) {
         self.muse = muse
         self.connectionState = ConnectionState(from: muse.getConnectionState())
@@ -122,7 +118,7 @@ class MuseDevice: Identifiable {
     }
 
     @MainActor
-    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
+    func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void) {
         self.disconnectHandler = handler
     }
 
@@ -144,6 +140,10 @@ class MuseDevice: Identifiable {
 
     func disconnect() {
         muse.disconnect()
+    }
+
+    func prepareRecording() async throws {
+        // TODO: implement?
     }
 
     @MainActor
@@ -190,12 +190,15 @@ class MuseDevice: Identifiable {
             serialNumber: configuration.getSerialNumber(),
             firmwareVersion: version.getFirmwareVersion(),
             hardwareVersion: version.getHardwareVersion(),
+            sampleRate: Int(configuration.getOutputFrequency()),
+            notchFilter: configuration.getNotchFilter(),
+            afeGain: Int(configuration.getAfeGain()),
             remainingBatteryPercentage: configuration.getBatteryPercentRemaining()
         )
     }
 
 
-    @MainActor
+    @EEGProcessing
     private func receive(_ packet: IXNMuseDataPacket, muse: IXNMuse) { // swiftlint:disable:this cyclomatic_complexity
         guard let deviceInformation else {
             return
@@ -208,15 +211,7 @@ class MuseDevice: Identifiable {
                 deviceInformation.fit = fit
             }
         case .eeg:
-            recordingSession?.append(series: EEGSeries(from: packet), for: .all)
-        case .thetaAbsolute:
-            recordingSession?.append(series: EEGSeries(from: packet), for: .theta)
-        case .alphaAbsolute:
-            recordingSession?.append(series: EEGSeries(from: packet), for: .alpha)
-        case .betaAbsolute:
-            recordingSession?.append(series: EEGSeries(from: packet), for: .beta)
-        case .gammaAbsolute:
-            recordingSession?.append(series: EEGSeries(from: packet), for: .gamma)
+            recordingSession?.append(CombinedEEGSample(from: packet))
         case .battery:
             deviceInformation.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
         case .isGood:
@@ -333,7 +328,7 @@ extension MuseDevice {
             guard let device, let packet, let muse else {
                 return
             }
-            Task { @MainActor in
+            Task { @EEGProcessing in
                 device.receive(packet, muse: muse)
             }
         }

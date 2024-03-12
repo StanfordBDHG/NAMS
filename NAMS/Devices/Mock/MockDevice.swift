@@ -7,20 +7,30 @@
 //
 
 import BluetoothViews
+import EDFFormat
 import Foundation
 import SpeziBluetooth
 
 
 @Observable
-class MockDevice {
+class MockDevice: SomeConnectedDevice {
     private static let sampleRate = 60
 
     let id: UUID
     let name: String
-    private let eegMeasurementGenerators: [EEGFrequency: MockMeasurementGenerator]
+
+    private let measurementGenerator: MockMeasurementGenerator
 
     var state: PeripheralState
     var deviceInformation: MuseDeviceInformation? // we are just reusing muse data model
+
+    var equipmentCode: String {
+        if let deviceInformation {
+            "MOCK_\(deviceInformation.serialNumber)"
+        } else {
+            "MOCK"
+        }
+    }
 
     /// The currently associated recording session.
     @MainActor private var recordingSession: EEGRecordingSession?
@@ -50,15 +60,31 @@ class MockDevice {
         }
     }
 
+    var signalDescription: [Signal]? { // swiftlint:disable:this discouraged_optional_collection
+        MockMeasurementGenerator.generatedLocations.map { location in
+            Signal(
+                label: .eeg(location: location, prefix: .micro), // TODO: update generator to produce Integers?
+                transducerType: "Mock Measurement Generator",
+                sampleCount: Self.sampleRate,
+                physicalMinimum: -20_000,
+                physicalMaximum: 20_0000,
+                digitalMinimum: -8_388_608,
+                digitalMaximum: 8_388_607
+            )
+        }
+    }
 
-    @MainActor
+    var recordDuration: Int {
+        1 // TODO: does that make sense?
+    }
+
+
     init(name: String, state: PeripheralState = .disconnected) {
         self.id = UUID()
         self.name = name
         self.state = state
-        self.eegMeasurementGenerators = EEGFrequency.allCases.reduce(into: [:]) { result, frequency in
-            result[frequency] = MockMeasurementGenerator(sampleRate: Self.sampleRate)
-        }
+
+        self.measurementGenerator = MockMeasurementGenerator(sampleRate: Self.sampleRate)
 
         switch state {
         case .connecting:
@@ -66,7 +92,9 @@ class MockDevice {
         case .connected:
             handleConnected()
         case .disconnecting:
-            disconnect()
+            Task { @MainActor in
+                disconnect()
+            }
         case .disconnected:
             break
         }
@@ -74,7 +102,7 @@ class MockDevice {
 
 
     @MainActor
-    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
+    func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void) {
         self.disconnectHandler = handler
     }
 
@@ -98,6 +126,9 @@ class MockDevice {
             serialNumber: "0xAABBCCDD",
             firmwareVersion: "1.2",
             hardwareVersion: "1.0",
+            sampleRate: Self.sampleRate,
+            notchFilter: .notchNone,
+            afeGain: 2000,
             remainingBatteryPercentage: 75
         )
 
@@ -126,12 +157,19 @@ class MockDevice {
         }
     }
 
+    func prepareRecording() async throws {} // TODO: empty default implementation?
+
     @MainActor
-    func startRecording(_ session: EEGRecordingSession) async throws {
+    func startRecording(_ session: EEGRecordingSession) throws {
         self.recordingSession = session
 
         // schedule timer to generate fake EEG data
-        let timer = Timer(timeInterval: 1.0 / Double(Self.sampleRate), repeats: true, block: generateRecording)
+        let timer = Timer(timeInterval: 0.1, repeats: true) { timer in
+            // its running on the main RunLoop so this is safe to assume
+            MainActor.assumeIsolated {
+                self.generateRecording(timer: timer)
+            }
+        }
         RunLoop.main.add(timer, forMode: .common)
         self.eegTimer = timer
 
@@ -139,24 +177,23 @@ class MockDevice {
     }
 
     @MainActor
-    func stopRecording() async throws {
+    func stopRecording() throws {
         self.eegTimer = nil
         self.recordingSession = nil
     }
 
-    @Sendable
+    @MainActor
     private func generateRecording(timer: Timer) {
-        // its running on the main RunLoop so this is safe to assume
-        MainActor.assumeIsolated {
-            guard let recordingSession,
-                  state == .connected else {
-                timer.invalidate()
-                return
-            }
+        guard let recordingSession,
+              state == .connected else {
+            timer.invalidate()
+            return
+        }
 
-            for (frequency, generator) in eegMeasurementGenerators {
-                let series = generator.next()
-                recordingSession.append(series: series, for: frequency)
+        let samples = measurementGenerator.next()
+        Task { @EEGProcessing in
+            for sample in samples {
+                recordingSession.append(sample)
             }
         }
     }

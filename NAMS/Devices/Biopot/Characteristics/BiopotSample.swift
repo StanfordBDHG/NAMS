@@ -11,12 +11,12 @@ import EDFFormat
 import NIOCore
 
 
-struct EEGSample { // we always deal with 8 channel samples
+struct BiopotSample: Hashable { // we always deal with 8 channel samples
     let channels: [BDFSample]
 }
 
 
-extension EEGSample: ByteDecodable {
+extension BiopotSample: ByteDecodable {
     init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
         guard byteBuffer.readableBytes >= 24 else {
             return nil

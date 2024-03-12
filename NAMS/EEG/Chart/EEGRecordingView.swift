@@ -8,13 +8,14 @@
 
 import Charts
 import Spezi
+import SpeziAccount
 import SpeziBluetooth
 import SpeziOnboarding
 import SpeziViews
 import SwiftUI
 
 
-struct EEGRecording: View {
+struct EEGRecordingView: View {
     @Environment(\.dismiss)
     private var dismiss
 
@@ -25,12 +26,8 @@ struct EEGRecording: View {
     @Environment(PatientListModel.self)
     private var patientList
 
+    @State private var displayInterval: TimeInterval = 7.0
     @State private var viewState: ViewState = .idle
-    @State private var frequency: EEGFrequency = .all
-
-    private var pickerFrequencies: [EEGFrequency] {
-        EEGFrequency.allCases.filter { eegModel.recordingSession?.measurements.keys.contains($0) ?? false }
-    }
 
     var body: some View {
         ZStack {
@@ -44,14 +41,13 @@ struct EEGRecording: View {
                     .navigationBarTitleDisplayMode(.inline)
             } else if let session = eegModel.recordingSession {
                 List {
-                    frequencyPicker
-
                     eegCharts(session: session)
 
                     Section {
                         AsyncButton(state: $viewState) {
                             // simulate a completed task for now
                             let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording)
+                            // TODO: add the file id to the completed task!
                             try await patientList.add(task: task)
                             dismiss()
                         } label: {
@@ -65,14 +61,8 @@ struct EEGRecording: View {
                 StartRecordingView()
             }
         }
-            .onAppear {
-                #if MUSE
-                if case .muse = deviceCoordinator.connectedDevice {
-                    frequency = .theta
-                }
-                #endif
-            }
             .onDisappear {
+                // TODO: support cancelling the session if view gets into background!
                 Task {
                     try await eegModel.stopRecordingSession()
                 }
@@ -84,38 +74,15 @@ struct EEGRecording: View {
             }
     }
 
-    @ViewBuilder private var frequencyPicker: some View {
-        Section {
-            Picker("FREQUENCY", selection: $frequency) {
-                ForEach(pickerFrequencies) { frequency in
-                    Text(frequency.localizedStringResource)
-                        .tag(frequency)
-                }
-            }
-                .pickerStyle(.segmented)
-                .listRowBackground(Color.clear)
-                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                .padding(.bottom, -10)
-        }
-    }
-
     init() {}
 
 
+    @MainActor
     @ViewBuilder
     private func eegCharts(session: EEGRecordingSession) -> some View {
         Section {
-            let measurements = session.measurements[frequency, default: []]
-            let suffix = measurements.suffix(frequency == .all ? 800 : 100)
-
-            if let first = measurements.first {
-                let baseTime = first.timestamp.timeIntervalSince1970
-
-                VStack {
-                    ForEach(first.locations, id: \.self) { location in
-                        EEGChart(measurements: suffix, for: location, baseTime: baseTime)
-                    }
-                }
+            ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
+                EEGChart(signal: measurement, displayedInterval: displayInterval)
             }
         }
             .listRowBackground(Color.clear)
@@ -124,17 +91,44 @@ struct EEGRecording: View {
 
 
 #if DEBUG
-#Preview {
-    let model = EEGRecordings()
-    Task { @MainActor in
-        try await model.startRecordingSession()
+#Preview { // swiftlint:disable:this closure_body_length
+    struct AutoStartRecordingView: View {
+        @Environment(Account.self)
+        private var account
+        @Environment(EEGRecordings.self)
+        private var model
+
+        var body: some View {
+            EEGRecordingView()
+                .task {
+                    guard let details = account.details else {
+                        preconditionFailure("Account not present")
+                    }
+                    do {
+                        try await model.startRecordingSession(investigator: details)
+                    } catch {
+                        print("Failed to start recording: \(error)")
+                    }
+                }
+                .onDisappear {
+                    Task {
+                        try await model.stopRecordingSession()
+                    }
+                }
+        }
     }
+    let detailsBuilder = AccountDetails.Builder()
+        .set(\.accountId, value: UUID().uuidString)
+        .set(\.userId, value: "lelandstanford@stanford.edu")
+        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+
     return NavigationStack {
-        EEGRecording()
+        AutoStartRecordingView()
             .previewWith {
-                model
+                AccountConfiguration(building: detailsBuilder, active: MockUserIdPasswordAccountService())
+                EEGRecordings()
                 DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
-                PatientListModel()
+                PatientListModel(mock: Patient(id: UUID().uuidString, name: PersonNameComponents(givenName: "Leland", familyName: "Stanford")))
                 Bluetooth {
                     Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
                 }
@@ -143,20 +137,29 @@ struct EEGRecording: View {
 }
 
 #Preview {
-    NavigationStack {
-        EEGRecording()
+    let detailsBuilder = AccountDetails.Builder()
+        .set(\.accountId, value: UUID().uuidString)
+        .set(\.userId, value: "lelandstanford@stanford.edu")
+        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+
+    return NavigationStack {
+        EEGRecordingView()
             .previewWith {
+                AccountConfiguration(building: detailsBuilder, active: MockUserIdPasswordAccountService())
                 EEGRecordings()
                 DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
-                PatientListModel()
+                PatientListModel(mock: Patient(id: UUID().uuidString, name: PersonNameComponents(givenName: "Leland", familyName: "Stanford")))
             }
     }
 }
 
 #Preview {
     NavigationStack {
-        EEGRecording()
+        EEGRecordingView()
             .previewWith {
+                AccountConfiguration {
+                    MockUserIdPasswordAccountService()
+                }
                 EEGRecordings()
                 DeviceCoordinator()
                 PatientListModel()

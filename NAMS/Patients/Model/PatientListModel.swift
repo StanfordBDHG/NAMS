@@ -62,7 +62,14 @@ class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
 
-    required init() {}
+    nonisolated required init() {}
+
+#if DEBUG
+    init(mock patient: Patient) {
+        self.activePatient = patient
+        self.activePatientId = patient.id
+    }
+#endif
 
 
     func completedTasksCollection(patientId: String) -> CollectionReference {

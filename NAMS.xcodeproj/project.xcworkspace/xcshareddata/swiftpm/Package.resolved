@@ -186,8 +186,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFirebase.git",
       "state" : {
-        "branch" : "fix/account-issues",
-        "revision" : "4294e2492dd214dc8223ab0b356dc6b1608cf1e9"
+        "revision" : "e05e665b7da39aa399ecd7fba393aab49b8f3034",
+        "version" : "1.0.1"
       }
     },
     {

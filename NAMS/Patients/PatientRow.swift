@@ -35,7 +35,7 @@ struct PatientRow: View {
             detailsButton
         }
             .navigationDestination(isPresented: $showPatientDetails) {
-                PatientInformationView(patient: patient)
+                PatientInformationView(patient: patient) // TODO: this is a problem now!! navigationDestination in List
             }
             .accessibilityRepresentation { @MainActor in
                 HStack { @MainActor in

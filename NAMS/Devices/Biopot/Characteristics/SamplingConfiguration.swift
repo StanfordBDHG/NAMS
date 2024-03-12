@@ -7,6 +7,7 @@
 //
 
 import ByteCoding
+import EDFFormat
 import NIOCore
 
 
@@ -201,5 +202,112 @@ extension SamplingConfiguration: ByteCodable {
         impedanceFrequency.encode(to: &byteBuffer, preferredEndianness: endianness)
         impedanceScale.encode(to: &byteBuffer, preferredEndianness: endianness)
         softwareLowPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
+    }
+}
+
+
+extension SamplingConfiguration.HighPassFilter {
+    var edfString: String {
+        switch self {
+        case .Hz_0_10:
+            "0.1Hz"
+        case .Hz_0_25:
+            "0.25Hz"
+        case .Hz_0_30:
+            "0.3Hz"
+        case .Hz_0_50:
+            "0.5Hz"
+        case .Hz_0_75:
+            "0.75Hz"
+        case .Hz_1_0:
+            "1.0Hz"
+        case .Hz_1_5:
+            "1.5Hz"
+        case .Hz_2_0:
+            "2.0Hz"
+        case .Hz_2_5:
+            "2.5Hz"
+        case .Hz_3_0:
+            "3.0Hz"
+        case .Hz_5_0:
+            "5.0Hz"
+        case .Hz_7_5:
+            "7.5Hz"
+        case .Hz_10:
+            "10Hz"
+        case .Hz_15:
+            "15Hz"
+        case .Hz_20:
+            "20Hz"
+        case .Hz_25:
+            "25Hz"
+        case .Hz_30:
+            "30Hz"
+        case .Hz_50:
+            "50Hz"
+        case .Hz_75:
+            "75Hz"
+        case .Hz_100:
+            "100Hz"
+        case .Hz_150:
+            "150Hz"
+        case .Hz_200:
+            "200Hz"
+        case .Hz_250:
+            "250Hz"
+        case .Hz_300:
+            "300Hz"
+        case .Hz_500:
+            "500Hz"
+        }
+    }
+}
+
+extension SamplingConfiguration.SoftwareLowPassFilter {
+    var edfString: String? {
+        switch self {
+        case .disabled:
+            nil
+        case .Hz_5:
+            "5Hz"
+        case .Hz_10:
+            "10Hz"
+        case .Hz_15:
+            "15Hz"
+        case .Hz_20:
+            "20Hz"
+        case .Hz_25:
+            "25Hz"
+        case .Hz_30:
+            "30Hz"
+        case .Hz_35:
+            "35Hz"
+        case .Hz_40:
+            "40Hz"
+        case .Hz_45:
+            "45Hz"
+        case .Hz_50:
+            "50Hz"
+        case .Hz_55:
+            "55Hz"
+        case .Hz_60:
+            "60Hz"
+        case .Hz_65:
+            "65Hz"
+        case .Hz_70:
+            "70Hz"
+        case .Hz_75:
+            "75Hz"
+        case .Hz_80:
+            "80Hz"
+        case .Hz_85:
+            "85Hz"
+        case .Hz_90:
+            "90Hz"
+        case .Hz_95:
+            "95Hz"
+        case .Hz_100:
+            "100Hz"
+        }
     }
 }

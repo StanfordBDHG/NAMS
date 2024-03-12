@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziAccount
 import SpeziBluetooth
 import SpeziOnboarding
 import SwiftUI
@@ -14,6 +15,8 @@ import SwiftUI
 struct StartRecordingView: View {
     @Environment(EEGRecordings.self)
     private var eegModel
+    @Environment(Account.self)
+    private var account
 
     var body: some View {
         OnboardingView(
@@ -41,10 +44,14 @@ struct StartRecordingView: View {
             ],
             actionText: "Start Recording",
             action: {
-                try await eegModel.startRecordingSession()
+                // button is disabled if no details are present
+                if let details = account.details {
+                    try await eegModel.startRecordingSession(investigator: details)
+                }
             }
         )
             .tint(.pink)
+            .disabled(!account.signedIn)
     }
 
 
@@ -57,6 +64,9 @@ struct StartRecordingView: View {
 #Preview {
     StartRecordingView()
         .previewWith {
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
             EEGRecordings()
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))

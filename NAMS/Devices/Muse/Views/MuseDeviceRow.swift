@@ -41,6 +41,7 @@ struct MuseDeviceRow: View {
         } secondaryAction: {
             presentingActiveDevice = device
         }
+            // TODO: this is a problem, destination modifier inside List
             .navigationDestination(item: $presentingActiveDevice) { device in
                 MuseDeviceDestination(device)
             }

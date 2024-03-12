@@ -11,13 +11,10 @@ import FirebaseFirestoreSwift
 import Foundation
 
 
-
-
 struct Patient: Codable, Identifiable {
     @DocumentID var id: String?
     let name: PersonNameComponents
 
-    // TODO: actually collect them and visualize them in UI
     /// Patient code.
     let code: String?
     let sex: Sex?

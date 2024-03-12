@@ -8,18 +8,26 @@
 
 import OSLog
 import Spezi
+import SpeziAccount
+
 
 enum EEGRecordingError: LocalizedError {
     case noSelectedPatient
     case noConnectedDevice
+    case deviceNotReady
+    case unexpectedError
 
 
     var errorDescription: String? {
         switch self {
         case .noSelectedPatient:
-            String(localized: "No patient selected")
+            String(localized: "No Patient Selected")
         case .noConnectedDevice:
-            String(localized: "No connected device")
+            String(localized: "No Connected Device")
+        case .deviceNotReady:
+            String(localized: "Device Not Ready")
+        case .unexpectedError:
+            String(localized: "Unexpected Error")
         }
     }
 
@@ -29,6 +37,10 @@ enum EEGRecordingError: LocalizedError {
             String(localized: "EEG recording could not be started as no patient was selected.")
         case .noConnectedDevice:
             String(localized: "EEG recording could not be started as no connected device was found.")
+        case .deviceNotReady:
+            String(localized: "There was an unexpected error when preparing the connected device for the recording.")
+        case .unexpectedError:
+            String(localized: "Unexpected error occurred while trying to start the recording. Please try again!")
         }
     }
 }
@@ -46,7 +58,7 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     required init() {}
 
     @MainActor
-    func startRecordingSession() async throws {
+    func startRecordingSession(investigator: AccountDetails) async throws {
         guard let patient = patientList.activePatient else {
             throw EEGRecordingError.noSelectedPatient
         }
@@ -56,10 +68,29 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
         }
 
 
-        // TODO: create temporary file?
-        // TODO: pass a proper url!
+        let recordingId = UUID()
+        let url = FileManager.default.temporaryDirectory.appending(path: "neuronest-recording-\(recordingId).bdf")
+        if FileManager.default.fileExists(atPath: url.path) {
+            throw EEGRecordingError.unexpectedError
+        }
+        let created = FileManager.default.createFile(atPath: url.path, contents: nil)
+        if !created {
+            logger.error("Failed to create file at \(url.path)")
+            throw EEGRecordingError.unexpectedError // TODO: more specific error?
+        }
 
-        let session = EEGRecordingSession(url: URL(fileURLWithPath: "asdf"), patient: patient, device: device)
+        try await device.prepareRecording()
+
+        // TODO: first start recording session (so we have all the prefiltering data etc?)
+        //  => more accurate start date?
+
+        let session = try EEGRecordingSession(
+            id: recordingId,
+            url: url,
+            patient: patient,
+            device: device,
+            investigatorCode: investigator.investigatorCode
+        )
 
         try await device.startRecording(session)
 

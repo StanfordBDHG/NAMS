@@ -21,7 +21,8 @@ class NAMSAppDelegate: SpeziAppDelegate {
 
             AccountConfiguration(configuration: [
                 .requires(\.userId),
-                .requires(\.name)
+                .requires(\.name),
+                // TODO: .collects(\.investigatorCode) implement with account storage
             ])
 
             if FeatureFlags.useFirebaseEmulator {

@@ -10,10 +10,10 @@ import EDFFormat
 
 
 #if MUSE
-extension EEGReading {
+extension BDFSample {
     init(from packet: IXNMuseDataPacket, _ location: EEGLocation) {
-        self.location = location
-        self.value = packet.getEegChannelValue(location.ixnEEG)
+        // TODO: this might crash???
+        self.init(Int32(packet.getEegChannelValue(location.ixnEEG)))
     }
 }
 #endif

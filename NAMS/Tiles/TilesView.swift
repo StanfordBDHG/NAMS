@@ -7,6 +7,7 @@
 //
 
 import Spezi
+import SpeziAccount
 import SpeziBluetooth
 #if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire
@@ -83,7 +84,7 @@ struct TilesView: View {
                 #endif
                 .sheet(isPresented: $presentingEEGRecording) {
                     NavigationStack {
-                        EEGRecording()
+                        EEGRecordingView()
                     }
                 }
         }
@@ -123,6 +124,9 @@ struct TilesView: View {
     return TilesView()
         .environment(patientList)
         .previewWith {
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
             EEGRecordings()
             DeviceCoordinator()
         }
@@ -131,6 +135,9 @@ struct TilesView: View {
 #Preview {
     TilesView()
         .previewWith {
+            AccountConfiguration {
+                MockUserIdPasswordAccountService()
+            }
             PatientListModel()
             EEGRecordings()
             DeviceCoordinator()

@@ -7,34 +7,38 @@
 //
 
 import Charts
+import EDFFormat
 import SwiftUI
 
 
 struct EEGChannelMark: ChartContent {
+    private let signal: SignalLabel
     private let time: TimeInterval
-    private let reading: EEGReading
+    private let value: BDFSample.Value
 
     var body: some ChartContent {
         LineMark(
             x: .value("Seconds", time),
-            y: .value("Micro-Volt", reading.value)
+            y: .value("Micro-Volt", value) // TODO: conversion from "uV" to "micro volt"?
         )
             .lineStyle(StrokeStyle(lineWidth: 2.0))
-            .foregroundStyle(by: .value("Channel", reading.location.rawValue))
+            .foregroundStyle(by: .value("Channel", signal.location ?? signal.type.rawValue))
     }
 
 
-    init(time: TimeInterval, reading: EEGReading) {
+    init(signal: SignalLabel, time: TimeInterval, value: BDFSample.Value) {
+        self.signal = signal
         self.time = time
-        self.reading = reading
+        self.value = value
     }
 }
 
 
 #if DEBUG
 #Preview {
-    let randomSamples = MockMeasurementGenerator(sampleRate: 60)
-    let generated = randomSamples.generateRecording(sampleTime: 5, recordingOffset: 10)
-    return EEGChart(measurements: generated.data.suffix(from: 0), for: .af7, baseTime: generated.baseTime)
+    EEGChart(
+        signal: MockMeasurementGenerator(sampleRate: 60).generateSignal(label: .eeg(location: .af7), sampleTime: 5, recordingOffset: 10),
+        displayedInterval: 5.0
+    )
 }
 #endif

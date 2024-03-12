@@ -11,7 +11,7 @@ import Observation
 
 
 @Observable
-class NewPatientModel { // TODO: input these!
+class NewPatientModel {
     var name = PersonNameComponents()
     var code: String = ""
     var sex: Patient.Sex = .notDisclosed {
@@ -19,7 +19,7 @@ class NewPatientModel { // TODO: input these!
             sexDidChange = true
         }
     }
-    var birthdate: Date = .now // TODO: non-optional?
+    var birthdate: Date = .now
     var notes: String = ""
 
     private var sexDidChange = false

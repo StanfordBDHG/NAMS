@@ -13,40 +13,6 @@ import OSLog
 import Spezi
 @_spi(TestingSupport)
 import SpeziBluetooth
-import class CoreBluetooth.CBUUID
-
-
-/// The primary Biopot service
-///
-/// - Note: Notation within the docs: Access properties: R: read, W: write, N: notify.
-///     Naming is currently guess work.
-class BiopotService: BluetoothService {
-    static let id = CBUUID(string: "FFF0")
-
-    /// Characteristic 6, as per the manual. RN.
-    @Characteristic(id: "FFF6", notify: true)
-    var deviceInfo: DeviceInformation?
-
-    /// Characteristic 1, as per the manual. RW.
-    /// Note: Even though Bluetooth reports this as notify it isn't!!
-    @Characteristic(id: "FFF1")
-    var deviceConfiguration: DeviceConfiguration?
-    /// Characteristic 5, as per the manual. RW.
-    @Characteristic(id: "FFF5")
-    var samplingConfiguration: SamplingConfiguration?
-    /// Characteristic 2, as per the manual. RW.
-    @Characteristic(id: "FFF2")
-    var dataControl: DataControl?
-    /// Characteristic 3, as per the manual. RW.
-    @Characteristic(id: "FFF3")
-    var impedanceMeasurement: ImpedanceMeasurement?
-
-    /// Characteristic 4, as per the manual. RN.
-    @Characteristic(id: "FFF4", notify: true)
-    var dataAcquisition: Data? // either `DataAcquisition10` or `DataAcquisition11` depending on the configuration.
-
-    init() {}
-}
 
 
 /// The BioPot 3 bluetooth device.
@@ -55,7 +21,7 @@ class BiopotService: BluetoothService {
 /// * https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model
 /// * https://www.bluetooth.com/blog/a-developers-guide-to-bluetooth
 /// * https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
-class BiopotDevice: BluetoothDevice, Identifiable {
+class BiopotDevice: BluetoothDevice, Identifiable, SomeConnectedDevice {    
     private let logger = Logger(subsystem: "edu.stanford.nams", category: "BiopotDevice")
 
     @DeviceState(\.id)
@@ -66,23 +32,68 @@ class BiopotDevice: BluetoothDevice, Identifiable {
     var name
 
     @DeviceAction(\.connect)
-    var connect
+    fileprivate var _connect
     @DeviceAction(\.disconnect)
-    var disconnect
+    fileprivate var _disconnect
 
 
     @Service var deviceInformation = DeviceInformationService()
-    @Service var service = BiopotService()
+    @Service var service = BiopotService() // TODO: make private and direct accesses?
 
-    @MainActor private var recordingSession: EEGRecordingSession?
-    @MainActor private var startDate: Date?
-    @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
+    @MainActor private var disconnectHandler: (@MainActor (ConnectedDevice) -> Void)?
+
+
+    var equipmentCode: String {
+        "SML_BIO_\(service.deviceConfiguration?.serialNumber ?? 0)"
+    }
+
+    var signalDescription: [Signal]? {
+        guard let samplingConfiguration = service.samplingConfiguration else {
+            return nil
+        }
+
+
+        // format according to EDF+/BDF+ spec
+        var prefilter = "HP:\(samplingConfiguration.highPassFilter.edfString)"
+        if let lowPass = samplingConfiguration.softwareLowPassFilter.edfString {
+            prefilter += " LP:\(lowPass)"
+        }
+
+        return [EEGLocation.lme, .tp10, .af8, .fp2, .fpz, .fp1, .af7, .mm].map { location in
+            Signal(
+                label: .eeg(location: location, prefix: .micro),
+                transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
+                prefiltering: prefilter,
+                sampleCount: Int(samplingConfiguration.hardwareSamplingRate),
+                physicalMinimum: -20_000,
+                physicalMaximum: 20_0000,
+                digitalMinimum: -8_388_608,
+                digitalMaximum: 8_388_607
+            )
+        }
+    }
+
+    var recordDuration: Int {
+        1
+    }
+
 
     required init() {
-        service.$dataAcquisition
-            .onChange(perform: handleDataAcquisition)
         $state
             .onChange(perform: handleChange)
+    }
+
+    func connect() async {
+        await self._connect()
+    }
+
+    func disconnect() async {
+        await self._disconnect()
+    }
+
+    @MainActor
+    func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void) {
+        self.disconnectHandler = handler
     }
 
     @MainActor
@@ -97,105 +108,17 @@ class BiopotDevice: BluetoothDevice, Identifiable {
         }
     }
 
-    @MainActor
-    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
-        self.disconnectHandler = handler
+    func prepareRecording() async throws {
+        logger.debug("Preparing to record for biopot \(self.name ?? "")")
+        try await service.prepareRecording()
     }
 
-    @MainActor
     func startRecording(_ session: EEGRecordingSession) async throws {
-        recordingSession = session
-        try await self.enableRecording()
+        try await service.startRecording(session)
     }
 
-    @MainActor
     func stopRecording() async throws {
-        try await service.$dataControl.write(.paused)
-        startDate = nil
-        recordingSession = nil
-    }
-
-    @MainActor
-    private func enableRecording() async throws {
-        do {
-            try await service.$dataControl.write(.paused)
-
-            // TODO: what does biopot app do
-            //  - .RequestMtuAsync(251)
-            //  - read device configuration (e.g., channel count)
-
-
-            // make sure the value is up to date
-            _ = try await service.$deviceConfiguration.read() // TODO: check their on subscribe method
-            _ = try await service.$samplingConfiguration.read()
-
-            // TODO: we need channel count and sampling rate right?
-
-            // TODO: make sure we always have the latest sampling rate!
-
-            startDate = .now
-
-            try await service.$dataControl.write(.started)
-        } catch {
-            logger.error("Failed to enable Biopot recording: \(error)")
-            throw error
-        }
-    }
-
-    func handleDataAcquisition(data: Data) {
-        guard let deviceConfiguration = service.deviceConfiguration else {
-            logger.debug("Received data acquisition without having device configuration ready!")
-            return
-        }
-
-        guard deviceConfiguration.dataSize == 24
-                && deviceConfiguration.channelCount == 8 else {
-            logger.error("Unable to process data acquisition. Unexpected configuration: \(String(describing: deviceConfiguration))")
-            return
-        }
-
-        let acquisition: DataAcquisition?
-        if case .off = deviceConfiguration.accelerometerStatus {
-            acquisition = DataAcquisition10(data: data)
-        } else {
-            acquisition = DataAcquisition11(data: data)
-        }
-
-        // TODO: record the elapsed time between two consecutive data packets (first one is zero!)
-
-        guard let acquisition else {
-            logger.error("Failed to decode data acquisition: \(data.hexString())")
-            return
-        }
-
-        Task { @MainActor in
-            guard let recordingSession else {
-                return
-            }
-
-            let baseDate = self.startDate ?? .now
-
-            let series: [EEGSeries] = acquisition.samples.map { sample in
-                var readings: [EEGReading] = []
-                readings.reserveCapacity(8)
-
-                for index in 1...sample.channels.count {
-                    guard let location = EEGLocation(biopotNum: index) else {
-                        continue
-                    }
-
-                    readings.append(EEGReading(location: location, value: Double(sample.channels[index - 1].value)))
-                }
-
-
-                // We currently register all samples within a packet at the same timestamp. We might need to research
-                // how each sample within a packet is evenly distributed.
-                let timestamp = baseDate.addingTimeInterval(Double(acquisition.timestamps) / 1000.0)
-                return EEGSeries(timestamp: timestamp, readings: readings)
-            }
-
-            recordingSession.append(series: series, for: .all)
-        }
+        try await service.stopRecording()
     }
 }
 
@@ -247,7 +170,7 @@ extension BiopotDevice {
         biopot.$name.inject("SML BIO \(serial)")
         biopot.$state.inject(state)
 
-        biopot.$connect.inject { @MainActor [weak biopot] in
+        biopot.$_connect.inject { @MainActor [weak biopot] in
             biopot?.$state.inject(.connecting)
             biopot?.handleChange(of: .connecting)
 
@@ -257,7 +180,7 @@ extension BiopotDevice {
             biopot?.handleChange(of: .connected)
         }
 
-        biopot.$disconnect.inject { @MainActor [weak biopot] in
+        biopot.$_disconnect.inject { @MainActor [weak biopot] in
             biopot?.$state.inject(.disconnected)
             biopot?.handleChange(of: .disconnected)
         }
