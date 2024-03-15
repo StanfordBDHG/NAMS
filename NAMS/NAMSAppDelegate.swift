@@ -16,13 +16,13 @@ import SwiftUI
 
 class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
-        Configuration {
+        Configuration(standard: NAMSStandard()) {
             let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
 
             AccountConfiguration(configuration: [
                 .requires(\.userId),
                 .requires(\.name),
-                // TODO: .collects(\.investigatorCode) implement with account storage
+                .collects(\.investigatorCode)
             ])
 
             if FeatureFlags.useFirebaseEmulator {

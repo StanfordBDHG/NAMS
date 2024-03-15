@@ -11,9 +11,14 @@ import EDFFormat
 
 #if MUSE
 extension BDFSample {
-    init(from packet: IXNMuseDataPacket, _ location: EEGLocation) {
-        // TODO: this might crash???
-        self.init(Int32(packet.getEegChannelValue(location.ixnEEG)))
+    init?(from packet: IXNMuseDataPacket, _ location: EEGLocation) {
+        let value = packet.getEegChannelValue(location.ixnEEG)
+
+        guard value >= Double(Int32.min) && value <= Double(Int32.max) else {
+            return nil
+        }
+
+        self.init(Int32(value))
     }
 }
 #endif

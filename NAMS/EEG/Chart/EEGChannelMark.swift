@@ -19,7 +19,7 @@ struct EEGChannelMark: ChartContent {
     var body: some ChartContent {
         LineMark(
             x: .value("Seconds", time),
-            y: .value("Micro-Volt", value) // TODO: conversion from "uV" to "micro volt"?
+            y: .value("Micro-Volt", value)
         )
             .lineStyle(StrokeStyle(lineWidth: 2.0))
             .foregroundStyle(by: .value("Channel", signal.location ?? signal.type.rawValue))
@@ -38,7 +38,8 @@ struct EEGChannelMark: ChartContent {
 #Preview {
     EEGChart(
         signal: MockMeasurementGenerator(sampleRate: 60).generateSignal(label: .eeg(location: .af7), sampleTime: 5, recordingOffset: 10),
-        displayedInterval: 5.0
+        displayedInterval: 5.0,
+        valueInterval: 50
     )
 }
 #endif

@@ -11,12 +11,24 @@ import Foundation
 
 @Observable
 class MuseDeviceInformation {
+#if MUSE
+    typealias NotchFilter = IXNNotchFrequency
+#else
+    typealias NotchFilter = Void
+#endif
+
+#if MUSE
+    static let notchDefault: NotchFilter = .notchNone
+#else
+    static let notchDefault: NotchFilter = ()
+#endif
+
     let serialNumber: String
     let firmwareVersion: String
     let hardwareVersion: String
 
     let sampleRate: Int
-    let notchFilter: IXNNotchFrequency
+    let notchFilter: NotchFilter
     /// The Analog Front-End Gain.
     let afeGain: Int
 
@@ -38,7 +50,7 @@ class MuseDeviceInformation {
         firmwareVersion: String,
         hardwareVersion: String,
         sampleRate: Int,
-        notchFilter: IXNNotchFrequency,
+        notchFilter: NotchFilter,
         afeGain: Int,
         remainingBatteryPercentage: Double? = nil,
         wearingHeadband: Bool = false,
@@ -63,7 +75,7 @@ extension MuseDeviceInformation {
         firmwareVersion: String = "1.0",
         hardwareVersion: String = "20.0",
         sampleRate: Int = 60,
-        notchFilter: IXNNotchFrequency = .notchNone,
+        notchFilter: NotchFilter = MuseDeviceInformation.notchDefault,
         afeGain: Int = 2000,
         remainingBatteryPercentage: Double = 75,
         wearingHeadband: Bool = false,

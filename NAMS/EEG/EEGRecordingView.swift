@@ -23,11 +23,6 @@ struct EEGRecordingView: View {
     private var eegModel
     @Environment(DeviceCoordinator.self)
     private var deviceCoordinator
-    @Environment(PatientListModel.self)
-    private var patientList
-
-    @State private var displayInterval: TimeInterval = 7.0
-    @State private var viewState: ViewState = .idle
 
     var body: some View {
         ZStack {
@@ -40,23 +35,7 @@ struct EEGRecordingView: View {
                     .navigationTitle("EEG Recording")
                     .navigationBarTitleDisplayMode(.inline)
             } else if let session = eegModel.recordingSession {
-                List {
-                    eegCharts(session: session)
-
-                    Section {
-                        AsyncButton(state: $viewState) {
-                            // simulate a completed task for now
-                            let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording)
-                            // TODO: add the file id to the completed task!
-                            try await patientList.add(task: task)
-                            dismiss()
-                        } label: {
-                            Text("Mark completed")
-                        }
-                    }
-                }
-                    .navigationTitle("EEG Recording")
-                    .navigationBarTitleDisplayMode(.inline)
+                EEGChartsView(session: session)
             } else {
                 StartRecordingView()
             }
@@ -75,18 +54,6 @@ struct EEGRecordingView: View {
     }
 
     init() {}
-
-
-    @MainActor
-    @ViewBuilder
-    private func eegCharts(session: EEGRecordingSession) -> some View {
-        Section {
-            ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
-                EEGChart(signal: measurement, displayedInterval: displayInterval)
-            }
-        }
-            .listRowBackground(Color.clear)
-    }
 }
 
 

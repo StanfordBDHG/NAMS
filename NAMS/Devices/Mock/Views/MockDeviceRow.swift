@@ -10,28 +10,13 @@ import BluetoothViews
 import SwiftUI
 
 
-private struct MockDeviceDestination: View {
-    private let device: MockDevice
-
-    var body: some View {
-        MuseDeviceDetailsView(model: device.label, state: device.connectionState, device.deviceInformation) {
-            device.disconnect()
-        }
-    }
-
-    init(_ device: MockDevice) {
-        self.device = device
-    }
-}
-
-
 struct MockDeviceRow: View {
     private let device: MockDevice
 
     @Environment(DeviceCoordinator.self)
     private var deviceCoordinator
 
-    @State private var presentingActiveDevice: MockDevice?
+    @Binding private var path: NavigationPath
 
 
     var body: some View {
@@ -40,31 +25,31 @@ struct MockDeviceRow: View {
                 await deviceCoordinator.tapDevice(.mock(device))
             }
         } secondaryAction: {
-            presentingActiveDevice = device
+            path.append(ConnectedDevice.mock(device))
         }
-            // TODO: this is a problem, destination modifier inside List
-            .navigationDestination(item: $presentingActiveDevice) { device in
-                MockDeviceDestination(device)
-            }
     }
 
 
-    init(device: MockDevice) {
+    init(device: MockDevice, path: Binding<NavigationPath>) {
         self.device = device
+        self._path = path
     }
 }
 
 
 #if DEBUG
 #Preview {
-    NavigationStack {
+    NavigationStackWithPath { path in
         List {
-            MockDeviceRow(device: MockDevice(name: "Device 1"))
-            MockDeviceRow(device: MockDevice(name: "Device 2", state: .connected))
+            MockDeviceRow(device: MockDevice(name: "Device 1"), path: path)
+            MockDeviceRow(device: MockDevice(name: "Device 2", state: .connected), path: path)
         }
-        .previewWith {
-            DeviceCoordinator()
-        }
+            .previewWith {
+                DeviceCoordinator()
+            }
+            .navigationDestination(for: ConnectedDevice.self) { device in
+                ConnectedDeviceDestination(device: device)
+            }
     }
 }
 #endif

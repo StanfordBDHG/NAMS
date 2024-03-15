@@ -38,7 +38,7 @@ struct BiopotDeviceDetailsView: View {
     }
 
     var body: some View {
-        List {
+        List { // swiftlint:disable:this closure_body_length
             if let info = biopot.service.deviceInfo {
                 Section {
                     ListRow("BATTERY") {
@@ -46,6 +46,19 @@ struct BiopotDeviceDetailsView: View {
                     }
                 }
             }
+
+            Section {
+                NavigationLink {
+                    BiopotElectrodeLocationsEditView(biopot: biopot)
+                } label: {
+                    ListRow("Electrode Locations") {
+                        Text(biopot.configuration.electrodeSelection.localizedStringResource)
+                    }
+                }
+            } footer: {
+                Text("Configure the electrode locations for each channel of the Biopot.")
+            }
+
 
             if hasAboutInformation {
                 Section("About") {

@@ -19,6 +19,7 @@ struct PatientListView: View {
     @Environment(PatientSearchModel.self)
     private var searchModel
 
+    @Binding private var navigationPath: NavigationPath
     @Binding private var viewState: ViewState
 
     private var displayedCount: Int {
@@ -76,8 +77,13 @@ struct PatientListView: View {
     }
 
 
-    init(patients: OrderedDictionary<Character, [Patient]>?, viewState: Binding<ViewState>) {
+    init(
+        patients: OrderedDictionary<Character, [Patient]>?,
+        path: Binding<NavigationPath>,
+        viewState: Binding<ViewState>
+    ) {
         self.patients = patients
+        self._navigationPath = path
         self._viewState = viewState
     }
 
@@ -86,7 +92,7 @@ struct PatientListView: View {
     @ViewBuilder
     func patientRows(_ patients: [Patient]) -> some View {
         ForEach(patients) { patient in
-            PatientRow(patient: patient)
+            PatientRow(patient: patient, path: $navigationPath)
         }
             .onDelete { indexSet in
                 Task {
@@ -107,7 +113,7 @@ struct PatientListView: View {
 
 #if DEBUG
 #Preview {
-    NavigationStack {
+    NavigationStackWithPath { path in
         PatientListView(
             patients: [
                 "A": [Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))],
@@ -119,41 +125,53 @@ struct PatientListView: View {
                 ],
                 "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
             ],
+            path: path,
             viewState: .constant(.idle)
         )
-            .environment(PatientSearchModel())
-            .previewWith {
-                PatientListModel()
+            .navigationDestination(for: Patient.self) { patient in
+                PatientInformationView(patient: patient)
             }
+            .environment(PatientSearchModel())
     }
+        .previewWith {
+            PatientListModel()
+        }
 }
 #Preview {
-    NavigationStack {
+    NavigationStackWithPath { path in
         PatientListView(
             patients: [
                 "A": [Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))],
                 "L": [Patient(id: "3", name: .init(givenName: "Leland", familyName: "Stanford"))],
                 "P": [Patient(id: "2", name: .init(givenName: "Paul", familyName: "Schmiedmayer"))]
             ],
+            path: path,
             viewState: .constant(.idle)
         )
-            .environment(PatientSearchModel())
-            .previewWith {
-                PatientListModel()
+            .navigationDestination(for: Patient.self) { patient in
+                PatientInformationView(patient: patient)
             }
+            .environment(PatientSearchModel())
     }
+        .previewWith {
+            PatientListModel()
+        }
 }
 #Preview {
-    PatientListView(patients: [:], viewState: .constant(.idle))
-        .environment(PatientSearchModel())
+    NavigationStackWithPath { path in
+        PatientListView(patients: [:], path: path, viewState: .constant(.idle))
+            .environment(PatientSearchModel())
+    }
         .previewWith {
             PatientListModel()
         }
 }
 
 #Preview {
-    PatientListView(patients: nil, viewState: .constant(.idle))
-        .environment(PatientSearchModel())
+    NavigationStackWithPath { path in
+        PatientListView(patients: nil, path: path, viewState: .constant(.idle))
+            .environment(PatientSearchModel())
+    }
         .previewWith {
             PatientListModel()
         }

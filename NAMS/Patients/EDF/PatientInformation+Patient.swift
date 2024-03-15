@@ -41,7 +41,7 @@ extension PatientInformation {
         }
 
         self.init(
-            code: code, // TODO: set max in UI! 64
+            code: code,
             sex: sex,
             birthdate: patient.birthdate,
             name: patient.name.formatted(.name(style: nameStyle))

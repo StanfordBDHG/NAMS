@@ -46,7 +46,7 @@ class MockMeasurementGenerator {
 
     private func generateSingle(values: inout [EEGLocation: Int32]) -> CombinedEEGSample {
         let samples = Self.generatedLocations.map { location in
-            values[location, default: baseValue] += Int32.random(in: -3...3) // TODO: adjust?
+            values[location, default: baseValue] += Int32.random(in: -3...3)
             return BDFSample(values[location, default: baseValue])
         }
 
@@ -93,7 +93,10 @@ class MockMeasurementGenerator {
         for _ in 0..<samples {
             let sample = generateSingle(values: &values)
 
-            result.append(sample.channels.first!)
+            guard let first = sample.channels.first else {
+                preconditionFailure("\(#function) failed to generate first channel!")
+            }
+            result.append(first)
         }
 
         return VisualizedSignal(label: label, sampleRate: self.sampleRate, sampleOffset: sampleOffset, samples: result)

@@ -23,9 +23,11 @@ struct PatientListSheet: View {
 
     @State private var searchModel = PatientSearchModel()
 
+    @State private var navigationPath = NavigationPath()
+
     var body: some View {
-        NavigationStack {
-            PatientListView(patients: patientList.categorizedPatients, viewState: $viewState)
+        NavigationStack(path: $navigationPath) {
+            PatientListView(patients: patientList.categorizedPatients, path: $navigationPath, viewState: $viewState)
                 .navigationTitle(Text("Patients", comment: "Patient List Title"))
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(for: Patient.self) { patient in

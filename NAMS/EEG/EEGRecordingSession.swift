@@ -8,108 +8,46 @@
 
 import EDFFormat
 import Foundation
+import OSLog
 
 
-/// A single sample combining the value of all channels.
-struct CombinedEEGSample {
-    /// The list of samples for all channels.
-    ///
-    /// Channels are referred by the index. The order must be the same as the provided `Signal` description.
-    let channels: [BDFSample]
-
-
-    init(channels: [BDFSample]) {
-        self.channels = channels
-    }
-}
-
-struct TimedSample<S: Sample> {
-    let time: TimeInterval
-    private let sample: S
-
-    var value: S.Value {
-        sample.value
-    }
-
-    init(time: TimeInterval, sample: S) {
-        self.time = time
-        self.sample = sample
-    }
-}
-
-
-extension TimedSample: Hashable {
-    static func == (lhs: TimedSample, rhs: TimedSample) -> Bool {
-        lhs.sample == rhs.sample
-    }
-
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(sample)
-    }
-}
-
-
-struct VisualizedSignal {
-    let label: SignalLabel
-    let sampleRate: Int
-    let sampleOffset: Int
-
-    fileprivate(set) var samples: [BDFSample]
-
-    var timedSamples: [TimedSample<BDFSample>] {
-        samples.enumerated().reduce(into: []) { result, enumerated in
-            result.append(TimedSample(time: time(forSample: enumerated.offset), sample: enumerated.element))
-        }
-    }
-
-
-    var lowerBound: TimeInterval {
-        time(forSample: 0)
-    }
-
-    init(label: SignalLabel, sampleRate: Int, sampleOffset: Int = 0, samples: [BDFSample]) {
-        // swiftlint:disable:previous function_default_parameter_at_end
-        self.label = label
-        self.sampleRate = sampleRate
-        self.sampleOffset = sampleOffset
-        self.samples = samples
-    }
-
-    init(copy signal: VisualizedSignal, suffix: TimeInterval) {
-        let suffixCount = Int(suffix * Double(signal.sampleRate))
-
-        self.label = signal.label
-        self.sampleRate = signal.sampleRate
-        self.sampleOffset = signal.sampleOffset + max(0, signal.samples.count - suffixCount)
-
-        self.samples = signal.samples.suffix(suffixCount)
-    }
-
-
-    private func time(forSample offset: Int) -> TimeInterval {
-        // we calculate time with SAMPLE_COUNT/SAMPLE_RATE
-        Double(sampleOffset + offset) / Double(sampleRate)
-    }
+@globalActor
+private actor EEGFileStorage {
+    static let shared = EEGFileStorage()
 }
 
 
 @Observable
 class EEGRecordingSession {
+    private static let recordingDuration = 2*60 // TODO: currently 2 minutes, 2 min 3 sec
+
+    private let logger = Logger(subsystem: "edu.stanford.names", category: "EEGRecordingSession")
+
+    /// The recording id.
+    let id: UUID
+    private var _startDate: Date
+
+    // these two are effectively isolated to @EEGProcessing
     private var fileWriter: BDFFileWriter
-    // TODO: can this be EEGProcessing isolated?
-    private var bufferedChannels: [Channel<BDFSample>]
+    private var bufferedChannels: [BufferedChannel<BDFSample>]
 
 
     private var _measurements: [VisualizedSignal] = []
-    private(set) var startDate: Date // TODO: MainActor?
 
     @MainActor var measurements: [VisualizedSignal] {
         _measurements
     }
 
+    @MainActor var startDate: Date {
+        _startDate
+    }
+
+    @MainActor var remainingSeconds: Int {
+        20
+    }
 
     init(id: UUID, url: URL, patient: Patient, device: ConnectedDevice, investigatorCode: String?) throws {
+        self.id = id
         let startDate = Date.now // TODO: the device might want to update that!>
 
         let patientInformation = PatientInformation(from: patient)
@@ -123,20 +61,22 @@ class EEGRecordingSession {
         let fileInformation = FileInformation(
             subject: .structured(patientInformation),
             recording: .structured(recordingInformation),
-            recordDuration: device.recordDuration // TODO: that's all the same anyways?
+            recordDuration: device.recordDuration
         )
 
-        guard let signals = device.signalDescription else {
-            throw EEGRecordingError.deviceNotReady
-        }
+        let signals = try device.signalDescription
 
         // TODO: always continuous recording right? (only if we want to support BDF+?) => then we need bdf+/edf+ annotations
-        self.fileWriter = try BDFFileWriter(url: url, information: fileInformation, signals: signals)
-        // TODO: map above error to something localizable!
+        do {
+            self.fileWriter = try BDFFileWriter(url: url, information: fileInformation, signals: signals)
+        } catch {
+            logger.error("Failed to create BDFFileWriter at \(url.path): \(error)")
+            throw EEGRecordingError.unexpectedError
+        }
 
-        self.bufferedChannels = Array(repeating: Channel(samples: []), count: signals.count)
-        self.startDate = startDate
+        self.bufferedChannels = .init(repeating: BufferedChannel(), count: signals.count)
 
+        self._startDate = startDate
         self._measurements = signals.map { signal in
             let sampleRate = signal.sampleCount / fileInformation.recordDuration
             return VisualizedSignal(label: signal.label, sampleRate: sampleRate, samples: [])
@@ -154,29 +94,30 @@ class EEGRecordingSession {
     @EEGProcessing
     func append(_ sample: CombinedEEGSample) {
         guard sample.channels.count == fileWriter.signals.count else {
-            // TODO: log this error?
-            /*
-             logger.error("""
-             Failed to process data acquisition \(acquisition.totalSampleCount). \
-             Received \(weirdCounts) samples that didn't have the expected channel count of \(deviceConfiguration.channelCount)
-             """)
-             */
+            logger.error("""
+                         EEG Device provided sample with \(sample.channels.count) channels, \
+                         however signal description specified \(self.fileWriter.signals.count). Ignoring sample ...
+                         """)
             return
         }
 
         // ensure we are consistent!
-        assert(fileWriter.signals.count == bufferedChannels.count, "") // TODO: update message
+        precondition(
+            fileWriter.signals.count == bufferedChannels.count,
+            "Local channel buffer of size \(bufferedChannels.count) doesn't match expected signal count of \(sample.channels.count)"
+        )
 
         for (index, bdfSample) in zip(sample.channels.indices, sample.channels) {
-            // TODO: create a new type so this is easier and nicer? and reuses memory?
-            var channel = Channel(samples: bufferedChannels[index].samples + [bdfSample])
-            bufferedChannels[index] = channel
+            bufferedChannels[index].append(bdfSample)
         }
 
         flushToDisk()
 
         Task { @MainActor in
-            assert(sample.channels.count == measurements.count) // TODO: message!
+            precondition(
+                sample.channels.count == measurements.count,
+                "Buffer of visualized samples of size \(measurements.count) doesn't match expected signal count of \(sample.channels.count)"
+            )
 
 
             // TODO: downsample visualized signals!
@@ -188,27 +129,29 @@ class EEGRecordingSession {
 
     @EEGProcessing
     private func flushToDisk() {
-        var channels: [Channel<BDFSample>] = []
-        channels.reserveCapacity(fileWriter.signals.count)
-
-        // TODO: check if we can write a chunk to the file!
+        // check if all buffered channels have enough signals to produce a data record
         for (index, signal) in zip(fileWriter.signals.indices, fileWriter.signals) {
             let channel = bufferedChannels[index]
-            if channel.samples.count < signal.sampleCount {
+            if !channel.hasBuffered(count: signal.sampleCount) {
                 // if there is a single channel not having enough samples, we do not write anything, just return
                 return
             }
-
-            // TODO: take n samples; add to list of channels!
         }
 
-        return // TODO: IMPLEMENT!
+        // create the channels array
+        var channels: [Channel<BDFSample>] = []
+        channels.reserveCapacity(fileWriter.signals.count)
 
-        let finalChannels = channels
+        for (index, signal) in zip(fileWriter.signals.indices, fileWriter.signals) {
+            let channel = bufferedChannels[index].pop(count: signal.sampleCount)
+            channels.append(channel)
+        }
+
+        /// Create and store a new data record.
+        let record = DataRecord(channels: channels)
         let fileWriter = fileWriter
-        Task.detached {
-            // TODO: make sure this happens in serial + handle errors?
-            try fileWriter.addRecord(DataRecord(channels: finalChannels))
+        Task { @EEGFileStorage in
+            try fileWriter.addRecord(record)
         }
     }
 }

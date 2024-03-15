@@ -70,7 +70,7 @@ class BiopotService: BluetoothService {
     func prepareRecording() async throws {
         do {
             // make sure the value is up to date before the recording session is created
-            try await $deviceConfiguration.read() // TODO: check their on subscribe method
+            try await $deviceConfiguration.read()
             try await $samplingConfiguration.read()
 
             if let deviceConfiguration = deviceConfiguration {
@@ -229,14 +229,12 @@ class BiopotService: BluetoothService {
 
     @EEGProcessing
     private func processAcquisition(_ acquisition: SomeDataAcquisition) {
-        guard let deviceConfiguration,
-              let samplingConfiguration,
-              let recordingSession else {
+        guard let recordingSession else {
             return // we checked that earlier, if it is gone now, something went completely wrong
         }
 
         if acquisition.totalSampleCount == 0 {
-            self.startDate = .now // TODO: allow with EDF to patch startDate!
+            self.startDate = .now
         }
 
 
@@ -244,13 +242,5 @@ class BiopotService: BluetoothService {
             let combinedSample = CombinedEEGSample(channels: sample.channels)
             recordingSession.append(combinedSample)
         }
-
-        // TODO: remove logging eventually?
-        let recordingTime = acquisition.receivedDate.timeIntervalSince1970 - startDate.timeIntervalSince1970
-        let averageSampleRate = Double(acquisition.totalSampleCount) / recordingTime
-        let reconstructedDate = startDate
-            .addingTimeInterval(Double(acquisition.totalSampleCount) / Double(samplingConfiguration.hardwareSamplingRate))
-        // There is a time difference of like + 10ms-30ms
-        // TODO: logger.debug("Dat00e diff is \(reconstructedDate.timeIntervalSince1970 - acquisition.receivedDate.timeIntervalSince1970)s AVG: \(averageSampleRate)")
     }
 }

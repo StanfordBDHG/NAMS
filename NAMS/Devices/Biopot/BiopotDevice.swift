@@ -21,7 +21,7 @@ import SpeziBluetooth
 /// * https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model
 /// * https://www.bluetooth.com/blog/a-developers-guide-to-bluetooth
 /// * https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
-class BiopotDevice: BluetoothDevice, Identifiable, SomeConnectedDevice {    
+class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice {
     private let logger = Logger(subsystem: "edu.stanford.nams", category: "BiopotDevice")
 
     @DeviceState(\.id)
@@ -38,7 +38,9 @@ class BiopotDevice: BluetoothDevice, Identifiable, SomeConnectedDevice {
 
 
     @Service var deviceInformation = DeviceInformationService()
-    @Service var service = BiopotService() // TODO: make private and direct accesses?
+    @Service var service = BiopotService()
+
+    let configuration = BiopotDeviceConfiguration()
 
     @MainActor private var disconnectHandler: (@MainActor (ConnectedDevice) -> Void)?
 
@@ -47,29 +49,31 @@ class BiopotDevice: BluetoothDevice, Identifiable, SomeConnectedDevice {
         "SML_BIO_\(service.deviceConfiguration?.serialNumber ?? 0)"
     }
 
-    var signalDescription: [Signal]? {
-        guard let samplingConfiguration = service.samplingConfiguration else {
-            return nil
-        }
+    var signalDescription: [Signal] {
+        get throws {
+            guard let samplingConfiguration = service.samplingConfiguration else {
+                throw EEGRecordingError.deviceNotReady
+            }
 
 
-        // format according to EDF+/BDF+ spec
-        var prefilter = "HP:\(samplingConfiguration.highPassFilter.edfString)"
-        if let lowPass = samplingConfiguration.softwareLowPassFilter.edfString {
-            prefilter += " LP:\(lowPass)"
-        }
+            // format according to EDF+/BDF+ spec
+            var prefilter = "HP:\(samplingConfiguration.highPassFilter.edfString)"
+            if let lowPass = samplingConfiguration.softwareLowPassFilter.edfString {
+                prefilter += " LP:\(lowPass)"
+            }
 
-        return [EEGLocation.lme, .tp10, .af8, .fp2, .fpz, .fp1, .af7, .mm].map { location in
-            Signal(
-                label: .eeg(location: location, prefix: .micro),
-                transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
-                prefiltering: prefilter,
-                sampleCount: Int(samplingConfiguration.hardwareSamplingRate),
-                physicalMinimum: -20_000,
-                physicalMaximum: 20_0000,
-                digitalMinimum: -8_388_608,
-                digitalMaximum: 8_388_607
-            )
+            return configuration.electrodeLocations.map { location in
+                Signal(
+                    label: .eeg(location: location, prefix: .micro),
+                    transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
+                    prefiltering: prefilter,
+                    sampleCount: Int(samplingConfiguration.hardwareSamplingRate),
+                    physicalMinimum: -20_000,
+                    physicalMaximum: 20_0000,
+                    digitalMinimum: -8_388_608,
+                    digitalMaximum: 8_388_607
+                )
+            }
         }
     }
 

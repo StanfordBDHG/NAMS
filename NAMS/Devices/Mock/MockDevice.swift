@@ -13,13 +13,13 @@ import SpeziBluetooth
 
 
 @Observable
-class MockDevice: SomeConnectedDevice {
+class MockDevice: NAMSDevice {
     private static let sampleRate = 60
 
     let id: UUID
     let name: String
 
-    private let measurementGenerator: MockMeasurementGenerator
+    private var measurementGenerator: MockMeasurementGenerator
 
     var state: PeripheralState
     var deviceInformation: MuseDeviceInformation? // we are just reusing muse data model
@@ -60,10 +60,10 @@ class MockDevice: SomeConnectedDevice {
         }
     }
 
-    var signalDescription: [Signal]? { // swiftlint:disable:this discouraged_optional_collection
+    var signalDescription: [Signal] {
         MockMeasurementGenerator.generatedLocations.map { location in
             Signal(
-                label: .eeg(location: location, prefix: .micro), // TODO: update generator to produce Integers?
+                label: .eeg(location: location, prefix: .micro),
                 transducerType: "Mock Measurement Generator",
                 sampleCount: Self.sampleRate,
                 physicalMinimum: -20_000,
@@ -75,7 +75,7 @@ class MockDevice: SomeConnectedDevice {
     }
 
     var recordDuration: Int {
-        1 // TODO: does that make sense?
+        1
     }
 
 
@@ -127,7 +127,7 @@ class MockDevice: SomeConnectedDevice {
             firmwareVersion: "1.2",
             hardwareVersion: "1.0",
             sampleRate: Self.sampleRate,
-            notchFilter: .notchNone,
+            notchFilter: MuseDeviceInformation.notchDefault,
             afeGain: 2000,
             remainingBatteryPercentage: 75
         )
@@ -157,7 +157,7 @@ class MockDevice: SomeConnectedDevice {
         }
     }
 
-    func prepareRecording() async throws {} // TODO: empty default implementation?
+    func prepareRecording() async throws {}
 
     @MainActor
     func startRecording(_ session: EEGRecordingSession) throws {
@@ -180,6 +180,7 @@ class MockDevice: SomeConnectedDevice {
     func stopRecording() throws {
         self.eegTimer = nil
         self.recordingSession = nil
+        self.measurementGenerator = MockMeasurementGenerator(sampleRate: Self.sampleRate)
     }
 
     @MainActor

@@ -14,13 +14,17 @@ struct MuseDeviceList: View {
     @Environment(MuseDeviceManager.self)
     private var museDeviceManager
 
+    @Binding private var path: NavigationPath
+
     var body: some View {
         ForEach(museDeviceManager.nearbyMuses) { device in
-            MuseDeviceRow(device: device)
+            MuseDeviceRow(device: device, path: $path)
         }
     }
 
     
-    init() {}
+    init(path: Binding<NavigationPath>) {
+        self._path = path
+    }
 }
 #endif

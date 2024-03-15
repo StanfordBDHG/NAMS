@@ -11,29 +11,6 @@ import EDFFormat
 import SpeziBluetooth
 
 
-protocol SomeConnectedDevice: GenericBluetoothPeripheral { // TODO: new name for that protocol! (maybe move?)
-    /// The string description of the equipment used for the BDF file.
-    var equipmentCode: String { get }
-    /// Description of signals expected in each data record.
-    var signalDescription: [Signal]? { get } // swiftlint:disable:this discouraged_optional_collection
-    /// The duration of a single data record in seconds.
-    var recordDuration: Int { get }
-
-    func connect() async
-
-    func disconnect() async
-
-    func prepareRecording() async throws
-
-    func startRecording(_ session: EEGRecordingSession) async throws
-
-    func stopRecording() async throws
-
-    @MainActor
-    func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void)
-}
-
-
 enum ConnectedDevice {
     #if MUSE
     case muse(_ muse: MuseDevice)
@@ -41,7 +18,7 @@ enum ConnectedDevice {
     case biopot(_ biopot: BiopotDevice)
     case mock(_ mock: MockDevice)
 
-    private var underlyingDevice: SomeConnectedDevice {
+    private var underlyingDevice: NAMSDevice {
         switch self {
 #if MUSE
         case let .muse(muse):
@@ -59,7 +36,7 @@ enum ConnectedDevice {
 extension ConnectedDevice: Hashable {}
 
 
-extension ConnectedDevice: SomeConnectedDevice {
+extension ConnectedDevice: NAMSDevice {
     var label: String {
         underlyingDevice.label
     }
@@ -80,8 +57,10 @@ extension ConnectedDevice: SomeConnectedDevice {
         underlyingDevice.equipmentCode
     }
 
-    var signalDescription: [Signal]? { // swiftlint:disable:this discouraged_optional_collection
-        underlyingDevice.signalDescription
+    var signalDescription: [Signal] {
+        get throws {
+            try underlyingDevice.signalDescription
+        }
     }
 
     var recordDuration: Int {

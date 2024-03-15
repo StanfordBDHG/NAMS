@@ -15,7 +15,7 @@ import SpeziBluetooth
 
 #if MUSE
 @Observable
-class MuseDevice: Identifiable, SomeConnectedDevice {
+class MuseDevice: Identifiable, NAMSDevice {
     /// List of data packets we are registering to.
     private static let packetTypes: [IXNMuseDataPacketType] = [
         .artifacts,
@@ -74,34 +74,27 @@ class MuseDevice: Identifiable, SomeConnectedDevice {
     }
 
     var equipmentCode: String {
-        "MUSE_\(deviceInformation?.serialNumber ?? "0")" // TODO: update model description
+        "\(muse.getModel().shortDescription)_\(deviceInformation?.serialNumber ?? "0")"
     }
 
-    var signalDescription: [Signal]? { // swiftlint:disable:this discouraged_optional_collection
-        guard let deviceInformation else {
-            return nil // TODO: or make it throwing?
-        }
+    var signalDescription: [Signal] {
+        get throws {
+            guard let deviceInformation else {
+                throw EEGRecordingError.deviceNotReady
+            }
 
-        /*
-         // format according to EDF+/BDF+ spec
-         var prefilter = "HP:\(samplingConfiguration.highPassFilter.edfString)"
-         if let lowPass = samplingConfiguration.softwareLowPassFilter.edfString {
-         prefilter += " LP:\(lowPass)"
-         TODO: add Notch filter!
-         }
-         */
-
-        return [EEGLocation.tp9, .af7, .af8, .tp10].map { location in
-            Signal(
-                label: .eeg(location: location, prefix: .micro),
-                transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
-                // TODO: prefiltering: prefilter,
-                sampleCount: deviceInformation.sampleRate,
-                physicalMinimum: -20_000,
-                physicalMaximum: 20_0000,
-                digitalMinimum: -8_388_608,
-                digitalMaximum: 8_388_607
-            )
+            return [EEGLocation.tp9, .af7, .af8, .tp10].map { location in
+                Signal(
+                    label: .eeg(location: location, prefix: .micro),
+                    transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
+                    prefiltering: deviceInformation.notchFilter.frequencyString.map { "N:\($0)" },
+                    sampleCount: deviceInformation.sampleRate,
+                    physicalMinimum: -20_000,
+                    physicalMaximum: 20_0000,
+                    digitalMinimum: -8_388_608,
+                    digitalMaximum: 8_388_607
+                )
+            }
         }
     }
 
@@ -142,9 +135,7 @@ class MuseDevice: Identifiable, SomeConnectedDevice {
         muse.disconnect()
     }
 
-    func prepareRecording() async throws {
-        // TODO: implement?
-    }
+    func prepareRecording() async throws {}
 
     @MainActor
     func startRecording(_ session: EEGRecordingSession) async throws {
@@ -199,7 +190,7 @@ class MuseDevice: Identifiable, SomeConnectedDevice {
 
 
     @EEGProcessing
-    private func receive(_ packet: IXNMuseDataPacket, muse: IXNMuse) { // swiftlint:disable:this cyclomatic_complexity
+    private func receive(_ packet: IXNMuseDataPacket, muse: IXNMuse) {
         guard let deviceInformation else {
             return
         }
@@ -211,7 +202,10 @@ class MuseDevice: Identifiable, SomeConnectedDevice {
                 deviceInformation.fit = fit
             }
         case .eeg:
-            recordingSession?.append(CombinedEEGSample(from: packet))
+            if let recordingSession,
+               let sample = CombinedEEGSample(from: packet) {
+                recordingSession.append(sample)
+            }
         case .battery:
             deviceInformation.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
         case .isGood:

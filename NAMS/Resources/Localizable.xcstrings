@@ -163,6 +163,9 @@
         }
       }
     },
+    "Assignment" : {
+
+    },
     "Auto Connect" : {
 
     },
@@ -233,6 +236,12 @@
         }
       }
     },
+    "Cap" : {
+
+    },
+    "Change the value ranges of the X and Y axis." : {
+
+    },
     "Channel" : {
       "localizations" : {
         "en" : {
@@ -243,6 +252,9 @@
         }
       }
     },
+    "Channel %lld" : {
+
+    },
     "Channels" : {
       "localizations" : {
         "en" : {
@@ -252,6 +264,9 @@
           }
         }
       }
+    },
+    "Chart Layout" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -284,6 +299,9 @@
         }
       }
     },
+    "Configure the electrode locations for each channel of the Biopot." : {
+
+    },
     "CONTACTS_NAVIGATION_TITLE" : {
       "localizations" : {
         "en" : {
@@ -313,6 +331,9 @@
           }
         }
       }
+    },
+    "Custom" : {
+
     },
     "Delete" : {
       "localizations" : {
@@ -370,6 +391,9 @@
         }
       }
     },
+    "Display Interval" : {
+
+    },
     "Done" : {
       "localizations" : {
         "en" : {
@@ -379,6 +403,9 @@
           }
         }
       }
+    },
+    "Edit Chart Layout" : {
+
     },
     "EEG Recording" : {
       "localizations" : {
@@ -401,6 +428,9 @@
       }
     },
     "EEG recording could not be started as no patient was selected." : {
+
+    },
+    "Electrode Locations" : {
 
     },
     "enter first name" : {
@@ -849,6 +879,9 @@
         }
       }
     },
+    "Paper" : {
+
+    },
     "Patient Code" : {
 
     },
@@ -975,6 +1008,9 @@
           }
         }
       }
+    },
+    "Remaining: " : {
+
     },
     "required" : {
 
@@ -1246,6 +1282,9 @@
     "Unknown Device" : {
 
     },
+    "Value Interval" : {
+
+    },
     "WEARING" : {
       "localizations" : {
         "en" : {
@@ -1346,6 +1385,9 @@
           }
         }
       }
+    },
+    "You can select a predefined electrode assignment or provide a custom one." : {
+
     },
     "You may login below." : {
       "comment" : "Account Setup Header Description",

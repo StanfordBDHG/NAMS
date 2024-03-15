@@ -11,17 +11,22 @@ import EDFFormat
 
 #if MUSE
 extension CombinedEEGSample {
-    init(from packet: IXNMuseDataPacket) {
+    init?(from packet: IXNMuseDataPacket) {
         precondition(packet.packetType().isEEGPacket, "Unsupported packet type to parse EEG readings \(packet.packetType())")
 
-        let epochMillis = packet.timestamp() // TODO: Muse has exact timestamps!
-        // TODO: are these sorted?
+        guard let tp9 = BDFSample(from: packet, .tp9),
+              let af7 = BDFSample(from: packet, .af7),
+              let af8 = BDFSample(from: packet, .af8),
+              let tp10 = BDFSample(from: packet, .tp10) else {
+            return nil
+        }
+
 
         self.init(channels: [
-            BDFSample(from: packet, .tp9),
-            BDFSample(from: packet, .af7),
-            BDFSample(from: packet, .af8),
-            BDFSample(from: packet, .tp10)
+            tp9,
+            af7,
+            af8,
+            tp10
         ])
     }
 }

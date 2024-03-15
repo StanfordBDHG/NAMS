@@ -123,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/ResearchKit",
       "state" : {
-        "revision" : "e4afb10ec636a70e06afc4a84fb98e457818439a",
-        "version" : "2.2.27"
+        "revision" : "6b28cdf0d06c3d6e96b5585369968b85deac96e0",
+        "version" : "2.2.29"
       }
     },
     {
@@ -160,7 +160,7 @@
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
         "branch" : "feature/spezi-file-formats",
-        "revision" : "4210ebe1f1e0b47b9bd844d6aaf65d22dfac5a73"
+        "revision" : "91644f0903587059015485fb3ffa74f255b5fff6"
       }
     },
     {
@@ -178,7 +178,7 @@
       "location" : "https://github.com/StanfordSpezi/SpeziFileFormats",
       "state" : {
         "branch" : "fix/edf-access",
-        "revision" : "d4c85e826ff89c1bbe13dcddea650e330ba4cf37"
+        "revision" : "4dffa66d5440d35e631be51d93d59973e0903a7c"
       }
     },
     {
@@ -213,8 +213,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziQuestionnaire.git",
       "state" : {
-        "revision" : "f25580e95bfdad02383980dcb94406cf97b08ea8",
-        "version" : "1.0.2"
+        "revision" : "f9d9b6d99bb1e00bda2974b440dca8367733d591",
+        "version" : "1.1.0"
       }
     },
     {
