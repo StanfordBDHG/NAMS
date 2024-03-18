@@ -19,19 +19,18 @@ struct EEGChartsView: View {
     @Environment(PatientListModel.self)
     private var patientList
 
-    // TODO: configurable value range?
     @AppStorage("nams.eeg.time-interval")
-    private var displayInterval: TimeInterval = 7.0 // TODO: configurable?
+    private var displayInterval: TimeInterval = 7.0
     @AppStorage("nams.eeg.value-interval")
     private var valueInterval: Int = 300
     @State private var viewState: ViewState = .idle
 
     @State private var presentingChartControls = false
 
-    let recordingTime = Date()...Date().addingTimeInterval(2*60)
+    let recordingTime = Date()...Date().addingTimeInterval(2 * 60)
 
     private var popoverUnitPoint: UnitPoint {
-        return .init(x: 0.95, y: 0)
+        .init(x: 0.95, y: 0)
     }
 
     // TODO: start button (+ countdown)
@@ -42,9 +41,6 @@ struct EEGChartsView: View {
                     .font(.title)
                     .bold()
                 Spacer()
-                Image(systemName: "record.circle")
-                    .foregroundColor(.red)
-                    .font(.title)
             }
 
             Section {

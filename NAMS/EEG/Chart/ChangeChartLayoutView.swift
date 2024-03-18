@@ -16,6 +16,16 @@ struct ChangeChartLayoutView: View {
     @Binding private var displayInterval: TimeInterval
     @Binding private var valueInterval: Int
 
+    private var intervalStepValue: Int {
+        if valueInterval <= 100 {
+            10
+        } else if valueInterval <= 500 {
+            25
+        } else {
+            100
+        }
+    }
+
     var body: some View {
         List {
             Section {
@@ -50,13 +60,22 @@ struct ChangeChartLayoutView: View {
         Stepper(
             value: $valueInterval,
             in: 10...2000,
-            step: 5 // TODO: steps are not linear!
+            step: intervalStepValue
         ) {
             HStack {
                 Text("Value Interval")
                 Spacer()
                 Text(verbatim: "\(valueInterval)uV")
                     .foregroundColor(.secondary)
+            }
+        }
+        .onChange(of: valueInterval) { oldValue, newValue in
+            // workaround that we cannot specify different step values for the respective directions.
+            // We are not using onIncrement and onDecrement closures as these don't allow a value range (that disable the buttons).
+            if oldValue == 100 && newValue == 110 {
+                valueInterval = 125
+            } else if oldValue == 500 && newValue == 525 {
+                valueInterval = 600
             }
         }
     }
@@ -71,8 +90,16 @@ struct ChangeChartLayoutView: View {
 
 #if DEBUG
 #Preview {
-    NavigationStack {
-        ChangeChartLayoutView(displayInterval: .constant(7), valueInterval: .constant(300))
+    struct StepperView: View {
+        @State var displayInterval: TimeInterval = 7.0
+        @State var valueInterval = 300
+
+        var body: some View {
+            ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)
+        }
+    }
+    return NavigationStack {
+        StepperView()
     }
 }
 #endif
