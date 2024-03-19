@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziAccount
 import SpeziViews
 import SwiftUI
 
@@ -16,6 +17,8 @@ struct EEGChartsView: View {
     @Environment(\.dismiss)
     private var dismiss
 
+    @Environment(EEGRecordings.self)
+    private var eegModel
     @Environment(PatientListModel.self)
     private var patientList
 
@@ -23,55 +26,113 @@ struct EEGChartsView: View {
     private var displayInterval: TimeInterval = 7.0
     @AppStorage("nams.eeg.value-interval")
     private var valueInterval: Int = 300
-    @State private var viewState: ViewState = .idle
+    // TODO: @State private var viewState: ViewState = .idle
 
     @State private var presentingChartControls = false
 
-    let recordingTime = Date()...Date().addingTimeInterval(2 * 60)
+    let recordingTime = Date()...Date().addingTimeInterval(EEGRecordingSession.recordingDuration + 1.0)
 
     private var popoverUnitPoint: UnitPoint {
         .init(x: 0.95, y: 0)
     }
 
+    private var recordingFinished: Bool {
+        recordingTime.upperBound <= .now
+    }
+    /*
+     // TODO: remove!
+     AsyncButton(state: $viewState) {
+     // simulate a completed task for now
+     let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording(recordingId: session.id))
+     try await patientList.add(task: task)
+     dismiss()
+     } label: {
+     Text("Mark completed")
+     }
+     */
+
+    private var failedToSave: Bool {
+        true
+    }
+
     // TODO: start button (+ countdown)
     var body: some View {
-        ScrollView {
-            HStack {
-                (Text("Remaining: ") + Text(timerInterval: recordingTime))
-                    .font(.title)
-                    .bold()
-                Spacer()
-            }
+        // TODO: swifltint?
+        ScrollView { // swiftlint:disable:this closure_body_length
+            VStack {
+                if recordingFinished {
+                    if case .error = eegModel.recordingState {
+                        Text("Upload Failed")
+                            .font(.title)
+                            .bold()
+                        // TODO: error message below?
 
-            Section {
-                ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
-                    EEGChart(signal: measurement, displayedInterval: displayInterval, valueInterval: valueInterval)
+                        Button("Try again") {
+
+                        }
+                    } else {
+                        Text("Recording Finished")
+                            .font(.title)
+                            .bold()
+                        Text("Saving ...")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                            .bold()
+                            .toolbar {
+                                if case .processing = eegModel.recordingState {
+                                    // TODO: technically we could just add the progress state from firebase here?
+                                    ToolbarItem(placement: .primaryAction) {
+                                        ProgressView() // TODO: only if actually saving?
+                                    }
+                                }
+                            }
+                    }
+                } else {
+                    Text("In Progress")
+                        .font(.title)
+                        .bold()
+                    (Text("Remaining: ") + Text(timerInterval: recordingTime))
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .bold()
                 }
             }
-                .listRowBackground(Color.clear)
+                .multilineTextAlignment(.center)
+                .padding(.bottom)
 
-            Section {
-                AsyncButton(state: $viewState) {
-                    // simulate a completed task for now
-                    let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording(recordingId: session.id))
-                    try await patientList.add(task: task)
-                    dismiss()
-                } label: {
-                    Text("Mark completed")
-                }
+            ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
+                EEGChart(signal: measurement, displayedInterval: displayInterval, valueInterval: valueInterval)
             }
+                .padding([.leading, .trailing], 16)
         }
-            .padding(.top)
-            .padding([.leading, .trailing], 20)
-            .navigationTitle("EEG Recording")
-            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .secondaryAction) {
                     Button("Edit Chart Layout", systemImage: "pencil") {
                         presentingChartControls = true
                     }
                 }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
             }
+            .onChange(of: recordingFinished) { // TODO: this relies entierly on SwiftUI updates!
+                if recordingFinished {
+                    Task { // TODO: cancel task onDisappear?
+                        await eegModel.saveRecording()
+                    }
+                }
+            }
+            .onDisappear {
+                // TODO: support cancelling the session if view gets into background!
+                if !recordingFinished {
+                    Task {
+                        try await eegModel.stopRecordingSession()
+                    }
+                }
+            }
+            .interactiveDismissDisabled() // TODO: support cancellation?
             .popover(isPresented: $presentingChartControls, attachmentAnchor: .point(popoverUnitPoint), arrowEdge: .top) {
                 let view = ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)
 
@@ -79,7 +140,7 @@ struct EEGChartsView: View {
                     NavigationStack {
                         view
                     }
-                        .presentationDetents([.fraction(0.35), .large])
+                    .presentationDetents([.fraction(0.35), .large])
                 } else {
                     view
                         .frame(minWidth: 450, minHeight: 250) // frame for the popover
@@ -95,47 +156,26 @@ struct EEGChartsView: View {
 
 
 #if DEBUG
-#Preview { // swiftlint:disable:this closure_body_length
-    struct PreviewView: View {
-        let patient = Patient(id: "123", name: .init(givenName: "Leland", familyName: "Stanford"), code: "LS123", sex: .male)
-        let device = MockDevice(name: "Mock", state: .connected)
-
-        @State private var session: EEGRecordingSession?
-
-        var body: some View {
-            ZStack {
-                if let session {
-                    EEGChartsView(session: session)
-                } else {
-                    ProgressView()
-                }
-            }
-                .task {
-                    do {
-                        let id = UUID()
-                        let url = try EEGRecordings.createTempRecordingFile(id: id)
-                        let session = try EEGRecordingSession(id: id, url: url, patient: patient, device: .mock(device), investigatorCode: "SwiftUI")
-                        try device.startRecording(session)
-                        self.session = session
-                    } catch {
-                        print("Failed to start recording: \(error)")
-                    }
-                }
-                .onDisappear {
-                    do {
-                        try device.stopRecording()
-                    } catch {
-                        print("Failed to stop recording: \(error)")
-                    }
-                }
-        }
-    }
+#Preview {
+    let detailsBuilder = AccountDetails.Builder()
+        .set(\.accountId, value: UUID().uuidString)
+        .set(\.userId, value: "lelandstanford@stanford.edu")
+        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return NavigationStack {
-        PreviewView()
-    }
-        .previewWith {
-            PatientListModel()
+        AutoStartRecordingView { session in
+            if let session {
+                EEGChartsView(session: session)
+            } else {
+                ProgressView()
+            }
         }
+            .previewWith(standard: NAMSStandard()) {
+                AccountConfiguration(building: detailsBuilder, active: MockUserIdPasswordAccountService())
+                EEGRecordings()
+                DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
+                PatientListModel(mock: Patient(id: UUID().uuidString, name: PersonNameComponents(givenName: "Leland", familyName: "Stanford")))
+            }
+    }
 }
 #endif

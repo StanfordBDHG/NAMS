@@ -588,6 +588,9 @@
     "In Background" : {
 
     },
+    "In Progress" : {
+
+    },
     "INTERVENTION_MUSE_FIRMWARE" : {
       "localizations" : {
         "en" : {
@@ -686,6 +689,7 @@
 
     },
     "Mark completed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1009,10 +1013,16 @@
         }
       }
     },
+    "Recording Finished" : {
+
+    },
     "Remaining: " : {
 
     },
     "required" : {
+
+    },
+    "Saving ..." : {
 
     },
     "Schedule" : {
@@ -1262,6 +1272,9 @@
         }
       }
     },
+    "Try again" : {
+
+    },
     "Unexpected Error" : {
 
     },
@@ -1280,6 +1293,9 @@
       }
     },
     "Unknown Device" : {
+
+    },
+    "Upload Failed" : {
 
     },
     "Value Interval" : {

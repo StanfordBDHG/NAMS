@@ -112,7 +112,7 @@ struct TilesView: View {
     patientList.completedTasks = []
     return TilesView()
         .environment(patientList)
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             EEGRecordings()
             DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
         }
@@ -123,7 +123,7 @@ struct TilesView: View {
     patientList.completedTasks = []
     return TilesView()
         .environment(patientList)
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             AccountConfiguration {
                 MockUserIdPasswordAccountService()
             }
@@ -134,7 +134,7 @@ struct TilesView: View {
 
 #Preview {
     TilesView()
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             AccountConfiguration {
                 MockUserIdPasswordAccountService()
             }

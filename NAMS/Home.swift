@@ -144,7 +144,7 @@ struct HomeView: View {
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return HomeView()
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             DeviceCoordinator()
             EEGRecordings()
             AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())

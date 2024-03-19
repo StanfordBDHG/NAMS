@@ -68,27 +68,22 @@ extension ConnectedDevice: NAMSDevice {
     }
 
 
-    @MainActor
     func connect() async {
         await underlyingDevice.connect()
     }
 
-    @MainActor
     func disconnect() async {
         await underlyingDevice.disconnect()
     }
 
-    @MainActor
     func prepareRecording() async throws {
         try await underlyingDevice.prepareRecording()
     }
 
-    @MainActor
     func startRecording(_ session: EEGRecordingSession) async throws {
         try await underlyingDevice.startRecording(session)
     }
 
-    @MainActor
     func stopRecording() async throws {
         try await underlyingDevice.stopRecording()
     }

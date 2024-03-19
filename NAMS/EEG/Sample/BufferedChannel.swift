@@ -25,8 +25,10 @@ struct BufferedChannel<S: Sample> {
         samples.count >= minimumAmount
     }
 
-    func pop(count: Int) -> Channel<S> {
-        Channel(samples: Array(samples.dropFirst(count)))
+    mutating func pop(count: Int) -> Channel<S> {
+        let channel = Channel(samples: Array(samples.prefix(count)))
+        samples.removeFirst(count)
+        return channel
     }
 }
 

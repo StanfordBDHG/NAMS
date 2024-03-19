@@ -6,7 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
 import FirebaseFirestore
+import FirebaseStorage
 import Spezi
 import SpeziAccount
 import SpeziFirebaseAccountStorage
@@ -20,6 +22,18 @@ actor NAMSStandard: Standard, AccountStorageConstraint {
     @Dependency private var storage = FirestoreAccountStorage(storeIn: NAMSStandard.userCollection)
 
     init() {}
+
+    func uploadEEGRecording(file: URL, recordingId: UUID, patientId: String, format: FileFormat) async throws {
+        let reference = Storage.storage().reference()
+            .child("patients/\(patientId)")
+            .child("eeg-recordings/\(recordingId).\(format.rawValue)")
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "application/octet-stream"
+        _ = try await reference.putFileAsync(from: file, metadata: metadata) { progress in
+            print("Progress: \(String(describing: progress))") // TODO: actually do something with the progress?
+        }
+    }
 
     func create(_ identifier: AdditionalRecordId, _ details: SignupDetails) async throws {
         try await storage.create(identifier, details)

@@ -63,7 +63,7 @@ struct StartRecordingView: View {
 #if DEBUG
 #Preview {
     StartRecordingView()
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             AccountConfiguration {
                 MockUserIdPasswordAccountService()
             }

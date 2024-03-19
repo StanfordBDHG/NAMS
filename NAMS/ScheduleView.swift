@@ -87,7 +87,7 @@ struct ScheduleView: View {
 #if DEBUG
 #Preview {
     ScheduleView(presentingAccount: .constant(true))
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             EEGRecordings()
             DeviceCoordinator()
             PatientListModel()
