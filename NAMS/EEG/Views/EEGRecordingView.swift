@@ -35,7 +35,7 @@ struct EEGRecordingView: View {
                     .navigationTitle("Recording")
                     .navigationBarTitleDisplayMode(.inline)
             } else if let session = eegModel.recordingSession {
-                EEGChartsView(session: session)
+                EEGRecordingSessionView(session: session)
             } else {
                 StartRecordingView()
             }

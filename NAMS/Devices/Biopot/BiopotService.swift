@@ -234,7 +234,7 @@ class BiopotService: BluetoothService {
         }
 
         if acquisition.totalSampleCount == 0 {
-            self.startDate = .now // TODO: update recording session?
+            self.startDate = .now
         }
 
 

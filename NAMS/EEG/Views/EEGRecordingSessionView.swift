@@ -11,7 +11,7 @@ import SpeziViews
 import SwiftUI
 
 
-struct EEGChartsView: View {
+struct EEGRecordingSessionView: View {
     private let session: EEGRecordingSession
 
     @Environment(\.dismiss)
@@ -22,25 +22,23 @@ struct EEGChartsView: View {
     @Environment(PatientListModel.self)
     private var patientList
 
-    @AppStorage("nams.eeg.time-interval")
+    @AppStorage(StorageKeys.displayInterval)
     private var displayInterval: TimeInterval = 7.0
-    @AppStorage("nams.eeg.value-interval")
+    @AppStorage(StorageKeys.valueInterval)
     private var valueInterval: Int = 300
-    // TODO: @State private var viewState: ViewState = .idle
 
     @State private var presentingChartControls = false
+    @State private var presentingCancelConfirmation = false
+    // TODO: this recording time should be based on the session!
+    @State private var recordingTime = Date()...Date().addingTimeInterval(EEGRecordingSession.recordingDuration + 1.0)
 
-    let recordingTime = Date()...Date().addingTimeInterval(EEGRecordingSession.recordingDuration + 1.0)
-
+    /// Popover point for iPad modal view.
     private var popoverUnitPoint: UnitPoint {
         .init(x: 0.95, y: 0)
     }
 
-    private var recordingFinished: Bool {
-        recordingTime.upperBound <= .now
-    }
     /*
-     // TODO: remove!
+     // TODO: also save the completed task when recording is saved?
      AsyncButton(state: $viewState) {
      // simulate a completed task for now
      let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording(recordingId: session.id))
@@ -51,43 +49,13 @@ struct EEGChartsView: View {
      }
      */
 
-    private var failedToSave: Bool {
-        true
-    }
-
     // TODO: start button (+ countdown)
     var body: some View {
         // TODO: swifltint?
         ScrollView { // swiftlint:disable:this closure_body_length
-            VStack {
-                if recordingFinished {
-                    if case .error = eegModel.recordingState {
-                        Text("Upload Failed")
-                            .font(.title)
-                            .bold()
-                        // TODO: error message below?
-
-                        Button("Try again") {
-
-                        }
-                    } else {
-                        Text("Recording Finished")
-                            .font(.title)
-                            .bold()
-                        Text("Saving ...")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                            .bold()
-                            .toolbar {
-                                if case .processing = eegModel.recordingState {
-                                    // TODO: technically we could just add the progress state from firebase here?
-                                    ToolbarItem(placement: .primaryAction) {
-                                        ProgressView() // TODO: only if actually saving?
-                                    }
-                                }
-                            }
-                    }
-                } else {
+            VStack { // TODO: this could be its own header?
+                switch session.recordingState {
+                case .inProgress:
                     Text("In Progress")
                         .font(.title)
                         .bold()
@@ -95,16 +63,56 @@ struct EEGChartsView: View {
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .bold()
+                case .saving, .completed:
+                    Text("Recording Finished")
+                        .font(.title)
+                        .bold()
+                    Group {
+                        if case .saving = session.recordingState {
+                            Text("Saving ...")
+                        } else {
+                            Text("Completed") // TODO: hit done button or something?
+                        }
+                    }
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .bold()
+                case let .fileUploadFailed(error): // TODO: display error?
+                    Text("Upload Failed")
+                        .font(.title)
+                        .bold()
+                    // TODO: error message below?
+
+                    Button("Try again") {
+                        // TODO:
+                    }
+                case let .unrecoverableError(error):
+                    Text("Recording Failed")
+                        .font(.title)
+                        .bold()
+
+                    // TODO: some subtitle?
+                    // TODO: this should pop open a view alert!
                 }
+                // TODO: show context information (e.g., the current headband for a Muse device?)
             }
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
+                .toolbar {
+                    if case .processing = session.recordingState.representation {
+                        // TODO: technically we could just add the progress state from firebase here?
+                        ToolbarItem(placement: .primaryAction) {
+                            ProgressView() // TODO: only if actually saving?
+                        }
+                    }
+                }
 
             ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
                 EEGChart(signal: measurement, displayedInterval: displayInterval, valueInterval: valueInterval)
             }
                 .padding([.leading, .trailing], 16)
         }
+            .interactiveDismissDisabled() // TODO: support cancellation?
             .toolbar {
                 ToolbarItem(placement: .secondaryAction) {
                     Button("Edit Chart Layout", systemImage: "pencil") {
@@ -113,26 +121,15 @@ struct EEGChartsView: View {
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
-            .onChange(of: recordingFinished) { // TODO: this relies entierly on SwiftUI updates!
-                if recordingFinished {
-                    Task { // TODO: cancel task onDisappear?
-                        await eegModel.saveRecording()
+                        presentingCancelConfirmation = true
                     }
                 }
             }
             .onDisappear {
-                // TODO: support cancelling the session if view gets into background!
-                if !recordingFinished {
-                    Task {
-                        try await eegModel.stopRecordingSession()
-                    }
+                Task {
+                    await eegModel.cancelRecording()
                 }
             }
-            .interactiveDismissDisabled() // TODO: support cancellation?
             .popover(isPresented: $presentingChartControls, attachmentAnchor: .point(popoverUnitPoint), arrowEdge: .top) {
                 let view = ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)
 
@@ -145,6 +142,12 @@ struct EEGChartsView: View {
                     view
                         .frame(minWidth: 450, minHeight: 250) // frame for the popover
                 }
+            }
+            .confirmationDialog("Do you want to cancel the ongoing recording?", isPresented: $presentingChartControls, titleVisibility: .visible) {
+                Button("Cancel Recording", role: .destructive) {
+                    dismiss()
+                }
+                Button("Continue Recording", role: .cancel) {}
             }
     }
 
@@ -165,7 +168,7 @@ struct EEGChartsView: View {
     return NavigationStack {
         AutoStartRecordingView { session in
             if let session {
-                EEGChartsView(session: session)
+                EEGRecordingSessionView(session: session)
             } else {
                 ProgressView()
             }

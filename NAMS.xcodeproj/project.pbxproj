@@ -189,8 +189,8 @@
 		A943DC3B2BA274B200039060 /* BufferedChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC392BA274B200039060 /* BufferedChannel.swift */; };
 		A943DC3D2BA36B3400039060 /* NAMSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC3C2BA36B3400039060 /* NAMSDevice.swift */; };
 		A943DC3E2BA36B3400039060 /* NAMSDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC3C2BA36B3400039060 /* NAMSDevice.swift */; };
-		A943DC402BA37F7600039060 /* EEGChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC3F2BA37F7600039060 /* EEGChartsView.swift */; };
-		A943DC412BA37F7600039060 /* EEGChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC3F2BA37F7600039060 /* EEGChartsView.swift */; };
+		A943DC402BA37F7600039060 /* EEGRecordingSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC3F2BA37F7600039060 /* EEGRecordingSessionView.swift */; };
+		A943DC412BA37F7600039060 /* EEGRecordingSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC3F2BA37F7600039060 /* EEGRecordingSessionView.swift */; };
 		A943DC432BA3B2B500039060 /* ChangeChartLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC422BA3B2B500039060 /* ChangeChartLayoutView.swift */; };
 		A943DC442BA3B2B500039060 /* ChangeChartLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A943DC422BA3B2B500039060 /* ChangeChartLayoutView.swift */; };
 		A94533FA2AEADC8E0095AAD3 /* ScreeningTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */; };
@@ -310,6 +310,8 @@
 		A9D4B8EA2B6863D60054E27C /* FitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8E82B6863D60054E27C /* FitLabel.swift */; };
 		A9D4B8EC2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
 		A9D4B8ED2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
+		A9D6BA822BACCB78002863DA /* RecordingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA812BACCB78002863DA /* RecordingState.swift */; };
+		A9D6BA832BACCB78002863DA /* RecordingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA812BACCB78002863DA /* RecordingState.swift */; };
 		A9D83F922B081A47000D0C78 /* BiopotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D83F912B081A47000D0C78 /* BiopotTests.swift */; };
 		A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 		A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
@@ -435,7 +437,7 @@
 		A943DC362BA273AC00039060 /* EEGRecordingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRecordingError.swift; sourceTree = "<group>"; };
 		A943DC392BA274B200039060 /* BufferedChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferedChannel.swift; sourceTree = "<group>"; };
 		A943DC3C2BA36B3400039060 /* NAMSDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NAMSDevice.swift; sourceTree = "<group>"; };
-		A943DC3F2BA37F7600039060 /* EEGChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGChartsView.swift; sourceTree = "<group>"; };
+		A943DC3F2BA37F7600039060 /* EEGRecordingSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRecordingSessionView.swift; sourceTree = "<group>"; };
 		A943DC422BA3B2B500039060 /* ChangeChartLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeChartLayoutView.swift; sourceTree = "<group>"; };
 		A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTile.swift; sourceTree = "<group>"; };
 		A94533FC2AEADCC00095AAD3 /* ScreeningTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTask.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 		A9D4B8E52B6860AC0054E27C /* MuseHeadbandFitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseHeadbandFitView.swift; sourceTree = "<group>"; };
 		A9D4B8E82B6863D60054E27C /* FitLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitLabel.swift; sourceTree = "<group>"; };
 		A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTileHeader.swift; sourceTree = "<group>"; };
+		A9D6BA812BACCB78002863DA /* RecordingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingState.swift; sourceTree = "<group>"; };
 		A9D83F912B081A47000D0C78 /* BiopotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTile.swift; sourceTree = "<group>"; };
@@ -711,14 +714,11 @@
 		A926D7C52AB7A9AB000C4C2F /* EEG */ = {
 			isa = PBXGroup;
 			children = (
-				A967061A2B1AA28100C17BE5 /* Chart */,
+				A9D6BA802BACCB51002863DA /* Model */,
+				A9D6BA7F2BACCADC002863DA /* Views */,
 				A943DC2C2BA26DE400039060 /* Sample */,
-				A943DC202BA0E93500039060 /* EEGProcessing.swift */,
-				A943DC362BA273AC00039060 /* EEGRecordingError.swift */,
 				2DC171E38A5303E2CE997FF6 /* EEGRecordings.swift */,
 				A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */,
-				A926D80F2AB7B430000C4C2F /* EEGRecordingView.swift */,
-				A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */,
 			);
 			path = EEG;
 			sourceTree = "<group>";
@@ -830,7 +830,6 @@
 			children = (
 				A926D80E2AB7B430000C4C2F /* EEGChannelMark.swift */,
 				A926D8142AB7B430000C4C2F /* EEGChart.swift */,
-				A943DC3F2BA37F7600039060 /* EEGChartsView.swift */,
 				A943DC422BA3B2B500039060 /* ChangeChartLayoutView.swift */,
 			);
 			path = Chart;
@@ -999,6 +998,27 @@
 				A9D4B8D42B685D800054E27C /* MuseBatteryProblemsHint.swift */,
 			);
 			path = Hints;
+			sourceTree = "<group>";
+		};
+		A9D6BA7F2BACCADC002863DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A967061A2B1AA28100C17BE5 /* Chart */,
+				A943DC3F2BA37F7600039060 /* EEGRecordingSessionView.swift */,
+				A926D80F2AB7B430000C4C2F /* EEGRecordingView.swift */,
+				A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A9D6BA802BACCB51002863DA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A943DC202BA0E93500039060 /* EEGProcessing.swift */,
+				A943DC362BA273AC00039060 /* EEGRecordingError.swift */,
+				A9D6BA812BACCB78002863DA /* RecordingState.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A9DF79E82AE9B97C00AB5983 /* Testing */ = {
@@ -1308,7 +1328,7 @@
 				A94533FD2AEADCC00095AAD3 /* ScreeningTask.swift in Sources */,
 				A926D8072AB7B41C000C4C2F /* EEGChannel+Muse.swift in Sources */,
 				A926D8222AB7B430000C4C2F /* EEGRecordingView.swift in Sources */,
-				A943DC402BA37F7600039060 /* EEGChartsView.swift in Sources */,
+				A943DC402BA37F7600039060 /* EEGRecordingSessionView.swift in Sources */,
 				A916ADD52AB60227006960DF /* NotificationPermissions.swift in Sources */,
 				A907DA302B192FD500FB69FB /* DataControl.swift in Sources */,
 				A94533FA2AEADC8E0095AAD3 /* ScreeningTile.swift in Sources */,
@@ -1350,6 +1370,7 @@
 				A943DC432BA3B2B500039060 /* ChangeChartLayoutView.swift in Sources */,
 				A9BCB5862AE8347E00DA8588 /* CollectionReference+AsyncAwait.swift in Sources */,
 				A926D8052AB7B41C000C4C2F /* CombinedEEGSample+Muse.swift in Sources */,
+				A9D6BA822BACCB78002863DA /* RecordingState.swift in Sources */,
 				2F4E23832989D51F0013F3D9 /* NAMSTestingSetup.swift in Sources */,
 				A943DC1E2BA0CA9500039060 /* BiopotService.swift in Sources */,
 				A907DA332B193C9700FB69FB /* SamplingConfiguration.swift in Sources */,
@@ -1466,7 +1487,7 @@
 				A9DF79DF2AE8A81F00AB5983 /* AddPatientView.swift in Sources */,
 				A926D8082AB7B41C000C4C2F /* EEGChannel+Muse.swift in Sources */,
 				A926D8232AB7B430000C4C2F /* EEGRecordingView.swift in Sources */,
-				A943DC412BA37F7600039060 /* EEGChartsView.swift in Sources */,
+				A943DC412BA37F7600039060 /* EEGRecordingSessionView.swift in Sources */,
 				A907DA312B192FD500FB69FB /* DataControl.swift in Sources */,
 				A9DF79E02AE8A82100AB5983 /* PatientListSheet.swift in Sources */,
 				A94533FB2AEADC8E0095AAD3 /* ScreeningTile.swift in Sources */,
@@ -1508,6 +1529,7 @@
 				A943DC442BA3B2B500039060 /* ChangeChartLayoutView.swift in Sources */,
 				A941711A2B9FB0BB002E975A /* Sex+Patient.swift in Sources */,
 				A9BCB5832AE8307800DA8588 /* SearchToken.swift in Sources */,
+				A9D6BA832BACCB78002863DA /* RecordingState.swift in Sources */,
 				A926D7932AB7A552000C4C2F /* Bundle+Image.swift in Sources */,
 				A943DC1F2BA0CA9500039060 /* BiopotService.swift in Sources */,
 				A907DA342B193C9700FB69FB /* SamplingConfiguration.swift in Sources */,

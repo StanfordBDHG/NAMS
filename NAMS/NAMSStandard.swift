@@ -24,7 +24,8 @@ actor NAMSStandard: Standard, AccountStorageConstraint {
     init() {}
 
     func uploadEEGRecording(file: URL, recordingId: UUID, patientId: String, format: FileFormat) async throws {
-        let reference = Storage.storage().reference()
+        let reference = Storage.storage()
+            .reference()
             .child("patients/\(patientId)")
             .child("eeg-recordings/\(recordingId).\(format.rawValue)")
 

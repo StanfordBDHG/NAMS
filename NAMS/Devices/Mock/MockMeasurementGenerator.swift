@@ -99,6 +99,6 @@ class MockMeasurementGenerator {
             result.append(first)
         }
 
-        return VisualizedSignal(label: label, sourceSampleRate: self.sampleRate, downsampling: nil, sampleOffset: sampleOffset, samples: result)
+        return VisualizedSignal(label: label, sourceSampleRate: self.sampleRate, batching: nil, sampleOffset: sampleOffset, samples: result)
     }
 }

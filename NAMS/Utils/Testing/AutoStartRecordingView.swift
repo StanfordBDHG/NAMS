@@ -36,7 +36,7 @@ struct AutoStartRecordingView<Content: View>: View {
             .onDisappear {
                 if autoStop {
                     Task {
-                        try await model.stopRecordingSession()
+                        await model.cancelRecording()
                     }
                 }
             }

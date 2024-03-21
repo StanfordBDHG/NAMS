@@ -27,7 +27,7 @@ class EEGRecordingSession {
     #endif
 
     /// The sample rate we are targeting for the live preview.
-    static let uiTargetSampleRate = 32
+    static let uiTargetSampleRate = 32 // TODO: try with just batched processing at like 20 Hz?
 
     private let logger = Logger(subsystem: "edu.stanford.names", category: "EEGRecordingSession")
 
@@ -35,27 +35,20 @@ class EEGRecordingSession {
     let id: UUID
     let patientId: String
 
-    // these two are effectively isolated to @MainActor
-    private var _startDate: Date
-    private let _measurements: [VisualizedSignal]
-    private var uiBufferedChannels: [BufferedChannel<BDFSample>]
+    @MainActor private(set) var startDate: Date
+    let measurements: [VisualizedSignal]
 
-    // these two are effectively isolated to @EEGProcessing
-    private var fileWriter: BDFFileWriter
-    private var bufferedChannels: [BufferedChannel<BDFSample>]
+    private let fileWriter: BDFFileWriter
     @EEGProcessing private var shouldAcceptSamples = true
 
+    @EEGProcessing private var bufferedChannels: [BufferedChannel<BDFSample>]
+    @EEGProcessing private var uiBufferedChannels: [BufferedChannel<BDFSample>]
 
-    @MainActor var viewState: ViewState = .idle // TODO: actually use for processes?
 
-    @MainActor var measurements: [VisualizedSignal] {
-        _measurements
-    }
+    // TODO: set!
+    @MainActor var recordingState: RecordingState = .inProgress
 
-    @MainActor var startDate: Date {
-        _startDate
-    }
-
+    @EEGProcessing
     init(id: UUID, url: URL, patient: Patient, device: ConnectedDevice, investigatorCode: String?) throws {
         guard let patientId = patient.id else {
             logger.error("Patient didn't have a valid patient id. Received: \(String(describing: patient))")
@@ -94,15 +87,15 @@ class EEGRecordingSession {
 
         let visualizedSignals = signals.map { signal in
             let sampleRate = signal.sampleCount / fileInformation.recordDuration
-            let downsampling = DownsampleConfiguration(targetSampleRate: Self.uiTargetSampleRate, sourceSampleRate: sampleRate)
-            return VisualizedSignal(label: signal.label, sourceSampleRate: sampleRate, downsampling: downsampling)
+            let batching: BatchingConfiguration? = .downsample(targetSampleRate: Self.uiTargetSampleRate, sourceSampleRate: sampleRate)
+            return VisualizedSignal(label: signal.label, sourceSampleRate: sampleRate, batching: batching)
         }
 
         self.bufferedChannels = .init(repeating: BufferedChannel(), count: signals.count)
         self.uiBufferedChannels = .init(repeating: BufferedChannel(), count: signals.count)
 
         self._startDate = startDate
-        self._measurements = visualizedSignals
+        self.measurements = visualizedSignals
 
         logger.debug(
             """
@@ -125,8 +118,93 @@ class EEGRecordingSession {
         }
     }
 
+    @MainActor
+    func saveRecording(standard: NAMSStandard, connectedDevice: ConnectedDevice?) async {
+        // TODO: should we verify that we are in a given state?
+        recordingState = .saving
+
+        await _saveRecording(standard: standard, connectedDevice: connectedDevice)
+    }
+
+    @MainActor
+    func retryFileUpload(standard: NAMSStandard) async {
+        guard case .fileUploadFailed = recordingState else {
+            return // TODO: anything else we can try?
+        }
+        // TODO guard fileUploadFailed state
+
+        recordingState = await tryFileUpload(to: standard)
+    }
+
+    @MainActor
+    func cancelRecording() async { // TODO: make this non-throwing?
+        do {
+            try await closeWriter()
+        } catch {
+            logger.error("Failed to close file writer of recording session: \(error)")
+        }
+
+        do {
+            // TODO: upload to firebase?
+            try await EEGRecordings.removeTempRecordingFile(id: id)
+        } catch {
+            logger.error("Failed to remove temporary file storage: \(error)")
+        }
+    }
+
     @EEGProcessing
-    func close() throws {
+    private func _saveRecording(standard: NAMSStandard, connectedDevice: ConnectedDevice?) async {
+        do {
+            try closeWriter() // TODO: make closeWriter always non-throwing?
+        } catch {
+            logger.error("Failed to close file writer of recording session: \(error)")
+        }
+
+        async let stopRecordingTask: Void? = connectedDevice?.stopRecording()
+
+        let resultingState = await tryFileUpload(to: standard)
+
+        do {
+            try await stopRecordingTask
+        } catch {
+            logger.error("Failed to stop sample collection on bluetooth device: \(error)")
+        }
+
+        await MainActor.run {
+            recordingState = resultingState
+        }
+    }
+
+    @EEGProcessing
+    private func tryFileUpload(to standard: NAMSStandard) async -> RecordingState {
+        // TODO: rename function!
+        let resultingState: RecordingState
+
+        if let url = EEGRecordings.tempRecordingFileURL(id: id) {
+            do {
+                try await standard.uploadEEGRecording(file: url, recordingId: id, patientId: patientId, format: .bdf)
+                resultingState = .completed
+            } catch {
+                logger.error("Failed to upload eeg recording: \(error)")
+                // TODO: default error?
+                resultingState = .fileUploadFailed(AnyLocalizedError(error: error))
+            }
+
+            // file will be removed at a later point in time, cancelRecording is always called // TODO: should we do it like that?
+        } else {
+            // this is an erroneous state we can't recover from. File just doesn't exist for some reason.
+            // TODO: replace error with something that explain issue!
+            resultingState = .unrecoverableError(AnyLocalizedError(error: CancellationError()))
+        }
+
+        return resultingState
+    }
+
+    @EEGProcessing
+    private func closeWriter() throws {
+        guard shouldAcceptSamples else {
+            return // already closed? // TODO: other way to check file handle is closed?
+        }
         shouldAcceptSamples = false
 
         // We just ignore the buffered samples for now.
@@ -171,8 +249,8 @@ class EEGRecordingSession {
     @EEGProcessing
     private func processSamplesForUI(_ sample: CombinedEEGSample) async {
         precondition(
-            sample.channels.count == _measurements.count,
-            "Buffer of visualized samples of size \(_measurements.count) doesn't match expected signal count of \(sample.channels.count)"
+            sample.channels.count == measurements.count,
+            "Buffer of visualized samples of size \(measurements.count) doesn't match expected signal count of \(sample.channels.count)"
         )
         precondition(
             sample.channels.count == uiBufferedChannels.count,
@@ -182,28 +260,37 @@ class EEGRecordingSession {
         // collect all samples that should be posted
         var samples: [(index: Int, sample: BDFSample)] = []
 
-        for (index, signal) in zip(_measurements.indices, _measurements) {
+        for (index, signal) in zip(measurements.indices, measurements) {
             let sample = sample.channels[index]
 
-            guard let downsampling = signal.downsampling else {
-                samples.append((index, sample)) // just forward if there is no downsampling
+            guard let batching = signal.batching else {
+                samples.append((index, sample)) // just forward if there is no batching enabled
                 continue
             }
 
-            // buffer incoming sample for downsampling
+            // buffer incoming sample for batching
             uiBufferedChannels[index].append(sample)
 
-            guard uiBufferedChannels[index].hasBuffered(count: downsampling.samplesToCombine) else {
+            guard uiBufferedChannels[index].hasBuffered(count: batching.samplesToCombine) else {
                 continue // not enough samples in the buffer yet
             }
 
-            let downsamplingCandidates = uiBufferedChannels[index].pop(count: downsampling.samplesToCombine)
-            let totalValue: Int32 = downsamplingCandidates.samples.reduce(into: 0) { partialResult, sample in
-                partialResult += sample.value
-            }
+            let batchingCandidates = uiBufferedChannels[index].pop(count: batching.samplesToCombine)
 
-            let downsamplesSample = BDFSample(totalValue / Int32(downsamplingCandidates.samples.count))
-            samples.append((index, downsamplesSample))
+            switch batching.action {
+            case .none:
+                // batching with no action just dispatches multiple samples within one UI update
+                samples.append(contentsOf: batchingCandidates.samples.map { (index, $0) })
+            case .downsample:
+                // downsampling uses a simple averaging approach ...
+                let totalValue: Int32 = batchingCandidates.samples.reduce(into: 0) { partialResult, sample in
+                    partialResult += sample.value
+                }
+
+                // ... resulting in a single sample.
+                let downsamplesSample = BDFSample(totalValue / Int32(batchingCandidates.samples.count))
+                samples.append((index, downsamplesSample))
+            }
         }
 
         guard !samples.isEmpty else {
@@ -213,7 +300,7 @@ class EEGRecordingSession {
         let finalSamples = samples
         await MainActor.run {
             for (index, sample) in finalSamples {
-                _measurements[index].samples.append(sample)
+                measurements[index].samples.append(sample)
             }
         }
     }
@@ -241,20 +328,21 @@ class EEGRecordingSession {
 
         /// Create and store a new data record.
         let record = DataRecord(channels: channels)
-        let fileWriter = fileWriter
 
-        await addRecord(to: fileWriter, record: record)
+        await addRecord(record: record)
     }
 
     @EEGFileStorage
-    private func addRecord(to writer: BDFFileWriter, record: DataRecord<BDFSample>) async {
+    private func addRecord(record: DataRecord<BDFSample>) async {
         do {
+            // addRecord should only be called on the dedicated @EEGFileStorage actor to keep the @EEGProcessing actor free.
             try fileWriter.addRecord(record)
         } catch {
             logger.error("Failed to add recording to file writer: \(error)")
             await MainActor.run {
                 // TODO: how to handle that? just cancel the recording?
-                viewState = .error(AnyLocalizedError(
+                // TODO: would need to disconnect from device! (or just rely on being done eventually through onDisappear?)
+                recordingState = .unrecoverableError(AnyLocalizedError(
                     error: error,
                     defaultErrorDescription: "Failed to save eeg measurements."
                 ))

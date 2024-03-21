@@ -6,18 +6,37 @@
 // SPDX-License-Identifier: MIT
 //
 
+enum BatchingAction {
+    case none
+    case downsample
+}
 
-struct DownsampleConfiguration { // TODO: move
+
+/// Collect samples into batches for reduced ui updates.
+///
+/// For the live visualization, samples are collected into batches before they are sent to the main actor for display.
+struct BatchingConfiguration {
+    /// The amount of samples to combine into a
     let samplesToCombine: Int
-    let resultingSampleRate: Double
+    let batchingFrequency: Double
+    let action: BatchingAction
 
 
-    init(samplesToCombine: Int, resultingSampleRate: Double) {
+    private init(samplesToCombine: Int, batchingFrequency: Double, action: BatchingAction) {
         self.samplesToCombine = samplesToCombine
-        self.resultingSampleRate = resultingSampleRate
+        self.batchingFrequency = batchingFrequency
+        self.action = action
+    }
+}
+
+
+extension BatchingConfiguration {
+    @inlinable
+    static func batch(samplesToCombine: Int, batchingFrequency: Double) -> BatchingConfiguration {
+        BatchingConfiguration(samplesToCombine: samplesToCombine, batchingFrequency: batchingFrequency, action: .none)
     }
 
-    init?(targetSampleRate: Int, sourceSampleRate: Int) {
+    static func downsample(targetSampleRate: Int, sourceSampleRate: Int) -> BatchingConfiguration? {
         // target sample rate must be lower, otherwise, we don't do any downsampling
         guard targetSampleRate < sourceSampleRate else {
             return nil
@@ -25,12 +44,13 @@ struct DownsampleConfiguration { // TODO: move
 
         let samplesToCombine = sourceSampleRate / targetSampleRate
         let resultingSampleRate: Double
-        if sourceSampleRate % targetSampleRate == 0 {
+        if sourceSampleRate.isMultiple(of: targetSampleRate) {
             resultingSampleRate = Double(targetSampleRate)
         } else {
+            // otherwise, we want to have the `samplesToCombine` to be a whole number and adjust the `resultingSampleRate` to be double
             resultingSampleRate = Double(sourceSampleRate) / Double(samplesToCombine)
         }
 
-        self.init(samplesToCombine: samplesToCombine, resultingSampleRate: resultingSampleRate)
+        return BatchingConfiguration(samplesToCombine: samplesToCombine, batchingFrequency: resultingSampleRate, action: .downsample)
     }
 }

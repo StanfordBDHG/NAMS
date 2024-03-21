@@ -18,13 +18,17 @@ class VisualizedSignal {
     let sourceSampleRate: Int
     /// The offset at which `samples` are stored.
     let sampleOffset: Int
-    /// Optional software-based downsampling configuration.
-    let downsampling: DownsampleConfiguration?
+    /// Optional batching of samples for improved ui performance.
+    let batching: BatchingConfiguration?
 
     @MainActor var samples: [BDFSample]
 
     var effectiveSampleRate: Double {
-        downsampling?.resultingSampleRate ?? Double(sourceSampleRate)
+        if let batching, case .downsample = batching.action {
+            batching.batchingFrequency // batching frequency corresponds to the resulting sample frequency
+        } else {
+            Double(sourceSampleRate)
+        }
     }
 
     @MainActor var timedSamples: [TimedSample<BDFSample>] {
@@ -39,10 +43,10 @@ class VisualizedSignal {
     }
 
     
-    init(label: SignalLabel, sourceSampleRate: Int, downsampling: DownsampleConfiguration?, sampleOffset: Int = 0, samples: [BDFSample] = []) {
+    init(label: SignalLabel, sourceSampleRate: Int, batching: BatchingConfiguration?, sampleOffset: Int = 0, samples: [BDFSample] = []) {
         self.label = label
         self.sourceSampleRate = sourceSampleRate
-        self.downsampling = downsampling
+        self.batching = batching
         self.sampleOffset = sampleOffset
         self._samples = samples
     }
@@ -53,7 +57,7 @@ class VisualizedSignal {
 
         self.label = signal.label
         self.sourceSampleRate = signal.sourceSampleRate
-        self.downsampling = signal.downsampling
+        self.batching = signal.batching
         self.sampleOffset = signal.sampleOffset + max(0, signal.samples.count - suffixCount)
 
         self.samples = signal.samples.suffix(suffixCount)
@@ -69,6 +73,6 @@ class VisualizedSignal {
 
 extension VisualizedSignal: CustomStringConvertible {
     var description: String {
-        "VisualizedSignal(label: \(label), sourceSampleRate: \(sourceSampleRate), sampleOffset: \(sampleOffset), downsampling: \(String(describing: downsampling))"
+        "VisualizedSignal(label: \(label), sourceSampleRate: \(sourceSampleRate), sampleOffset: \(sampleOffset), batching: \(String(describing: batching))"
     }
 }

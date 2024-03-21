@@ -261,7 +261,13 @@ class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
 
         do {
             try await patientsCollection.document(patientId).setData(
-                from: Patient(name: .init(givenName: "Example", familyName: "Patient")),
+                from: Patient(
+                    name: .init(givenName: "Example", familyName: "Patient"),
+                    code: "EP28143",
+                    sex: .male,
+                    birthdate: Calendar.current.date(from: .init(year: 2023, month: 3, day: 20)),
+                    note: "This is an example patient record with some additional notes."
+                ),
                 merge: true
             )
 
