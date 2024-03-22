@@ -312,6 +312,8 @@
 		A9D4B8ED2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
 		A9D6BA822BACCB78002863DA /* RecordingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA812BACCB78002863DA /* RecordingState.swift */; };
 		A9D6BA832BACCB78002863DA /* RecordingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA812BACCB78002863DA /* RecordingState.swift */; };
+		A9D6BA852BACE051002863DA /* RecordingStateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA842BACE051002863DA /* RecordingStateHeader.swift */; };
+		A9D6BA862BACE051002863DA /* RecordingStateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA842BACE051002863DA /* RecordingStateHeader.swift */; };
 		A9D83F922B081A47000D0C78 /* BiopotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D83F912B081A47000D0C78 /* BiopotTests.swift */; };
 		A9DF79DA2AE8986B00AB5983 /* SelectedPatientCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */; };
 		A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98911312A36689D00E66E3A /* Patient.swift */; };
@@ -495,6 +497,7 @@
 		A9D4B8E82B6863D60054E27C /* FitLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitLabel.swift; sourceTree = "<group>"; };
 		A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTileHeader.swift; sourceTree = "<group>"; };
 		A9D6BA812BACCB78002863DA /* RecordingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingState.swift; sourceTree = "<group>"; };
+		A9D6BA842BACE051002863DA /* RecordingStateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStateHeader.swift; sourceTree = "<group>"; };
 		A9D83F912B081A47000D0C78 /* BiopotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTile.swift; sourceTree = "<group>"; };
@@ -1007,6 +1010,7 @@
 				A943DC3F2BA37F7600039060 /* EEGRecordingSessionView.swift */,
 				A926D80F2AB7B430000C4C2F /* EEGRecordingView.swift */,
 				A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */,
+				A9D6BA842BACE051002863DA /* RecordingStateHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1352,6 +1356,7 @@
 				2FC975A82978F11A00BA99FE /* Home.swift in Sources */,
 				A94A42B22AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
 				A943DC212BA0E93500039060 /* EEGProcessing.swift in Sources */,
+				A9D6BA852BACE051002863DA /* RecordingStateHeader.swift in Sources */,
 				A9D4B8D72B685D800054E27C /* MuseBatteryDetailsSection.swift in Sources */,
 				A97E4F232B1EA21800E25505 /* EEGLocation+Biopot.swift in Sources */,
 				A9D4B8D62B685D800054E27C /* MuseHeadbandFitSection.swift in Sources */,
@@ -1511,6 +1516,7 @@
 				A926D78C2AB7A552000C4C2F /* Home.swift in Sources */,
 				A94A42B32AE9EBE300A3F9E5 /* AccountButton.swift in Sources */,
 				A943DC222BA0E93500039060 /* EEGProcessing.swift in Sources */,
+				A9D6BA862BACE051002863DA /* RecordingStateHeader.swift in Sources */,
 				A9D4B8E42B685DFA0054E27C /* MuseBatteryProblemsHint.swift in Sources */,
 				A97E4F242B1EA21800E25505 /* EEGLocation+Biopot.swift in Sources */,
 				A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */,

@@ -10,4 +10,9 @@
 @globalActor
 actor EEGProcessing {
     static let shared = EEGProcessing()
+
+    @EEGProcessing
+    static func run(body: @EEGProcessing () -> Void) { // TODO: verify against MainActor.run
+        body()
+    }
 }

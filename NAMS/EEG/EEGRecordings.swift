@@ -68,6 +68,14 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
     @MainActor
+    func startRecordingCountdown() async {
+        guard let recordingSession else {
+            return
+        }
+        await recordingSession.startRecordingCountdown()
+    }
+
+    @MainActor
     func saveRecording() async { // TODO: actually call this based on timer change and recordingState change!
         // TOOD: actor isolation and everything?
         guard let recordingSession else {

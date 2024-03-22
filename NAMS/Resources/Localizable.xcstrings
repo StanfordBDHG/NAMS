@@ -236,6 +236,9 @@
         }
       }
     },
+    "Cancel Recording" : {
+
+    },
     "Cap" : {
 
     },
@@ -332,6 +335,9 @@
         }
       }
     },
+    "Continue Recording" : {
+
+    },
     "Custom" : {
 
     },
@@ -395,6 +401,9 @@
       }
     },
     "Display Interval" : {
+
+    },
+    "Do you want to cancel the ongoing recording?" : {
 
     },
     "Done" : {
@@ -1022,7 +1031,7 @@
     "Recording Finished" : {
 
     },
-    "Remaining: " : {
+    "Remaining: %@" : {
 
     },
     "required" : {

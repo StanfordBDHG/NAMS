@@ -35,6 +35,7 @@ struct EEGRecordingView: View {
                     .navigationTitle("Recording")
                     .navigationBarTitleDisplayMode(.inline)
             } else if let session = eegModel.recordingSession {
+                // TODO: add countdown view! (maybe with + start button?)
                 EEGRecordingSessionView(session: session)
             } else {
                 StartRecordingView()

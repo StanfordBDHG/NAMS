@@ -39,14 +39,15 @@ class EEGRecordingSession {
     let measurements: [VisualizedSignal]
 
     private let fileWriter: BDFFileWriter
-    @EEGProcessing private var shouldAcceptSamples = true
 
     @EEGProcessing private var bufferedChannels: [BufferedChannel<BDFSample>]
     @EEGProcessing private var uiBufferedChannels: [BufferedChannel<BDFSample>]
+    /// Mirrors the recording state, but is synched to a different thread.
+    @EEGProcessing private var shouldAcceptSamples = false
 
 
     // TODO: set!
-    @MainActor var recordingState: RecordingState = .inProgress
+    @MainActor var recordingState: RecordingState = .preparing
 
     @EEGProcessing
     init(id: UUID, url: URL, patient: Patient, device: ConnectedDevice, investigatorCode: String?) throws {
@@ -115,6 +116,16 @@ class EEGRecordingSession {
     func livePreview(interval: TimeInterval) -> [VisualizedSignal] {
         measurements.map {
             VisualizedSignal(copy: $0, suffix: interval)
+        }
+    }
+
+    @MainActor
+    func startRecordingCountdown() async {
+        // TODO: toggle (should collect samples") => requires start date modification?
+        recordingState = .inProgress
+
+        await EEGProcessing.run {
+            shouldAcceptSamples = true
         }
     }
 
@@ -202,9 +213,6 @@ class EEGRecordingSession {
 
     @EEGProcessing
     private func closeWriter() throws {
-        guard shouldAcceptSamples else {
-            return // already closed? // TODO: other way to check file handle is closed?
-        }
         shouldAcceptSamples = false
 
         // We just ignore the buffered samples for now.

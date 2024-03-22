@@ -11,6 +11,7 @@ import SpeziViews
 
 
 enum RecordingState {
+    case preparing
     case inProgress
     case saving
     case fileUploadFailed(LocalizedError)
@@ -22,7 +23,7 @@ enum RecordingState {
 extension RecordingState: OperationState {
     var representation: ViewState {
         switch self {
-        case .inProgress, .completed:
+        case .preparing, .inProgress, .completed:
             .idle
         case .saving:
             .processing
@@ -31,4 +32,3 @@ extension RecordingState: OperationState {
         }
     }
 }
-

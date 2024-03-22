@@ -49,63 +49,11 @@ struct EEGRecordingSessionView: View {
      }
      */
 
-    // TODO: start button (+ countdown)
     var body: some View {
-        // TODO: swifltint?
-        ScrollView { // swiftlint:disable:this closure_body_length
-            VStack { // TODO: this could be its own header?
-                switch session.recordingState {
-                case .inProgress:
-                    Text("In Progress")
-                        .font(.title)
-                        .bold()
-                    (Text("Remaining: ") + Text(timerInterval: recordingTime))
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .bold()
-                case .saving, .completed:
-                    Text("Recording Finished")
-                        .font(.title)
-                        .bold()
-                    Group {
-                        if case .saving = session.recordingState {
-                            Text("Saving ...")
-                        } else {
-                            Text("Completed") // TODO: hit done button or something?
-                        }
-                    }
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .bold()
-                case let .fileUploadFailed(error): // TODO: display error?
-                    Text("Upload Failed")
-                        .font(.title)
-                        .bold()
-                    // TODO: error message below?
-
-                    Button("Try again") {
-                        // TODO:
-                    }
-                case let .unrecoverableError(error):
-                    Text("Recording Failed")
-                        .font(.title)
-                        .bold()
-
-                    // TODO: some subtitle?
-                    // TODO: this should pop open a view alert!
-                }
-                // TODO: show context information (e.g., the current headband for a Muse device?)
-            }
-                .multilineTextAlignment(.center)
-                .padding(.bottom)
-                .toolbar {
-                    if case .processing = session.recordingState.representation {
-                        // TODO: technically we could just add the progress state from firebase here?
-                        ToolbarItem(placement: .primaryAction) {
-                            ProgressView() // TODO: only if actually saving?
-                        }
-                    }
-                }
+        @Bindable var session = session
+        ScrollView {
+            RecordingStateHeader(recordingState: $session.recordingState, recordingTime: recordingTime)
+            // TODO: show context information (e.g., the current headband for a Muse device?)
 
             ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
                 EEGChart(signal: measurement, displayedInterval: displayInterval, valueInterval: valueInterval)
