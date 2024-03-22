@@ -48,7 +48,9 @@ struct CurrentPatientLabel: View {
 #Preview {
     Button(action: {}) {
         CurrentPatientLabel()
-            .environment(PatientListModel())
+            .previewWith {
+                PatientListModel()
+            }
     }
 }
 #endif

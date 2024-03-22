@@ -17,7 +17,7 @@ struct BiopotDeviceRow: View {
     @Environment(DeviceCoordinator.self)
     private var deviceCoordinator
 
-    @State private var presentingActiveDevice: BiopotDevice?
+    @Binding private var path: NavigationPath
 
 
     var body: some View {
@@ -26,19 +26,13 @@ struct BiopotDeviceRow: View {
                 await deviceCoordinator.tapDevice(.biopot(device))
             }
         } secondaryAction: {
-            presentingActiveDevice = device
+            path.append(ConnectedDevice.biopot(device))
         }
-            .navigationDestination(item: $presentingActiveDevice) { device in
-                BiopotDeviceDetailsView(device: device) {
-                    Task {
-                        await device.disconnect()
-                    }
-                }
-            }
     }
 
-    init(device: BiopotDevice) {
+    init(device: BiopotDevice, path: Binding<NavigationPath>) {
         self.device = device
+        self._path = path
     }
 }
 
@@ -46,11 +40,14 @@ struct BiopotDeviceRow: View {
 #if DEBUG
 #Preview {
     let biopot = BiopotDevice.createMock(state: .connected)
-    return NavigationStack {
+    return NavigationStackWithPath { path in
         List {
-            BiopotDeviceRow(device: biopot)
-            BiopotDeviceRow(device: BiopotDevice.createMock(serial: "0xDDEEFFGG"))
+            BiopotDeviceRow(device: biopot, path: path)
+            BiopotDeviceRow(device: BiopotDevice.createMock(serial: "0xDDEEFFGG"), path: path)
         }
+            .navigationDestination(for: ConnectedDevice.self) { device in
+                ConnectedDeviceDestination(device: device)
+            }
     }
         .environment(DeviceCoordinator(mock: .biopot(biopot)))
 }

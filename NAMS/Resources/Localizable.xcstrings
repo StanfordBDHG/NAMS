@@ -74,6 +74,7 @@
       }
     },
     "Add Notes" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -82,6 +83,9 @@
           }
         }
       }
+    },
+    "add notes ..." : {
+
     },
     "Add Patient" : {
       "comment" : "Add Patient Title",
@@ -115,6 +119,7 @@
       }
     },
     "All" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -125,6 +130,7 @@
       }
     },
     "Alpha" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -133,6 +139,9 @@
           }
         }
       }
+    },
+    "An hospital administered patient identifier." : {
+
     },
     "Are you sure you want to delete this patient?" : {
       "localizations" : {
@@ -154,6 +163,9 @@
         }
       }
     },
+    "Assignment" : {
+
+    },
     "Auto Connect" : {
 
     },
@@ -171,6 +183,7 @@
       }
     },
     "Beta" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -179,6 +192,9 @@
           }
         }
       }
+    },
+    "Birthdate" : {
+
     },
     "Brain Activity" : {
       "localizations" : {
@@ -220,6 +236,15 @@
         }
       }
     },
+    "Cancel Recording" : {
+
+    },
+    "Cap" : {
+
+    },
+    "Change the value ranges of the X and Y axis." : {
+
+    },
     "Channel" : {
       "localizations" : {
         "en" : {
@@ -230,6 +255,9 @@
         }
       }
     },
+    "Channel %lld" : {
+
+    },
     "Channels" : {
       "localizations" : {
         "en" : {
@@ -239,6 +267,9 @@
           }
         }
       }
+    },
+    "Chart Layout" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -271,6 +302,9 @@
         }
       }
     },
+    "Configure the electrode locations for each channel of the Biopot." : {
+
+    },
     "CONTACTS_NAVIGATION_TITLE" : {
       "localizations" : {
         "en" : {
@@ -301,6 +335,12 @@
         }
       }
     },
+    "Continue Recording" : {
+
+    },
+    "Custom" : {
+
+    },
     "Delete" : {
       "localizations" : {
         "en" : {
@@ -320,6 +360,15 @@
           }
         }
       }
+    },
+    "Details" : {
+
+    },
+    "Developer" : {
+
+    },
+    "Device Not Ready" : {
+
     },
     "Devices" : {
       "localizations" : {
@@ -351,6 +400,12 @@
         }
       }
     },
+    "Display Interval" : {
+
+    },
+    "Do you want to cancel the ongoing recording?" : {
+
+    },
     "Done" : {
       "localizations" : {
         "en" : {
@@ -360,6 +415,9 @@
           }
         }
       }
+    },
+    "Edit Chart Layout" : {
+
     },
     "EEG Recording" : {
       "localizations" : {
@@ -380,6 +438,12 @@
           }
         }
       }
+    },
+    "EEG recording could not be started as no patient was selected." : {
+
+    },
+    "Electrode Locations" : {
+
     },
     "enter first name" : {
       "localizations" : {
@@ -423,6 +487,9 @@
         }
       }
     },
+    "Female" : {
+
+    },
     "FINISHED_SETUP_TEXT" : {
       "localizations" : {
         "en" : {
@@ -465,6 +532,7 @@
       }
     },
     "FREQUENCY" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -475,6 +543,7 @@
       }
     },
     "Gamma" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -531,6 +600,9 @@
     "In Background" : {
 
     },
+    "In Progress" : {
+
+    },
     "INTERVENTION_MUSE_FIRMWARE" : {
       "localizations" : {
         "en" : {
@@ -570,6 +642,9 @@
           }
         }
       }
+    },
+    "Investigator Code" : {
+
     },
     "Keep Editing" : {
       "localizations" : {
@@ -622,7 +697,11 @@
         }
       }
     },
+    "Male" : {
+
+    },
     "Mark completed" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -683,6 +762,9 @@
         }
       }
     },
+    "Neurodevelopmental Assessment and Monitoring System" : {
+
+    },
     "No" : {
       "localizations" : {
         "en" : {
@@ -694,6 +776,7 @@
       }
     },
     "No connected device" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -702,6 +785,9 @@
           }
         }
       }
+    },
+    "No Connected Device" : {
+
     },
     "No Device" : {
       "localizations" : {
@@ -734,6 +820,9 @@
         }
       }
     },
+    "No Patient Selected" : {
+
+    },
     "No Patients" : {
       "localizations" : {
         "en" : {
@@ -743,6 +832,9 @@
           }
         }
       }
+    },
+    "Not Disclosed" : {
+
     },
     "Notes" : {
       "localizations" : {
@@ -790,6 +882,9 @@
     "On" : {
 
     },
+    "Other" : {
+
+    },
     "Overall" : {
       "localizations" : {
         "en" : {
@@ -799,6 +894,12 @@
           }
         }
       }
+    },
+    "Paper" : {
+
+    },
+    "Patient Code" : {
+
     },
     "Patient Details" : {
       "localizations" : {
@@ -924,6 +1025,21 @@
         }
       }
     },
+    "Recording Failed" : {
+
+    },
+    "Recording Finished" : {
+
+    },
+    "Remaining: %@" : {
+
+    },
+    "required" : {
+
+    },
+    "Saving ..." : {
+
+    },
     "Schedule" : {
       "comment" : "Schedule Title",
       "localizations" : {
@@ -1030,6 +1146,12 @@
         }
       }
     },
+    "Sex" : {
+
+    },
+    "Show Mock Devices" : {
+
+    },
     "Start" : {
       "localizations" : {
         "en" : {
@@ -1094,6 +1216,9 @@
     "takes %@ min" : {
 
     },
+    "The investigator code cannot be longer than 30 characters." : {
+
+    },
     "The Modified Checklist for Autism in Toddlers, Revised with Follow-Up." : {
       "localizations" : {
         "en" : {
@@ -1103,6 +1228,12 @@
           }
         }
       }
+    },
+    "The patient code cannot be longer than 64 characters." : {
+
+    },
+    "There was an unexpected error when preparing the connected device for the recording." : {
+
     },
     "There was no selected patient found!" : {
       "comment" : "Failure Reason",
@@ -1116,6 +1247,7 @@
       }
     },
     "Theta" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1158,6 +1290,15 @@
         }
       }
     },
+    "Try again" : {
+
+    },
+    "Unexpected Error" : {
+
+    },
+    "Unexpected error occurred while trying to start the recording. Please try again!" : {
+
+    },
     "Unexpected format of the questionnaire response!" : {
       "comment" : "Failure Reason",
       "localizations" : {
@@ -1170,6 +1311,12 @@
       }
     },
     "Unknown Device" : {
+
+    },
+    "Upload Failed" : {
+
+    },
+    "Value Interval" : {
 
     },
     "WEARING" : {
@@ -1187,7 +1334,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The NAMS App helps you to manage multiple patients at once."
+            "value" : "The NeuroNest App helps you to manage multiple patients at once."
           }
         }
       }
@@ -1207,7 +1354,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NAMS provides you with several questionnaires to assess conditions of your patients."
+            "value" : "NeuroNest provides you with several questionnaires to assess conditions of your patients."
           }
         }
       }
@@ -1227,7 +1374,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NAMS offers integration with consumer-grade EEG headbands for easy and scalable EEG measurements."
+            "value" : "NeuroNest offers integration with consumer-grade EEG headbands for easy and scalable EEG measurements."
           }
         }
       }
@@ -1247,7 +1394,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Neurodevelopment Assessment and Monitoring System (NAMS)"
+            "value" : "NeuroNest"
           }
         }
       }
@@ -1272,6 +1419,9 @@
           }
         }
       }
+    },
+    "You can select a predefined electrode assignment or provide a custom one." : {
+
     },
     "You may login below." : {
       "comment" : "Account Setup Header Description",
@@ -1300,7 +1450,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Neurodevelopment Assessment and Monitoring System (NAMS) uses your account to connect and manage patient data."
+            "value" : "NeuroNest uses your account to connect and manage patient data."
           }
         }
       }

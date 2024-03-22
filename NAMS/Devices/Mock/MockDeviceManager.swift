@@ -12,7 +12,7 @@ import SpeziBluetooth
 
 @Observable
 class MockDeviceManager {
-    @MainActor static let defaultNearbyDevices: [MockDevice] = [
+    static let defaultNearbyDevices: [MockDevice] = [
         MockDevice(name: "Mock Device 1"),
         MockDevice(name: "Mock Device 2")
     ]

@@ -7,6 +7,7 @@
 //
 
 import FirebaseFirestoreSwift
+import Foundation
 #if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire
 #endif
@@ -18,7 +19,7 @@ enum TaskContent {
     #else
     case questionnaireResponse
     #endif
-    case eegRecording // currently empty
+    case eegRecording(recordingId: UUID)
 }
 
 
@@ -33,6 +34,7 @@ extension TaskContent: Codable {
     private enum CodingKeys: String, CodingKey {
         case type
         case questionnaireResponse
+        case uuid
         case eegRecording
     }
 
@@ -56,7 +58,8 @@ extension TaskContent: Codable {
             self = .questionnaireResponse
             #endif
         case Self.eegRecordingType:
-            self = .eegRecording
+            let uuid = try container.decode(UUID.self, forKey: .uuid)
+            self = .eegRecording(recordingId: uuid)
         default:
             throw TaskContentDecodingError.unknownType(type)
         }
@@ -71,7 +74,8 @@ extension TaskContent: Codable {
             try container.encode(Self.questionnaireResponseType, forKey: .type)
             try container.encode(response, forKey: .questionnaireResponse)
         #endif
-        case .eegRecording:
+        case let .eegRecording(uuid):
+            try container.encode(uuid, forKey: .uuid)
             try container.encode(Self.eegRecordingType, forKey: .type)
             // nothing to encode yet
         }

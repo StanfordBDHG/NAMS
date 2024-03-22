@@ -10,29 +10,34 @@ import Spezi
 import SpeziAccount
 import SpeziBluetooth
 import SpeziFirebaseAccount
+import SpeziFirebaseStorage
 import SpeziFirestore
 import SwiftUI
 
 
 class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
-        Configuration {
+        Configuration(standard: NAMSStandard()) {
             let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
 
             AccountConfiguration(configuration: [
                 .requires(\.userId),
-                .requires(\.name)
+                .requires(\.name),
+                .collects(\.investigatorCode)
             ])
+
+            Firestore(settings: firestoreSettings)
 
             if FeatureFlags.useFirebaseEmulator {
                 FirebaseAccountConfiguration(
                     authenticationMethods: methods,
                     emulatorSettings: (host: "localhost", port: 9099)
                 )
+                FirebaseStorageConfiguration(emulatorSettings: (host: "localhost", port: 9199))
             } else {
                 FirebaseAccountConfiguration(authenticationMethods: methods)
+                FirebaseStorageConfiguration()
             }
-            firestore
 
             DeviceCoordinator()
             EEGRecordings()
@@ -44,7 +49,7 @@ class NAMSAppDelegate: SpeziAppDelegate {
     }
     
     
-    private var firestore: Firestore {
+    private var firestoreSettings: FirestoreSettings {
         let settings = FirestoreSettings()
         if FeatureFlags.useFirebaseEmulator {
             settings.host = "localhost:8080"
@@ -52,6 +57,6 @@ class NAMSAppDelegate: SpeziAppDelegate {
             settings.isSSLEnabled = false
         }
         
-        return Firestore(settings: settings)
+        return settings
     }
 }

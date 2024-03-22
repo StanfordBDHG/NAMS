@@ -20,7 +20,7 @@ struct SelectedPatientCard: View {
 
     var body: some View {
         NavigationLink {
-            PatientInformation(patient: patient)
+            PatientInformationView(patient: patient)
         } label: {
             HStack {
                 UserProfileView(name: patient.name)
@@ -57,6 +57,8 @@ struct SelectedPatientCard: View {
         }
             .listStyle(.inset)
     }
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif

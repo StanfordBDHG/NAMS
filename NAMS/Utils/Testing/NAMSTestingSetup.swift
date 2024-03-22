@@ -9,6 +9,25 @@
 import SwiftUI
 
 
+#if DEBUG
+struct NavigationStackWithPath<Content: View>: View {
+    private let content: (Binding<NavigationPath>) -> Content
+
+    @State private var path = NavigationPath()
+
+    var body: some View {
+        NavigationStack(path: $path) {
+            content($path)
+        }
+    }
+
+    init(@ViewBuilder _ content: @escaping (Binding<NavigationPath>) -> Content) {
+        self.content = content
+    }
+}
+#endif
+
+
 private struct NAMSTestingSetup: ViewModifier {
     @AppStorage(StorageKeys.onboardingFlowComplete)
     var completedOnboardingFlow = false

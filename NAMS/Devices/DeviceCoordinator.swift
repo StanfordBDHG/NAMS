@@ -20,6 +20,8 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
     @AppStorage(StorageKeys.autoConnectOption)
     @ObservationIgnored private var _autoConnectOption: AutoConnectConfiguration = .off
+    @AppStorage(StorageKeys.enableMockDevice)
+    @ObservationIgnored private var _enableMockDevice = false
 
     var isConnected: Bool {
         connectedDevice != nil
@@ -33,6 +35,23 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
         set {
             withMutation(keyPath: \.autoConnectOption) {
                 _autoConnectOption = newValue
+            }
+        }
+    }
+
+    var enableMockDevice: Bool {
+        get {
+            access(keyPath: \.enableMockDevice)
+#if TEST
+            // always enabled in TEST builds
+            return true
+#else
+            return _enableMockDevice
+#endif
+        }
+        set {
+            withMutation(keyPath: \.autoConnectOption) {
+                _enableMockDevice = newValue
             }
         }
     }

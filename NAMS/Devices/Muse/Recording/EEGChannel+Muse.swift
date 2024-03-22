@@ -6,9 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
+
 
 #if MUSE
-extension EEGChannel {
+extension EEGLocation {
     var ixnEEG: IXNEeg {
         switch self {
         case .tp9:

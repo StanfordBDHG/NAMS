@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
+import ByteCoding
 import Foundation
 import NIOCore
-import SpeziBluetooth
 
 
 struct DeviceInformation {
@@ -23,14 +23,15 @@ struct DeviceInformation {
 
 
 extension DeviceInformation: ByteDecodable, Equatable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard let syncRatio = byteBuffer.readInteger(endianness: .big, as: UInt64.self),
-              let syncMode = Bool(from: &byteBuffer),
-              let memoryWriteNumber = byteBuffer.readInteger(endianness: .big, as: UInt16.self),
-              let memoryEraseMode = Bool(from: &byteBuffer),
-              let batteryLevel = UInt8(from: &byteBuffer),
-              let temperatureValue = UInt8(from: &byteBuffer),
-              let batteryCharging = Bool(from: &byteBuffer) else {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        let endianness: Endianness = .big
+        guard let syncRatio = UInt64(from: &byteBuffer, preferredEndianness: endianness),
+              let syncMode = Bool(from: &byteBuffer, preferredEndianness: endianness),
+              let memoryWriteNumber = UInt16(from: &byteBuffer, preferredEndianness: endianness),
+              let memoryEraseMode = Bool(from: &byteBuffer, preferredEndianness: endianness),
+              let batteryLevel = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let temperatureValue = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let batteryCharging = Bool(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
 

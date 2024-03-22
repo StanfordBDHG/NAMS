@@ -23,4 +23,10 @@ enum StorageKeys {
 
     // MARK: - Nearby Devices
     static let autoConnectOption = "bluetooth.auto-connect.option"
+
+    static let enableMockDevice = "nams.enable-mock-device"
+
+    // MARK: - Charts
+    static let displayInterval = "nams.eeg.time-interval"
+    static let valueInterval = "nams.eeg.value-interval"
 }

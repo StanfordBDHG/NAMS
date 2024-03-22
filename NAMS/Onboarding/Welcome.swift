@@ -17,7 +17,7 @@ struct Welcome: View {
     var body: some View {
         OnboardingView(
             title: "WELCOME_TITLE",
-            subtitle: nil,
+            subtitle: "Neurodevelopmental Assessment and Monitoring System",
             areas: [
                 .init(
                     icon: Image(systemName: "person.2.fill"), // swiftlint:disable:this accessibility_label_for_image

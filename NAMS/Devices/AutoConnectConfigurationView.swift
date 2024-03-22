@@ -24,7 +24,7 @@ struct AutoConnectConfigurationView: View {
                 } label: {
                     EmptyView()
                 }
-                .pickerStyle(.inline)
+                    .pickerStyle(.inline)
             } footer: {
                 Text("Automatically connect to nearby SensoMedical BIOPOT3 devices.")
                     + Text(verbatim: "\n")

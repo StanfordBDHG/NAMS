@@ -43,11 +43,24 @@ extension IXNNotchFrequency: CustomStringConvertible {
         case .notchNone:
             return "none"
         case .notch50hz:
-            return "50hz"
+            return "50Hz"
         case .notch60hz:
-            return "60hz"
+            return "60Hz"
         @unknown default:
             return "UNKNOWN"
+        }
+    }
+
+    var frequencyString: String? {
+        switch self {
+        case .notch50hz:
+            "50Hz"
+        case .notch60hz:
+            "60Hz"
+        case .notchNone:
+            nil
+        @unknown default:
+            nil
         }
     }
 }

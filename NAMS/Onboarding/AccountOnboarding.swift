@@ -56,6 +56,7 @@ struct AccountOnboarding: View {
 }
 #Preview {
     let details = AccountDetails.Builder()
+        .set(\.accountId, value: UUID().uuidString)
         .set(\.userId, value: "lelandstanford@stanford.edu")
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 

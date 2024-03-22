@@ -6,8 +6,17 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
 
-extension EEGChannel {
+
+extension EEGLocation {
+    // non-standard Biopot positions
+    static let lme: EEGLocation = .custom("LME")
+    static let mm: EEGLocation = .custom("MM") // swiftlint:disable:this identifier_name
+}
+
+
+extension EEGLocation {
     init?(biopotNum value: Int) {
         switch value {
         case 1:

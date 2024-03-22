@@ -60,7 +60,9 @@ struct ScreeningTile: View {
 #Preview {
     List {
         ScreeningTile(task: .mChatRF, presentingItem: .constant(nil))
-            .environment(PatientListModel())
+            .previewWith {
+                PatientListModel()
+            }
     }
 }
 

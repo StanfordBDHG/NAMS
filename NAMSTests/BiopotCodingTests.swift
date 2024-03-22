@@ -10,7 +10,7 @@
 import NIOCore
 @_spi(TestingSupport)
 import SpeziBluetooth
-import XCTBluetooth
+import XCTByteCoding
 import XCTest
 
 
@@ -80,7 +80,7 @@ class BiopotCodingTests: XCTestCase {
         var buffer = ByteBuffer(data: data)
 
         let control = try XCTUnwrap(DataControl(from: &buffer))
-        XCTAssertFalse(control.dataAcquisitionEnabled)
+        XCTAssertEqual(control, .paused)
 
         try testIdentity(of: DataControl.self, from: data)
     }
@@ -90,7 +90,17 @@ class BiopotCodingTests: XCTestCase {
         var buffer = ByteBuffer(data: data)
 
         let control = try XCTUnwrap(DataControl(from: &buffer))
-        XCTAssertTrue(control.dataAcquisitionEnabled)
+        XCTAssertEqual(control, .started)
+
+        try testIdentity(of: DataControl.self, from: data)
+    }
+
+    func testDataControlStopped() throws {
+        let data = try XCTUnwrap(Data(hex: "0x02"))
+        var buffer = ByteBuffer(data: data)
+
+        let control = try XCTUnwrap(DataControl(from: &buffer))
+        XCTAssertEqual(control, .stopped)
 
         try testIdentity(of: DataControl.self, from: data)
     }
@@ -156,7 +166,7 @@ class BiopotCodingTests: XCTestCase {
             Int32(bitPattern: 0xac3ab6 | 0xFF000000)  // b63aac
         ]
 
-        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.sample }, expectedCH1Sample)
+        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.value }, expectedCH1Sample)
 
         XCTAssertEqual(acquisition.accelerometerSample.point1.x, -1456)
         XCTAssertEqual(acquisition.accelerometerSample.point1.y, -304)
@@ -211,7 +221,7 @@ class BiopotCodingTests: XCTestCase {
             Int32(bitPattern: 0xffff87 | 0xFF000000)  // 87ffff
         ]
 
-        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.sample }, expectedCH1Sample)
+        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.value }, expectedCH1Sample)
 
         XCTAssertEqual(acquisition.accelerometerSample.point1.x, -1552)
         XCTAssertEqual(acquisition.accelerometerSample.point1.y, -352)
@@ -265,39 +275,6 @@ class BiopotCodingTests: XCTestCase {
             Int32(bitPattern: 0xffff87 | 0xFF000000)  // 8787ffff
         ]
 
-        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.sample }, expectedCH1Sample)
-    }
-
-    func testInt24Big() throws {
-        let data = try XCTUnwrap(Data(hex: "0xFF0000"))
-        var buffer = ByteBuffer(data: data)
-
-        let uint = try XCTUnwrap(buffer.get24UInt(at: 0, endianness: .big))
-        let int = try XCTUnwrap(buffer.read24Int(endianness: .big))
-
-        XCTAssertEqual(uint, 0xFF0000)
-        XCTAssertEqual(int, -65536)
-    }
-
-    func testInt24Little() throws {
-        let data = try XCTUnwrap(Data(hex: "0x0000FF"))
-        var buffer = ByteBuffer(data: data)
-
-        let uint = try XCTUnwrap(buffer.get24UInt(at: 0, endianness: .little))
-        let int = try XCTUnwrap(buffer.read24Int(endianness: .little))
-
-        XCTAssertEqual(uint, 0xFF0000)
-        XCTAssertEqual(int, -65536)
-    }
-
-    func testInt24Reading() throws {
-        let data = try XCTUnwrap(Data(hex: "0x6fffff"))
-        let buffer = ByteBuffer(data: data)
-
-        let intBE = try XCTUnwrap(buffer.get24Int(at: 0, endianness: .big))
-        let intLE = try XCTUnwrap(buffer.get24Int(at: 0, endianness: .little))
-
-        XCTAssertEqual(intBE, 7340031)
-        XCTAssertEqual(intLE, -145)
+        XCTAssertEqual(acquisition.samples.compactMap { $0.channels.first?.value }, expectedCH1Sample)
     }
 }
