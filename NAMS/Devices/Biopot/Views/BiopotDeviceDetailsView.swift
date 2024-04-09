@@ -18,6 +18,11 @@ struct BiopotDeviceDetailsView: View {
     @Environment(\.dismiss)
     private var dismiss
 
+    @State private var viewState: ViewState = .idle
+
+    @State private var samplingConfigurationPresent = false
+    @State private var selectedSamplingConfiguration: UInt16 = 250
+
     var hasAboutInformation: Bool {
         let deviceInformation = biopot.deviceInformation
         return deviceInformation.firmwareRevision != nil
@@ -48,6 +53,14 @@ struct BiopotDeviceDetailsView: View {
             }
 
             Section {
+                if samplingConfigurationPresent {
+                    Picker("Samplerate", selection: $selectedSamplingConfiguration) {
+                        ForEach(SamplingConfiguration.supportedSamplingRates, id: \.self) { samplerate in
+                            Text(verbatim: "\(samplerate) Hz")
+                                .tag(samplerate)
+                        }
+                    }
+                }
                 NavigationLink {
                     BiopotElectrodeLocationsEditView(biopot: biopot)
                 } label: {
@@ -84,9 +97,40 @@ struct BiopotDeviceDetailsView: View {
         }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle(title)
+            .viewStateAlert(state: $viewState)
             .onChange(of: biopot.state) {
                 if isDisconnected {
                     dismiss()
+                }
+            }
+            .onChange(of: biopot.service.samplingConfiguration?.hardwareSamplingRate, initial: true) {
+                if let samplerate = biopot.service.samplingConfiguration?.hardwareSamplingRate {
+                    samplingConfigurationPresent = true
+                    selectedSamplingConfiguration = samplerate
+                } else {
+                    samplingConfigurationPresent = false
+                }
+            }
+            .onChange(of: selectedSamplingConfiguration) {
+                guard let originalRate = biopot.service.samplingConfiguration?.hardwareSamplingRate else {
+                    return // wasn't available
+                }
+
+                let selectedSamplingConfiguration = selectedSamplingConfiguration
+                guard selectedSamplingConfiguration != originalRate else {
+                    return // its the same, no reason to update
+                }
+
+                Task {
+                    do {
+                        try await biopot.service.updateSamplingConfiguration(set: \.hardwareSamplingRate, to: selectedSamplingConfiguration)
+                    } catch {
+                        viewState = .error(AnyLocalizedError(
+                            error: error,
+                            defaultErrorDescription: "Failed to update hardware sampling rate."
+                        ))
+                        self.selectedSamplingConfiguration = originalRate // reset back to original rate
+                    }
                 }
             }
     }

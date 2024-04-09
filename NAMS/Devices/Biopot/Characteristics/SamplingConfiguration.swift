@@ -12,18 +12,20 @@ import NIOCore
 
 
 struct SamplingConfiguration {
+    static let supportedSamplingRates: [UInt16] = [250, 500, 1000, 2000]
+
     /// Channel off/on bits. Only used with 16-bit. Not used with 24-bit configuration.
-    let channelsBitMask: UInt32
+    var channelsBitMask: UInt32
     /// Hardware low-pass filter. Not used with 24-bit configuration.
-    let lowPassFilter: LowPassFilter
+    var lowPassFilter: LowPassFilter
     /// High pass filter (Hardware for 16-bit configuration; Software for 24-bit configuration)
-    let highPassFilter: HighPassFilter
+    var highPassFilter: HighPassFilter
     /// 500 (default) / 1000 / 2000
-    let hardwareSamplingRate: UInt16
+    var hardwareSamplingRate: UInt16
     /// Not used with 24 bits.
-    let impedanceFrequency: UInt8
-    let impedanceScale: UInt8
-    let softwareLowPassFilter: SoftwareLowPassFilter
+    var impedanceFrequency: UInt8
+    var impedanceScale: UInt8
+    var softwareLowPassFilter: SoftwareLowPassFilter
 
 
     init(

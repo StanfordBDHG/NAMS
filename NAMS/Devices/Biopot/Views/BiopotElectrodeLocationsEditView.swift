@@ -27,7 +27,7 @@ struct BiopotElectrodeLocationsEditView: View {
                 }
                 .pickerStyle(.inline)
             } footer: {
-                Text("You can select a predefined electrode assignment or provide a custom one.")
+                Text("You can select one of the predefined electrode assignment or provide a custom one.")
             }
 
             Section("Assignment") {

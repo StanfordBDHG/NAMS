@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SpeziViews
 
 
 struct ChangeChartLayoutView: View {
@@ -50,11 +51,8 @@ struct ChangeChartLayoutView: View {
             in: 4.0...15.0,
             step: 0.5
         ) {
-            HStack {
-                Text("Display Interval")
-                Spacer()
+            ListRow("Display Interval") {
                 Text(verbatim: "\(String(format: "%.1f", displayInterval))s")
-                    .foregroundColor(.secondary)
             }
         }
         Stepper(
@@ -62,11 +60,8 @@ struct ChangeChartLayoutView: View {
             in: 10...2000,
             step: intervalStepValue
         ) {
-            HStack {
-                Text("Value Interval")
-                Spacer()
+            ListRow("Value Interval") {
                 Text(verbatim: "\(valueInterval)uV")
-                    .foregroundColor(.secondary)
             }
         }
         .onChange(of: valueInterval) { oldValue, newValue in

@@ -62,9 +62,12 @@ struct EEGRecordingSessionView: View {
         }
             .interactiveDismissDisabled() // TODO: support cancellation?
             .toolbar {
-                ToolbarItem(placement: .secondaryAction) {
+                ToolbarItemGroup(placement: .secondaryAction) {
                     Button("Edit Chart Layout", systemImage: "pencil") {
                         presentingChartControls = true
+                    }
+                    Button("More Information", systemImage: "info.square") {
+                        // TODO: add button to view more details (e.g., current samples per second average, etc).
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
@@ -91,7 +94,7 @@ struct EEGRecordingSessionView: View {
                         .frame(minWidth: 450, minHeight: 250) // frame for the popover
                 }
             }
-            .confirmationDialog("Do you want to cancel the ongoing recording?", isPresented: $presentingChartControls, titleVisibility: .visible) {
+            .confirmationDialog("Do you want to cancel the ongoing recording?", isPresented: $presentingCancelConfirmation, titleVisibility: .visible) {
                 Button("Cancel Recording", role: .destructive) {
                     dismiss()
                 }

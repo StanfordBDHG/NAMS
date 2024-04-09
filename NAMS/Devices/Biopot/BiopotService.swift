@@ -117,6 +117,19 @@ class BiopotService: BluetoothService {
         }
     }
 
+    @EEGProcessing
+    func updateSamplingConfiguration<Value>(set keyPath: WritableKeyPath<SamplingConfiguration, Value>, to value: Value) async throws {
+        var configuration: SamplingConfiguration
+        if let samplingConfiguration {
+            configuration = samplingConfiguration
+        } else {
+            configuration = try await $samplingConfiguration.read()
+        }
+
+        configuration[keyPath: keyPath] = value
+        try await $samplingConfiguration.write(configuration)
+    }
+
 
     func handleDataAcquisition(data: Data) {
         guard let deviceConfiguration = deviceConfiguration,

@@ -166,6 +166,7 @@ extension BiopotDevice {
             temperatureValue: 23,
             batteryCharging: true
         ))
+        biopot.service.$samplingConfiguration.inject(SamplingConfiguration())
         biopot.deviceInformation.$firmwareRevision.inject("1.2.3")
         biopot.deviceInformation.$serialNumber.inject(serial)
         biopot.deviceInformation.$hardwareRevision.inject("3.1")

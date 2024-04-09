@@ -87,7 +87,7 @@ class EEGRecordingSession {
         }
 
         let visualizedSignals = signals.map { signal in
-            let sampleRate = signal.sampleCount / fileInformation.recordDuration
+            let sampleRate = signal.sampleCount / Int(fileInformation.recordDuration) // TODO: review conversion to Int (builds upon assumptions)
             let batching: BatchingConfiguration? = .downsample(targetSampleRate: Self.uiTargetSampleRate, sourceSampleRate: sampleRate)
             return VisualizedSignal(label: signal.label, sourceSampleRate: sampleRate, batching: batching)
         }
