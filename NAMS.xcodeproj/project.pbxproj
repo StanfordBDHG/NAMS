@@ -2503,16 +2503,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziFileFormats";
 			requirement = {
-				branch = "fix/edf-access";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
 			};
 		};
 		A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
 			requirement = {
-				branch = "feature/spezi-file-formats";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
