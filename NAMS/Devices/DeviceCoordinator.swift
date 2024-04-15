@@ -58,6 +58,10 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
 
     var shouldAutoConnectBiopot: Bool {
+        autoConnectOption == .on && !isConnected
+    }
+
+    var shouldAutoConnectBiopotBackground: Bool {
         autoConnectOption == .background && !isConnected
     }
 

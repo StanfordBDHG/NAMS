@@ -61,7 +61,7 @@ struct HomeView: View {
 #if MUSE
             .environment(museDeviceManager)
 #endif
-            .autoConnect(enabled: deviceCoordinator.shouldAutoConnectBiopot, with: bluetooth)
+            .autoConnect(enabled: deviceCoordinator.shouldAutoConnectBiopotBackground, with: bluetooth)
             .onAppear {
                 guard !ProcessInfo.processInfo.isPreviewSimulator else {
                     return

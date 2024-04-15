@@ -6,6 +6,16 @@
 // SPDX-License-Identifier: MIT
 //
 
+
+/// Defines how samples are moved to the main thread
+enum ProcessingType {
+    /// Multiple samples are grouped together into a single UI update. The `batchRate` defines the requested update rate in Hz.
+    case batched(batchRate: Int)
+    /// Downsample to a given sample rate in Hz.
+    case downsample(targetSampleRate: Int)
+}
+
+
 enum BatchingAction {
     case none
     case downsample
@@ -27,16 +37,20 @@ struct BatchingConfiguration {
         self.batchingFrequency = batchingFrequency
         self.action = action
     }
-}
 
+    public init?(from processing: ProcessingType, sourceSampleRate: Int) {
+        let action: BatchingAction
+        let targetSampleRate: Int
 
-extension BatchingConfiguration {
-    @inlinable
-    static func batch(samplesToCombine: Int, batchingFrequency: Double) -> BatchingConfiguration {
-        BatchingConfiguration(samplesToCombine: samplesToCombine, batchingFrequency: batchingFrequency, action: .none)
-    }
+        switch processing {
+        case let .batched(batchRate):
+            action = .none
+            targetSampleRate = batchRate
+        case let .downsample(targetSampleRate0):
+            action = .downsample
+            targetSampleRate = targetSampleRate0
+        }
 
-    static func downsample(targetSampleRate: Int, sourceSampleRate: Int) -> BatchingConfiguration? {
         // target sample rate must be lower, otherwise, we don't do any downsampling
         guard targetSampleRate < sourceSampleRate else {
             return nil
@@ -51,6 +65,6 @@ extension BatchingConfiguration {
             resultingSampleRate = Double(sourceSampleRate) / Double(samplesToCombine)
         }
 
-        return BatchingConfiguration(samplesToCombine: samplesToCombine, batchingFrequency: resultingSampleRate, action: .downsample)
+        self.init(samplesToCombine: samplesToCombine, batchingFrequency: resultingSampleRate, action: action)
     }
 }

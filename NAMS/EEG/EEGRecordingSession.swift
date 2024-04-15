@@ -26,8 +26,8 @@ class EEGRecordingSession {
     static let recordingDuration: TimeInterval = 2 * 60
     #endif
 
-    /// The sample rate we are targeting for the live preview.
-    static let uiTargetSampleRate = 32 // TODO: try with just batched processing at like 20 Hz?
+    /// Determines how received samples are updated in the UI.
+    private static let uiProcessingType: ProcessingType = .batched(batchRate: 24)
 
     private let logger = Logger(subsystem: "edu.stanford.names", category: "EEGRecordingSession")
 
@@ -39,6 +39,9 @@ class EEGRecordingSession {
     let measurements: [VisualizedSignal]
 
     private let fileWriter: BDFFileWriter
+
+    // TODO: make intervals specific to the device type!
+    // TODO: clip recordings in chart
 
     @EEGProcessing private var bufferedChannels: [BufferedChannel<BDFSample>]
     @EEGProcessing private var uiBufferedChannels: [BufferedChannel<BDFSample>]
@@ -88,7 +91,7 @@ class EEGRecordingSession {
 
         let visualizedSignals = signals.map { signal in
             let sampleRate = signal.sampleCount / Int(fileInformation.recordDuration) // TODO: review conversion to Int (builds upon assumptions)
-            let batching: BatchingConfiguration? = .downsample(targetSampleRate: Self.uiTargetSampleRate, sourceSampleRate: sampleRate)
+            let batching = BatchingConfiguration(from: Self.uiProcessingType, sourceSampleRate: sampleRate)
             return VisualizedSignal(label: signal.label, sourceSampleRate: sampleRate, batching: batching)
         }
 
@@ -126,6 +129,7 @@ class EEGRecordingSession {
 
         await EEGProcessing.run {
             shouldAcceptSamples = true
+            // TODO: this should be the new start date?
         }
     }
 

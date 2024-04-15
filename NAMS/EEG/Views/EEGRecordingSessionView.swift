@@ -28,7 +28,7 @@ struct EEGRecordingSessionView: View {
     private var valueInterval: Int = 300
 
     @State private var presentingChartControls = false
-    @State private var presentingCancelConfirmation = false
+    @State private var presentCancelConfirmation = false
     // TODO: this recording time should be based on the session!
     @State private var recordingTime = Date()...Date().addingTimeInterval(EEGRecordingSession.recordingDuration + 1.0)
 
@@ -53,28 +53,31 @@ struct EEGRecordingSessionView: View {
         @Bindable var session = session
         ScrollView {
             RecordingStateHeader(recordingState: $session.recordingState, recordingTime: recordingTime)
-            // TODO: show context information (e.g., the current headband for a Muse device?)
 
             ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
                 EEGChart(signal: measurement, displayedInterval: displayInterval, valueInterval: valueInterval)
             }
                 .padding([.leading, .trailing], 16)
         }
-            .interactiveDismissDisabled() // TODO: support cancellation?
+            .interactiveDismissDisabled()
             .toolbar {
                 ToolbarItemGroup(placement: .secondaryAction) {
                     Button("Edit Chart Layout", systemImage: "pencil") {
                         presentingChartControls = true
                     }
                     Button("More Information", systemImage: "info.square") {
+                        // TODO: show context information (e.g., the current headband for a Muse device?)
                         // TODO: add button to view more details (e.g., current samples per second average, etc).
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        presentingCancelConfirmation = true
+                        presentCancelConfirmation = true
                     }
                 }
+            }
+            .task {
+                await session.startRecordingCountdown()
             }
             .onDisappear {
                 Task {
@@ -88,13 +91,13 @@ struct EEGRecordingSessionView: View {
                     NavigationStack {
                         view
                     }
-                    .presentationDetents([.fraction(0.35), .large])
+                        .presentationDetents([.fraction(0.35), .large])
                 } else {
                     view
                         .frame(minWidth: 450, minHeight: 250) // frame for the popover
                 }
             }
-            .confirmationDialog("Do you want to cancel the ongoing recording?", isPresented: $presentingCancelConfirmation, titleVisibility: .visible) {
+            .confirmationDialog("Do you want to cancel the ongoing recording?", isPresented: $presentCancelConfirmation, titleVisibility: .visible) {
                 Button("Cancel Recording", role: .destructive) {
                     dismiss()
                 }

@@ -742,6 +742,9 @@
         }
       }
     },
+    "More Information" : {
+
+    },
     "Name" : {
       "localizations" : {
         "en" : {
@@ -1035,6 +1038,9 @@
 
     },
     "required" : {
+
+    },
+    "Samplerate" : {
 
     },
     "Saving ..." : {
@@ -1420,7 +1426,7 @@
         }
       }
     },
-    "You can select a predefined electrode assignment or provide a custom one." : {
+    "You can select one of the predefined electrode assignment or provide a custom one." : {
 
     },
     "You may login below." : {

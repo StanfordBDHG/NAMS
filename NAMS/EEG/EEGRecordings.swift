@@ -68,7 +68,7 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
     @MainActor
-    func startRecordingCountdown() async {
+    func startRecordingCountdown() async { // TODO: this is never called!
         guard let recordingSession else {
             return
         }
