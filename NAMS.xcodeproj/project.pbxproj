@@ -1062,6 +1062,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A96CD4142BCDA58100300B8C /* PBXTargetDependency */,
 			);
 			name = NAMS;
 			packageProductDependencies = (
@@ -1139,11 +1140,11 @@
 				A926D77E2AB7A552000C4C2F /* Sources */,
 				A926D7A72AB7A552000C4C2F /* Frameworks */,
 				A926D7B72AB7A552000C4C2F /* Resources */,
-				A926D7BE2AB7A552000C4C2F /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A96CD4162BCDA58600300B8C /* PBXTargetDependency */,
 			);
 			name = "NAMS Muse";
 			packageProductDependencies = (
@@ -1219,6 +1220,7 @@
 				A92E34EE2ADB9B7E00FE0B51 /* XCRemoteSwiftPackageReference "swift-collections" */,
 				A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */,
 				A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */,
+				A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
 			projectDirPath = "";
@@ -1277,24 +1279,6 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		2F5B528D29BD237B002020B7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  export PATH=\"$PATH:/opt/homebrew/bin\"\n  if which swiftlint > /dev/null; then\n    swiftlint\n  else\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n  fi\nfi\n";
-		};
-		A926D7BE2AB7A552000C4C2F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -1625,6 +1609,14 @@
 			isa = PBXTargetDependency;
 			target = 653A254C283387FE005D4D48 /* NAMS */;
 			targetProxy = 653A256828338800005D4D48 /* PBXContainerItemProxy */;
+		};
+		A96CD4142BCDA58100300B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = A96CD4132BCDA58100300B8C /* SwiftLintPlugin */;
+		};
+		A96CD4162BCDA58600300B8C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = A96CD4152BCDA58600300B8C /* SwiftLintPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1993,7 +1985,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi 2";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -2016,7 +2008,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "NAMS/Supporting Files/NAMS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -2054,7 +2046,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = edu.stanford.bdhg.nams;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Stanford BDHG NeuroNest - Development Andi";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -2507,6 +2499,14 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/SwiftLint";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.54.0;
+			};
+		};
 		A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
@@ -2687,6 +2687,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
 			productName = EDFFormat;
+		};
+		A96CD4132BCDA58100300B8C /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
+		};
+		A96CD4152BCDA58600300B8C /* SwiftLintPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintPlugin";
 		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
 			isa = XCSwiftPackageProductDependency;
