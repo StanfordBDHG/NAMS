@@ -19,7 +19,6 @@ struct EEGChart: View {
     var body: some View {
         Chart(signal.timedSamples, id: \.time) { sample in
             EEGChannelMark(signal: signal.label, time: sample.time, value: sample.value)
-                .clipShape(Rectangle())
         }
             .chartXScale(domain: signal.lowerBound...(signal.lowerBound + displayedInterval))
             .chartYScale(domain: -valueInterval...valueInterval)
@@ -60,6 +59,7 @@ struct EEGChart: View {
                 content
                     .border(Color.gray)
                     .frame(maxHeight: 150)
+                    .clipped()
             }
     }
 
@@ -85,7 +85,7 @@ struct EEGChart: View {
     EEGChart(
         signal: MockMeasurementGenerator(sampleRate: 60).generateSignal(label: .eeg(location: .af8), sampleTime: 5.4, recordingOffset: 10),
         displayedInterval: 6,
-        valueInterval: 50
+        valueInterval: 400
     )
 }
 #endif

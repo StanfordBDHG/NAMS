@@ -46,7 +46,7 @@ class MockMeasurementGenerator {
 
     private func generateSingle(values: inout [EEGLocation: Int32]) -> CombinedEEGSample {
         let samples = Self.generatedLocations.map { location in
-            values[location, default: baseValue] += Int32.random(in: -3...3)
+            values[location, default: baseValue] += Int32.random(in: -25...25)
             return BDFSample(values[location, default: baseValue])
         }
 
