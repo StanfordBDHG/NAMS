@@ -19,7 +19,7 @@ private actor EEGFileStorage {
 
 
 @Observable
-class EEGRecordingSession {
+class EEGRecordingSession { // swiftlint:disable:this type_body_length
     #if targetEnvironment(simulator)
     static let recordingDuration: TimeInterval = 30
     #else
@@ -27,7 +27,7 @@ class EEGRecordingSession {
     #endif
 
     /// Determines how received samples are updated in the UI.
-    private static let uiProcessingType: ProcessingType = .batched(batchRate: 24)
+    private static let uiProcessingType: ProcessingType = .batched(batchRate: 24) // TODO: is this good?
 
     private let logger = Logger(subsystem: "edu.stanford.names", category: "EEGRecordingSession")
 
@@ -35,13 +35,9 @@ class EEGRecordingSession {
     let id: UUID
     let patientId: String
 
-    @MainActor private(set) var startDate: Date
     let measurements: [VisualizedSignal]
 
     private let fileWriter: BDFFileWriter
-
-    // TODO: make intervals specific to the device type!
-    // TODO: clip recordings in chart
 
     @EEGProcessing private var bufferedChannels: [BufferedChannel<BDFSample>]
     @EEGProcessing private var uiBufferedChannels: [BufferedChannel<BDFSample>]
@@ -49,24 +45,32 @@ class EEGRecordingSession {
     @EEGProcessing private var shouldAcceptSamples = false
 
 
-    // TODO: set!
     @MainActor var recordingState: RecordingState = .preparing
+    @MainActor var runRecordingContinuation: CheckedContinuation<Void, Never>?
+    @MainActor @ObservationIgnored private var recordingTimer: Timer? {
+        willSet {
+            recordingTimer?.invalidate()
+        }
+    }
+
+
+    private var completedTask: CompletedTask {
+        CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording(recordingId: id))
+    }
 
     @EEGProcessing
     init(id: UUID, url: URL, patient: Patient, device: ConnectedDevice, investigatorCode: String?) throws {
         guard let patientId = patient.id else {
             logger.error("Patient didn't have a valid patient id. Received: \(String(describing: patient))")
-            throw EEGRecordingError.unexpectedError
+            throw EEGRecordingError.unexpectedErrorStart
         }
 
         self.id = id
         self.patientId = patientId
 
-        let startDate = Date.now // TODO: the device might want to update that!>
-
         let patientInformation = PatientInformation(from: patient)
         let recordingInformation = RecordingInformation(
-            startDate: startDate,
+            startDate: .now, // we will patch it later on
             code: "\(id.uuidString.prefix(8))",
             investigatorCode: investigatorCode.map { String($0.prefix(30)) },
             equipmentCode: device.equipmentCode + "@NN" // e.g., SML_BIO_127@NN, MUSE_2_E7E9@NN
@@ -86,11 +90,12 @@ class EEGRecordingSession {
             self.fileWriter = writer
         } catch {
             logger.error("Failed to create BDFFileWriter at \(url.path): \(error)")
-            throw EEGRecordingError.unexpectedError
+            throw EEGRecordingError.unexpectedErrorStart
         }
 
         let visualizedSignals = signals.map { signal in
-            let sampleRate = signal.sampleCount / Int(fileInformation.recordDuration) // TODO: review conversion to Int (builds upon assumptions)
+            // we always set recordDuration to be an int
+            let sampleRate = signal.sampleCount / Int(fileInformation.recordDuration)
             let batching = BatchingConfiguration(from: Self.uiProcessingType, sourceSampleRate: sampleRate)
             return VisualizedSignal(label: signal.label, sourceSampleRate: sampleRate, batching: batching)
         }
@@ -98,7 +103,6 @@ class EEGRecordingSession {
         self.bufferedChannels = .init(repeating: BufferedChannel(), count: signals.count)
         self.uiBufferedChannels = .init(repeating: BufferedChannel(), count: signals.count)
 
-        self._startDate = startDate
         self.measurements = visualizedSignals
 
         logger.debug(
@@ -109,8 +113,6 @@ class EEGRecordingSession {
             patientInformation: \(String(describing: patientInformation))
             recordingInformation: \(String(describing: recordingInformation))
             fileInformation: \(String(describing: fileInformation))
-            signals: \(String(describing: signals))
-            visualizedSignals: \(String(describing: visualizedSignals))
             """
         )
     }
@@ -123,61 +125,79 @@ class EEGRecordingSession {
     }
 
     @MainActor
-    func startRecordingCountdown() async {
-        // TODO: toggle (should collect samples") => requires start date modification?
-        recordingState = .inProgress
+    func runRecording() async {
+        let startDate: Date = .now
+        recordingState = .inProgress(duration: startDate...startDate.addingTimeInterval(Self.recordingDuration))
 
         await EEGProcessing.run {
+            updateStartDate(to: startDate)
             shouldAcceptSamples = true
-            // TODO: this should be the new start date?
+        }
+
+        await withTaskCancellationHandler {
+            await withCheckedContinuation { continuation in
+                self.runRecordingContinuation = continuation
+
+                // calling saveRecording will be handled by the caller of this method!
+                let timer = Timer(timeInterval: EEGRecordingSession.recordingDuration, repeats: false) { [weak self] _ in
+                    MainActor.assumeIsolated {
+                        self?.recordingTimer = nil
+                        self?.runRecordingContinuation = nil
+
+                        self?.logger.debug("EEG recording session completed!")
+                        continuation.resume()
+                    }
+                }
+                RunLoop.main.add(timer, forMode: .default)
+                recordingTimer = timer
+            }
+        } onCancel: { [weak self] in
+            Task { @MainActor [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.logger.debug("Received cancellation for ongoing recording session ...")
+                self.runRecordingContinuation?.resume()
+                self.recordingTimer = nil
+                self.runRecordingContinuation = nil
+            }
+        }
+
+        // ensure that we are cleaning up our resources if we are cancelled from the outside!
+        if Task.isCancelled {
+            await handleCancellation()
         }
     }
 
     @MainActor
-    func saveRecording(standard: NAMSStandard, connectedDevice: ConnectedDevice?) async {
-        // TODO: should we verify that we are in a given state?
+    func saveRecording(standard: NAMSStandard, patientList: PatientListModel, connectedDevice: ConnectedDevice?) async {
         recordingState = .saving
 
-        await _saveRecording(standard: standard, connectedDevice: connectedDevice)
+        await _saveRecording(standard: standard, patientList: patientList, connectedDevice: connectedDevice)
     }
 
     @MainActor
-    func retryFileUpload(standard: NAMSStandard) async {
-        guard case .fileUploadFailed = recordingState else {
-            return // TODO: anything else we can try?
-        }
-        // TODO guard fileUploadFailed state
-
-        recordingState = await tryFileUpload(to: standard)
-    }
-
-    @MainActor
-    func cancelRecording() async { // TODO: make this non-throwing?
-        do {
-            try await closeWriter()
-        } catch {
-            logger.error("Failed to close file writer of recording session: \(error)")
-        }
-
-        do {
-            // TODO: upload to firebase?
-            try await EEGRecordings.removeTempRecordingFile(id: id)
-        } catch {
-            logger.error("Failed to remove temporary file storage: \(error)")
+    func retryFileUpload(standard: NAMSStandard, patientList: PatientListModel) async {
+        switch recordingState {
+        case .fileUploadFailed:
+            recordingState = await tryFileUpload(to: standard, using: patientList)
+        case .taskUploadFailed:
+            recordingState = await tryTaskUpload(patientList: patientList)
+        default:
+            break
         }
     }
 
     @EEGProcessing
-    private func _saveRecording(standard: NAMSStandard, connectedDevice: ConnectedDevice?) async {
-        do {
-            try closeWriter() // TODO: make closeWriter always non-throwing?
-        } catch {
-            logger.error("Failed to close file writer of recording session: \(error)")
-        }
+    private func _saveRecording(standard: NAMSStandard, patientList: PatientListModel, connectedDevice: ConnectedDevice?) async {
+        tryClosingFileWriter()
+
+        // We just ignore the buffered samples for now.
+        // A data record has a size of 1 second (typically) so we don't loose out on too much.
 
         async let stopRecordingTask: Void? = connectedDevice?.stopRecording()
 
-        let resultingState = await tryFileUpload(to: standard)
+        let resultingState = await tryFileUpload(to: standard, using: patientList)
 
         do {
             try await stopRecordingTask
@@ -191,38 +211,76 @@ class EEGRecordingSession {
     }
 
     @EEGProcessing
-    private func tryFileUpload(to standard: NAMSStandard) async -> RecordingState {
-        // TODO: rename function!
-        let resultingState: RecordingState
-
+    private func tryFileUpload(to standard: NAMSStandard, using patientList: PatientListModel) async -> RecordingState {
         if let url = EEGRecordings.tempRecordingFileURL(id: id) {
             do {
                 try await standard.uploadEEGRecording(file: url, recordingId: id, patientId: patientId, format: .bdf)
-                resultingState = .completed
+
+                tryRemovingTempFile() // only remove upon a successful upload
             } catch {
                 logger.error("Failed to upload eeg recording: \(error)")
-                // TODO: default error?
-                resultingState = .fileUploadFailed(AnyLocalizedError(error: error))
+                return .fileUploadFailed(AnyLocalizedError(error: error, defaultErrorDescription: "Failed to upload EEG recording."))
             }
-
-            // file will be removed at a later point in time, cancelRecording is always called // TODO: should we do it like that?
         } else {
             // this is an erroneous state we can't recover from. File just doesn't exist for some reason.
-            // TODO: replace error with something that explain issue!
-            resultingState = .unrecoverableError(AnyLocalizedError(error: CancellationError()))
+            logger.error("Failed to upload EEG recording. File doesn't exists at \(EEGRecordings.tempFileUrl(id: self.id))")
+            return .unrecoverableError(EEGRecordingError.unrecoverableErrorSaving)
         }
 
-        return resultingState
+        return await tryTaskUpload(patientList: patientList)
     }
 
     @EEGProcessing
-    private func closeWriter() throws {
+    private func tryTaskUpload(patientList: PatientListModel) async -> RecordingState {
+        do {
+            try await patientList.add(task: completedTask)
+        } catch {
+            return .taskUploadFailed((AnyLocalizedError(error: error, defaultErrorDescription: "Failed to mark task as completed")))
+        }
+        return .completed
+    }
+
+    @EEGProcessing
+    private func updateStartDate(to date: Date) {
+        let current = fileWriter.fileInformation
+        guard case let .structured(recording) = current.recording else {
+            preconditionFailure("EDF Files must use structured recording information.")
+        }
+
+        let updated = RecordingInformation(
+            startDate: date,
+            code: recording.code,
+            investigatorCode: recording.investigatorCode,
+            equipmentCode: recording.equipmentCode
+        )
+
+        fileWriter.updateFileInformation(.init(subject: current.subject, recording: .structured(updated), recordDuration: current.recordDuration))
+    }
+
+    @EEGProcessing
+    private func handleCancellation() {
+        tryClosingFileWriter()
+        tryRemovingTempFile()
+    }
+
+    @EEGProcessing
+    private func tryClosingFileWriter() {
         shouldAcceptSamples = false
 
-        // We just ignore the buffered samples for now.
-        // A data record has a size of 1 second (typically) so we don't loose out on too much.
+        do {
+            try fileWriter.close()
+        } catch {
+            logger.error("Failed to close file writer of recording session: \(error)")
+        }
+    }
 
-        try fileWriter.close() // TODO: rewrite the file header?
+    @EEGProcessing
+    private func tryRemovingTempFile() {
+        do {
+            try EEGRecordings.removeTempRecordingFile(id: id)
+        } catch {
+            logger.error("Failed to remove temporary file storage: \(error)")
+        }
     }
 
 

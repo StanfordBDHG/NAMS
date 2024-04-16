@@ -22,6 +22,7 @@ struct EEGRecordingSessionView: View {
     @Environment(PatientListModel.self)
     private var patientList
 
+    // TODO: make intervals specific to the device type(?)
     @AppStorage(StorageKeys.displayInterval)
     private var displayInterval: TimeInterval = 7.0
     @AppStorage(StorageKeys.valueInterval)
@@ -29,30 +30,34 @@ struct EEGRecordingSessionView: View {
 
     @State private var presentingChartControls = false
     @State private var presentCancelConfirmation = false
-    // TODO: this recording time should be based on the session!
-    @State private var recordingTime = Date()...Date().addingTimeInterval(EEGRecordingSession.recordingDuration + 1.0)
 
     /// Popover point for iPad modal view.
     private var popoverUnitPoint: UnitPoint {
         .init(x: 0.95, y: 0)
     }
 
-    /*
-     // TODO: also save the completed task when recording is saved?
-     AsyncButton(state: $viewState) {
-     // simulate a completed task for now
-     let task = CompletedTask(taskId: MeasurementTask.eegMeasurement.id, content: .eegRecording(recordingId: session.id))
-     try await patientList.add(task: task)
-     dismiss()
-     } label: {
-     Text("Mark completed")
-     }
-     */
+    @MainActor private var isRecording: Bool {
+        switch session.recordingState {
+        case .preparing, .inProgress:
+            true
+        default:
+            false
+        }
+    }
+
+    @MainActor private var isRetryAble: Bool {
+        switch session.recordingState {
+        case .fileUploadFailed, .taskUploadFailed:
+            true
+        default:
+            false
+        }
+    }
 
     var body: some View {
         @Bindable var session = session
         ScrollView {
-            RecordingStateHeader(recordingState: $session.recordingState, recordingTime: recordingTime)
+            RecordingStateHeader(recordingState: $session.recordingState)
 
             ForEach(session.livePreview(interval: displayInterval), id: \.label) { measurement in
                 EEGChart(signal: measurement, displayedInterval: displayInterval, valueInterval: valueInterval)
@@ -61,28 +66,46 @@ struct EEGRecordingSessionView: View {
         }
             .interactiveDismissDisabled()
             .toolbar {
-                ToolbarItemGroup(placement: .secondaryAction) {
-                    Button("Edit Chart Layout", systemImage: "pencil") {
-                        presentingChartControls = true
-                    }
-                    Button("More Information", systemImage: "info.square") {
-                        // TODO: show context information (e.g., the current headband for a Muse device?)
-                        // TODO: add button to view more details (e.g., current samples per second average, etc).
+                if isRecording {
+                    ToolbarItemGroup(placement: .secondaryAction) {
+                        Button("Edit Chart Layout", systemImage: "pencil") {
+                            presentingChartControls = true
+                        }
+                        Button("More Information", systemImage: "info.square") {
+                            // TODO: show context information (e.g., the current headband for a Muse device?)
+                            // TODO: add button to view more details (e.g., current samples per second average, etc).
+                        }
                     }
                 }
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        presentCancelConfirmation = true
+
+                if case .completed = session.recordingState {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("Done") {
+                            dismiss()
+                        }
+                    }
+                } else if case .saving = session.recordingState {
+                    ToolbarItem(placement: .primaryAction) {
+                        ProgressView()
+                    }
+                } else {
+                    if isRetryAble {
+                        ToolbarItem(placement: .primaryAction) {
+                            AsyncButton("Try again") { @MainActor in
+                                await eegModel.retryUpload()
+                            }
+                        }
+                    }
+
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Cancel") {
+                            presentCancelConfirmation = true
+                        }
                     }
                 }
             }
             .task {
-                await session.startRecordingCountdown()
-            }
-            .onDisappear {
-                Task {
-                    await eegModel.cancelRecording()
-                }
+                await eegModel.runRecordingAndSave() // long-running task!
             }
             .popover(isPresented: $presentingChartControls, attachmentAnchor: .point(popoverUnitPoint), arrowEdge: .top) {
                 let view = ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)

@@ -31,9 +31,7 @@ actor NAMSStandard: Standard, AccountStorageConstraint {
 
         let metadata = StorageMetadata()
         metadata.contentType = "application/octet-stream"
-        _ = try await reference.putFileAsync(from: file, metadata: metadata) { progress in
-            print("Progress: \(String(describing: progress))") // TODO: actually do something with the progress?
-        }
+        _ = try await reference.putFileAsync(from: file, metadata: metadata)
     }
 
     func create(_ identifier: AdditionalRecordId, _ details: SignupDetails) async throws {

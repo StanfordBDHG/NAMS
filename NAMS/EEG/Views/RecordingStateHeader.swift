@@ -11,26 +11,35 @@ import SwiftUI
 
 
 struct RecordingStateHeader: View {
+    @Environment(\.dismiss)
+    private var dismiss
+
+    @State private var viewState: ViewState = .idle
     @Binding private var recordingState: RecordingState
-    private let recordingTime: ClosedRange<Date>
+
+    private var initialTime: String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        return formatter.string(from: EEGRecordingSession.recordingDuration) ?? "0:00"
+    }
 
     var body: some View {
-        // TODO: swiftlint?
         VStack { // swiftlint:disable:this closure_body_length
             switch recordingState {
             case .preparing:
                 Text("In Progress")
                     .font(.title)
                     .bold()
-                Text("Remaining: \("2:00")") // TODO: how to handle switch to inProgress?
+                Text("Remaining: \(initialTime)")
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .bold()
-            case .inProgress:
+            case let .inProgress(recordingTime):
                 Text("In Progress")
                     .font(.title)
                     .bold()
-                Text("Remaining: \(Text(timerInterval: recordingTime))") // TODO: only countdown if applicable?
+                Text("Remaining: \(Text(timerInterval: recordingTime))")
                     .font(.callout)
                     .foregroundStyle(.secondary)
                     .bold()
@@ -42,77 +51,83 @@ struct RecordingStateHeader: View {
                     if case .saving = recordingState {
                         Text("Saving ...")
                     } else {
-                        Text("Completed") // TODO: hit done button or something?
+                        HStack {
+                            Text("Completed")
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                                .symbolRenderingMode(.hierarchical)
+                                .accessibilityHidden(true)
+                        }
                     }
                 }
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .bold()
-            case let .fileUploadFailed(error): // TODO: display error?
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .bold()
+            case .fileUploadFailed, .taskUploadFailed: // retry-able error states
                 Text("Upload Failed")
                     .font(.title)
                     .bold()
-                // TODO: error message below?
 
-                Button("Try again") {
-                    // TODO:
+                HStack {
+                    Text("Failed to upload recording")
+                    Image(systemName: "externaldrive.fill.badge.exclamationmark")
+                        .foregroundColor(.red)
+                        .symbolRenderingMode(.hierarchical)
+                        .accessibilityHidden(true)
                 }
-            case let .unrecoverableError(error):
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .bold()
+            case .unrecoverableError:
                 Text("Recording Failed")
                     .font(.title)
                     .bold()
-                    .viewStateAlert(state: recordingState)
-
-                // TODO: some subtitle?
-                // TODO: this should pop open a view alert!
+                    .map(state: recordingState, to: $viewState)
+                    .viewStateAlert(state: $viewState)
+                    .onChange(of: viewState) { oldValue, _ in
+                        if case .error = oldValue {
+                            dismiss() // alert got dismissed
+                        }
+                    }
             }
         }
-        .multilineTextAlignment(.center)
-        .padding(.bottom)
-        .toolbar {
-            if case .processing = recordingState.representation {
-                // TODO: technically we could just add the progress state from firebase here?
-                ToolbarItem(placement: .primaryAction) {
-                    ProgressView() // TODO: only if actually saving?
-                }
-            }
-        }
+            .multilineTextAlignment(.center)
+            .padding(.bottom)
     }
 
 
-    init(recordingState: Binding<RecordingState>, recordingTime: ClosedRange<Date>) {
+    init(recordingState: Binding<RecordingState>) {
         self._recordingState = recordingState
-        self.recordingTime = recordingTime
     }
 }
-
 
 
 #if DEBUG
 #Preview {
-    RecordingStateHeader(recordingState: .constant(.preparing), recordingTime: Date()...Date())
+    RecordingStateHeader(recordingState: .constant(.preparing))
 }
 
 #Preview {
-    RecordingStateHeader(recordingState: .constant(.inProgress), recordingTime: Date()...Date().addingTimeInterval(2 * 60 ))
+    RecordingStateHeader(recordingState: .constant(.inProgress(duration: Date()...Date().addingTimeInterval(2 * 60))))
 }
 
 #Preview {
-    RecordingStateHeader(recordingState: .constant(.saving), recordingTime: Date()...Date())
+    RecordingStateHeader(recordingState: .constant(.saving))
 }
 
 #Preview {
-    RecordingStateHeader(recordingState: .constant(.completed), recordingTime: Date()...Date())
+    RecordingStateHeader(recordingState: .constant(.completed))
 }
 
 #Preview {
-    RecordingStateHeader(recordingState: .constant(.fileUploadFailed(AnyLocalizedError(error: CancellationError()))), recordingTime: Date()...Date())
+    RecordingStateHeader(recordingState: .constant(.fileUploadFailed(AnyLocalizedError(error: CancellationError()))))
 }
 
 #Preview {
-    RecordingStateHeader(
-        recordingState: .constant(.unrecoverableError(AnyLocalizedError(error: CancellationError()))),
-        recordingTime: Date()...Date()
-    )
+    RecordingStateHeader(recordingState: .constant(.taskUploadFailed(AnyLocalizedError(error: CancellationError()))))
+}
+
+#Preview {
+    RecordingStateHeader(recordingState: .constant(.unrecoverableError(AnyLocalizedError(error: CancellationError()))))
 }
 #endif

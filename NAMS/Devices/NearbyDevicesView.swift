@@ -58,8 +58,6 @@ struct NearbyDevicesView: View {
             List {
                 autoConnectLink
 
-                // TODO: we are somehow hiding the currently connected Muse device??
-
                 if consideredPoweredOn {
                     nearbyDevicesSection
                 } else {

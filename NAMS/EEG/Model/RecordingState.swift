@@ -12,9 +12,10 @@ import SpeziViews
 
 enum RecordingState {
     case preparing
-    case inProgress
+    case inProgress(duration: ClosedRange<Date>)
     case saving
     case fileUploadFailed(LocalizedError)
+    case taskUploadFailed(LocalizedError)
     case unrecoverableError(LocalizedError)
     case completed
 }
@@ -27,7 +28,7 @@ extension RecordingState: OperationState {
             .idle
         case .saving:
             .processing
-        case let .fileUploadFailed(error), let .unrecoverableError(error):
+        case let .fileUploadFailed(error), let .unrecoverableError(error), let .taskUploadFailed(error):
             .error(error)
         }
     }

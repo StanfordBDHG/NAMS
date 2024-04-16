@@ -487,6 +487,9 @@
         }
       }
     },
+    "Failed to upload recording" : {
+
+    },
     "Female" : {
 
     },
@@ -1300,6 +1303,9 @@
 
     },
     "Unexpected Error" : {
+
+    },
+    "Unexpected error occurred while trying to save the recording. Please try again!" : {
 
     },
     "Unexpected error occurred while trying to start the recording. Please try again!" : {

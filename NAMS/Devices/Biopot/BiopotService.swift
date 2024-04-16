@@ -50,7 +50,6 @@ class BiopotService: BluetoothService {
 
 
     @EEGProcessing private var recordingSession: EEGRecordingSession?
-    @EEGProcessing private var startDate: Date = .now
 
     @EEGProcessing private var nextExpectedSampleCount: UInt32 = 0
 
@@ -94,7 +93,6 @@ class BiopotService: BluetoothService {
     @EEGProcessing
     func stopRecording() async throws {
         try await $dataControl.write(.paused)
-        startDate = .now
         recordingSession = nil
 
         nextExpectedSampleCount = 0
@@ -107,8 +105,6 @@ class BiopotService: BluetoothService {
         // we assume prepareRecording is called first to have the latest sampling configuration
         do {
             try await $dataControl.write(.paused)
-
-            startDate = .now
 
             try await $dataControl.write(.started)
         } catch {
@@ -244,10 +240,6 @@ class BiopotService: BluetoothService {
     private func processAcquisition(_ acquisition: SomeDataAcquisition) {
         guard let recordingSession else {
             return // we checked that earlier, if it is gone now, something went completely wrong
-        }
-
-        if acquisition.totalSampleCount == 0 {
-            self.startDate = .now
         }
 
 

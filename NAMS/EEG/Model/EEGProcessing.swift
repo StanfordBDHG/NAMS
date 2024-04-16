@@ -12,7 +12,8 @@ actor EEGProcessing {
     static let shared = EEGProcessing()
 
     @EEGProcessing
-    static func run(body: @EEGProcessing () -> Void) { // TODO: verify against MainActor.run
-        body()
+    @_alwaysEmitIntoClient
+    static func run(body: @EEGProcessing @Sendable () throws -> Void) rethrows {
+        try body()
     }
 }

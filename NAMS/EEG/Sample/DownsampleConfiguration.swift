@@ -38,7 +38,7 @@ struct BatchingConfiguration {
         self.action = action
     }
 
-    public init?(from processing: ProcessingType, sourceSampleRate: Int) {
+    init?(from processing: ProcessingType, sourceSampleRate: Int) {
         let action: BatchingAction
         let targetSampleRate: Int
 

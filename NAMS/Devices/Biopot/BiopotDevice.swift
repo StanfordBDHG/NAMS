@@ -65,7 +65,7 @@ class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice {
             return configuration.electrodeLocations.map { location in
                 Signal(
                     label: .eeg(location: location, prefix: .micro),
-                    transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
+                    transducerType: "EEG Electrode Sensor",
                     prefiltering: prefilter,
                     sampleCount: Int(samplingConfiguration.hardwareSamplingRate),
                     physicalMinimum: -20_000,

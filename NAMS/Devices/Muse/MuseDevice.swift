@@ -86,7 +86,7 @@ class MuseDevice: Identifiable, NAMSDevice {
             return [EEGLocation.tp9, .af7, .af8, .tp10].map { location in
                 Signal(
                     label: .eeg(location: location, prefix: .micro),
-                    transducerType: "EEG Electrode Sensor", // TODO: add num postfix, (or paper-based vs. headband?)
+                    transducerType: "EEG Electrode Sensor",
                     prefiltering: deviceInformation.notchFilter.frequencyString.map { "N:\($0)" },
                     sampleCount: deviceInformation.sampleRate,
                     physicalMinimum: -20_000,

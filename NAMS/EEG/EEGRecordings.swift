@@ -68,54 +68,51 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     }
 
     @MainActor
-    func startRecordingCountdown() async { // TODO: this is never called!
-        guard let recordingSession else {
-            return
-        }
-        await recordingSession.startRecordingCountdown()
-    }
-
-    @MainActor
-    func saveRecording() async { // TODO: actually call this based on timer change and recordingState change!
-        // TOOD: actor isolation and everything?
+    func runRecordingAndSave() async {
         guard let recordingSession else {
             return
         }
 
-        // TODO: handle the case where device is disconnecting while recording is in progress!
+        await recordingSession.runRecording()
 
-        await recordingSession.saveRecording(standard: standard, connectedDevice: deviceCoordinator.connectedDevice)
+        guard !Task.isCancelled else {
+            await handleCancelledRecording()
+            return
+        }
+
+        await recordingSession.saveRecording(standard: standard, patientList: patientList, connectedDevice: deviceCoordinator.connectedDevice)
     }
 
     @MainActor
-    func cancelRecording() async {
+    func retryUpload() async {
+        guard let recordingSession else {
+            return
+        }
+
+
+        await recordingSession.retryFileUpload(standard: standard, patientList: patientList)
+    }
+
+    @MainActor
+    private func handleCancelledRecording() async {
         defer {
             self.recordingSession = nil
-        }
-
-        // TODO: how to deal with the errors? ( have a try again button!)
-        if let recordingSession {
-            await recordingSession.cancelRecording()
         }
 
         if let device = deviceCoordinator.connectedDevice {
             do {
                 try await device.stopRecording()
             } catch {
-                // TODO: how to handle the error?
+                // nothing we can really do about
                 Self.logger.error("Failed to stop recording for device: \(error)")
             }
         }
-
-        // TODO: delete file!
-
-        // TODO: save or delete file eventually?
     }
 }
 
 
 extension EEGRecordings {
-    private static func tempFileUrl(id: UUID) -> URL {
+    static func tempFileUrl(id: UUID) -> URL {
         FileManager.default.temporaryDirectory.appending(path: "neuronest-recording-\(id.uuidString).bdf")
     }
 
@@ -123,12 +120,12 @@ extension EEGRecordings {
     static func createTempRecordingFile(id: UUID) throws -> URL {
         let url = tempFileUrl(id: id)
         if FileManager.default.fileExists(atPath: url.path) {
-            throw EEGRecordingError.unexpectedError
+            throw EEGRecordingError.unexpectedErrorStart
         }
         let created = FileManager.default.createFile(atPath: url.path, contents: nil)
         if !created {
             logger.error("Failed to create file at \(url.path)")
-            throw EEGRecordingError.unexpectedError
+            throw EEGRecordingError.unexpectedErrorStart
         }
         return url
     }

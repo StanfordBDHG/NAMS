@@ -13,7 +13,8 @@ enum EEGRecordingError: LocalizedError {
     case noSelectedPatient
     case noConnectedDevice
     case deviceNotReady
-    case unexpectedError
+    case unexpectedErrorStart
+    case unrecoverableErrorSaving
 
 
     var errorDescription: String? {
@@ -24,7 +25,7 @@ enum EEGRecordingError: LocalizedError {
             String(localized: "No Connected Device")
         case .deviceNotReady:
             String(localized: "Device Not Ready")
-        case .unexpectedError:
+        case .unexpectedErrorStart, .unrecoverableErrorSaving:
             String(localized: "Unexpected Error")
         }
     }
@@ -37,8 +38,10 @@ enum EEGRecordingError: LocalizedError {
             String(localized: "EEG recording could not be started as no connected device was found.")
         case .deviceNotReady:
             String(localized: "There was an unexpected error when preparing the connected device for the recording.")
-        case .unexpectedError:
+        case .unexpectedErrorStart:
             String(localized: "Unexpected error occurred while trying to start the recording. Please try again!")
+        case .unrecoverableErrorSaving:
+            String(localized: "Unexpected error occurred while trying to save the recording. Please try again!")
         }
     }
 }

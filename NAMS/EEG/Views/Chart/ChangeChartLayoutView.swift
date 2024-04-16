@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SwiftUI
 import SpeziViews
+import SwiftUI
 
 
 struct ChangeChartLayoutView: View {
@@ -22,8 +22,10 @@ struct ChangeChartLayoutView: View {
             10
         } else if valueInterval <= 500 {
             25
-        } else {
+        } else if valueInterval <= 2000 {
             100
+        } else {
+            500
         }
     }
 
@@ -57,7 +59,7 @@ struct ChangeChartLayoutView: View {
         }
         Stepper(
             value: $valueInterval,
-            in: 10...2000,
+            in: 10...5000,
             step: intervalStepValue
         ) {
             ListRow("Value Interval") {
@@ -71,6 +73,8 @@ struct ChangeChartLayoutView: View {
                 valueInterval = 125
             } else if oldValue == 500 && newValue == 525 {
                 valueInterval = 600
+            } else if oldValue == 2000 && newValue == 2100 {
+                valueInterval = 2500
             }
         }
     }

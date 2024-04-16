@@ -32,11 +32,14 @@ struct AutoStartRecordingView<Content: View>: View {
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
+
+                // TODO: try await model.runRecording()
             }
             .onDisappear {
                 if autoStop {
                     Task {
-                        await model.cancelRecording()
+                        // TOOD: how to replace??
+                        // TODO: await model.cancelRecording()
                     }
                 }
             }
