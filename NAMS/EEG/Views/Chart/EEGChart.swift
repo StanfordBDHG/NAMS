@@ -20,7 +20,7 @@ struct EEGChart: View {
         Chart(signal.timedSamples, id: \.time) { sample in
             EEGChannelMark(signal: signal.label, time: sample.time, value: sample.value)
         }
-        // TODO: clip recordings in chart
+            .clipped() // TODO: does that work?
             .chartXScale(domain: signal.lowerBound...(signal.lowerBound + displayedInterval))
             .chartYScale(domain: -valueInterval...valueInterval)
             .chartXAxis {

@@ -11,6 +11,21 @@ import SwiftUI
 
 
 struct ChangeChartLayoutView: View {
+    private struct IntervalStep {
+        let lowerBound: Int
+        let stepValue: Int
+    }
+
+    private let intervalSteps: [IntervalStep] = [
+        .init(lowerBound: 100, stepValue: 10),
+        .init(lowerBound: 500, stepValue: 50),
+        .init(lowerBound: 2000, stepValue: 250),
+        .init(lowerBound: 5000, stepValue: 500),
+        .init(lowerBound: 10_000, stepValue: 1000),
+        .init(lowerBound: 20_000, stepValue: 2500)
+    ]
+    private let maxStepValue = 10_000
+
     @Environment(\.dismiss)
     private var dismiss
 
@@ -18,15 +33,11 @@ struct ChangeChartLayoutView: View {
     @Binding private var valueInterval: Int
 
     private var intervalStepValue: Int {
-        if valueInterval <= 100 {
-            10
-        } else if valueInterval <= 500 {
-            25
-        } else if valueInterval <= 2000 {
-            100
-        } else {
-            500
+        let step = intervalSteps.first { step in
+            valueInterval <= step.lowerBound
         }
+
+        return step?.stepValue ?? maxStepValue
     }
 
     var body: some View {
@@ -59,7 +70,7 @@ struct ChangeChartLayoutView: View {
         }
         Stepper(
             value: $valueInterval,
-            in: 10...5000,
+            in: 10...100_000,
             step: intervalStepValue
         ) {
             ListRow("Value Interval") {
@@ -69,13 +80,18 @@ struct ChangeChartLayoutView: View {
         .onChange(of: valueInterval) { oldValue, newValue in
             // workaround that we cannot specify different step values for the respective directions.
             // We are not using onIncrement and onDecrement closures as these don't allow a value range (that disable the buttons).
-            if oldValue == 100 && newValue == 110 {
-                valueInterval = 125
-            } else if oldValue == 500 && newValue == 525 {
-                valueInterval = 600
-            } else if oldValue == 2000 && newValue == 2100 {
-                valueInterval = 2500
+
+            guard let stepIndex = intervalSteps.firstIndex(where: { $0.lowerBound == oldValue }) else {
+                return
             }
+
+            let step = intervalSteps[stepIndex]
+            guard newValue == oldValue + step.stepValue else {
+                return
+            }
+
+            let nextStepValue = stepIndex + 1 < intervalSteps.count ? intervalSteps[stepIndex + 1].stepValue : maxStepValue
+            valueInterval = oldValue + nextStepValue
         }
     }
 

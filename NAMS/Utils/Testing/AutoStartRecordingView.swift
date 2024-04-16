@@ -13,7 +13,6 @@ import SwiftUI
 #if DEBUG
 struct AutoStartRecordingView<Content: View>: View {
     private let content: (EEGRecordingSession?) -> Content
-    private let autoStop: Bool
 
     @Environment(Account.self)
     private var account
@@ -32,22 +31,11 @@ struct AutoStartRecordingView<Content: View>: View {
                 } catch {
                     print("Failed to start recording: \(error)")
                 }
-
-                // TODO: try await model.runRecording()
-            }
-            .onDisappear {
-                if autoStop {
-                    Task {
-                        // TOOD: how to replace??
-                        // TODO: await model.cancelRecording()
-                    }
-                }
             }
     }
 
 
-    init(autoStop: Bool = true, @ViewBuilder content: @escaping (EEGRecordingSession?) -> Content) {
-        self.autoStop = autoStop
+    init(@ViewBuilder content: @escaping (EEGRecordingSession?) -> Content) {
         self.content = content
     }
 }

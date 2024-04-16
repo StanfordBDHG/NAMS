@@ -22,13 +22,13 @@ struct EEGRecordingSessionView: View {
     @Environment(PatientListModel.self)
     private var patientList
 
-    // TODO: make intervals specific to the device type(?)
     @AppStorage(StorageKeys.displayInterval)
     private var displayInterval: TimeInterval = 7.0
     @AppStorage(StorageKeys.valueInterval)
-    private var valueInterval: Int = 300
+    private var valueInterval: Int = 6000
 
     @State private var presentingChartControls = false
+    @State private var presentingMoreInformation = false
     @State private var presentCancelConfirmation = false
 
     /// Popover point for iPad modal view.
@@ -54,6 +54,14 @@ struct EEGRecordingSessionView: View {
         }
     }
 
+    @MainActor private var isCompleted: Bool {
+        if case .completed = session.recordingState {
+            true
+        } else {
+            false
+        }
+    }
+
     var body: some View {
         @Bindable var session = session
         ScrollView {
@@ -64,7 +72,7 @@ struct EEGRecordingSessionView: View {
             }
                 .padding([.leading, .trailing], 16)
         }
-            .interactiveDismissDisabled()
+            .interactiveDismissDisabled(!isCompleted)
             .toolbar {
                 if isRecording {
                     ToolbarItemGroup(placement: .secondaryAction) {
@@ -72,8 +80,7 @@ struct EEGRecordingSessionView: View {
                             presentingChartControls = true
                         }
                         Button("More Information", systemImage: "info.square") {
-                            // TODO: show context information (e.g., the current headband for a Muse device?)
-                            // TODO: add button to view more details (e.g., current samples per second average, etc).
+                            presentingMoreInformation = true
                         }
                     }
                 }
@@ -108,17 +115,12 @@ struct EEGRecordingSessionView: View {
                 await eegModel.runRecordingAndSave() // long-running task!
             }
             .popover(isPresented: $presentingChartControls, attachmentAnchor: .point(popoverUnitPoint), arrowEdge: .top) {
-                let view = ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)
-
-                if UIDevice.current.userInterfaceIdiom == .phone {
-                    NavigationStack {
-                        view
-                    }
-                        .presentationDetents([.fraction(0.35), .large])
-                } else {
-                    view
-                        .frame(minWidth: 450, minHeight: 250) // frame for the popover
-                }
+                ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)
+                    .chartPopoverLayout()
+            }
+            .popover(isPresented: $presentingMoreInformation, attachmentAnchor: .point(popoverUnitPoint), arrowEdge: .top) {
+                ChartMoreInformationView(session: session)
+                    .chartPopoverLayout()
             }
             .confirmationDialog("Do you want to cancel the ongoing recording?", isPresented: $presentCancelConfirmation, titleVisibility: .visible) {
                 Button("Cancel Recording", role: .destructive) {
@@ -131,6 +133,22 @@ struct EEGRecordingSessionView: View {
 
     init(session: EEGRecordingSession) {
         self.session = session
+    }
+}
+
+
+extension View {
+    @ViewBuilder
+    fileprivate func chartPopoverLayout() -> some View {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            NavigationStack {
+                self
+            }
+            .presentationDetents([.fraction(0.35), .large])
+        } else {
+            self
+                .frame(minWidth: 450, minHeight: 250) // frame for the popover
+        }
     }
 }
 

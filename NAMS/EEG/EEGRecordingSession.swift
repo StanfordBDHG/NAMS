@@ -27,7 +27,9 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
     #endif
 
     /// Determines how received samples are updated in the UI.
-    private static let uiProcessingType: ProcessingType = .batched(batchRate: 24) // TODO: is this good?
+    private static let uiProcessingType: ProcessingType = .downsample(targetSampleRate: 24)
+
+    // TODO: (old session data remains after a successful upload???)
 
     private let logger = Logger(subsystem: "edu.stanford.names", category: "EEGRecordingSession")
 
@@ -36,6 +38,8 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
     let patientId: String
 
     let measurements: [VisualizedSignal]
+    /// The amount of total recorded samples.
+    @MainActor private(set) var totalSamples = 0
 
     private let fileWriter: BDFFileWriter
 
@@ -44,13 +48,20 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
     /// Mirrors the recording state, but is synched to a different thread.
     @EEGProcessing private var shouldAcceptSamples = false
 
-
     @MainActor var recordingState: RecordingState = .preparing
     @MainActor var runRecordingContinuation: CheckedContinuation<Void, Never>?
     @MainActor @ObservationIgnored private var recordingTimer: Timer? {
         willSet {
             recordingTimer?.invalidate()
         }
+    }
+
+    var startDate: Date {
+        guard case let .structured(recording) = fileWriter.fileInformation.recording else {
+            preconditionFailure("Unexpected non-structured recording format!")
+        }
+
+        return recording.startDate
     }
 
 
@@ -329,12 +340,18 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
 
         // collect all samples that should be posted
         var samples: [(index: Int, sample: BDFSample)] = []
+        var addedSamples = 0 // track the amount of added samples for a total count!
 
+        let first = measurements.startIndex
         for (index, signal) in zip(measurements.indices, measurements) {
             let sample = sample.channels[index]
 
             guard let batching = signal.batching else {
                 samples.append((index, sample)) // just forward if there is no batching enabled
+                
+                if index == first {
+                    addedSamples += 1
+                }
                 continue
             }
 
@@ -346,6 +363,10 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
             }
 
             let batchingCandidates = uiBufferedChannels[index].pop(count: batching.samplesToCombine)
+            
+            if index == first {
+                addedSamples += batching.samplesToCombine
+            }
 
             switch batching.action {
             case .none:
@@ -368,7 +389,9 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
         }
 
         let finalSamples = samples
+        let finalAddedSamples = addedSamples
         await MainActor.run {
+            totalSamples += finalAddedSamples
             for (index, sample) in finalSamples {
                 measurements[index].samples.append(sample)
             }
@@ -410,12 +433,13 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
         } catch {
             logger.error("Failed to add recording to file writer: \(error)")
             await MainActor.run {
-                // TODO: how to handle that? just cancel the recording?
-                // TODO: would need to disconnect from device! (or just rely on being done eventually through onDisappear?)
                 recordingState = .unrecoverableError(AnyLocalizedError(
                     error: error,
                     defaultErrorDescription: "Failed to save eeg measurements."
                 ))
+            }
+            await EEGProcessing.run {
+                shouldAcceptSamples = false // we just prevent more sample to arrive, eventually session will be cancelled once it view disappears
             }
         }
     }
