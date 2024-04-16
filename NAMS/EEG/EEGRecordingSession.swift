@@ -29,8 +29,6 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
     /// Determines how received samples are updated in the UI.
     private static let uiProcessingType: ProcessingType = .downsample(targetSampleRate: 24)
 
-    // TODO: (old session data remains after a successful upload???)
-
     private let logger = Logger(subsystem: "edu.stanford.names", category: "EEGRecordingSession")
 
     /// The recording id.
@@ -176,7 +174,9 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
 
         // ensure that we are cleaning up our resources if we are cancelled from the outside!
         if Task.isCancelled {
-            await handleCancellation()
+            Task { @EEGProcessing in
+                handleCancellation()
+            }
         }
     }
 

@@ -95,9 +95,7 @@ class BiopotService: BluetoothService {
         try await $dataControl.write(.paused)
         recordingSession = nil
 
-        nextExpectedSampleCount = 0
-
-        packetBuffer.removeAll()
+        clearProcessing()
     }
 
     @EEGProcessing
@@ -106,11 +104,18 @@ class BiopotService: BluetoothService {
         do {
             try await $dataControl.write(.paused)
 
+            clearProcessing()
             try await $dataControl.write(.started)
         } catch {
             logger.error("Failed to enable Biopot recording: \(error)")
             throw error
         }
+    }
+
+    @EEGProcessing
+    private func clearProcessing() {
+        nextExpectedSampleCount = 0
+        packetBuffer.removeAll()
     }
 
     @EEGProcessing

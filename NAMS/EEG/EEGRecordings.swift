@@ -76,7 +76,9 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
         await recordingSession.runRecording()
 
         guard !Task.isCancelled else {
-            await handleCancelledRecording()
+            Task {
+                await handleCancelledRecording()
+            }
             return
         }
 

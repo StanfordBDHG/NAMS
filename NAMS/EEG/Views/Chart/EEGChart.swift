@@ -19,8 +19,8 @@ struct EEGChart: View {
     var body: some View {
         Chart(signal.timedSamples, id: \.time) { sample in
             EEGChannelMark(signal: signal.label, time: sample.time, value: sample.value)
+                .clipShape(Rectangle())
         }
-            .clipped() // TODO: does that work?
             .chartXScale(domain: signal.lowerBound...(signal.lowerBound + displayedInterval))
             .chartYScale(domain: -valueInterval...valueInterval)
             .chartXAxis {
