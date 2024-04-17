@@ -38,7 +38,6 @@ jobs:
       artifactname: NAMS.xcresult
       runsonlabels: '["macOS", "self-hosted"]'
       setupfirebaseemulator: true
-      setupSimulators: true
       customcommand: "firebase emulators:exec 'fastlane test'"
   releasebuild:
     name: Build Release
