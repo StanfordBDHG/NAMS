@@ -66,16 +66,13 @@ extension DataAcquisition {
 
 
 extension DataAcquisition {
-    fileprivate static func readSamples( // swiftlint:disable:this discouraged_optional_collection
-        from byteBuffer: inout ByteBuffer,
-        preferredEndianness endianness: Endianness,
-        count: Int
-    ) -> [BiopotSample]? {
+    // swiftlint:disable:next discouraged_optional_collection
+    fileprivate static func readSamples(from buffer: inout ByteBuffer, preferredEndianness endianness: Endianness, count: Int) -> [BiopotSample]? {
         var samples: [BiopotSample] = []
         samples.reserveCapacity(count)
 
         for _ in 0 ..< count {
-            guard let sample = BiopotSample(from: &byteBuffer, preferredEndianness: endianness) else {
+            guard let sample = BiopotSample(from: &buffer, preferredEndianness: endianness) else {
                 return nil
             }
             samples.append(sample)
