@@ -193,7 +193,7 @@ extension SamplingConfiguration: ByteCodable {
     }
 
     func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        byteBuffer.reserveCapacity(10)
+        byteBuffer.reserveCapacity(13)
 
         let endianness: Endianness = .big // we force big endianness for this type
 
@@ -204,6 +204,9 @@ extension SamplingConfiguration: ByteCodable {
         impedanceFrequency.encode(to: &byteBuffer, preferredEndianness: endianness)
         impedanceScale.encode(to: &byteBuffer, preferredEndianness: endianness)
         softwareLowPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
+
+        // for some reason Biopot wants 2 zero bytes at the end!
+        byteBuffer.writeInteger(0, as: UInt16.self)
     }
 }
 

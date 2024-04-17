@@ -124,11 +124,22 @@ class BiopotService: BluetoothService {
         if let samplingConfiguration {
             configuration = samplingConfiguration
         } else {
-            configuration = try await $samplingConfiguration.read()
+            do {
+                configuration = try await $samplingConfiguration.read()
+            } catch {
+                logger.error("Failed to retrieve current sampling configuration: \(error)")
+                return
+            }
         }
 
         configuration[keyPath: keyPath] = value
-        try await $samplingConfiguration.write(configuration)
+        do {
+            try await $samplingConfiguration.write(configuration)
+
+            logger.debug("Successfully updated sampling configuration key \(keyPath.debugDescription) to \(String(describing: value)).")
+        } catch {
+            logger.error("Failed to update \(keyPath.debugDescription) of sampling configuration: \(error)")
+        }
     }
 
 

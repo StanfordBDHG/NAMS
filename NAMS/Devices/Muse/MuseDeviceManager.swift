@@ -46,7 +46,7 @@ class MuseDeviceManager {
         self.museListener = MuseListener(deviceManager: self)
 
         if let apiVersion = IXNLibmuseVersion.instance() {
-            logger.debug("Initialized Muse Manager with API version \(apiVersion.getString())")
+            logger.debug("Initialized Muse Manager with version \(apiVersion.getString())")
         }
 
         self.museManager.removeFromList(after: Self.discoveryTimeout) // stale timeout if there isn't an updated advertisement

@@ -119,8 +119,7 @@ class BiopotCodingTests: XCTestCase {
         XCTAssertEqual(configuration.impedanceScale, 3)
         XCTAssertEqual(configuration.softwareLowPassFilter, .Hz_20) // default
 
-        // cut of the 2 zero bytes which are not required for proper id check!
-        let idData = try XCTUnwrap(Data(hex: "0x000000ff000701f4090304"))
+        let idData = try XCTUnwrap(Data(hex: "0x000000ff000701f40903040000"))
         try testIdentity(of: SamplingConfiguration.self, from: idData)
     }
 
@@ -144,7 +143,7 @@ class BiopotCodingTests: XCTestCase {
 
         let acquisition = try XCTUnwrap(DataAcquisition11(from: &buffer))
 
-        XCTAssertEqual(acquisition.timestamps, 27)
+        XCTAssertEqual(acquisition.totalSampleCount, 27)
 
         XCTAssertEqual(acquisition.samples.count, 9)
         XCTAssertTrue(
@@ -199,7 +198,7 @@ class BiopotCodingTests: XCTestCase {
 
         print(acquisition)
 
-        XCTAssertEqual(acquisition.timestamps, 585)
+        XCTAssertEqual(acquisition.totalSampleCount, 585)
 
         XCTAssertEqual(acquisition.samples.count, 9)
         XCTAssertTrue(
@@ -252,7 +251,7 @@ class BiopotCodingTests: XCTestCase {
 
         let acquisition = try XCTUnwrap(DataAcquisition10(from: &buffer))
 
-        XCTAssertEqual(acquisition.timestamps, 27)
+        XCTAssertEqual(acquisition.totalSampleCount, 27)
 
         XCTAssertEqual(acquisition.samples.count, 10)
         XCTAssertTrue(
