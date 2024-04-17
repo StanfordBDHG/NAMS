@@ -61,12 +61,12 @@ extension XCUIApplication {
         }
     }
     
-    fileprivate func navigateOnboardingFlow(repeated skippedIfRepeated: Bool = false) throws {
+    fileprivate func navigateOnboardingFlow(repeated: Bool = false) throws {
         try navigateOnboardingFlowWelcome()
         if staticTexts["Your Account"].waitForExistence(timeout: 5) {
-            try navigateOnboardingAccount()
+            try navigateOnboardingAccount(repeated: repeated)
         }
-        if !skippedIfRepeated {
+        if !repeated {
             try navigateOnboardingFlowNotification()
         }
         try navigateFinishedSetup()
@@ -80,9 +80,16 @@ extension XCUIApplication {
         continueButton.tap()
     }
     
-    private func navigateOnboardingAccount() throws {
-        if buttons["Logout"].waitForExistence(timeout: 2) {
-            buttons["Logout"].tap()
+    private func navigateOnboardingAccount(repeated: Bool) throws {
+        if repeated {
+            if buttons["Continue"].waitForExistence(timeout: 2) {
+                buttons["Continue"].tap()
+                return
+            }
+        } else {
+            if buttons["Logout"].waitForExistence(timeout: 2) {
+                buttons["Logout"].tap()
+            }
         }
 
         XCTAssertTrue(staticTexts["Your Account"].waitForExistence(timeout: 5))
