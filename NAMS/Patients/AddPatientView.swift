@@ -67,7 +67,7 @@ struct AddPatientView: View {
     }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack { // swiftlint:disable:this closure_body_length
             VStack {
                 Form {
                     Section("Name") {
@@ -79,6 +79,7 @@ struct AddPatientView: View {
                     Section {
                         VerifiableTextField("required", text: $newPatient.code)
                             .validate(input: newPatient.code, rules: .nonEmpty, .patientCodeMaxLength)
+                            .accessibilityLabel("Patient Code")
                     } header: {
                         Text("Patient Code")
                     } footer: {

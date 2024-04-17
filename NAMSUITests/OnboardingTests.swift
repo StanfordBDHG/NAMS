@@ -19,7 +19,7 @@ class OnboardingTests: XCTestCase {
         
         let app = XCUIApplication()
         app.launchArguments = ["--showOnboarding"]
-        app.deleteAndLaunch(withSpringboardAppName: "NAMS")
+        app.deleteAndLaunch(withSpringboardAppName: "NeuroNest")
     }
     
     
@@ -73,7 +73,7 @@ extension XCUIApplication {
     }
     
     private func navigateOnboardingFlowWelcome() throws {
-        XCTAssertTrue(staticTexts["Neurodevelopment Assessment and Monitoring System (NAMS)"].waitForExistence(timeout: 5))
+        XCTAssertTrue(staticTexts["NeuroNest"].waitForExistence(timeout: 5))
 
         let continueButton = buttons["Continue"]
         XCTAssertTrue(continueButton.waitForExistence(timeout: 2))
@@ -97,6 +97,7 @@ extension XCUIApplication {
         try collectionViews.secureTextFields["Password"].enter(value: "StanfordRocks")
         try textFields["enter first name"].enter(value: "Leland")
         try textFields["enter last name"].enter(value: "Stanford")
+        try textFields["Investigator Code"].enter(value: "LS1")
 
         XCTAssertTrue(collectionViews.buttons["Signup"].waitForExistence(timeout: 2))
         collectionViews.buttons["Signup"].tap()
@@ -148,6 +149,7 @@ extension XCUIApplication {
         XCTAssertTrue(staticTexts["Account Overview"].waitForExistence(timeout: 5.0))
         XCTAssertTrue(staticTexts["Leland Stanford"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(staticTexts["leland@stanford.edu"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(staticTexts["Investigator Code, LS1"].waitForExistence(timeout: 0.5))
 
 
         XCTAssertTrue(navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))

@@ -110,11 +110,19 @@ final class PatientInformationTests: XCTestCase {
 
         XCTAssertTrue(app.textFields["enter first name"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.textFields["enter last name"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.textViews["Add Notes"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.textFields["Patient Code"].waitForExistence(timeout: 0.5)) // patient code field, // TODO: accessibility label
+        XCTAssertTrue(app.buttons["Sex, Not Disclosed"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.textViews["add notes ..."].waitForExistence(timeout: 0.5))
 
         try app.textFields["enter first name"].enter(value: "Jane")
         try app.textFields["enter last name"].enter(value: "Stanford")
-        try app.textViews["Add Notes"].enter(value: "My note ...", checkIfTextWasEnteredCorrectly: false, dismissKeyboard: false)
+        try app.textFields["Patient Code"].enter(value: "JS1")
+
+        app.buttons["Sex, Not Disclosed"].tap()
+        XCTAssertTrue(app.buttons["Female"].waitForExistence(timeout: 0.5))
+        app.buttons["Female"].tap()
+
+        try app.textViews["add notes ..."].enter(value: "My note ...", checkIfTextWasEnteredCorrectly: false, dismissKeyboard: false)
 
         XCTAssertTrue(app.navigationBars.buttons["Done"].waitForExistence(timeout: 0.5))
         app.navigationBars.buttons["Done"].tap()
@@ -126,6 +134,8 @@ final class PatientInformationTests: XCTestCase {
 
         XCTAssertTrue(app.navigationBars.staticTexts["Patient Overview"].waitForExistence(timeout: 6.0))
         XCTAssertTrue(app.staticTexts["Jane Stanford"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Sex, Female"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(app.staticTexts["Birthdate"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.staticTexts["My note ..."].waitForExistence(timeout: 0.5))
 
         XCTAssertTrue(app.buttons["Select Patient"].waitForExistence(timeout: 0.5))

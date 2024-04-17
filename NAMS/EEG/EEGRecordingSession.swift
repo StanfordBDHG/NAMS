@@ -21,7 +21,7 @@ private actor EEGFileStorage {
 @Observable
 class EEGRecordingSession { // swiftlint:disable:this type_body_length
     #if targetEnvironment(simulator)
-    static let recordingDuration: TimeInterval = 30
+    static let recordingDuration: TimeInterval = 15
     #else
     static let recordingDuration: TimeInterval = 2 * 60
     #endif
