@@ -159,6 +159,7 @@ class MockDeviceTests: XCTestCase {
         app.steppers["Value Interval, 5000uV"].firstMatch.buttons["Increment"].tap()
         XCTAssertTrue(app.steppers["Value Interval, 6000uV"].waitForExistence(timeout: 0.5))
         app.steppers["Value Interval, 6000uV"].firstMatch.buttons["Increment"].tap()
+        XCTAssertTrue(app.steppers["Value Interval, 7000uV"].waitForExistence(timeout: 0.5))
     }
 }
 

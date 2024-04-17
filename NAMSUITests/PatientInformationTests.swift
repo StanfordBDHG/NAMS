@@ -110,7 +110,7 @@ final class PatientInformationTests: XCTestCase {
 
         XCTAssertTrue(app.textFields["enter first name"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.textFields["enter last name"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.textFields["Patient Code"].waitForExistence(timeout: 0.5)) // patient code field, // TODO: accessibility label
+        XCTAssertTrue(app.textFields["Patient Code"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.buttons["Sex, Not Disclosed"].waitForExistence(timeout: 0.5))
         XCTAssertTrue(app.textViews["add notes ..."].waitForExistence(timeout: 0.5))
 
