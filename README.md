@@ -12,7 +12,7 @@ SPDX-License-Identifier: MIT
 
 [![Beta Deployment](https://github.com/StanfordBDHG/NAMS/actions/workflows/beta-deployment.yml/badge.svg)](https://github.com/StanfordBDHG/NAMS/actions/workflows/beta-deployment.yml)
 [![codecov](https://codecov.io/gh/StanfordBDHG/NAMS/branch/main/graph/badge.svg?token=9fvSAiFJUY)](https://codecov.io/gh/StanfordBDHG/NAMS)
-[![DOI](https://zenodo.org/badge/648881967.svg)](https://zenodo.org/badge/latestdoi/648881967)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8374397.svg)](https://doi.org/10.5281/zenodo.8374397)
 
 Neurodevelopment Assessment and Monitoring System (NAMS) iOS application.
 
