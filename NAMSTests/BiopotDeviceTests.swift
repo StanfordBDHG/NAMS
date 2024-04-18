@@ -85,6 +85,22 @@ final class BiopotDeviceTests: XCTestCase {
         device.service.$dataControl.inject(.started)
     }
 
+    func testSignalDescription() throws {
+        for highPass in SamplingConfiguration.HighPassFilter.allCases {
+            for lowPass in SamplingConfiguration.SoftwareLowPassFilter.allCases {
+                let configuration = SamplingConfiguration(highPassFilter: highPass, softwareLowPassFilter: lowPass)
+                device.service.$samplingConfiguration.inject(configuration)
+
+
+                let description = try device.signalDescription
+
+                XCTAssertEqual(description.count, 8)
+                let first = try XCTUnwrap(description.first)
+                XCTAssertEqual(first.prefiltering, "HP:\(highPass.edfString)" + (lowPass.edfString.map { " LP:\($0)" } ?? ""))
+            }
+        }
+    }
+
     func testDataAcquisition() async throws {
         let data0 = try XCTUnwrap(data0)
         let data1 = try XCTUnwrap(data1)

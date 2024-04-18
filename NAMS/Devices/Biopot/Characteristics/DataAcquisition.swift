@@ -20,14 +20,6 @@ enum SomeDataAcquisition {
 struct DataAcquisition10: DataAcquisition {
     let totalSampleCount: UInt32
     let samples: [BiopotSample] // 10 samples
-
-    let receivedDate: Date
-
-    init(totalSampleCount: UInt32, samples: [BiopotSample], receivedDate: Date = .now) {
-        self.totalSampleCount = totalSampleCount
-        self.samples = samples
-        self.receivedDate = receivedDate
-    }
 }
 
 
@@ -35,8 +27,6 @@ struct DataAcquisition11: DataAcquisition {
     let totalSampleCount: UInt32
     let samples: [BiopotSample] // 9 samples
     let accelerometerSample: AccelerometerSample
-
-    let receivedDate: Date
 }
 
 
@@ -45,9 +35,6 @@ private protocol DataAcquisition: Identifiable, Hashable, Comparable {
     var totalSampleCount: UInt32 { get }
     /// Array of samples. Amount depends on the type.
     var samples: [BiopotSample] { get }
-
-    /// The date and time this acquisition was received and decoded.
-    var receivedDate: Date { get }
 }
 
 
@@ -107,15 +94,6 @@ extension SomeDataAcquisition: DataAcquisition {
             acquisition.samples
         }
     }
-
-    @inlinable var receivedDate: Date {
-        switch self {
-        case let .type10(acquisition):
-            acquisition.receivedDate
-        case let .type11(acquisition):
-            acquisition.receivedDate
-        }
-    }
 }
 
 
@@ -132,7 +110,6 @@ extension DataAcquisition10: ByteDecodable {
 
         self.totalSampleCount = totalSampleCount
         self.samples = samples
-        self.receivedDate = .now
     }
 }
 
@@ -152,6 +129,5 @@ extension DataAcquisition11: ByteDecodable {
         self.totalSampleCount = totalSampleCount
         self.samples = samples
         self.accelerometerSample = accelerometerSample
-        self.receivedDate = .now
     }
 }

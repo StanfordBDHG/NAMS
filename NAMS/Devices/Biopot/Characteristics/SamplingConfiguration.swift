@@ -211,7 +211,7 @@ extension SamplingConfiguration: ByteCodable {
 }
 
 
-extension SamplingConfiguration.HighPassFilter {
+extension SamplingConfiguration.HighPassFilter: CaseIterable {
     var edfString: String {
         switch self {
         case .Hz_0_10:
@@ -268,7 +268,7 @@ extension SamplingConfiguration.HighPassFilter {
     }
 }
 
-extension SamplingConfiguration.SoftwareLowPassFilter {
+extension SamplingConfiguration.SoftwareLowPassFilter: CaseIterable {
     var edfString: String? {
         switch self {
         case .disabled:
