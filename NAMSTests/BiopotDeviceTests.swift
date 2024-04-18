@@ -15,65 +15,183 @@ import XCTest
 final class BiopotDeviceTests: XCTestCase {
     private var device: BiopotDevice! // swiftlint:disable:this implicitly_unwrapped_optional
 
+    private let data0 = Data(
+        hex: """
+             0x00000000\
+             0100006aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
+             1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
+             75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
+             ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
+             d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
+             2889a72889a72889a72889a72889a72889a72889a72889a7\
+             4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
+             1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
+             b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
+             87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
+             """
+    )
+
+    private let data1 = Data(
+        hex: """
+             0x0a000000\
+             0200006aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
+             1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
+             75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
+             ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
+             d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
+             2889a72889a72889a72889a72889a72889a72889a72889a7\
+             4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
+             1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
+             b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
+             87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
+             """
+    )
+
+    private let data2 = Data(
+        hex: """
+             0x14000000\
+             0300006aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
+             1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
+             75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
+             ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
+             d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
+             2889a72889a72889a72889a72889a72889a72889a72889a7\
+             4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
+             1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
+             b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
+             87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
+             """
+    )
+
+    private let data3 = Data(
+        hex: """
+             0x1E000000\
+             0400006aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
+             1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
+             75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
+             ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
+             d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
+             2889a72889a72889a72889a72889a72889a72889a72889a7\
+             4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
+             1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
+             b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
+             87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
+             """
+    )
+
     override func setUpWithError() throws {
         self.device = BiopotDevice.createMock()
+        device.service.$deviceConfiguration.inject(DeviceConfiguration(accelerometerStatus: .off, samplesPerChannel: 10))
+        device.service.$dataControl.inject(.started)
     }
 
     func testDataAcquisition() async throws {
-        throw XCTSkip() // TODO: find a way to test new stuff!
-        let data = try XCTUnwrap(Data(
-            hex: """
-                 0x00000000\
-                 6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f6aab9f\
-                 1e35a11e35a11e35a11e35a11e35a11e35a11e35a11e35a1\
-                 75c6a275c6a275c6a275c6a275c6a275c6a275c6a275c6a2\
-                 ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4ed5ba4\
-                 d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5d8f2a5\
-                 2889a72889a72889a72889a72889a72889a72889a72889a7\
-                 4e1da94e1da94e1da94e1da94e1da94e1da94e1da94e1da9\
-                 1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa1eaeaa\
-                 b63aacb63aacb63aacb63aacb63aacb63aacb63aacb63aac\
-                 87ffff87ffff87ffff87ffff87ffff87ffff87ffff87ffff
-                 """
-        ))
+        let data0 = try XCTUnwrap(data0)
+        let data1 = try XCTUnwrap(data1)
 
-        let configuration = DeviceConfiguration(
-            channelCount: 8,
-            accelerometerStatus: .off,
-            impedanceStatus: false,
-            memoryStatus: false,
-            samplesPerChannel: 9,
-            dataSize: 24,
-            syncEnabled: false,
-            serialNumber: 127
-        )
+        // basically calling startRecording but without BLE interaction
+        let stream = await device.service._makeStream()
 
+        device.service.handleDataAcquisition(data: data0)
+        device.service.handleDataAcquisition(data: data0) // tests that accidental zero packets are overwritten
+        device.service.handleDataAcquisition(data: data1)
 
-        device.service.$deviceConfiguration.inject(configuration)
-        device.service.$dataAcquisition.inject(data)
+        let samples = try await collectResults(from: stream)
 
-        let id = UUID()
-        let url = EEGRecordings.tempFileUrl(id: id)
-        let patient = Patient(id: "LS1", name: .init(givenName: "Leland", familyName: "Stanford"), code: "LS", sex: .male, birthdate: .now)
+        XCTAssertEqual(samples.count, 20)
 
-        let session = try await EEGRecordingSession(id: id, url: url, patient: patient, device: .biopot(device), investigatorCode: "II")
+        let sample0 = samples[0]
+        let sample10 = samples[10]
+        XCTAssertEqual(sample0.channels.count, 8)
+        XCTAssertEqual(sample10.channels.count, 8)
 
-        do {
-            try await device.startRecording(session)
-        } catch {
-            // this will throw because there is no peripheral connected, but we only care about assigning the session
-        }
-
-        device.service.handleDataAcquisition(data: data)
-
-        try await Task.sleep(for: .milliseconds(100))
-
-        XCTAssertEqual(session.measurements.count, 1)
-
-        // let series = try XCTUnwrap(session.measurements[.all])
-        // XCTAssertEqual(series.count, 10)
-
-        // let channels = try XCTUnwrap(series.first)
-        // XCTAssertEqual(channels.channels.count, 8)
+        // ensure order
+        XCTAssertEqual(sample0.channels[0].value, 1)
+        XCTAssertEqual(sample10.channels[0].value, 2)
     }
+
+    func testUnorderedDataAcquisition() async throws {
+        let data0 = try XCTUnwrap(data0)
+        let data1 = try XCTUnwrap(data1)
+        let data2 = try XCTUnwrap(data2)
+        let data3 = try XCTUnwrap(data3)
+
+        let stream = await device.service._makeStream()
+
+        device.service.handleDataAcquisition(data: data0)
+        device.service.handleDataAcquisition(data: data1)
+        device.service.handleDataAcquisition(data: data3) // reorder packets
+        device.service.handleDataAcquisition(data: data2)
+
+        let samples = try await collectResults(from: stream)
+
+        XCTAssertEqual(samples.count, 40)
+
+        let sample0 = samples[0]
+        let sample10 = samples[10]
+        let sample20 = samples[20]
+        let sample30 = samples[30]
+        XCTAssertEqual(sample0.channels.count, 8)
+        XCTAssertEqual(sample10.channels.count, 8)
+        XCTAssertEqual(sample20.channels.count, 8)
+        XCTAssertEqual(sample30.channels.count, 8)
+
+        // ensure order
+        XCTAssertEqual(sample0.channels[0].value, 1)
+        XCTAssertEqual(sample10.channels[0].value, 2)
+        XCTAssertEqual(sample20.channels[0].value, 3)
+        XCTAssertEqual(sample30.channels[0].value, 4)
+    }
+
+    func testUnorderedAfterZeroDataAcquisition() async throws {
+        let data0 = try XCTUnwrap(data0)
+        let data1 = try XCTUnwrap(data1)
+        let data2 = try XCTUnwrap(data2)
+        let data3 = try XCTUnwrap(data3)
+
+        let stream = await device.service._makeStream()
+
+        device.service.handleDataAcquisition(data: data0)
+        device.service.handleDataAcquisition(data: data2) // reorder packets
+        device.service.handleDataAcquisition(data: data3)
+        device.service.handleDataAcquisition(data: data1)
+
+        let samples = try await collectResults(from: stream)
+
+        XCTAssertEqual(samples.count, 40)
+
+        let sample0 = samples[0]
+        let sample10 = samples[10]
+        let sample20 = samples[20]
+        let sample30 = samples[30]
+        XCTAssertEqual(sample0.channels.count, 8)
+        XCTAssertEqual(sample10.channels.count, 8)
+        XCTAssertEqual(sample20.channels.count, 8)
+        XCTAssertEqual(sample30.channels.count, 8)
+
+        // ensure order
+        XCTAssertEqual(sample0.channels[0].value, 1)
+        XCTAssertEqual(sample10.channels[0].value, 2)
+        XCTAssertEqual(sample20.channels[0].value, 3)
+        XCTAssertEqual(sample30.channels[0].value, 4)
+    }
+}
+
+
+private func collectResults(
+    from stream: AsyncStream<CombinedEEGSample>,
+    waiting duration: Duration = .milliseconds(500)
+) async throws -> [CombinedEEGSample] {
+    let task = Task {
+        var result: [CombinedEEGSample] = []
+        for await element in stream {
+            result.append(element)
+        }
+        return result
+    }
+
+    try await Task.sleep(for: duration)
+    task.cancel() // cancel to stop recording
+
+    return await task.value
 }

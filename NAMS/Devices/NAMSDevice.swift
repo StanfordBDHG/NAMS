@@ -22,11 +22,13 @@ protocol NAMSDevice: GenericBluetoothPeripheral {
 
     func disconnect() async
 
-    func prepareRecording() async throws
-
-    func startRecording(_ session: EEGRecordingSession) async throws
-
-    func stopRecording() async throws
+    /// Creates a new recording stream.
+    ///
+    /// Prepares the device for recording and enables recording for the device.
+    /// Further, this method creates an async stream that yields the EEG samples received from the device.
+    ///
+    /// - Important: Implementation must make sure to properly stop recording on the device if the async stream is getting cancelled.
+    func startRecording() async throws -> AsyncStream<CombinedEEGSample>
 
     @MainActor
     func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void)

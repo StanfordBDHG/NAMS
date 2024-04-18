@@ -99,7 +99,7 @@ struct EEGRecordingSessionView: View {
                     if isRetryAble {
                         ToolbarItem(placement: .primaryAction) {
                             AsyncButton("Try again") { @MainActor in
-                                await eegModel.retryUpload()
+                                await eegModel.retryUpload(for: session)
                             }
                         }
                     }
@@ -112,7 +112,7 @@ struct EEGRecordingSessionView: View {
                 }
             }
             .task {
-                await eegModel.runRecordingAndSave() // long-running task!
+                await eegModel.runAndSave(recording: session) // long-running task!
             }
             .popover(isPresented: $presentingChartControls, attachmentAnchor: .point(popoverUnitPoint), arrowEdge: .top) {
                 ChangeChartLayoutView(displayInterval: $displayInterval, valueInterval: $valueInterval)

@@ -112,17 +112,8 @@ class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice {
         }
     }
 
-    func prepareRecording() async throws {
-        logger.debug("Preparing to record for biopot \(self.name ?? "")")
-        try await service.prepareRecording()
-    }
-
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        try await service.startRecording(session)
-    }
-
-    func stopRecording() async throws {
-        try await service.stopRecording()
+    func startRecording() async throws -> AsyncStream<CombinedEEGSample> {
+        try await service.startRecording()
     }
 }
 
@@ -167,6 +158,7 @@ extension BiopotDevice {
             batteryCharging: true
         ))
         biopot.service.$samplingConfiguration.inject(SamplingConfiguration())
+        biopot.service.$deviceConfiguration.inject(DeviceConfiguration())
         biopot.deviceInformation.$firmwareRevision.inject("1.2.3")
         biopot.deviceInformation.$serialNumber.inject(serial)
         biopot.deviceInformation.$hardwareRevision.inject("3.1")

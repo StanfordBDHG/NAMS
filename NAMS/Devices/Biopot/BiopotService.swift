@@ -49,7 +49,11 @@ class BiopotService: BluetoothService {
     var dataAcquisition: Data? // either `DataAcquisition10` or `DataAcquisition11` depending on the configuration.
 
 
-    @EEGProcessing private var recordingSession: EEGRecordingSession?
+    @EEGProcessing private var recordingStream: AsyncStream<CombinedEEGSample>.Continuation? {
+        willSet {
+            recordingStream?.finish()
+        }
+    }
 
     @EEGProcessing private var nextExpectedSampleCount: UInt32 = 0
 
@@ -66,7 +70,7 @@ class BiopotService: BluetoothService {
     }
 
     @EEGProcessing
-    func prepareRecording() async throws {
+    private func prepareRecording() async throws {
         do {
             // make sure the value is up to date before the recording session is created
             try await $deviceConfiguration.read()
@@ -85,17 +89,42 @@ class BiopotService: BluetoothService {
     }
 
     @EEGProcessing
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        recordingSession = session
+    func startRecording() async throws -> AsyncStream<CombinedEEGSample> {
+        try await self.prepareRecording()
         try await self.enableRecording()
+        return _makeStream()
     }
 
     @EEGProcessing
-    func stopRecording() async throws {
-        try await $dataControl.write(.paused)
-        recordingSession = nil
+    func _makeStream() -> AsyncStream<CombinedEEGSample> { // swiftlint:disable:this identifier_name
+        AsyncStream { continuation in
+            continuation.onTermination = { [weak self] termination in
+                guard case .cancelled = termination else {
+                    return // we don't care about finished sequences!
+                }
 
-        clearProcessing()
+                Task { @EEGProcessing [weak self] in
+                    do {
+                        try await self?.stopRecording()
+                    } catch {
+                        self?.logger.error("Failed to stop recording for device: \(error)")
+                    }
+                }
+            }
+            recordingStream = continuation
+        }
+    }
+
+    @EEGProcessing
+    private func stopRecording() async throws {
+        defer {
+            recordingStream?.finish() // might already be cancelled, but just to be safe
+            recordingStream = nil
+
+            clearProcessing()
+        }
+
+        try await $dataControl.write(.paused)
     }
 
     @EEGProcessing
@@ -180,7 +209,7 @@ class BiopotService: BluetoothService {
             return
         }
 
-        guard recordingSession != nil else {
+        guard recordingStream != nil else {
             logger.warning("Received incoming data acquisition \(acquisition.totalSampleCount) while recording session was not present anymore!")
             return
         }
@@ -193,7 +222,7 @@ class BiopotService: BluetoothService {
 
 
         // See explanation below, this eventually clears the first received packet from the buffer
-        if nextExpectedSampleCount == 0 && acquisition.totalSampleCount != 0 && packetBuffer.first?.totalSampleCount == 0 {
+        if nextExpectedSampleCount == 0 && acquisition.totalSampleCount > 0 && packetBuffer.first?.totalSampleCount == 0 {
             processBufferedPackets()
         }
 
@@ -254,14 +283,14 @@ class BiopotService: BluetoothService {
 
     @EEGProcessing
     private func processAcquisition(_ acquisition: SomeDataAcquisition) {
-        guard let recordingSession else {
+        guard let recordingStream else {
             return // we checked that earlier, if it is gone now, something went completely wrong
         }
 
 
         for sample in acquisition.samples {
             let combinedSample = CombinedEEGSample(channels: sample.channels)
-            recordingSession.append(combinedSample)
+            recordingStream.yield(combinedSample)
         }
     }
 }

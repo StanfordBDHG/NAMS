@@ -18,6 +18,9 @@ struct StartRecordingView: View {
     @Environment(Account.self)
     private var account
 
+
+    @Binding private var recordingSession: EEGRecordingSession?
+
     var body: some View {
         OnboardingView(
             title: "Start a new Recording",
@@ -46,7 +49,7 @@ struct StartRecordingView: View {
             action: {
                 // button is disabled if no details are present
                 if let details = account.details {
-                    try await eegModel.startRecordingSession(investigator: details)
+                    self.recordingSession = try await eegModel.createRecordingSession(investigator: details)
                 }
             }
         )
@@ -55,14 +58,15 @@ struct StartRecordingView: View {
     }
 
 
-    init() {
+    init(_ recordingSession: Binding<EEGRecordingSession?>) {
+        self._recordingSession = recordingSession
     }
 }
 
 
 #if DEBUG
 #Preview {
-    StartRecordingView()
+    StartRecordingView(.constant(nil))
         .previewWith(standard: NAMSStandard()) {
             AccountConfiguration {
                 MockUserIdPasswordAccountService()

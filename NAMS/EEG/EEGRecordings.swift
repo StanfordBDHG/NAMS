@@ -20,23 +20,21 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
     @Dependency @ObservationIgnored private var deviceCoordinator: DeviceCoordinator
     @Dependency @ObservationIgnored private var patientList: PatientListModel
 
-    @MainActor private(set) var recordingSession: EEGRecordingSession?
-
     required init() {}
 
     @MainActor
-    func startRecordingSession(investigator: AccountDetails) async throws {
+    func createRecordingSession(investigator: AccountDetails) async throws -> EEGRecordingSession {
         // Request is coming from MainActor and we need to access active patient from main actor.
         // Therefore, we stay on main actor before we switch to @EEGProcessing actor for file I/O.
         guard let patient = patientList.activePatient else {
             throw EEGRecordingError.noSelectedPatient
         }
 
-        try await _startRecordingSession(investigator: investigator, patient: patient)
+        return try await _createRecordingSession(investigator: investigator, patient: patient)
     }
 
     @EEGProcessing
-    private func _startRecordingSession(investigator: AccountDetails, patient: Patient) async throws {
+    private func _createRecordingSession(investigator: AccountDetails, patient: Patient) async throws -> EEGRecordingSession {
         guard let device = deviceCoordinator.connectedDevice else {
             throw EEGRecordingError.noConnectedDevice
         }
@@ -44,71 +42,42 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
 
         let recordingId = UUID()
 
+        let stream = try await device.startRecording()
+
         // file I/O should only happen on background thread.
         let url = try Self.createTempRecordingFile(id: recordingId)
 
-        try await device.prepareRecording()
-
-        let session = try EEGRecordingSession(
-            id: recordingId,
-            url: url,
-            patient: patient,
-            device: device,
-            investigatorCode: investigator.investigatorCode
-        )
-
-        try await device.startRecording(session)
-
-        // We set the recording session after recording was enabled on the device.
-        // Otherwise, we would navigate away to early from the Splash screen and would result in this
-        // task being cancelled.
-        await MainActor.run {
-            self.recordingSession = session
+        do {
+            // Once the recording session is created, the file is owned by the session (and must be cleared by it).
+            return try EEGRecordingSession(
+                id: recordingId,
+                url: url,
+                patient: patient,
+                device: device,
+                investigatorCode: investigator.investigatorCode,
+                stream: stream
+            )
+        } catch {
+            // make sure we clean up orphaned files.
+            try? Self.removeTempRecordingFile(id: recordingId)
+            throw error
         }
     }
 
     @MainActor
-    func runRecordingAndSave() async {
-        guard let recordingSession else {
-            return
-        }
-
-        await recordingSession.runRecording()
+    func runAndSave(recording: EEGRecordingSession) async {
+        await recording.runRecording()
 
         guard !Task.isCancelled else {
-            Task {
-                await handleCancelledRecording()
-            }
-            return
+            return // do not save cancelled recordings
         }
 
-        await recordingSession.saveRecording(standard: standard, patientList: patientList, connectedDevice: deviceCoordinator.connectedDevice)
+        await recording.saveRecording(standard: standard, patientList: patientList, connectedDevice: deviceCoordinator.connectedDevice)
     }
 
     @MainActor
-    func retryUpload() async {
-        guard let recordingSession else {
-            return
-        }
-
-
-        await recordingSession.retryFileUpload(standard: standard, patientList: patientList)
-    }
-
-    @MainActor
-    private func handleCancelledRecording() async {
-        defer {
-            self.recordingSession = nil
-        }
-
-        if let device = deviceCoordinator.connectedDevice {
-            do {
-                try await device.stopRecording()
-            } catch {
-                // nothing we can really do about
-                Self.logger.error("Failed to stop recording for device: \(error)")
-            }
-        }
+    func retryUpload(for recording: EEGRecordingSession) async {
+        await recording.retryFileUpload(standard: standard, patientList: patientList)
     }
 }
 

@@ -24,6 +24,8 @@ struct EEGRecordingView: View {
     @Environment(DeviceCoordinator.self)
     private var deviceCoordinator
 
+    @State private var recordingSession: EEGRecordingSession?
+
     var body: some View {
         ZStack {
             if !deviceCoordinator.isConnected {
@@ -34,15 +36,15 @@ struct EEGRecordingView: View {
                 }
                     .navigationTitle("Recording")
                     .navigationBarTitleDisplayMode(.inline)
-            } else if let session = eegModel.recordingSession {
-                EEGRecordingSessionView(session: session)
+            } else if let recordingSession {
+                EEGRecordingSessionView(session: recordingSession)
             } else {
-                StartRecordingView()
+                StartRecordingView($recordingSession)
             }
         }
             .toolbar {
                 // the EEGChartsView places it's own Cancel button!
-                if !deviceCoordinator.isConnected || eegModel.recordingSession == nil {
+                if !deviceCoordinator.isConnected || recordingSession == nil {
                     Button("Close") {
                         dismiss()
                     }

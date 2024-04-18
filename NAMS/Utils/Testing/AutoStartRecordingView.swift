@@ -19,15 +19,16 @@ struct AutoStartRecordingView<Content: View>: View {
     @Environment(EEGRecordings.self)
     private var model
 
+    @State private var recordingSession: EEGRecordingSession?
 
     var body: some View {
-        content(model.recordingSession)
+        content(recordingSession)
             .task {
                 guard let details = account.details else {
                     preconditionFailure("Account not present")
                 }
                 do {
-                    try await model.startRecordingSession(investigator: details)
+                    recordingSession = try await model.createRecordingSession(investigator: details)
                 } catch {
                     print("Failed to start recording: \(error)")
                 }

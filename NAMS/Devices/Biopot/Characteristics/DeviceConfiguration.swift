@@ -29,6 +29,26 @@ struct DeviceConfiguration {
     let dataSize: UInt8
     let syncEnabled: Bool
     let serialNumber: UInt32
+
+    init(
+        channelCount: UInt8 = 8,
+        accelerometerStatus: AccelerometerStatus = .off,
+        impedanceStatus: Bool = false,
+        memoryStatus: Bool = false,
+        samplesPerChannel: UInt8 = 9,
+        dataSize: UInt8 = 24,
+        syncEnabled: Bool = false,
+        serialNumber: UInt32 = 127
+    ) {
+        self.channelCount = channelCount
+        self.accelerometerStatus = accelerometerStatus
+        self.impedanceStatus = impedanceStatus
+        self.memoryStatus = memoryStatus
+        self.samplesPerChannel = samplesPerChannel
+        self.dataSize = dataSize
+        self.syncEnabled = syncEnabled
+        self.serialNumber = serialNumber
+    }
 }
 
 

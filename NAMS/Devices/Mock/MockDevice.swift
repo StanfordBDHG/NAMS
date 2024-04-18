@@ -9,12 +9,15 @@
 import BluetoothViews
 import EDFFormat
 import Foundation
+import OSLog
 import SpeziBluetooth
 
 
 @Observable
 class MockDevice: NAMSDevice {
     private static let sampleRate = 60
+
+    private let logger = Logger(subsystem: "edu.stanford.nams", category: "MockDevice")
 
     let id: UUID
     let name: String
@@ -23,6 +26,7 @@ class MockDevice: NAMSDevice {
 
     var state: PeripheralState
     var deviceInformation: MuseDeviceInformation? // we are just reusing muse data model
+    @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     var equipmentCode: String {
         if let deviceInformation {
@@ -31,10 +35,6 @@ class MockDevice: NAMSDevice {
             "MOCK"
         }
     }
-
-    /// The currently associated recording session.
-    @MainActor private var recordingSession: EEGRecordingSession?
-    @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     var connectionState: ConnectionState {
         switch state {
@@ -46,6 +46,13 @@ class MockDevice: NAMSDevice {
             return .connected
         case .disconnecting:
             return .disconnected
+        }
+    }
+
+    /// The currently associated recording session.
+    @MainActor private var recordingStream: AsyncStream<CombinedEEGSample>.Continuation? {
+        willSet {
+            recordingStream?.finish()
         }
     }
 
@@ -157,12 +164,8 @@ class MockDevice: NAMSDevice {
         }
     }
 
-    func prepareRecording() async throws {}
-
     @MainActor
-    func startRecording(_ session: EEGRecordingSession) throws {
-        self.recordingSession = session
-
+    func startRecording() throws -> AsyncStream<CombinedEEGSample> {
         // schedule timer to generate fake EEG data
         let timer = Timer(timeInterval: 0.1, repeats: true) { timer in
             // its running on the main RunLoop so this is safe to assume
@@ -173,19 +176,42 @@ class MockDevice: NAMSDevice {
         RunLoop.main.add(timer, forMode: .common)
         self.eegTimer = timer
 
-        generateRecording(timer: timer) // make sure there is data instantly
+        defer {
+            generateRecording(timer: timer) // make sure there is data instantly
+        }
+
+        logger.info("Started recording for mock device.")
+
+        return makeStream()
     }
 
     @MainActor
-    func stopRecording() throws {
+    private func makeStream() -> AsyncStream<CombinedEEGSample> {
+        AsyncStream { continuation in
+            continuation.onTermination = { [weak self] termination in
+                guard case .cancelled = termination else {
+                    return // we don't care about finished sequences!
+                }
+
+                Task { @EEGProcessing [weak self] in
+                    try await self?.stopRecording()
+                }
+            }
+            recordingStream = continuation
+        }
+    }
+
+    @MainActor
+    private func stopRecording() throws {
+        logger.debug("Stopping recording for mock device ...")
         self.eegTimer = nil
-        self.recordingSession = nil
+        self.recordingStream = nil
         self.measurementGenerator = MockMeasurementGenerator(sampleRate: Self.sampleRate)
     }
 
     @MainActor
     private func generateRecording(timer: Timer) {
-        guard let recordingSession,
+        guard let recordingStream,
               state == .connected else {
             timer.invalidate()
             return
@@ -194,7 +220,7 @@ class MockDevice: NAMSDevice {
         let samples = measurementGenerator.next()
         Task { @EEGProcessing in
             for sample in samples {
-                recordingSession.append(sample)
+                recordingStream.yield(sample)
             }
         }
     }

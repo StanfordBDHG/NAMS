@@ -22,6 +22,12 @@ struct DataAcquisition10: DataAcquisition {
     let samples: [BiopotSample] // 10 samples
 
     let receivedDate: Date
+
+    init(totalSampleCount: UInt32, samples: [BiopotSample], receivedDate: Date = .now) {
+        self.totalSampleCount = totalSampleCount
+        self.samples = samples
+        self.receivedDate = receivedDate
+    }
 }
 
 

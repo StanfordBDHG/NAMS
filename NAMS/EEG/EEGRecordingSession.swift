@@ -40,14 +40,24 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
     @MainActor private(set) var totalSamples = 0
 
     private let fileWriter: BDFFileWriter
+    private let sampleSource: AsyncStream<CombinedEEGSample>
 
+    /// Array of buffered channels before they get handed of to the BDF file writer.
     @EEGProcessing private var bufferedChannels: [BufferedChannel<BDFSample>]
+    /// Array of buffered channels before they get moved to the main thread for a UI update (e.g., downsampled or batched processing).
     @EEGProcessing private var uiBufferedChannels: [BufferedChannel<BDFSample>]
-    /// Mirrors the recording state, but is synched to a different thread.
-    @EEGProcessing private var shouldAcceptSamples = false
 
     @MainActor var recordingState: RecordingState = .preparing
-    @MainActor var runRecordingContinuation: CheckedContinuation<Void, Never>?
+    @EEGProcessing private var shouldAcceptSamples = false
+
+    /// The task that consumes new samples from the `sampleSource` stream.
+    @MainActor @ObservationIgnored private var recordingTask: Task<Void, Never>? {
+        willSet {
+            recordingTask?.cancel()
+        }
+    }
+
+    /// The timer that counts down the recording.
     @MainActor @ObservationIgnored private var recordingTimer: Timer? {
         willSet {
             recordingTimer?.invalidate()
@@ -68,7 +78,7 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
     }
 
     @EEGProcessing
-    init(id: UUID, url: URL, patient: Patient, device: ConnectedDevice, investigatorCode: String?) throws {
+    init(id: UUID, url: URL, patient: Patient, device: ConnectedDevice, investigatorCode: String?, stream: AsyncStream<CombinedEEGSample>) throws {
         guard let patientId = patient.id else {
             logger.error("Patient didn't have a valid patient id. Received: \(String(describing: patient))")
             throw EEGRecordingError.unexpectedErrorStart
@@ -76,6 +86,7 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
 
         self.id = id
         self.patientId = patientId
+        self.sampleSource = stream
 
         let patientInformation = PatientInformation(from: patient)
         let recordingInformation = RecordingInformation(
@@ -140,37 +151,34 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
 
         await EEGProcessing.run {
             updateStartDate(to: startDate)
-            shouldAcceptSamples = true
         }
 
+        let task = Task { @EEGProcessing in
+            // Either this task will be cancelled or the async stream finished.
+            // In both cases the bluetooth transmission will be stopped.
+            for await sample in sampleSource {
+                append(sample)
+            }
+        }
+        recordingTask = task // only used to cancel, in the case of an internal error
+
+        // timer for the recording, on completion will cancel the task
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: EEGRecordingSession.recordingDuration, repeats: false) { [weak self] _ in
+            // calling saveRecording will be handled by the caller of this method!
+            task.cancel()
+            self?.logger.debug("EEG recording session completed!")
+        }
+
+        let logger = logger
         await withTaskCancellationHandler {
-            await withCheckedContinuation { continuation in
-                self.runRecordingContinuation = continuation
-
-                // calling saveRecording will be handled by the caller of this method!
-                let timer = Timer(timeInterval: EEGRecordingSession.recordingDuration, repeats: false) { [weak self] _ in
-                    MainActor.assumeIsolated {
-                        self?.recordingTimer = nil
-                        self?.runRecordingContinuation = nil
-
-                        self?.logger.debug("EEG recording session completed!")
-                        continuation.resume()
-                    }
-                }
-                RunLoop.main.add(timer, forMode: .default)
-                recordingTimer = timer
-            }
-        } onCancel: { [weak self] in
-            Task { @MainActor [weak self] in
-                guard let self = self else {
-                    return
-                }
-                self.logger.debug("Received cancellation for ongoing recording session ...")
-                self.runRecordingContinuation?.resume()
-                self.recordingTimer = nil
-                self.runRecordingContinuation = nil
-            }
+            await task.value
+        } onCancel: {
+            task.cancel() // cancels the producer stream and stops recording
+            logger.debug("Received cancellation for ongoing recording session ...")
         }
+
+        self.recordingTimer = nil
+        self.recordingTask = nil
 
         // ensure that we are cleaning up our resources if we are cancelled from the outside!
         if Task.isCancelled {
@@ -206,15 +214,7 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
         // We just ignore the buffered samples for now.
         // A data record has a size of 1 second (typically) so we don't loose out on too much.
 
-        async let stopRecordingTask: Void? = connectedDevice?.stopRecording()
-
         let resultingState = await tryFileUpload(to: standard, using: patientList)
-
-        do {
-            try await stopRecordingTask
-        } catch {
-            logger.error("Failed to stop sample collection on bluetooth device: \(error)")
-        }
 
         await MainActor.run {
             recordingState = resultingState
@@ -296,11 +296,7 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
 
 
     @EEGProcessing
-    func append(_ sample: CombinedEEGSample) {
-        guard shouldAcceptSamples else {
-            return
-        }
-
+    private func append(_ sample: CombinedEEGSample) {
         guard sample.channels.count == fileWriter.signals.count else {
             logger.error("""
                          EEG Device provided sample with \(sample.channels.count) channels, \
@@ -432,14 +428,18 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
             try fileWriter.addRecord(record)
         } catch {
             logger.error("Failed to add recording to file writer: \(error)")
+            await EEGProcessing.run {
+                // we just prevent more sample to arrive
+                shouldAcceptSamples = false
+            }
+
             await MainActor.run {
                 recordingState = .unrecoverableError(AnyLocalizedError(
                     error: error,
                     defaultErrorDescription: "Failed to save eeg measurements."
                 ))
-            }
-            await EEGProcessing.run {
-                shouldAcceptSamples = false // we just prevent more sample to arrive, eventually session will be cancelled once it view disappears
+
+                recordingTask?.cancel() // cancel the recording.
             }
         }
     }

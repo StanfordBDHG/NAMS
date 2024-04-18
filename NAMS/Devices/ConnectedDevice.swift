@@ -76,16 +76,8 @@ extension ConnectedDevice: NAMSDevice {
         await underlyingDevice.disconnect()
     }
 
-    func prepareRecording() async throws {
-        try await underlyingDevice.prepareRecording()
-    }
-
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        try await underlyingDevice.startRecording(session)
-    }
-
-    func stopRecording() async throws {
-        try await underlyingDevice.stopRecording()
+    func startRecording() async throws -> AsyncStream<CombinedEEGSample> {
+        try await underlyingDevice.startRecording()
     }
 
     @MainActor

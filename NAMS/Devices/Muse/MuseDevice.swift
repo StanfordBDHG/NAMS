@@ -38,7 +38,11 @@ class MuseDevice: Identifiable, NAMSDevice {
     var deviceInformation: MuseDeviceInformation?
 
     /// The currently associated recording session.
-    private var recordingSession: EEGRecordingSession?
+    private var recordingStream: AsyncStream<CombinedEEGSample>.Continuation? {
+        willSet {
+            recordingStream?.finish()
+        }
+    }
     @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
     var name: String {
@@ -135,16 +139,23 @@ class MuseDevice: Identifiable, NAMSDevice {
         muse.disconnect()
     }
 
-    func prepareRecording() async throws {}
-
     @MainActor
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        self.recordingSession = session
+    func startRecording() async throws -> AsyncStream<CombinedEEGSample> {
+        AsyncStream { continuation in
+            continuation.onTermination = { [weak self] termination in
+                if case .cancelled = termination {
+                    Task { @MainActor [weak self] in
+                        self?.stopRecording()
+                    }
+                }
+            }
+            recordingStream = continuation
+        }
     }
 
     @MainActor
-    func stopRecording() async throws {
-        self.recordingSession = nil
+    func stopRecording() {
+        self.recordingStream = nil
     }
 
 
@@ -202,9 +213,9 @@ class MuseDevice: Identifiable, NAMSDevice {
                 deviceInformation.fit = fit
             }
         case .eeg:
-            if let recordingSession,
+            if let recordingStream,
                let sample = CombinedEEGSample(from: packet) {
-                recordingSession.append(sample)
+                recordingStream.yield(sample)
             }
         case .battery:
             deviceInformation.remainingBatteryPercentage = packet.getBatteryValue(.chargePercentageRemaining)
