@@ -36,7 +36,7 @@ struct MuseBatteryDetailsSection: View {
 #Preview {
     List {
         MuseBatteryDetailsSection(
-            .init(serialNumber: "", firmwareVersion: "", hardwareVersion: "", remainingBatteryPercentage: 75)
+            .mock(remainingBatteryPercentage: 75)
         )
     }
 }

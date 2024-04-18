@@ -7,6 +7,7 @@
 //
 
 import BluetoothViews
+import EDFFormat
 import SpeziBluetooth
 
 
@@ -17,104 +18,70 @@ enum ConnectedDevice {
     case biopot(_ biopot: BiopotDevice)
     case mock(_ mock: MockDevice)
 
-    @MainActor
-    func connect() async {
+    private var underlyingDevice: NAMSDevice {
         switch self {
-            #if MUSE
+#if MUSE
         case let .muse(muse):
-            muse.connect()
-            #endif
+            muse
+#endif
         case let .biopot(biopot):
-            await biopot.connect()
+            biopot
         case let .mock(mock):
-            mock.connect()
-        }
-    }
-
-    @MainActor
-    func disconnect() async {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            muse.disconnect()
-            #endif
-        case let .biopot(biopot):
-            await biopot.disconnect()
-        case let .mock(mock):
-            mock.disconnect()
-        }
-    }
-
-    @MainActor
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            try await muse.startRecording(session)
-            #endif
-        case let .biopot(biopot):
-            try await biopot.startRecording(session)
-        case let .mock(mock):
-            try await mock.startRecording(session)
-        }
-    }
-
-    @MainActor
-    func stopRecording() async throws {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            try await muse.stopRecording()
-            #endif
-        case let .biopot(biopot):
-            try await biopot.stopRecording()
-        case let .mock(mock):
-            try await mock.stopRecording()
-        }
-    }
-
-    @MainActor
-    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            muse.setupDisconnectHandler(handler)
-            #endif
-        case let .biopot(biopot):
-            biopot.setupDisconnectHandler(handler)
-        case let .mock(mock):
-            mock.setupDisconnectHandler(handler)
+            mock
         }
     }
 }
 
+
 extension ConnectedDevice: Hashable {}
 
 
-extension ConnectedDevice: GenericBluetoothPeripheral {
+extension ConnectedDevice: NAMSDevice {
     var label: String {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            muse.label
-            #endif
-        case let .biopot(biopot):
-            biopot.label
-        case let .mock(mock):
-            mock.label
-        }
+        underlyingDevice.label
     }
 
     var state: PeripheralState {
-        switch self {
-            #if MUSE
-        case let .muse(muse):
-            muse.state
-            #endif
-        case let .biopot(biopot):
-            biopot.state
-        case let .mock(mock):
-            mock.state
+        underlyingDevice.state
+    }
+
+    var accessibilityLabel: String {
+        underlyingDevice.accessibilityLabel
+    }
+
+    var requiresUserAttention: Bool {
+        underlyingDevice.requiresUserAttention
+    }
+
+    var equipmentCode: String {
+        underlyingDevice.equipmentCode
+    }
+
+    var signalDescription: [Signal] {
+        get throws {
+            try underlyingDevice.signalDescription
         }
+    }
+
+    var recordDuration: Int {
+        underlyingDevice.recordDuration
+    }
+
+
+    func connect() async {
+        await underlyingDevice.connect()
+    }
+
+    func disconnect() async {
+        await underlyingDevice.disconnect()
+    }
+
+    func startRecording() async throws -> AsyncStream<CombinedEEGSample> {
+        try await underlyingDevice.startRecording()
+    }
+
+    @MainActor
+    func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void) {
+        underlyingDevice.setupDisconnectHandler(handler)
     }
 }

@@ -6,23 +6,26 @@
 // SPDX-License-Identifier: MIT
 //
 
+import ByteCoding
+import EDFFormat
 import NIOCore
-import SpeziBluetooth
 
 
 struct SamplingConfiguration {
+    static let supportedSamplingRates: [UInt16] = [250, 500, 1000, 2000]
+
     /// Channel off/on bits. Only used with 16-bit. Not used with 24-bit configuration.
-    let channelsBitMask: UInt32
+    var channelsBitMask: UInt32
     /// Hardware low-pass filter. Not used with 24-bit configuration.
-    let lowPassFilter: LowPassFilter
+    var lowPassFilter: LowPassFilter
     /// High pass filter (Hardware for 16-bit configuration; Software for 24-bit configuration)
-    let highPassFilter: HighPassFilter
+    var highPassFilter: HighPassFilter
     /// 500 (default) / 1000 / 2000
-    let hardwareSamplingRate: UInt16
+    var hardwareSamplingRate: UInt16
     /// Not used with 24 bits.
-    let impedanceFrequency: UInt8
-    let impedanceScale: UInt8
-    let softwareLowPassFilter: SoftwareLowPassFilter
+    var impedanceFrequency: UInt8
+    var impedanceScale: UInt8
+    var softwareLowPassFilter: SoftwareLowPassFilter
 
 
     init(
@@ -125,56 +128,58 @@ extension SamplingConfiguration {
 
 
 extension SamplingConfiguration.LowPassFilter: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard let value = UInt8(from: &byteBuffer) else {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer) {
-        rawValue.encode(to: &byteBuffer)
+    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
     }
 }
 
 
 extension SamplingConfiguration.HighPassFilter: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard let value = UInt8(from: &byteBuffer) else {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer) {
-        rawValue.encode(to: &byteBuffer)
+    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
     }
 }
 
 
 extension SamplingConfiguration.SoftwareLowPassFilter: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard let value = UInt8(from: &byteBuffer) else {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer) {
-        rawValue.encode(to: &byteBuffer)
+    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
     }
 }
 
 
 extension SamplingConfiguration: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard let channelsBitMask = byteBuffer.readInteger(endianness: .big, as: UInt32.self),
-              let lowPassFilter = LowPassFilter(from: &byteBuffer),
-              let highPassFilter = HighPassFilter(from: &byteBuffer),
-              let hardwareSamplingRate = byteBuffer.readInteger(endianness: .big, as: UInt16.self),
-              let impedanceFrequency = UInt8(from: &byteBuffer),
-              let impedanceScale = UInt8(from: &byteBuffer),
-              let softwareLowPassFilter = SoftwareLowPassFilter(from: &byteBuffer) else {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        let endianness: Endianness = .big // we force big endianness for this type
+
+        guard let channelsBitMask = UInt32(from: &byteBuffer, preferredEndianness: endianness),
+              let lowPassFilter = LowPassFilter(from: &byteBuffer, preferredEndianness: endianness),
+              let highPassFilter = HighPassFilter(from: &byteBuffer, preferredEndianness: endianness),
+              let hardwareSamplingRate = UInt16(from: &byteBuffer, preferredEndianness: endianness),
+              let impedanceFrequency = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let impedanceScale = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let softwareLowPassFilter = SoftwareLowPassFilter(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
 
@@ -187,15 +192,127 @@ extension SamplingConfiguration: ByteCodable {
         self.softwareLowPassFilter = softwareLowPassFilter
     }
 
-    func encode(to byteBuffer: inout ByteBuffer) {
-        byteBuffer.reserveCapacity(10)
+    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        byteBuffer.reserveCapacity(13)
 
-        byteBuffer.writeInteger(channelsBitMask, endianness: .big)
-        lowPassFilter.encode(to: &byteBuffer)
-        highPassFilter.encode(to: &byteBuffer)
-        byteBuffer.writeInteger(hardwareSamplingRate, endianness: .big)
-        impedanceFrequency.encode(to: &byteBuffer)
-        impedanceScale.encode(to: &byteBuffer)
-        softwareLowPassFilter.encode(to: &byteBuffer)
+        let endianness: Endianness = .big // we force big endianness for this type
+
+        channelsBitMask.encode(to: &byteBuffer, preferredEndianness: endianness)
+        lowPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
+        highPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
+        hardwareSamplingRate.encode(to: &byteBuffer, preferredEndianness: endianness)
+        impedanceFrequency.encode(to: &byteBuffer, preferredEndianness: endianness)
+        impedanceScale.encode(to: &byteBuffer, preferredEndianness: endianness)
+        softwareLowPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
+
+        // for some reason Biopot wants 2 zero bytes at the end!
+        byteBuffer.writeInteger(0, as: UInt16.self)
+    }
+}
+
+
+extension SamplingConfiguration.HighPassFilter: CaseIterable {
+    var edfString: String {
+        switch self {
+        case .Hz_0_10:
+            "0.1Hz"
+        case .Hz_0_25:
+            "0.25Hz"
+        case .Hz_0_30:
+            "0.3Hz"
+        case .Hz_0_50:
+            "0.5Hz"
+        case .Hz_0_75:
+            "0.75Hz"
+        case .Hz_1_0:
+            "1.0Hz"
+        case .Hz_1_5:
+            "1.5Hz"
+        case .Hz_2_0:
+            "2.0Hz"
+        case .Hz_2_5:
+            "2.5Hz"
+        case .Hz_3_0:
+            "3.0Hz"
+        case .Hz_5_0:
+            "5.0Hz"
+        case .Hz_7_5:
+            "7.5Hz"
+        case .Hz_10:
+            "10Hz"
+        case .Hz_15:
+            "15Hz"
+        case .Hz_20:
+            "20Hz"
+        case .Hz_25:
+            "25Hz"
+        case .Hz_30:
+            "30Hz"
+        case .Hz_50:
+            "50Hz"
+        case .Hz_75:
+            "75Hz"
+        case .Hz_100:
+            "100Hz"
+        case .Hz_150:
+            "150Hz"
+        case .Hz_200:
+            "200Hz"
+        case .Hz_250:
+            "250Hz"
+        case .Hz_300:
+            "300Hz"
+        case .Hz_500:
+            "500Hz"
+        }
+    }
+}
+
+extension SamplingConfiguration.SoftwareLowPassFilter: CaseIterable {
+    var edfString: String? {
+        switch self {
+        case .disabled:
+            nil
+        case .Hz_5:
+            "5Hz"
+        case .Hz_10:
+            "10Hz"
+        case .Hz_15:
+            "15Hz"
+        case .Hz_20:
+            "20Hz"
+        case .Hz_25:
+            "25Hz"
+        case .Hz_30:
+            "30Hz"
+        case .Hz_35:
+            "35Hz"
+        case .Hz_40:
+            "40Hz"
+        case .Hz_45:
+            "45Hz"
+        case .Hz_50:
+            "50Hz"
+        case .Hz_55:
+            "55Hz"
+        case .Hz_60:
+            "60Hz"
+        case .Hz_65:
+            "65Hz"
+        case .Hz_70:
+            "70Hz"
+        case .Hz_75:
+            "75Hz"
+        case .Hz_80:
+            "80Hz"
+        case .Hz_85:
+            "85Hz"
+        case .Hz_90:
+            "90Hz"
+        case .Hz_95:
+            "95Hz"
+        case .Hz_100:
+            "100Hz"
+        }
     }
 }

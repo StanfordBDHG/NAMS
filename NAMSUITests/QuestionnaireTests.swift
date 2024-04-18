@@ -18,7 +18,7 @@ class QuestionnaireTests: XCTestCase {
 
         let app = XCUIApplication()
         app.launchArguments = ["--skipOnboarding", "--testSchedule", "--inject-default-patient"]
-        app.deleteAndLaunch(withSpringboardAppName: "NAMS")
+        app.deleteAndLaunch(withSpringboardAppName: "NeuroNest")
     }
 
 

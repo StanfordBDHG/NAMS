@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
+import ByteCoding
 import NIOCore
-import SpeziBluetooth
 
 
 enum AccelerometerStatus: UInt8, Equatable {
@@ -29,39 +29,61 @@ struct DeviceConfiguration {
     let dataSize: UInt8
     let syncEnabled: Bool
     let serialNumber: UInt32
+
+    init(
+        channelCount: UInt8 = 8,
+        accelerometerStatus: AccelerometerStatus = .off,
+        impedanceStatus: Bool = false,
+        memoryStatus: Bool = false,
+        samplesPerChannel: UInt8 = 9,
+        dataSize: UInt8 = 24,
+        syncEnabled: Bool = false,
+        serialNumber: UInt32 = 127
+    ) {
+        self.channelCount = channelCount
+        self.accelerometerStatus = accelerometerStatus
+        self.impedanceStatus = impedanceStatus
+        self.memoryStatus = memoryStatus
+        self.samplesPerChannel = samplesPerChannel
+        self.dataSize = dataSize
+        self.syncEnabled = syncEnabled
+        self.serialNumber = serialNumber
+    }
 }
 
 
 extension AccelerometerStatus: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer) {
-        guard let value = UInt8(from: &byteBuffer) else {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer) {
-        rawValue.encode(to: &byteBuffer)
+    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
     }
 }
 
 
 extension DeviceConfiguration: ByteCodable, Equatable {
-    init?(from byteBuffer: inout ByteBuffer) {
+    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        let endianness: Endianness = .big
+
         guard byteBuffer.readableBytes >= 16 else {
             return nil
         }
 
         byteBuffer.moveReaderIndex(to: 5) // reserved bytes
 
-        guard let channelCount = UInt8(from: &byteBuffer),
-              let accelerometerStatus = AccelerometerStatus(from: &byteBuffer),
-              let impedanceStatus = Bool(from: &byteBuffer),
-              let memoryStatus = Bool(from: &byteBuffer),
-              let samplesPerChannel = UInt8(from: &byteBuffer),
-              let dataSize = UInt8(from: &byteBuffer),
-              let syncEnabled = Bool(from: &byteBuffer),
-              let serialNumber = byteBuffer.readInteger(endianness: .big, as: UInt32.self) else {
+        guard let channelCount = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let accelerometerStatus = AccelerometerStatus(from: &byteBuffer, preferredEndianness: endianness),
+              let impedanceStatus = Bool(from: &byteBuffer, preferredEndianness: endianness),
+              let memoryStatus = Bool(from: &byteBuffer, preferredEndianness: endianness),
+              let samplesPerChannel = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let dataSize = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+              let syncEnabled = Bool(from: &byteBuffer, preferredEndianness: endianness),
+              let serialNumber = UInt32(from: &byteBuffer, preferredEndianness: endianness) else {
             return nil
         }
 
@@ -77,18 +99,20 @@ extension DeviceConfiguration: ByteCodable, Equatable {
     }
 
 
-    func encode(to byteBuffer: inout ByteBuffer) {
+    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+        let endianness: Endianness = .big
+
         byteBuffer.reserveCapacity(minimumWritableBytes: 16)
 
         byteBuffer.writeRepeatingByte(0, count: 5) // reserved bytes, we just write zeros for now
 
-        channelCount.encode(to: &byteBuffer)
-        accelerometerStatus.encode(to: &byteBuffer)
-        impedanceStatus.encode(to: &byteBuffer)
-        memoryStatus.encode(to: &byteBuffer)
-        samplesPerChannel.encode(to: &byteBuffer)
-        dataSize.encode(to: &byteBuffer)
-        syncEnabled.encode(to: &byteBuffer)
-        byteBuffer.writeInteger(serialNumber, endianness: .big)
+        channelCount.encode(to: &byteBuffer, preferredEndianness: endianness)
+        accelerometerStatus.encode(to: &byteBuffer, preferredEndianness: endianness)
+        impedanceStatus.encode(to: &byteBuffer, preferredEndianness: endianness)
+        memoryStatus.encode(to: &byteBuffer, preferredEndianness: endianness)
+        samplesPerChannel.encode(to: &byteBuffer, preferredEndianness: endianness)
+        dataSize.encode(to: &byteBuffer, preferredEndianness: endianness)
+        syncEnabled.encode(to: &byteBuffer, preferredEndianness: endianness)
+        serialNumber.encode(to: &byteBuffer, preferredEndianness: endianness)
     }
 }

@@ -25,5 +25,22 @@ extension IXNMuseModel: CustomStringConvertible {
             return "Unknown Muse"
         }
     }
+
+    public var shortDescription: String {
+        switch self {
+        case .mu01:
+            return "MUSE_14"
+        case .mu02:
+            return "MUSE_16"
+        case .mu03:
+            return "MUSE_2"
+        case .mu04:
+            return "MUSE_S" // 2019
+        case .mu05:
+            return "MUSE_S2"
+        @unknown default:
+            return "MUSE_?"
+        }
+    }
 }
 #endif

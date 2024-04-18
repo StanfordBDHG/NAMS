@@ -23,7 +23,7 @@ struct PatientRow: View {
     @Environment(\.editMode)
     private var editMode
 
-    @State private var showPatientDetails = false
+    @Binding private var path: NavigationPath
 
     private var patientName: String {
         patient.name.formatted(.name(style: .long))
@@ -34,9 +34,6 @@ struct PatientRow: View {
             selectPatientButton
             detailsButton
         }
-            .navigationDestination(isPresented: $showPatientDetails) {
-                PatientInformation(patient: patient)
-            }
             .accessibilityRepresentation { @MainActor in
                 HStack { @MainActor in
                     Button(action: selectPatientAction) {
@@ -85,8 +82,9 @@ struct PatientRow: View {
     }
 
 
-    init(patient: Patient) {
+    init(patient: Patient, path: Binding<NavigationPath>) {
         self.patient = patient
+        self._path = path
     }
 
 
@@ -102,31 +100,43 @@ struct PatientRow: View {
     }
 
     func detailsButtonAction() {
-        showPatientDetails = true
+        path.append(patient)
     }
 }
 
 
 #if DEBUG
 #Preview {
-    NavigationStack {
+    NavigationStackWithPath { path in
         List {
             PatientRow(
-                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))
+                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"), code: "AB123", sex: .male, birthdate: .now),
+                path: path
             )
         }
+            .navigationDestination(for: Patient.self) { patient in
+                PatientInformationView(patient: patient)
+            }
     }
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 
 #Preview {
-    NavigationStack {
+    NavigationStackWithPath { path in
         List {
             PatientRow(
-                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer"))
+                patient: Patient(id: "1", name: .init(givenName: "Andreas", familyName: "Bauer")),
+                path: path
             )
         }
+            .navigationDestination(for: Patient.self) { patient in
+                PatientInformationView(patient: patient)
+            }
     }
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif

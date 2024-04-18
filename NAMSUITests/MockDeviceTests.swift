@@ -14,15 +14,13 @@ class MockDeviceTests: XCTestCase {
         try super.setUpWithError()
 
         continueAfterFailure = false
-
-        let app = XCUIApplication()
-        app.launchArguments = ["--skipOnboarding", "--inject-default-patient"]
-        app.launch()
     }
 
 
     func testNearbyDevicesAndDetails() {
         let app = XCUIApplication()
+        app.launchArguments = ["--skipOnboarding", "--inject-default-patient"]
+        app.launch()
 
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Schedule"].tap()
@@ -87,50 +85,119 @@ class MockDeviceTests: XCTestCase {
         XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0)) // ensure not connected
     }
 
-    func testEEGRecordings() {
+    func testSuccessfulEEGRecording() {
         let app = XCUIApplication()
+        app.launchArguments = ["--skipOnboarding", "--inject-default-patient"]
+        app.launch()
 
-        XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
-        app.tabBars["Tab Bar"].buttons["Schedule"].tap()
+        app.prepareAndStartRecording()
 
-        XCTAssertTrue(app.buttons["Example Patient"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.staticTexts["In Progress"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.staticTexts["Recording Finished"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.staticTexts["Completed"].waitForExistence(timeout: 4))
 
-        XCTAssertTrue(app.staticTexts["MEASUREMENTS"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.staticTexts["EEG Recording"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(
-            app.staticTexts["No EEG Headband connected. You must connect to a nearby EEG device first inorder to perform an EEG."]
-                .waitForExistence(timeout: 0.5)
-        )
-        XCTAssertTrue(app.buttons["Start Recording"].waitForExistence(timeout: 0.5))
-        XCTAssertFalse(app.buttons["Start Recording"].isEnabled)
-
-        // open nearby devices sheet
-        XCTAssertTrue(app.navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 6))
-        app.navigationBars.buttons["Nearby Devices"].tap()
-
-        XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
-
-        XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0))
-        app.buttons["Mock Device 1"].tap()
-        XCTAssertTrue(app.buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
-
-        XCTAssertTrue(app.navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
-        app.navigationBars.buttons["Close"].tap()
-
-        XCTAssertTrue(app.buttons["Start Recording"].waitForExistence(timeout: 0.5))
-        XCTAssertTrue(app.buttons["Start Recording"].isEnabled)
-        app.buttons["Start Recording"].tap()
-
-        XCTAssertTrue(app.scrollViews.buttons["Start Recording"].waitForExistence(timeout: 2.0))
-        app.scrollViews.buttons["Start Recording"].tap()
-        
-
-        app.swipeUp(velocity: .fast)
-
-        XCTAssertTrue(app.buttons["Mark completed"].waitForExistence(timeout: 6.0))
-        app.buttons["Mark completed"].tap()
+        XCTAssertTrue(app.navigationBars.buttons["Done"].exists)
+        app.navigationBars.buttons["Done"].tap()
 
         XCTAssertTrue(app.staticTexts["Brain activity was collected for this patient."].waitForExistence(timeout: 4.0))
         XCTAssertTrue(app.staticTexts["Completed"].waitForExistence(timeout: 0.5))
+    }
+
+    func testRecordingCancellation() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--skipOnboarding", "--inject-default-patient"]
+        app.launch()
+
+        app.prepareAndStartRecording()
+
+        XCTAssertTrue(app.staticTexts["In Progress"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.buttons["Cancel"].exists)
+
+        app.buttons["Cancel"].tap()
+        XCTAssertTrue(app.staticTexts["Do you want to cancel the ongoing recording?"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.buttons["Cancel Recording"].exists)
+        XCTAssertTrue(app.buttons["Continue Recording"].exists)
+
+        app.buttons["Cancel Recording"].tap()
+        XCTAssertTrue(app.buttons["Start Recording"].waitForExistence(timeout: 0.5))
+    }
+
+    func testChartLayoutView() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--skipOnboarding", "--inject-default-patient"]
+        app.deleteAndLaunch(withSpringboardAppName: "NeuroNest")
+
+        app.prepareAndStartRecording()
+
+        XCTAssertTrue(app.staticTexts["In Progress"].waitForExistence(timeout: 4.0))
+        XCTAssertTrue(app.navigationBars.buttons["More"].exists)
+        app.navigationBars.buttons["More"].tap()
+
+        XCTAssertTrue(app.buttons["Edit Chart Layout"].waitForExistence(timeout: 0.5))
+        app.buttons["Edit Chart Layout"].tap()
+
+        XCTAssertTrue(app.navigationBars.staticTexts["Chart Layout"].waitForExistence(timeout: 2.0))
+
+        XCTAssertTrue(app.steppers["Display Interval, 7.0s"].exists)
+        XCTAssertTrue(app.steppers["Value Interval, 6000uV"].exists)
+
+        app.steppers["Display Interval, 7.0s"].firstMatch.buttons["Decrement"].tap()
+        XCTAssertTrue(app.steppers["Display Interval, 6.5s"].waitForExistence(timeout: 0.5))
+        app.steppers["Display Interval, 6.5s"].firstMatch.buttons["Increment"].tap()
+        XCTAssertTrue(app.steppers["Display Interval, 7.0s"].waitForExistence(timeout: 0.5))
+        app.steppers["Display Interval, 7.0s"].firstMatch.buttons["Increment"].tap()
+        XCTAssertTrue(app.steppers["Display Interval, 7.5s"].waitForExistence(timeout: 0.5))
+        app.steppers["Display Interval, 7.5s"].firstMatch.buttons["Decrement"].tap()
+        XCTAssertTrue(app.steppers["Display Interval, 7.0s"].waitForExistence(timeout: 0.5))
+
+        app.steppers["Value Interval, 6000uV"].firstMatch.buttons["Decrement"].tap()
+        XCTAssertTrue(app.steppers["Value Interval, 5000uV"].waitForExistence(timeout: 0.5))
+        app.steppers["Value Interval, 5000uV"].firstMatch.buttons["Decrement"].tap()
+        XCTAssertTrue(app.steppers["Value Interval, 4500uV"].waitForExistence(timeout: 0.5))
+        app.steppers["Value Interval, 4500uV"].firstMatch.buttons["Increment"].tap()
+        XCTAssertTrue(app.steppers["Value Interval, 5000uV"].waitForExistence(timeout: 0.5))
+        app.steppers["Value Interval, 5000uV"].firstMatch.buttons["Increment"].tap()
+        XCTAssertTrue(app.steppers["Value Interval, 6000uV"].waitForExistence(timeout: 0.5))
+        app.steppers["Value Interval, 6000uV"].firstMatch.buttons["Increment"].tap()
+        XCTAssertTrue(app.steppers["Value Interval, 7000uV"].waitForExistence(timeout: 0.5))
+    }
+}
+
+
+extension XCUIApplication {
+    fileprivate func prepareAndStartRecording() {
+        XCTAssertTrue(tabBars["Tab Bar"].buttons["Schedule"].waitForExistence(timeout: 2))
+        tabBars["Tab Bar"].buttons["Schedule"].tap()
+
+        XCTAssertTrue(buttons["Example Patient"].waitForExistence(timeout: 4.0))
+
+        XCTAssertTrue(staticTexts["MEASUREMENTS"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(staticTexts["EEG Recording"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(
+            staticTexts["No EEG Headband connected. You must connect to a nearby EEG device first inorder to perform an EEG."]
+                .waitForExistence(timeout: 0.5)
+        )
+        XCTAssertTrue(buttons["Start Recording"].waitForExistence(timeout: 0.5))
+        XCTAssertFalse(buttons["Start Recording"].isEnabled)
+
+        // open nearby devices sheet
+        XCTAssertTrue(navigationBars.buttons["Nearby Devices"].waitForExistence(timeout: 6))
+        navigationBars.buttons["Nearby Devices"].tap()
+
+        XCTAssertTrue(navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
+
+        XCTAssertTrue(buttons["Mock Device 1"].waitForExistence(timeout: 5.0))
+        buttons["Mock Device 1"].tap()
+        XCTAssertTrue(buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+
+        XCTAssertTrue(navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
+        navigationBars.buttons["Close"].tap()
+
+        XCTAssertTrue(buttons["Start Recording"].waitForExistence(timeout: 0.5))
+        XCTAssertTrue(buttons["Start Recording"].isEnabled)
+        buttons["Start Recording"].tap()
+
+        XCTAssertTrue(scrollViews.buttons["Start Recording"].waitForExistence(timeout: 2.0))
+        scrollViews.buttons["Start Recording"].tap()
     }
 }

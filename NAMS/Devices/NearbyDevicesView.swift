@@ -31,6 +31,8 @@ struct NearbyDevicesView: View {
     @Environment(\.dismiss)
     private var dismiss
 
+    @State private var navigationPath = NavigationPath()
+
 #if targetEnvironment(simulator)
     @State private var mockBiopot = BiopotDevice.createMock()
 #endif
@@ -52,7 +54,7 @@ struct NearbyDevicesView: View {
     var body: some View {
         @Bindable var deviceCoordinator = deviceCoordinator
 
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             List {
                 autoConnectLink
 
@@ -66,6 +68,9 @@ struct NearbyDevicesView: View {
             }
                 .navigationTitle("NEARBY_DEVICES")
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(for: ConnectedDevice.self) { device in
+                    ConnectedDeviceDestination(device: device)
+                }
                 .toolbar {
                     Button("Close") {
                         dismiss()
@@ -103,21 +108,21 @@ struct NearbyDevicesView: View {
     @ViewBuilder private var nearbyDevicesSection: some View {
         Section {
 #if MUSE
-            MuseDeviceList()
+            MuseDeviceList(path: $navigationPath)
 #endif
 
 #if targetEnvironment(simulator)
-            BiopotDeviceRow(device: mockBiopot)
+            BiopotDeviceRow(device: mockBiopot, path: $navigationPath)
 #endif
 
             let biopots = bluetooth.nearbyDevices(for: BiopotDevice.self)
             ForEach(biopots) { biopot in
-                BiopotDeviceRow(device: biopot)
+                BiopotDeviceRow(device: biopot, path: $navigationPath)
             }
 
             if let mockDeviceManager {
                 ForEach(mockDeviceManager.nearbyDevices) { device in
-                    MockDeviceRow(device: device)
+                    MockDeviceRow(device: device, path: $navigationPath)
                 }
             }
         } header: {

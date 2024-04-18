@@ -7,24 +7,34 @@
 //
 
 import BluetoothViews
+import EDFFormat
 import Foundation
+import OSLog
 import SpeziBluetooth
 
 
 @Observable
-class MockDevice {
+class MockDevice: NAMSDevice {
     private static let sampleRate = 60
+
+    private let logger = Logger(subsystem: "edu.stanford.nams", category: "MockDevice")
 
     let id: UUID
     let name: String
-    private let eegMeasurementGenerators: [EEGFrequency: MockMeasurementGenerator]
+
+    private var measurementGenerator: MockMeasurementGenerator
 
     var state: PeripheralState
     var deviceInformation: MuseDeviceInformation? // we are just reusing muse data model
-
-    /// The currently associated recording session.
-    @MainActor private var recordingSession: EEGRecordingSession?
     @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
+
+    var equipmentCode: String {
+        if let deviceInformation {
+            "MOCK_\(deviceInformation.serialNumber)"
+        } else {
+            "MOCK"
+        }
+    }
 
     var connectionState: ConnectionState {
         switch state {
@@ -39,6 +49,13 @@ class MockDevice {
         }
     }
 
+    /// The currently associated recording session.
+    @MainActor private var recordingStream: AsyncStream<CombinedEEGSample>.Continuation? {
+        willSet {
+            recordingStream?.finish()
+        }
+    }
+
     @ObservationIgnored private var eegTimer: Timer? {
         willSet {
             eegTimer?.invalidate()
@@ -50,15 +67,31 @@ class MockDevice {
         }
     }
 
+    var signalDescription: [Signal] {
+        MockMeasurementGenerator.generatedLocations.map { location in
+            Signal(
+                label: .eeg(location: location, prefix: .micro),
+                transducerType: "Mock Measurement Generator",
+                sampleCount: Self.sampleRate,
+                physicalMinimum: -20_000,
+                physicalMaximum: 20_0000,
+                digitalMinimum: -8_388_608,
+                digitalMaximum: 8_388_607
+            )
+        }
+    }
 
-    @MainActor
+    var recordDuration: Int {
+        1
+    }
+
+
     init(name: String, state: PeripheralState = .disconnected) {
         self.id = UUID()
         self.name = name
         self.state = state
-        self.eegMeasurementGenerators = EEGFrequency.allCases.reduce(into: [:]) { result, frequency in
-            result[frequency] = MockMeasurementGenerator(sampleRate: Self.sampleRate)
-        }
+
+        self.measurementGenerator = MockMeasurementGenerator(sampleRate: Self.sampleRate)
 
         switch state {
         case .connecting:
@@ -66,7 +99,9 @@ class MockDevice {
         case .connected:
             handleConnected()
         case .disconnecting:
-            disconnect()
+            Task { @MainActor in
+                disconnect()
+            }
         case .disconnected:
             break
         }
@@ -74,7 +109,7 @@ class MockDevice {
 
 
     @MainActor
-    func setupDisconnectHandler(_ handler: @escaping (ConnectedDevice) -> Void) {
+    func setupDisconnectHandler(_ handler: @escaping @MainActor (ConnectedDevice) -> Void) {
         self.disconnectHandler = handler
     }
 
@@ -98,6 +133,9 @@ class MockDevice {
             serialNumber: "0xAABBCCDD",
             firmwareVersion: "1.2",
             hardwareVersion: "1.0",
+            sampleRate: Self.sampleRate,
+            notchFilter: MuseDeviceInformation.notchDefault,
+            afeGain: 2000,
             remainingBatteryPercentage: 75
         )
 
@@ -127,36 +165,62 @@ class MockDevice {
     }
 
     @MainActor
-    func startRecording(_ session: EEGRecordingSession) async throws {
-        self.recordingSession = session
-
+    func startRecording() throws -> AsyncStream<CombinedEEGSample> {
         // schedule timer to generate fake EEG data
-        let timer = Timer(timeInterval: 1.0 / Double(Self.sampleRate), repeats: true, block: generateRecording)
+        let timer = Timer(timeInterval: 0.1, repeats: true) { timer in
+            // its running on the main RunLoop so this is safe to assume
+            MainActor.assumeIsolated {
+                self.generateRecording(timer: timer)
+            }
+        }
         RunLoop.main.add(timer, forMode: .common)
         self.eegTimer = timer
 
-        generateRecording(timer: timer) // make sure there is data instantly
+        defer {
+            generateRecording(timer: timer) // make sure there is data instantly
+        }
+
+        logger.info("Started recording for mock device.")
+
+        return makeStream()
     }
 
     @MainActor
-    func stopRecording() async throws {
-        self.eegTimer = nil
-        self.recordingSession = nil
+    private func makeStream() -> AsyncStream<CombinedEEGSample> {
+        AsyncStream { continuation in
+            continuation.onTermination = { [weak self] termination in
+                guard case .cancelled = termination else {
+                    return // we don't care about finished sequences!
+                }
+
+                Task { @EEGProcessing [weak self] in
+                    try await self?.stopRecording()
+                }
+            }
+            recordingStream = continuation
+        }
     }
 
-    @Sendable
-    private func generateRecording(timer: Timer) {
-        // its running on the main RunLoop so this is safe to assume
-        MainActor.assumeIsolated {
-            guard let recordingSession,
-                  state == .connected else {
-                timer.invalidate()
-                return
-            }
+    @MainActor
+    private func stopRecording() throws {
+        logger.debug("Stopping recording for mock device ...")
+        self.eegTimer = nil
+        self.recordingStream = nil
+        self.measurementGenerator = MockMeasurementGenerator(sampleRate: Self.sampleRate)
+    }
 
-            for (frequency, generator) in eegMeasurementGenerators {
-                let series = generator.next()
-                recordingSession.append(series: series, for: frequency)
+    @MainActor
+    private func generateRecording(timer: Timer) {
+        guard let recordingStream,
+              state == .connected else {
+            timer.invalidate()
+            return
+        }
+
+        let samples = measurementGenerator.next()
+        Task { @EEGProcessing in
+            for sample in samples {
+                recordingStream.yield(sample)
             }
         }
     }

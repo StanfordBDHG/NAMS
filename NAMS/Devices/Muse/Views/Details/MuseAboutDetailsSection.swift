@@ -39,7 +39,7 @@ struct MuseAboutDetailsSection: View {
 #Preview {
     List {
         MuseAboutDetailsSection(
-            .init(serialNumber: "0xAABBCC", firmwareVersion: "1.2", hardwareVersion: "20.1")
+            .mock()
         )
     }
 }

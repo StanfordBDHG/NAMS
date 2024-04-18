@@ -31,18 +31,14 @@ struct HomeView: View {
     private var bluetooth
     @Environment(BiopotDevice.self)
     private var biopot: BiopotDevice?
+    @Environment(PatientListModel.self)
+    private var patientList
 
-#if TEST || DEBUG
-    @State var mockDeviceManager = MockDeviceManager()
-#else
     @State var mockDeviceManager: MockDeviceManager?
-#endif
     
 #if MUSE
     @State var museDeviceManager = MuseDeviceManager()
 #endif
-
-    @State private var patientList = PatientListModel()
 
     @State private var viewState: ViewState = .idle
     @State private var presentingAccount = false
@@ -61,12 +57,11 @@ struct HomeView: View {
                 }
         }
             .viewStateAlert(state: $viewState)
-            .environment(patientList)
             .environment(mockDeviceManager)
 #if MUSE
             .environment(museDeviceManager)
 #endif
-            .autoConnect(enabled: deviceCoordinator.shouldAutoConnectBiopot, with: bluetooth)
+            .autoConnect(enabled: deviceCoordinator.shouldAutoConnectBiopotBackground, with: bluetooth)
             .onAppear {
                 guard !ProcessInfo.processInfo.isPreviewSimulator else {
                     return
@@ -87,6 +82,13 @@ struct HomeView: View {
             }
             .onDisappear {
                 patientList.removeActivePatientListener()
+            }
+            .onChange(of: deviceCoordinator.enableMockDevice, initial: true) {
+                if deviceCoordinator.enableMockDevice && mockDeviceManager == nil {
+                    mockDeviceManager = MockDeviceManager()
+                } else if !deviceCoordinator.enableMockDevice && mockDeviceManager != nil {
+                    mockDeviceManager = nil
+                }
             }
             .onChange(of: patientList.activePatientId, handlePatientIdChange)
             .onChange(of: biopot != nil) {
@@ -140,17 +142,19 @@ struct HomeView: View {
 #if DEBUG
 #Preview {
     let details = AccountDetails.Builder()
+        .set(\.accountId, value: UUID().uuidString)
         .set(\.userId, value: "lelandstanford@stanford.edu")
         .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
 
     return HomeView()
-        .previewWith {
+        .previewWith(standard: NAMSStandard()) {
             DeviceCoordinator()
             EEGRecordings()
             AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
+            PatientListModel()
         }
 }
 #endif

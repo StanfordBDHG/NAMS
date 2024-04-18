@@ -6,21 +6,21 @@
 // SPDX-License-Identifier: MIT
 //
 
+import EDFFormat
 import Foundation
 
 
 class MockMeasurementGenerator {
-    private let sampleRate: Int
-    private let baseValue: Double
+    static let generatedLocations: [EEGLocation] = [.tp9, .af7, .af8, .tp10]
 
-    private var sampleDuration: TimeInterval {
-        1.0 / Double(sampleRate)
-    }
+    private let sampleRate: Int
+    private let baseValue: Int32
 
 
     // properties for stateful generation.
-    private var values: [EEGChannel: Double]
-    private var currentTime: TimeInterval
+    private var values: [EEGLocation: Int32]
+    private lazy var startDate: Date = .now
+    private var generatedSamples = 0
 
 
     /// Generate a new set of random EEG measurements.
@@ -34,7 +34,7 @@ class MockMeasurementGenerator {
     ///   - baseValue: The base value for value generation.
     init(
         sampleRate: Int,
-        baseValue: Double = 2.0
+        baseValue: Int32 = 20
     ) {
         precondition(sampleRate > 0, "Sample rate must be positive and non-zero.")
 
@@ -42,48 +42,63 @@ class MockMeasurementGenerator {
         self.baseValue = baseValue
 
         self.values = [:]
-        self.currentTime = Date.now.timeIntervalSince1970
     }
 
-
-    private func generate(values: inout [EEGChannel: Double], time: inout Double) -> EEGSeries {
-        time += sampleDuration
-
-        let readings = [EEGChannel.tp9, .af7, .af8, .tp10].map { channel in
-            values[channel, default: baseValue] += Double.random(in: -3.35...3.5)
-            return EEGReading(channel: channel, value: values[channel, default: baseValue])
+    private func generateSingle(values: inout [EEGLocation: Int32]) -> CombinedEEGSample {
+        let samples = Self.generatedLocations.map { location in
+            values[location, default: baseValue] += Int32.random(in: -25...25)
+            return BDFSample(values[location, default: baseValue])
         }
 
-        return EEGSeries(timestamp: Date(timeIntervalSince1970: time), readings: readings)
+        return CombinedEEGSample(channels: samples)
     }
 
-    func next() -> EEGSeries {
-        generate(values: &values, time: &currentTime)
+
+    func next() -> [CombinedEEGSample] {
+        let startDate = startDate
+        let now: Date = .now
+
+        // the time we are already generating.
+        let generationTime = max(0, now.timeIntervalSince1970 - startDate.timeIntervalSince1970)
+        // the amount of samples we should have generated in that time.
+        let expectedSamples = Int(generationTime * Double(sampleRate))
+
+        let missingSamples = max(0, expectedSamples - generatedSamples)
+
+        var result: [CombinedEEGSample] = []
+
+        for _ in 0..<missingSamples {
+            result.append(generateSingle(values: &values))
+        }
+
+        self.generatedSamples += missingSamples
+
+        return result
     }
 
-    /// Generate a set of ``EEGSeries`` in a stateless manner, useful for Previews.
+    /// Generate a eeg signal in a stateless manner, useful for Previews.
     /// - Parameters:
     ///   - sampleTime: The total time of the eeg recording in seconds.
     ///   - recordingOffset: Defines the time difference between the recording start and the first sample.
     ///     E.g., a recording might have started 60 seconds ago, but the app only shows the last ten seconds (sliding window).
     ///     In this case you would set `recordingOffset` to 50.
     /// - Returns: The generate measurements.
-    func generateRecording(sampleTime: TimeInterval, recordingOffset: TimeInterval = 0) -> (baseTime: TimeInterval, data: [EEGSeries]) {
-        let now = Date.now.timeIntervalSince1970 // get now once!
-
-        let firstSampleSince1970: TimeInterval = now - sampleTime
-        let baseTimeSince1970 = firstSampleSince1970 - recordingOffset
+    func generateSignal(label: SignalLabel, sampleTime: TimeInterval, recordingOffset: TimeInterval = 0) -> VisualizedSignal {
         let samples = Int(sampleTime * Double(sampleRate))
+        let sampleOffset = Int(recordingOffset * Double(sampleRate))
 
-        var result: [EEGSeries] = []
-        var values: [EEGChannel: Double] = [:]
-        var currentTime = firstSampleSince1970
+        var result: [BDFSample] = []
+        var values: [EEGLocation: Int32] = [:]
 
         for _ in 0..<samples {
-            let series = generate(values: &values, time: &currentTime)
-            result.append(series)
+            let sample = generateSingle(values: &values)
+
+            guard let first = sample.channels.first else {
+                preconditionFailure("\(#function) failed to generate first channel!")
+            }
+            result.append(first)
         }
 
-        return (baseTimeSince1970, result)
+        return VisualizedSignal(label: label, sourceSampleRate: self.sampleRate, batching: nil, sampleOffset: sampleOffset, samples: result)
     }
 }

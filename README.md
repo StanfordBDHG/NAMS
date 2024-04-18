@@ -12,18 +12,26 @@ SPDX-License-Identifier: MIT
 
 [![Beta Deployment](https://github.com/StanfordBDHG/NAMS/actions/workflows/beta-deployment.yml/badge.svg)](https://github.com/StanfordBDHG/NAMS/actions/workflows/beta-deployment.yml)
 [![codecov](https://codecov.io/gh/StanfordBDHG/NAMS/branch/main/graph/badge.svg?token=9fvSAiFJUY)](https://codecov.io/gh/StanfordBDHG/NAMS)
-[![DOI](https://zenodo.org/badge/648881967.svg)](https://zenodo.org/badge/latestdoi/648881967)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8374397.svg)](https://doi.org/10.5281/zenodo.8374397)
 
-This repository contains the Neurodevelopment Assessment and Monitoring System (NAMS).
-It demonstrates using the [Spezi](https://github.com/StanfordSpezi/Spezi) framework and builds on top of the [Stanford Spezi Template Application](https://github.com/StanfordSpezi/SpeziTemplateApplication).
+Neurodevelopment Assessment and Monitoring System (NAMS) iOS application.
 
 
-## Application Structure
+|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-Home~dark.png"><img src="Resources/NeuroNest-Home.png" width="200" alt="Screenshot displaying the NeuroNest Home view." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-NearbyDevices~dark.png"><img src="Resources/NeuroNest-NearbyDevices.png" width="200" alt="Screenshot displaying the nearby devices view." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-Recording~dark.png"><img src="Resources/NeuroNest-Recording.png" width="200" alt="Screenshot displaying an ongoing EEG recording." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-Questionnaire~dark.png"><img src="Resources/NeuroNest-Questionnaire.png" width="200" alt="Screenshot displaying a Screening questionnaire." /></picture>|
+|:--:|:--:|:--:|:--:|
+|NeuroNest Home view|Nearby Device Search|In Progress EEG Recording|Screening Questionnaires|
 
-The Neurodevelopment Assessment and Monitoring System (NAMS) uses a modularized structure using the [Spezi modules](https://swiftpackageindex.com/StanfordSpezi) enabled by the Swift Package Manager.
+|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-PatientList~dark.png"><img src="Resources/NeuroNest-PatientList.png" width="250" alt="Screenshot displaying the patient list view." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-AddPatient~dark.png"><img src="Resources/NeuroNest-AddPatient.png" width="250" alt="Screenshot displaying a view to add a new patient." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-ExamplePatient~dark.png"><img src="Resources/NeuroNest-ExamplePatient.png" width="250" alt="Screenshot displaying the patient details view." /></picture>|
+|:--:|:--:|:--:|
+|Patient List|Adding a new patient|Patient Details|
 
-The application uses [HL7 FHIR](https://www.hl7.org/fhir/) and the Spezi [`FHIR` module](https://github.com/StanfordSpezi/SpeziFHIR) to provide a common standard to encode data gathered by the application as defined in the Spezi [`Standard`](https://swiftpackageindex.com/stanfordspezi/spezi/documentation/spezi/standard) found in the application.
-You can learn more about the Spezi standards-based software architecture in the [Spezi documentation](https://swiftpackageindex.com/stanfordspezi/spezi/documentation/spezi).
+NeuroNest is a software platform for EEG data collection and other neurodevelopmental evaluation of patients.
+It connects to Bluetooth-enabled EEG devices to perform EEG recordings.
+Currently, the app supports MUSE and BIOPOT 3 devices. 
+Further, it integrates HL7 FHIR Questionnaires to perform standardized and clinically validated screening questionnaires.
+
+Through an integration with Firebase, EEG recordings and questionnaire results can be used for further processing
+and analysis, facilitating novel, algorithm-based approaches to neurodevelopmental risk assessment.
 
 ### Muse SDK
 
@@ -45,7 +53,8 @@ The Xcode project configures two targets:
 You can build and run the application using [Xcode](https://developer.apple.com/xcode/) by opening up the **NAMS.xcodeproj**.
 
 The application provides a [Firebase Firestore](https://firebase.google.com/docs/firestore)-based data upload and [Firebase Authentication](https://firebase.google.com/docs/auth) login & sign-up.
-It is required to have the [Firebase Emulator Suite](https://firebase.google.com/docs/emulator-suite) to be up and running to use these features to build and test the application locally. Please follow the [installation instructions](https://firebase.google.com/docs/emulator-suite/install_and_configure). 
+It is required to have the [Firebase Emulator Suite](https://firebase.google.com/docs/emulator-suite) to be up and running to use these features to build and test the application locally.
+Please follow the [installation instructions](https://firebase.google.com/docs/emulator-suite/install_and_configure). 
 
 You do not have to make any modifications to the Firebase configuration, login into the `firebase` CLI using your Google account, or create a project in firebase to run, build, and test the application!
 
@@ -59,22 +68,8 @@ After the emulators have started up, you can run the application in your simulat
 The application includes the following feature flags that can be configured in the [scheme editor in Xcode](https://help.apple.com/xcode/mac/11.4/index.html?localePath=en.lproj#/dev0bee46f46) and selecting the **NAMS** scheme, the **Run** configuration, and to switch to the **Arguments** tab to add, enable, disable, or remove the following arguments passed on launch:
 - ``--skipOnboarding``: Skips the onboarding flow to enable easier development of features in the application and to allow UI tests to skip the onboarding flow.
 - ``--showOnboarding``: Always show the onboarding when the application is launched. Makes it easy to modify and test the onboarding flow without the need to manually remove the application or reset the simulator.
-- ``--disableFirebase``: Disables the Firebase interactions, including the login/sign-up step and the Firebase Firestore upload.
 - ``--useFirebaseEmulator``: Defines if the application should connect to the local firebase emulator. Always set to true when using the iOS simulator.
-- ``--testSchedule``: Adds a test task to the schedule at the current time.
-- ``--render-accessibility-actions``: Custom accessibility actions cannot be reliably tested. This flag ensures custom accessibility actions are rendered as UI elements.
-
-
-## Continuous Delivery Workflows
-
-The Neurodevelopment Assessment and Monitoring System (NAMS) application includes continuous integration (CI) and continuous delivery (CD) setup.
-- Automatically build and test the application on every pull request before deploying it.
-- An automated setup to deploy the application to TestFlight every time there is a new commit on the repository's main branch.
-- Ensure a coherent code style by checking the conformance to the SwiftLint rules defined in `.swiftlint.yml` on every pull request and commit.
-- Ensure conformance to the [REUSE Specification]() to property license the application and all related code.
-
-Please refer to the [Stanford Biodesign Digital Health Neurodevelopment Assessment and Monitoring System (NAMS)](https://github.com/StanfordBDHG/NAMS) and the [ContinuousDelivery Example by Paul Schmiedmayer](https://github.com/PSchmiedmayer/ContinousDelivery) for more background about the CI and CD setup for the Neurodevelopment Assessment and Monitoring System (NAMS).
-
+- ``--inject-default-patient``: Automatically create and select a default patient (useful for testing).
 
 ## Contributors & License
 

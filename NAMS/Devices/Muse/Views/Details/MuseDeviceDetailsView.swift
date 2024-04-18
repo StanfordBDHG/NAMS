@@ -63,14 +63,7 @@ struct MuseDeviceDetailsView: View {
         MuseDeviceDetailsView(
             model: "Mock Device",
             state: .connected,
-            .init(
-                serialNumber: "0xAABBCCDD",
-                firmwareVersion: "1.0",
-                hardwareVersion: "20.0",
-                remainingBatteryPercentage: 75,
-                wearingHeadband: true,
-                fit: HeadbandFit(tp9Fit: .good, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .good)
-            )
+            .mock(wearingHeadband: true, fit: HeadbandFit(tp9Fit: .good, af7Fit: .mediocre, af8Fit: .poor, tp10Fit: .good))
         ) {
             print("Disconnect Device")
         }
@@ -82,7 +75,7 @@ struct MuseDeviceDetailsView: View {
         MuseDeviceDetailsView(
             model: "Mock Device",
             state: .connected,
-            .init(serialNumber: "0xAABBCCDD", firmwareVersion: "1.0", hardwareVersion: "20.0", remainingBatteryPercentage: 75)
+            .mock()
         ) {
             print("Disconnect Device")
         }
@@ -94,7 +87,7 @@ struct MuseDeviceDetailsView: View {
         MuseDeviceDetailsView(
             model: "Mock Device",
             state: .interventionRequired("INTERVENTION_MUSE_FIRMWARE"),
-            .init(serialNumber: "0xAABBCCDD", firmwareVersion: "1.0", hardwareVersion: "20.0", remainingBatteryPercentage: 75)
+            .mock()
         ) {
             print("Disconnect Device")
         }

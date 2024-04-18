@@ -7,8 +7,27 @@
 //
 
 import SpeziPersonalInfo
+import SpeziValidation
 import SpeziViews
 import SwiftUI
+
+
+struct GridValidationStateFooter: View {
+    private var results: [FailedValidationResult]
+
+    var body: some View {
+        if !results.isEmpty { // otherwise we have some weird layout issues in Grids
+            HStack {
+                ValidationResultsView(results: results)
+                Spacer()
+            }
+        }
+    }
+
+    init(_ results: [FailedValidationResult]) {
+        self.results = results
+    }
+}
 
 
 @MainActor
@@ -31,9 +50,24 @@ struct AddPatientView: View {
 
     @FocusState private var focusedField: FocusedField?
 
+    @ValidationState private var validation
+    @ValidationState private var givenNameValidation
+    @ValidationState private var familyNameValidation
+
+    private var dateRange: ClosedRange<Date> {
+        let calendar = Calendar.current
+        let startDateComponents = DateComponents(year: 1800, month: 1, day: 1)
+        let endDate = Date.now
+
+        guard let startDate = calendar.date(from: startDateComponents) else {
+            fatalError("Could not translate \(startDateComponents) to a valid date.")
+        }
+
+        return startDate...endDate
+    }
 
     var body: some View {
-        NavigationStack {
+        NavigationStack { // swiftlint:disable:this closure_body_length
             VStack {
                 Form {
                     Section("Name") {
@@ -42,8 +76,20 @@ struct AddPatientView: View {
                             .textInputAutocapitalization(.words)
                     }
 
+                    Section {
+                        VerifiableTextField("required", text: $newPatient.code)
+                            .validate(input: newPatient.code, rules: .nonEmpty, .patientCodeMaxLength)
+                            .accessibilityLabel("Patient Code")
+                    } header: {
+                        Text("Patient Code")
+                    } footer: {
+                        Text("An hospital administered patient identifier.")
+                    }
+
+                    detailsSection
+
                     Section("Notes") {
-                        TextField("Add Notes", text: $newPatient.notes, axis: .vertical)
+                        TextField("add notes ...", text: $newPatient.notes, axis: .vertical)
                             .lineLimit(3...6)
                             .textInputAutocapitalization(.sentences)
                     }
@@ -63,6 +109,7 @@ struct AddPatientView: View {
                 .interactiveDismissDisabled(newPatient.shouldAskForCancelConfirmation)
         }
             .viewStateAlert(state: $viewState)
+            .receiveValidation(in: $validation)
     }
 
     @ViewBuilder var nameFields: some View {
@@ -70,12 +117,45 @@ struct AddPatientView: View {
             NameFieldRow(.init("First", comment: "First Name Field Description"), name: $newPatient.name, for: \.givenName) {
                 Text("enter first name")
             }
+                .validate(input: newPatient.name.givenName ?? "", rules: .nonEmpty)
+                .receiveValidation(in: $givenNameValidation)
+                .focusOnTap()
+
+            GridValidationStateFooter(givenNameValidation.allDisplayedValidationResults)
 
             Divider()
                 .gridCellUnsizedAxes(.horizontal)
 
             NameFieldRow(.init("Last", comment: "Last Name Field Description"), name: $newPatient.name, for: \.familyName) {
                 Text("enter last name")
+            }
+                .validate(input: newPatient.name.familyName ?? "", rules: .nonEmpty)
+                .receiveValidation(in: $familyNameValidation)
+                .focusOnTap()
+
+            GridValidationStateFooter(familyNameValidation.allDisplayedValidationResults)
+        }
+    }
+
+    @ViewBuilder var detailsSection: some View {
+        Section("Details") {
+            Picker(
+                selection: $newPatient.sex,
+                content: {
+                    ForEach(Patient.Sex.allCases) { sex in
+                        Text(sex.localizedStringResource)
+                            .tag(sex)
+                    }
+                }, label: {
+                    Text("Sex")
+                }
+            )
+            DatePicker(
+                selection: $newPatient.birthdate,
+                in: dateRange,
+                displayedComponents: .date
+            ) {
+                Text("Birthdate")
             }
         }
     }
@@ -99,6 +179,7 @@ struct AddPatientView: View {
             }) {
                 Text("Done")
             }
+                .disabled(!validation.allInputValid)
         }
     }
 
@@ -107,9 +188,20 @@ struct AddPatientView: View {
 }
 
 
+extension ValidationRule {
+    fileprivate static var patientCodeMaxLength: ValidationRule {
+        ValidationRule(rule: { input in
+            input.count <= 64
+        }, message: "The patient code cannot be longer than 64 characters.")
+    }
+}
+
+
 #if DEBUG
 #Preview {
     AddPatientView()
-        .environment(PatientListModel())
+        .previewWith {
+            PatientListModel()
+        }
 }
 #endif

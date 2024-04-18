@@ -46,7 +46,7 @@ class MuseDeviceManager {
         self.museListener = MuseListener(deviceManager: self)
 
         if let apiVersion = IXNLibmuseVersion.instance() {
-            logger.debug("Initialized Muse Manager with API version \(apiVersion.getString())")
+            logger.debug("Initialized Muse Manager with version \(apiVersion.getString())")
         }
 
         self.museManager.removeFromList(after: Self.discoveryTimeout) // stale timeout if there isn't an updated advertisement
@@ -97,7 +97,7 @@ class MuseDeviceManager {
         }
 
         let lastTime = muse.getLastDiscoveredTime()
-        guard !lastTime.isNaN || muse.getConnectionState() == .disconnected else {
+        guard !lastTime.isNaN && muse.getConnectionState() == .disconnected else {
             return false // just accept those that don't expose a time
         }
 
@@ -121,10 +121,11 @@ class MuseDeviceManager {
         }
 
         // check if muse is hidden or a hidden one is not hidden anymore?
-        for (index, muse) in zip(nearbyMuses.indices, nearbyMuses).reversed() {
+        for muse in nearbyMuses {
             if isHiddenDevice(muse) {
                 hiddenMuseDevices.insert(muse)
-                nearbyMuses.remove(at: index)
+
+                nearbyMuses.remove(muse)
                 logger.debug("\(muse.getModel()) - \(muse.getName()) is stale and we are hiding it.")
             } else {
                 hiddenMuseDevices.remove(muse)
