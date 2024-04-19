@@ -16,6 +16,8 @@ SPDX-License-Identifier: MIT
 
 Neurodevelopment Assessment and Monitoring System (NAMS) iOS application.
 
+> [!NOTE]  
+> Do you want to try out the NeuroNest application? You can download it to your iOS device using [TestFlight](https://testflight.apple.com/join/aGVo1E1I)!
 
 |<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-Home~dark.png"><img src="Resources/NeuroNest-Home.png" width="200" alt="Screenshot displaying the NeuroNest Home view." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-NearbyDevices~dark.png"><img src="Resources/NeuroNest-NearbyDevices.png" width="200" alt="Screenshot displaying the nearby devices view." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-Recording~dark.png"><img src="Resources/NeuroNest-Recording.png" width="200" alt="Screenshot displaying an ongoing EEG recording." /></picture>|<picture><source media="(prefers-color-scheme: dark)" srcset="Resources/NeuroNest-Questionnaire~dark.png"><img src="Resources/NeuroNest-Questionnaire.png" width="200" alt="Screenshot displaying a Screening questionnaire." /></picture>|
 |:--:|:--:|:--:|:--:|
