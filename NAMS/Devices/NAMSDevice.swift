@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import SpeziDevices
 import EDFFormat
+import SpeziDevices
 
 
 protocol NAMSDevice: GenericBluetoothPeripheral {

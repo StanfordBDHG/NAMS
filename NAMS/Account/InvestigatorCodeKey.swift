@@ -16,15 +16,15 @@ import SwiftUI
 private struct InvestigatorCodeEntry: DataEntryView {
     @Binding var value: String
 
-    init(_ value: Binding<String>) {
-        _value = value
-    }
-
     var body: some View {
         VerifiableTextField(AccountKeys.investigatorCode.name, text: $value)
             .autocorrectionDisabled(true)
             .textInputAutocapitalization(.never)
             .validate(input: value, rules: .investigatorCodeMaxLength)
+    }
+
+    init(_ value: Binding<String>) {
+        _value = value
     }
 }
 
@@ -38,7 +38,6 @@ extension AccountDetails {
     )
     var investigatorCode: String?
 }
-
 
 
 @KeyEntry(\.investigatorCode)
