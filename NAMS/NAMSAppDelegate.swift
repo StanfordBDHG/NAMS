@@ -6,10 +6,12 @@
 // SPDX-License-Identifier: MIT
 //
 
+import FirebaseFirestore
 import Spezi
 import SpeziAccount
 import SpeziBluetooth
 import SpeziFirebaseAccount
+import SpeziFirebaseAccountStorage
 import SpeziFirebaseStorage
 import SpeziFirestore
 import SwiftUI
@@ -18,24 +20,21 @@ import SwiftUI
 class NAMSAppDelegate: SpeziAppDelegate {
     override var configuration: Configuration {
         Configuration(standard: NAMSStandard()) {
-            let methods: FirebaseAuthAuthenticationMethods = [.emailAndPassword, .signInWithApple]
-
-            AccountConfiguration(configuration: [
-                .requires(\.userId),
-                .requires(\.name),
-                .collects(\.investigatorCode)
-            ])
+            AccountConfiguration(
+                service: FirebaseAccountService(providers: [.emailAndPassword, .signInWithApple], emulatorSettings: authEmulator),
+                storageProvider: FirestoreAccountStorage(storeIn: Firestore.firestore().collection("users")),
+                configuration: [
+                    .requires(\.userId),
+                    .requires(\.name),
+                    .collects(\.investigatorCode)
+                ]
+            )
 
             Firestore(settings: firestoreSettings)
 
             if FeatureFlags.useFirebaseEmulator {
-                FirebaseAccountConfiguration(
-                    authenticationMethods: methods,
-                    emulatorSettings: (host: "localhost", port: 9099)
-                )
                 FirebaseStorageConfiguration(emulatorSettings: (host: "localhost", port: 9199))
             } else {
-                FirebaseAccountConfiguration(authenticationMethods: methods)
                 FirebaseStorageConfiguration()
             }
 
@@ -47,7 +46,15 @@ class NAMSAppDelegate: SpeziAppDelegate {
             }
         }
     }
-    
+
+    private var authEmulator: (host: String, port: Int)? {
+        if FeatureFlags.useFirebaseEmulator {
+            (host: "localhost", port: 9099)
+        } else {
+            nil
+        }
+    }
+
     
     private var firestoreSettings: FirestoreSettings {
         let settings = FirestoreSettings()

@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
+import SpeziDevicesUI
+import SpeziViews
 import SwiftUI
 
 
@@ -18,15 +19,24 @@ struct MuseDeviceRow: View {
     private var deviceCoordinator
 
     @Binding private var path: NavigationPath
+    @State private var state: ViewState = .idle
 
     var body: some View {
         NearbyDeviceRow(peripheral: device) {
             Task {
-                await deviceCoordinator.tapDevice(.muse(device))
+                do {
+                    try await deviceCoordinator.tapDevice(.muse(device))
+                } catch {
+                    state = .error(AnyLocalizedError(
+                        error: error,
+                        defaultErrorDescription: "Failed to connect to device."
+                    ))
+                }
             }
         } secondaryAction: {
             path.append(ConnectedDevice.muse(device))
         }
+            .viewStateAlert(state: $state)
     }
 
 

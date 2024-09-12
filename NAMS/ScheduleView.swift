@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+@_spi(TestingSupport)
 import SpeziAccount
 import SpeziBluetooth
 import SpeziViews
@@ -94,9 +95,7 @@ struct ScheduleView: View {
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }
-            AccountConfiguration {
-                MockUserIdPasswordAccountService()
-            }
+            AccountConfiguration(service: InMemoryAccountService())
         }
 }
 #endif

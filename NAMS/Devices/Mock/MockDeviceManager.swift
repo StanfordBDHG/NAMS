@@ -61,7 +61,8 @@ class MockDeviceManager {
 }
 
 
-extension MockDeviceManager: BluetoothScanner {
+// TODO: extension MockDeviceManager: BluetoothScanner {
+extension MockDeviceManager {
     var hasConnectedDevices: Bool {
         nearbyDevices.contains { device in
             device.state != .disconnected

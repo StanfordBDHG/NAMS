@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
 import EDFFormat
 import SpeziBluetooth
+import SpeziDevicesUI
 
 
 enum ConnectedDevice {
@@ -68,8 +68,8 @@ extension ConnectedDevice: NAMSDevice {
     }
 
 
-    func connect() async {
-        await underlyingDevice.connect()
+    func connect() async throws {
+        try await underlyingDevice.connect()
     }
 
     func disconnect() async {

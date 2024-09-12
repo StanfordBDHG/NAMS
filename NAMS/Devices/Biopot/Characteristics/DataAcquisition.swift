@@ -60,12 +60,12 @@ extension DataAcquisition {
 
 extension DataAcquisition {
     // swiftlint:disable:next discouraged_optional_collection
-    fileprivate static func readSamples(from buffer: inout ByteBuffer, preferredEndianness endianness: Endianness, count: Int) -> [BiopotSample]? {
+    fileprivate static func readSamples(from buffer: inout ByteBuffer, count: Int) -> [BiopotSample]? {
         var samples: [BiopotSample] = []
         samples.reserveCapacity(count)
 
         for _ in 0 ..< count {
-            guard let sample = BiopotSample(from: &buffer, preferredEndianness: endianness) else {
+            guard let sample = BiopotSample(from: &buffer) else {
                 return nil
             }
             samples.append(sample)
@@ -98,13 +98,13 @@ extension SomeDataAcquisition: DataAcquisition {
 
 
 extension DataAcquisition10: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    init?(from byteBuffer: inout ByteBuffer) {
         guard byteBuffer.readableBytes >= 244 else { // 244 bytes for type 10
             return nil
         }
 
-        guard let totalSampleCount = UInt32(from: &byteBuffer, preferredEndianness: endianness),
-              let samples = Self.readSamples(from: &byteBuffer, preferredEndianness: endianness, count: 10) else {
+        guard let totalSampleCount = UInt32(from: &byteBuffer),
+              let samples = Self.readSamples(from: &byteBuffer, count: 10) else {
             return nil
         }
 
@@ -115,14 +115,14 @@ extension DataAcquisition10: ByteDecodable {
 
 
 extension DataAcquisition11: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    init?(from byteBuffer: inout ByteBuffer) {
         guard byteBuffer.readableBytes >= 232 else { // 232 bytes for type 11
             return nil
         }
 
-        guard let totalSampleCount = UInt32(from: &byteBuffer, preferredEndianness: endianness),
-              let samples = Self.readSamples(from: &byteBuffer, preferredEndianness: endianness, count: 9),
-              let accelerometerSample = AccelerometerSample(from: &byteBuffer, preferredEndianness: endianness) else {
+        guard let totalSampleCount = UInt32(from: &byteBuffer),
+              let samples = Self.readSamples(from: &byteBuffer, count: 9),
+              let accelerometerSample = AccelerometerSample(from: &byteBuffer, endianness: .little) else {
             return nil
         }
 

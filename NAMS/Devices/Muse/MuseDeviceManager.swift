@@ -191,7 +191,8 @@ class MuseDeviceManager {
 }
 
 
-extension MuseDeviceManager: BluetoothScanner {
+// TODO: extension MuseDeviceManager: BluetoothScanner {
+extension MuseDeviceManager {
     var hasConnectedDevices: Bool {
         nearbyMuses.contains { device in
             device.state != .disconnected

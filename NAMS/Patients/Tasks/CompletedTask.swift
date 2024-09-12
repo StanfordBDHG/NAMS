@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import FirebaseFirestoreSwift
+import FirebaseFirestore
 import Foundation
 #if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire

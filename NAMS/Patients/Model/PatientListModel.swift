@@ -7,7 +7,6 @@
 //
 
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 import Observation
 import OrderedCollections
 import OSLog
@@ -23,6 +22,9 @@ import SwiftUI
 @Observable
 class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
     static let logger = Logger(subsystem: "edu.stanford.NAMS", category: "PatientListModel")
+
+    @ObservationIgnored @Dependency(FirebaseAccountService.self)
+    private var accountService: FirebaseAccountService?
 
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
 
@@ -291,7 +293,7 @@ class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
             return
         }
 
-        guard let service = account.registeredAccountServices.compactMap({ $0 as? any UserIdPasswordAccountService }).first else {
+        guard let accountService else {
             preconditionFailure("Failed to retrieve a user-id-password based account service for test account setup!")
         }
 
@@ -300,15 +302,15 @@ class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
             try await Task.sleep(for: .milliseconds(500))
 
             do {
-                let details = SignupDetails.Builder()
-                    .set(\.userId, value: email)
-                    .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
-                    .set(\.password, value: password)
-                    .build()
-                try await service.signUp(signupDetails: details)
+                var details = AccountDetails()
+                details.userId = email
+                details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
+                details.password = password
+
+                try await accountService.signUp(with: details)
             } catch {
                 if "\(error)".contains("accountAlreadyInUse") {
-                    try await service.login(userId: email, password: password)
+                    try await accountService.login(userId: email, password: password)
                 } else {
                     throw error
                 }

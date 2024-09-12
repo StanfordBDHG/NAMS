@@ -7,6 +7,7 @@
 //
 
 import SpeziViews
+import SpeziDevicesUI
 import SwiftUI
 
 

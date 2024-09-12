@@ -52,22 +52,22 @@ struct DeviceConfiguration {
 }
 
 
-extension AccelerometerStatus: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
+extension AccelerometerStatus: PrimitiveByteCodable {
+    init?(from byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
+    func encode(to byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, endianness: endianness)
     }
 }
 
 
 extension DeviceConfiguration: ByteCodable, Equatable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    init?(from byteBuffer: inout ByteBuffer) {
         let endianness: Endianness = .big
 
         guard byteBuffer.readableBytes >= 16 else {
@@ -76,14 +76,14 @@ extension DeviceConfiguration: ByteCodable, Equatable {
 
         byteBuffer.moveReaderIndex(to: 5) // reserved bytes
 
-        guard let channelCount = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let accelerometerStatus = AccelerometerStatus(from: &byteBuffer, preferredEndianness: endianness),
-              let impedanceStatus = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let memoryStatus = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let samplesPerChannel = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let dataSize = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let syncEnabled = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let serialNumber = UInt32(from: &byteBuffer, preferredEndianness: endianness) else {
+        guard let channelCount = UInt8(from: &byteBuffer, endianness: endianness),
+              let accelerometerStatus = AccelerometerStatus(from: &byteBuffer, endianness: endianness),
+              let impedanceStatus = Bool(from: &byteBuffer, endianness: endianness),
+              let memoryStatus = Bool(from: &byteBuffer, endianness: endianness),
+              let samplesPerChannel = UInt8(from: &byteBuffer, endianness: endianness),
+              let dataSize = UInt8(from: &byteBuffer, endianness: endianness),
+              let syncEnabled = Bool(from: &byteBuffer, endianness: endianness),
+              let serialNumber = UInt32(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
 
@@ -99,20 +99,20 @@ extension DeviceConfiguration: ByteCodable, Equatable {
     }
 
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    func encode(to byteBuffer: inout ByteBuffer) {
         let endianness: Endianness = .big
 
         byteBuffer.reserveCapacity(minimumWritableBytes: 16)
 
         byteBuffer.writeRepeatingByte(0, count: 5) // reserved bytes, we just write zeros for now
 
-        channelCount.encode(to: &byteBuffer, preferredEndianness: endianness)
-        accelerometerStatus.encode(to: &byteBuffer, preferredEndianness: endianness)
-        impedanceStatus.encode(to: &byteBuffer, preferredEndianness: endianness)
-        memoryStatus.encode(to: &byteBuffer, preferredEndianness: endianness)
-        samplesPerChannel.encode(to: &byteBuffer, preferredEndianness: endianness)
-        dataSize.encode(to: &byteBuffer, preferredEndianness: endianness)
-        syncEnabled.encode(to: &byteBuffer, preferredEndianness: endianness)
-        serialNumber.encode(to: &byteBuffer, preferredEndianness: endianness)
+        channelCount.encode(to: &byteBuffer, endianness: endianness)
+        accelerometerStatus.encode(to: &byteBuffer, endianness: endianness)
+        impedanceStatus.encode(to: &byteBuffer, endianness: endianness)
+        memoryStatus.encode(to: &byteBuffer, endianness: endianness)
+        samplesPerChannel.encode(to: &byteBuffer, endianness: endianness)
+        dataSize.encode(to: &byteBuffer, endianness: endianness)
+        syncEnabled.encode(to: &byteBuffer, endianness: endianness)
+        serialNumber.encode(to: &byteBuffer, endianness: endianness)
     }
 }

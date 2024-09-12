@@ -13,46 +13,36 @@ import SpeziValidation
 import SwiftUI
 
 
-struct InvestigatorCodeKey: AccountKey {
-    typealias Value = String
+private struct InvestigatorCodeEntry: DataEntryView {
+    @Binding var value: String
 
-    static let name: LocalizedStringResource = "Investigator Code"
-    static let category: AccountKeyCategory = .personalDetails
-    static let initialValue: InitialValue<String> = .empty("")
-}
+    init(_ value: Binding<String>) {
+        _value = value
+    }
 
-
-extension AccountValues {
-    var investigatorCode: String? {
-        storage[InvestigatorCodeKey.self]
+    var body: some View {
+        VerifiableTextField(AccountKeys.investigatorCode.name, text: $value)
+            .autocorrectionDisabled(true)
+            .textInputAutocapitalization(.never)
+            .validate(input: value, rules: .investigatorCodeMaxLength)
     }
 }
 
 
+extension AccountDetails {
+    @AccountKey(
+        name: "Investigator Code",
+        category: .personalDetails,
+        as: String.self,
+        entryView: InvestigatorCodeEntry.self
+    )
+    var investigatorCode: String?
+}
+
+
+
+@KeyEntry(\.investigatorCode)
 extension AccountKeys {
-    var investigatorCode: InvestigatorCodeKey.Type {
-        InvestigatorCodeKey.self
-    }
-}
-
-
-extension InvestigatorCodeKey {
-    struct DataEntry: DataEntryView {
-        typealias Key = InvestigatorCodeKey
-
-        @Binding var value: String
-
-        init(_ value: Binding<String>) {
-            _value = value
-        }
-
-        var body: some View {
-            VerifiableTextField(Key.name, text: $value)
-                .autocorrectionDisabled(true)
-                .textInputAutocapitalization(.never)
-                .validate(input: value, rules: .investigatorCodeMaxLength)
-        }
-    }
 }
 
 

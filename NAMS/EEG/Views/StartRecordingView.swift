@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+@_spi(TestingSupport)
 import SpeziAccount
 import SpeziBluetooth
 import SpeziOnboarding
@@ -68,9 +69,7 @@ struct StartRecordingView: View {
 #Preview {
     StartRecordingView(.constant(nil))
         .previewWith(standard: NAMSStandard()) {
-            AccountConfiguration {
-                MockUserIdPasswordAccountService()
-            }
+            AccountConfiguration(service: InMemoryAccountService())
             EEGRecordings()
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))

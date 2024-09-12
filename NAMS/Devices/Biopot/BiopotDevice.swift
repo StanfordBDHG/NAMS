@@ -6,13 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothServices
-import BluetoothViews
 import EDFFormat
 import OSLog
 import Spezi
 @_spi(TestingSupport)
 import SpeziBluetooth
+import SpeziBluetoothServices
+import SpeziDevices
 
 
 /// The BioPot 3 bluetooth device.
@@ -21,7 +21,7 @@ import SpeziBluetooth
 /// * https://en.wikipedia.org/wiki/Bluetooth_Low_Energy#Software_model
 /// * https://www.bluetooth.com/blog/a-developers-guide-to-bluetooth
 /// * https://devzone.nordicsemi.com/guides/short-range-guides/b/bluetooth-low-energy/posts/ble-characteristics-a-beginners-tutorial
-class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice {
+final class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice, @unchecked Sendable {
     private let logger = Logger(subsystem: "edu.stanford.nams", category: "BiopotDevice")
 
     @DeviceState(\.id)
@@ -30,6 +30,8 @@ class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice {
     var state
     @DeviceState(\.name)
     var name
+    @DeviceState(\.advertisementData)
+    var advertisementData
 
     @DeviceAction(\.connect)
     fileprivate var _connect
@@ -82,13 +84,16 @@ class BiopotDevice: BluetoothDevice, Identifiable, NAMSDevice {
     }
 
 
-    required init() {
-        $state
-            .onChange(perform: handleChange)
+    required init() {}
+
+    func configure() {
+        $state.onChange { @MainActor [weak self] state in
+            self?.handleChange(of: state)
+        }
     }
 
-    func connect() async {
-        await self._connect()
+    func connect() async throws {
+        try await self._connect()
     }
 
     func disconnect() async {
@@ -131,7 +136,7 @@ extension BiopotDevice: Hashable {
 
 extension BiopotDevice: GenericBluetoothPeripheral {
     var label: String {
-        name ?? "unknown device"
+        advertisementData.localName ?? name ?? "unknown device"
     }
 
     var accessibilityLabel: String {

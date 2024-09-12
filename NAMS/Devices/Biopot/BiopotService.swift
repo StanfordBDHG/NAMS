@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import class CoreBluetooth.CBUUID
+@_spi(TestingSupport)
+import ByteCoding
 import EDFFormat
 import OrderedCollections
 import OSLog
@@ -22,7 +23,7 @@ class BiopotService: BluetoothService {
     /// The maximum amount of packets we cached when waiting for a dropped packet to be resent.
     private static let packetBufferMax = 3
 
-    static let id = CBUUID(string: "FFF0")
+    static let id: BTUUID = "FFF0"
 
     private let logger = Logger(subsystem: "edu.stanford.nams", category: "BiopotService")
 
@@ -64,9 +65,12 @@ class BiopotService: BluetoothService {
     /// The buffer is limited to `packetBufferMax`.
     @EEGProcessing private var packetBuffer: OrderedSet<SomeDataAcquisition> = []
 
-    init() {
-        $dataAcquisition
-            .onChange(perform: handleDataAcquisition)
+    init() {}
+
+    func customConfigure() {
+        $dataAcquisition.onChange { [weak self] value in
+            self?.handleDataAcquisition(data: value)
+        }
     }
 
     @EEGProcessing

@@ -7,6 +7,7 @@
 //
 
 import SpeziBluetooth
+import SpeziDevicesUI
 import SpeziViews
 import SwiftUI
 

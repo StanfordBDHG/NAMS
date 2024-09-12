@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
 import Spezi
 import SpeziBluetooth
+import SpeziDevicesUI
 import SpeziViews
 import SwiftUI
 
@@ -62,7 +62,7 @@ struct NearbyDevicesView: View {
                     nearbyDevicesSection
                 } else {
                     Section {
-                        BluetoothStateHint(bluetooth.state)
+                        BluetoothUnavailableView(bluetooth.state)
                     }
                 }
             }
@@ -78,9 +78,9 @@ struct NearbyDevicesView: View {
                 }
         }
             .scanNearbyDevices(with: bluetooth, autoConnect: deviceCoordinator.shouldAutoConnectBiopot)
-            .scanNearbyDevices(enabled: mockDeviceManager != nil, with: mockDeviceManager ?? MockDeviceManager())
+            // TODO: .scanNearbyDevices(enabled: mockDeviceManager != nil, with: mockDeviceManager ?? MockDeviceManager())
 #if MUSE
-            .scanNearbyDevices(with: museDeviceManager)
+            // TODO: .scanNearbyDevices(with: museDeviceManager)
             .onChange(of: bluetooth.state) {
                 if case .poweredOn = bluetooth.state {
                     museDeviceManager.startScanning()
@@ -126,7 +126,7 @@ struct NearbyDevicesView: View {
                 }
             }
         } header: {
-            LoadingSectionHeaderView("Devices", loading: isScanning)
+            LoadingSectionHeader("Devices", loading: isScanning)
         } footer: {
             MuseTroublesConnectingHint()
         }

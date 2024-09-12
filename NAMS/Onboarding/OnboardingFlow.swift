@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+@_spi(TestingSupport)
 import SpeziAccount
 import SpeziFirebaseAccount
 import SpeziOnboarding
@@ -42,6 +43,8 @@ struct OnboardingFlow: View {
 #if DEBUG
 #Preview {
     OnboardingFlow()
-        .environment(Account(MockUserIdPasswordAccountService()))
+        .previewWith {
+            AccountConfiguration(service: InMemoryAccountService())
+        }
 }
 #endif

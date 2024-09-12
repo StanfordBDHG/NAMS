@@ -6,8 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
 import SpeziBluetooth
+import SpeziDevicesUI
+import SpeziViews
 import SwiftUI
 
 
@@ -18,16 +19,25 @@ struct BiopotDeviceRow: View {
     private var deviceCoordinator
 
     @Binding private var path: NavigationPath
+    @State private var state: ViewState = .idle
 
 
     var body: some View {
         NearbyDeviceRow(peripheral: device) {
             Task {
-                await deviceCoordinator.tapDevice(.biopot(device))
+                do {
+                    try await deviceCoordinator.tapDevice(.biopot(device))
+                } catch {
+                    state = .error(AnyLocalizedError(
+                        error: error,
+                        defaultErrorDescription: "Failed to connect to device."
+                    ))
+                }
             }
         } secondaryAction: {
             path.append(ConnectedDevice.biopot(device))
         }
+            .viewStateAlert(state: $state)
     }
 
     init(device: BiopotDevice, path: Binding<NavigationPath>) {

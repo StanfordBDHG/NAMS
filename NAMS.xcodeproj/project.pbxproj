@@ -217,8 +217,6 @@
 		A94A42B72AE9EBE300A3F9E5 /* AccountSetupHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42AD2AE9EBE300A3F9E5 /* AccountSetupHeader.swift */; };
 		A94A42BA2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
 		A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94A42B92AE9ED8200A3F9E5 /* AccountOnboarding.swift */; };
-		A95EEAE32B6B54D3009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */; };
-		A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */ = {isa = PBXBuildFile; productRef = A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */; };
 		A95F4B312B990803006778E5 /* ByteCoding in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B302B990803006778E5 /* ByteCoding */; };
 		A95F4B332B990803006778E5 /* EDFFormat in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B322B990803006778E5 /* EDFFormat */; };
 		A95F4B352B990803006778E5 /* XCTByteCoding in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B342B990803006778E5 /* XCTByteCoding */; };
@@ -230,6 +228,10 @@
 		A974D6482B9C15540058C164 /* InvestigatorCodeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974D6462B9C15540058C164 /* InvestigatorCodeKey.swift */; };
 		A9770E152B9A7D2500C01276 /* PatientInformation+Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9770E142B9A7D2500C01276 /* PatientInformation+Patient.swift */; };
 		A9770E172B9A7D6E00C01276 /* Sex+Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9770E162B9A7D6E00C01276 /* Sex+Patient.swift */; };
+		A977F6752C932C780071A1D1 /* SpeziBluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A977F6742C932C780071A1D1 /* SpeziBluetoothServices */; };
+		A977F6782C932D0E0071A1D1 /* SpeziDevicesUI in Frameworks */ = {isa = PBXBuildFile; productRef = A977F6772C932D0E0071A1D1 /* SpeziDevicesUI */; };
+		A977F67A2C932D1E0071A1D1 /* SpeziBluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A977F6792C932D1E0071A1D1 /* SpeziBluetoothServices */; };
+		A977F67C2C932D2A0071A1D1 /* SpeziDevicesUI in Frameworks */ = {isa = PBXBuildFile; productRef = A977F67B2C932D2A0071A1D1 /* SpeziDevicesUI */; };
 		A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
 		A97E4F202B1EA0D600E25505 /* StartRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F1E2B1EA0D600E25505 /* StartRecordingView.swift */; };
 		A97E4F232B1EA21800E25505 /* EEGLocation+Biopot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97E4F222B1EA21800E25505 /* EEGLocation+Biopot.swift */; };
@@ -249,8 +251,6 @@
 		A988FEA62B03FB4A00022A61 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEA52B03FB4A00022A61 /* SpeziBluetooth */; };
 		A988FEA82B03FB5A00022A61 /* SpeziBluetooth in Frameworks */ = {isa = PBXBuildFile; productRef = A988FEA72B03FB5A00022A61 /* SpeziBluetooth */; };
 		A988FEAA2B0414FD00022A61 /* BiopotDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEA92B0414FD00022A61 /* BiopotDevice.swift */; };
-		A988FEAC2B043AED00022A61 /* BatteryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEAB2B043AED00022A61 /* BatteryIcon.swift */; };
-		A988FEAD2B043AED00022A61 /* BatteryIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEAB2B043AED00022A61 /* BatteryIcon.swift */; };
 		A988FEAF2B0452A900022A61 /* BiopotDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEA92B0414FD00022A61 /* BiopotDevice.swift */; };
 		A988FEB22B0452C400022A61 /* DeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */; };
 		A988FEB32B0452C400022A61 /* DeviceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */; };
@@ -285,8 +285,6 @@
 		A9BCB58D2AE84E6D00DA8588 /* CurrentPatientLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BCB58B2AE84E6D00DA8588 /* CurrentPatientLabel.swift */; };
 		A9C82F922B608756004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
 		A9C82F932B60899B004703E0 /* ImpedanceMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C82F912B608756004703E0 /* ImpedanceMeasurement.swift */; };
-		A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F942B6089C8004703E0 /* BluetoothServices */; };
-		A9C82F972B6089D2004703E0 /* BluetoothServices in Frameworks */ = {isa = PBXBuildFile; productRef = A9C82F962B6089D2004703E0 /* BluetoothServices */; };
 		A9C9B6B42ADE191100C8C46D /* MockDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9C9B6B32ADE191100C8C46D /* MockDeviceTests.swift */; };
 		A9CE84512B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
 		A9CE84522B1A9A14009CE3F4 /* NearbyDevicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */; };
@@ -468,7 +466,6 @@
 		A985DEC62BA4DB9300DDEBF8 /* BiopotDeviceRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BiopotDeviceRow.swift; sourceTree = "<group>"; };
 		A985DECC2BA4DBA900DDEBF8 /* BiopotCustomElectrodePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotCustomElectrodePicker.swift; sourceTree = "<group>"; };
 		A988FEA92B0414FD00022A61 /* BiopotDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDevice.swift; sourceTree = "<group>"; };
-		A988FEAB2B043AED00022A61 /* BatteryIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryIcon.swift; sourceTree = "<group>"; };
 		A988FEB12B0452C400022A61 /* DeviceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceConfiguration.swift; sourceTree = "<group>"; };
 		A988FEB42B0453E100022A61 /* DeviceInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInformation.swift; sourceTree = "<group>"; };
 		A98905442BCEFD6800E36BA7 /* ChartMoreInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartMoreInformationView.swift; sourceTree = "<group>"; };
@@ -519,22 +516,22 @@
 				A988FEBD2B05C7AE00022A61 /* SpeziPersonalInfo in Frameworks */,
 				A95F4B332B990803006778E5 /* EDFFormat in Frameworks */,
 				2FE5DC6429EDD883004B9AB4 /* SpeziAccount in Frameworks */,
-				A95EEAE32B6B54D3009B4CF8 /* BluetoothViews in Frameworks */,
 				A988FEA62B03FB4A00022A61 /* SpeziBluetooth in Frameworks */,
 				2FE5DC6729EDD894004B9AB4 /* SpeziContact in Frameworks */,
 				A941711C2B9FB17A002E975A /* SpeziFirebaseAccountStorage in Frameworks */,
 				2FE5DC8429EDD934004B9AB4 /* SpeziQuestionnaire in Frameworks */,
 				2FE5DC8A29EDD972004B9AB4 /* SpeziLocalStorage in Frameworks */,
+				A977F6782C932D0E0071A1D1 /* SpeziDevicesUI in Frameworks */,
 				2FE5DC8C29EDD972004B9AB4 /* SpeziSecureStorage in Frameworks */,
 				A92E34F02ADB9B7E00FE0B51 /* OrderedCollections in Frameworks */,
 				2FE5DC7529EDD8E6004B9AB4 /* SpeziFirebaseAccount in Frameworks */,
 				2F49B7762980407C00BCB272 /* Spezi in Frameworks */,
-				A9C82F952B6089C8004703E0 /* BluetoothServices in Frameworks */,
 				2FE5DC8F29EDD980004B9AB4 /* SpeziViews in Frameworks */,
 				A95F4B312B990803006778E5 /* ByteCoding in Frameworks */,
 				2FE5DC8129EDD91D004B9AB4 /* SpeziOnboarding in Frameworks */,
 				A9A48A8B2BA8CCE3002CB862 /* SpeziFirebaseStorage in Frameworks */,
 				2FE5DC7929EDD8E6004B9AB4 /* SpeziFirestore in Frameworks */,
+				A977F6752C932C780071A1D1 /* SpeziBluetoothServices in Frameworks */,
 				2FE5DC7729EDD8E6004B9AB4 /* SpeziFirebaseConfiguration in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -562,19 +559,19 @@
 				A95F4B372B99081D006778E5 /* ByteCoding in Frameworks */,
 				A926D7A82AB7A552000C4C2F /* Muse.framework in Frameworks */,
 				A926D7A92AB7A552000C4C2F /* SpeziAccount in Frameworks */,
+				A977F67A2C932D1E0071A1D1 /* SpeziBluetoothServices in Frameworks */,
 				A926D7AA2AB7A552000C4C2F /* SpeziContact in Frameworks */,
 				A926D7AB2AB7A552000C4C2F /* SpeziQuestionnaire in Frameworks */,
 				A941711E2B9FB180002E975A /* SpeziFirebaseAccountStorage in Frameworks */,
 				A926D7AC2AB7A552000C4C2F /* SpeziLocalStorage in Frameworks */,
 				A926D7AD2AB7A552000C4C2F /* SpeziSecureStorage in Frameworks */,
+				A977F67C2C932D2A0071A1D1 /* SpeziDevicesUI in Frameworks */,
 				A92E34F22ADB9B9000FE0B51 /* OrderedCollections in Frameworks */,
 				A926D7AE2AB7A552000C4C2F /* SpeziFirebaseAccount in Frameworks */,
-				A95EEAE52B6B54DA009B4CF8 /* BluetoothViews in Frameworks */,
 				A95F4B392B99081D006778E5 /* EDFFormat in Frameworks */,
 				A988FEBF2B05C7B800022A61 /* SpeziPersonalInfo in Frameworks */,
 				A926D7B02AB7A552000C4C2F /* Spezi in Frameworks */,
 				A926D7B12AB7A552000C4C2F /* SpeziViews in Frameworks */,
-				A9C82F972B6089D2004703E0 /* BluetoothServices in Frameworks */,
 				A988FEA82B03FB5A00022A61 /* SpeziBluetooth in Frameworks */,
 				A926D7B42AB7A552000C4C2F /* SpeziOnboarding in Frameworks */,
 				A9A48A8D2BA8CCEA002CB862 /* SpeziFirebaseStorage in Frameworks */,
@@ -972,7 +969,6 @@
 				A926D8342AB7C2CC000C4C2F /* Mock */,
 				A99522402AA61D82009272F4 /* Muse */,
 				A93B82BF2B76E2E000C5DF3D /* AutoConnectConfigurationView.swift */,
-				A988FEAB2B043AED00022A61 /* BatteryIcon.swift */,
 				A9CE84502B1A9A14009CE3F4 /* NearbyDevicesView.swift */,
 				2DC172078D2802AD6068AC7E /* DeviceCoordinator.swift */,
 				2DC17AEF81E62461D4AA3E67 /* ConnectedDevice.swift */,
@@ -1083,12 +1079,12 @@
 				A92E34EF2ADB9B7E00FE0B51 /* OrderedCollections */,
 				A988FEBC2B05C7AE00022A61 /* SpeziPersonalInfo */,
 				A988FEA52B03FB4A00022A61 /* SpeziBluetooth */,
-				A9C82F942B6089C8004703E0 /* BluetoothServices */,
-				A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */,
 				A95F4B302B990803006778E5 /* ByteCoding */,
 				A95F4B322B990803006778E5 /* EDFFormat */,
 				A941711B2B9FB17A002E975A /* SpeziFirebaseAccountStorage */,
 				A9A48A8A2BA8CCE3002CB862 /* SpeziFirebaseStorage */,
+				A977F6742C932C780071A1D1 /* SpeziBluetoothServices */,
+				A977F6772C932D0E0071A1D1 /* SpeziDevicesUI */,
 			);
 			productName = NAMS;
 			productReference = 653A254D283387FE005D4D48 /* NAMS.app */;
@@ -1165,12 +1161,12 @@
 				A92E34F12ADB9B9000FE0B51 /* OrderedCollections */,
 				A988FEBE2B05C7B800022A61 /* SpeziPersonalInfo */,
 				A988FEA72B03FB5A00022A61 /* SpeziBluetooth */,
-				A9C82F962B6089D2004703E0 /* BluetoothServices */,
-				A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */,
 				A95F4B362B99081D006778E5 /* ByteCoding */,
 				A95F4B382B99081D006778E5 /* EDFFormat */,
 				A941711D2B9FB180002E975A /* SpeziFirebaseAccountStorage */,
 				A9A48A8C2BA8CCEA002CB862 /* SpeziFirebaseStorage */,
+				A977F6792C932D1E0071A1D1 /* SpeziBluetoothServices */,
+				A977F67B2C932D2A0071A1D1 /* SpeziDevicesUI */,
 			);
 			productName = NAMS;
 			productReference = A926D7C32AB7A552000C4C2F /* NAMS Muse.app */;
@@ -1224,6 +1220,7 @@
 				A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */,
 				A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */,
 				A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				A977F6762C932D0E0071A1D1 /* XCRemoteSwiftPackageReference "SpeziDevices" */,
 			);
 			productRefGroup = 653A254E283387FE005D4D48 /* Products */;
 			projectDirPath = "";
@@ -1353,7 +1350,6 @@
 				A98911322A36689D00E66E3A /* Patient.swift in Sources */,
 				2FE5DC2629EDD38A004B9AB4 /* Contacts.swift in Sources */,
 				A94534102AEAF2AE0095AAD3 /* CompletedTask.swift in Sources */,
-				A988FEAC2B043AED00022A61 /* BatteryIcon.swift in Sources */,
 				2DC17337BA4FEF5664BC0D10 /* FinishedSetup.swift in Sources */,
 				A943DC312BA26E0F00039060 /* TimedSample.swift in Sources */,
 				A988FEAA2B0414FD00022A61 /* BiopotDevice.swift in Sources */,
@@ -1527,7 +1523,6 @@
 				A93B82C42B76E72200C5DF3D /* AutoConnectConfiguration.swift in Sources */,
 				A926D8042AB7B41C000C4C2F /* BDFSample+Muse.swift in Sources */,
 				A974D6482B9C15540058C164 /* InvestigatorCodeKey.swift in Sources */,
-				A988FEAD2B043AED00022A61 /* BatteryIcon.swift in Sources */,
 				A9D4B8E02B685DF20054E27C /* MuseAboutDetailsSection.swift in Sources */,
 				2DC17B21929D86939F8EB566 /* ConnectionState+Muse.swift in Sources */,
 				A9D4B8DE2B685DEE0054E27C /* MuseHeadbandFitSection.swift in Sources */,
@@ -2331,7 +2326,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/Spezi";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.7.0;
 			};
 		};
 		2FE5DC6229EDD883004B9AB4 /* XCRemoteSwiftPackageReference "SpeziAccount" */ = {
@@ -2339,7 +2334,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziAccount.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.1;
+				minimumVersion = "2.0.0-beta.3";
 			};
 		};
 		2FE5DC6529EDD894004B9AB4 /* XCRemoteSwiftPackageReference "SpeziContact" */ = {
@@ -2355,7 +2350,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziFirebase.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = "2.0.0-beta.1";
 			};
 		};
 		2FE5DC7F29EDD91D004B9AB4 /* XCRemoteSwiftPackageReference "SpeziOnboarding" */ = {
@@ -2386,8 +2381,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziViews.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				branch = "feature/additional-infrastructure";
+				kind = branch;
 			};
 		};
 		2FE5DC9029EDD9C3004B9AB4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
@@ -2395,7 +2390,7 @@
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.17.0;
+				minimumVersion = 11.1.0;
 			};
 		};
 		2FE5DC9729EDD9D9004B9AB4 /* XCRemoteSwiftPackageReference "XCTestExtensions" */ = {
@@ -2483,7 +2478,7 @@
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziFileFormats";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				minimumVersion = 2.1.0;
 			};
 		};
 		A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
@@ -2494,12 +2489,20 @@
 				minimumVersion = 0.54.0;
 			};
 		};
+		A977F6762C932D0E0071A1D1 /* XCRemoteSwiftPackageReference "SpeziDevices" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/StanfordSpezi/SpeziDevices.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziBluetooth";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
+				minimumVersion = 3.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2640,16 +2643,6 @@
 			package = 2FE5DC7329EDD8E6004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFirebase" */;
 			productName = SpeziFirebaseAccountStorage;
 		};
-		A95EEAE22B6B54D3009B4CF8 /* BluetoothViews */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = BluetoothViews;
-		};
-		A95EEAE42B6B54DA009B4CF8 /* BluetoothViews */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = BluetoothViews;
-		};
 		A95F4B302B990803006778E5 /* ByteCoding */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
@@ -2685,6 +2678,26 @@
 			package = A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */;
 			productName = "plugin:SwiftLintPlugin";
 		};
+		A977F6742C932C780071A1D1 /* SpeziBluetoothServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = SpeziBluetoothServices;
+		};
+		A977F6772C932D0E0071A1D1 /* SpeziDevicesUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A977F6762C932D0E0071A1D1 /* XCRemoteSwiftPackageReference "SpeziDevices" */;
+			productName = SpeziDevicesUI;
+		};
+		A977F6792C932D1E0071A1D1 /* SpeziBluetoothServices */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
+			productName = SpeziBluetoothServices;
+		};
+		A977F67B2C932D2A0071A1D1 /* SpeziDevicesUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A977F6762C932D0E0071A1D1 /* XCRemoteSwiftPackageReference "SpeziDevices" */;
+			productName = SpeziDevicesUI;
+		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
@@ -2714,16 +2727,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2FE5DC7329EDD8E6004B9AB4 /* XCRemoteSwiftPackageReference "SpeziFirebase" */;
 			productName = SpeziFirebaseStorage;
-		};
-		A9C82F942B6089C8004703E0 /* BluetoothServices */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = BluetoothServices;
-		};
-		A9C82F962B6089D2004703E0 /* BluetoothServices */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */;
-			productName = BluetoothServices;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

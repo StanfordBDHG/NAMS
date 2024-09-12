@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+@_spi(TestingSupport)
 import SpeziAccount
 import SwiftUI
 
@@ -41,6 +42,8 @@ struct AccountSetupHeader: View {
 #if DEBUG
 #Preview {
     AccountSetupHeader()
-        .environment(Account())
+        .previewWith {
+            AccountConfiguration(service: InMemoryAccountService())
+        }
 }
 #endif

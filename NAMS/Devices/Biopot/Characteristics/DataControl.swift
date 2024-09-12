@@ -23,9 +23,9 @@ enum DataControl: UInt8 {
 }
 
 
-extension DataControl: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+extension DataControl: PrimitiveByteCodable {
+    init?(from byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, endianness: endianness),
               let dataControl = DataControl(rawValue: value) else {
             return nil
         }
@@ -33,7 +33,7 @@ extension DataControl: ByteCodable {
         self = dataControl
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
+    func encode(to byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, endianness: endianness)
     }
 }

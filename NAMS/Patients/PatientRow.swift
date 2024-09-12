@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
+import SpeziDevicesUI
 import SpeziPersonalInfo
 import SpeziViews
 import SwiftUI

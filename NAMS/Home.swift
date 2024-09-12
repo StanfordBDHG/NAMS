@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+@_spi(TestingSupport)
 import SpeziAccount
 import SpeziBluetooth
 import SpeziViews
@@ -125,7 +126,6 @@ struct HomeView: View {
             .accountRequired(!FeatureFlags.skipOnboarding && !FeatureFlags.injectDefaultPatient) {
                 AccountSheet()
             }
-            .verifyRequiredAccountDetails()
     }
 
 
@@ -141,16 +141,16 @@ struct HomeView: View {
 
 #if DEBUG
 #Preview {
-    let details = AccountDetails.Builder()
-        .set(\.accountId, value: UUID().uuidString)
-        .set(\.userId, value: "lelandstanford@stanford.edu")
-        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+    var details = AccountDetails()
+    details.accountId = UUID().uuidString
+    details.userId = "lelandstanford@stanford.edu"
+    details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
 
     return HomeView()
         .previewWith(standard: NAMSStandard()) {
             DeviceCoordinator()
             EEGRecordings()
-            AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
+            AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
             Bluetooth {
                 Discover(BiopotDevice.self, by: .advertisedService(BiopotService.self))
             }

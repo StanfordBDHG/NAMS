@@ -7,6 +7,7 @@
 //
 
 import Spezi
+@_spi(TestingSupport)
 import SpeziAccount
 import SpeziBluetooth
 #if canImport(SpeziQuestionnaire)
@@ -124,9 +125,7 @@ struct TilesView: View {
     return TilesView()
         .environment(patientList)
         .previewWith(standard: NAMSStandard()) {
-            AccountConfiguration {
-                MockUserIdPasswordAccountService()
-            }
+            AccountConfiguration(service: InMemoryAccountService())
             EEGRecordings()
             DeviceCoordinator()
         }
@@ -135,9 +134,7 @@ struct TilesView: View {
 #Preview {
     TilesView()
         .previewWith(standard: NAMSStandard()) {
-            AccountConfiguration {
-                MockUserIdPasswordAccountService()
-            }
+            AccountConfiguration(service: InMemoryAccountService())
             PatientListModel()
             EEGRecordings()
             DeviceCoordinator()
