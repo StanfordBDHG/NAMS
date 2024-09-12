@@ -308,8 +308,6 @@
 		A9D4B8E72B68636A0054E27C /* MuseHeadbandFitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8E52B6860AC0054E27C /* MuseHeadbandFitView.swift */; };
 		A9D4B8E92B6863D60054E27C /* FitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8E82B6863D60054E27C /* FitLabel.swift */; };
 		A9D4B8EA2B6863D60054E27C /* FitLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8E82B6863D60054E27C /* FitLabel.swift */; };
-		A9D4B8EC2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
-		A9D4B8ED2B686D380054E27C /* ScreeningTileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */; };
 		A9D6BA822BACCB78002863DA /* RecordingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA812BACCB78002863DA /* RecordingState.swift */; };
 		A9D6BA832BACCB78002863DA /* RecordingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA812BACCB78002863DA /* RecordingState.swift */; };
 		A9D6BA852BACE051002863DA /* RecordingStateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D6BA842BACE051002863DA /* RecordingStateHeader.swift */; };
@@ -325,10 +323,6 @@
 		A9F051C42B9A8D90006D3FEF /* BiopotDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F916772B080967007CECF6 /* BiopotDeviceTests.swift */; };
 		A9F2ECC62AEB27B10057C7DD /* MeasurementTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */; };
 		A9F2ECC72AEB27B10057C7DD /* MeasurementTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */; };
-		A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */; };
-		A9F2ECCA2AEC2C300057C7DD /* CompletedTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */; };
-		A9F2ECCD2AEC58B00057C7DD /* SimpleTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */; };
-		A9F2ECCE2AEC58B00057C7DD /* SimpleTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */; };
 		A9F2ECD02AEC5EF50057C7DD /* MeasurementTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */; };
 		A9F2ECD12AEC5EF50057C7DD /* MeasurementTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */; };
 		A9FCE8342AE9CA4F0008EA2B /* PatientInformationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */; };
@@ -495,14 +489,11 @@
 		A9D4B8D42B685D800054E27C /* MuseBatteryProblemsHint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuseBatteryProblemsHint.swift; sourceTree = "<group>"; };
 		A9D4B8E52B6860AC0054E27C /* MuseHeadbandFitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuseHeadbandFitView.swift; sourceTree = "<group>"; };
 		A9D4B8E82B6863D60054E27C /* FitLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitLabel.swift; sourceTree = "<group>"; };
-		A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreeningTileHeader.swift; sourceTree = "<group>"; };
 		A9D6BA812BACCB78002863DA /* RecordingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingState.swift; sourceTree = "<group>"; };
 		A9D6BA842BACE051002863DA /* RecordingStateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStateHeader.swift; sourceTree = "<group>"; };
 		A9D83F912B081A47000D0C78 /* BiopotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotTests.swift; sourceTree = "<group>"; };
 		A9DF79D92AE8986B00AB5983 /* SelectedPatientCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPatientCard.swift; sourceTree = "<group>"; };
 		A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTile.swift; sourceTree = "<group>"; };
-		A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTile.swift; sourceTree = "<group>"; };
-		A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTile.swift; sourceTree = "<group>"; };
 		A9F2ECCF2AEC5EF50057C7DD /* MeasurementTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementTask.swift; sourceTree = "<group>"; };
 		A9F916772B080967007CECF6 /* BiopotDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiopotDeviceTests.swift; sourceTree = "<group>"; };
 		A9FCE8332AE9CA4F0008EA2B /* PatientInformationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInformationTests.swift; sourceTree = "<group>"; };
@@ -798,13 +789,10 @@
 		A945340E2AEAF2860095AAD3 /* Tiles */ = {
 			isa = PBXGroup;
 			children = (
-				A9F2ECC82AEC2C300057C7DD /* CompletedTile.swift */,
 				A9F2ECC52AEB27B10057C7DD /* MeasurementTile.swift */,
 				A94533F92AEADC8E0095AAD3 /* ScreeningTile.swift */,
-				A9F2ECCC2AEC58B00057C7DD /* SimpleTile.swift */,
 				A945340B2AEAE6380095AAD3 /* TilesView.swift */,
 				2DC177BFA6C401C2C87FCD5C /* TileType.swift */,
-				A9D4B8EB2B686D380054E27C /* ScreeningTileHeader.swift */,
 			);
 			path = Tiles;
 			sourceTree = "<group>";
@@ -1061,7 +1049,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				A96CD4142BCDA58100300B8C /* PBXTargetDependency */,
+				A977F67E2C933AA10071A1D1 /* PBXTargetDependency */,
 			);
 			name = NAMS;
 			packageProductDependencies = (
@@ -1332,7 +1320,6 @@
 				2FE5DC4729EDD7F2004B9AB4 /* CodableArray+RawRepresentable.swift in Sources */,
 				2FE5DC4029EDD7EE004B9AB4 /* FeatureFlags.swift in Sources */,
 				A907DA362B1942B800FB69FB /* DataAcquisition.swift in Sources */,
-				A9D4B8EC2B686D380054E27C /* ScreeningTileHeader.swift in Sources */,
 				2FE5DC4629EDD7F2004B9AB4 /* Bundle+Image.swift in Sources */,
 				A988FEB52B0453E100022A61 /* DeviceInformation.swift in Sources */,
 				A9F2ECD02AEC5EF50057C7DD /* MeasurementTask.swift in Sources */,
@@ -1375,7 +1362,6 @@
 				2DC173E02BF55765A906AF4F /* IXNMuseDataPacketType+Type.swift in Sources */,
 				A945340C2AEAE6380095AAD3 /* TilesView.swift in Sources */,
 				A907DA392B195D4800FB69FB /* AccelerometerSample.swift in Sources */,
-				A9F2ECCD2AEC58B00057C7DD /* SimpleTile.swift in Sources */,
 				2DC179421EE83DA24520EABB /* HeadbandFit+Muse.swift in Sources */,
 				A90830842BAA33E6003E0080 /* DownsampleConfiguration.swift in Sources */,
 				A97E4F1F2B1EA0D600E25505 /* StartRecordingView.swift in Sources */,
@@ -1390,7 +1376,6 @@
 				A9BB13E62B9BCE85004EB9B9 /* PatientInformationHeader.swift in Sources */,
 				A985DECA2BA4DB9300DDEBF8 /* BiopotDeviceRow.swift in Sources */,
 				A9770E152B9A7D2500C01276 /* PatientInformation+Patient.swift in Sources */,
-				A9F2ECC92AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				A9D4B8D52B685D800054E27C /* MuseDeviceDetailsView.swift in Sources */,
 				2DC1718A3F968CF02D7AF0EC /* PatientListView.swift in Sources */,
 				2DC172753D306AE733D7FDC8 /* TileType.swift in Sources */,
@@ -1491,7 +1476,6 @@
 				A9DF79DE2AE8A80D00AB5983 /* Patient.swift in Sources */,
 				A907DA372B1942B800FB69FB /* DataAcquisition.swift in Sources */,
 				A926D7912AB7A552000C4C2F /* CodableArray+RawRepresentable.swift in Sources */,
-				A9D4B8ED2B686D380054E27C /* ScreeningTileHeader.swift in Sources */,
 				A926D7922AB7A552000C4C2F /* FeatureFlags.swift in Sources */,
 				A988FEB62B0453E100022A61 /* DeviceInformation.swift in Sources */,
 				A9C82F932B60899B004703E0 /* ImpedanceMeasurement.swift in Sources */,
@@ -1539,7 +1523,6 @@
 				A945340D2AEAE6380095AAD3 /* TilesView.swift in Sources */,
 				A90830852BAA33E6003E0080 /* DownsampleConfiguration.swift in Sources */,
 				A907DA3A2B195D4800FB69FB /* AccelerometerSample.swift in Sources */,
-				A9F2ECCE2AEC58B00057C7DD /* SimpleTile.swift in Sources */,
 				2DC1762E730B0472308EEFFC /* IXNMuseDataPacketType+Type.swift in Sources */,
 				A97E4F202B1EA0D600E25505 /* StartRecordingView.swift in Sources */,
 				A943DC3B2BA274B200039060 /* BufferedChannel.swift in Sources */,
@@ -1552,7 +1535,6 @@
 				A9D4B8E12B685DF30054E27C /* MuseInterventionRequiredHint.swift in Sources */,
 				2DC176E7B29173393F43A357 /* MockDevice.swift in Sources */,
 				2DC179F4A6B69C07C1A440D2 /* MockMeasurementGenerator.swift in Sources */,
-				A9F2ECCA2AEC2C300057C7DD /* CompletedTile.swift in Sources */,
 				2DC17686B3AEB09A8F60AB8E /* PatientListView.swift in Sources */,
 				2DC17ADF934F839FC66BF7A0 /* TileType.swift in Sources */,
 				2DC1727A98890570E5A4B46D /* PatientTask.swift in Sources */,
@@ -1589,13 +1571,13 @@
 			target = 653A254C283387FE005D4D48 /* NAMS */;
 			targetProxy = 653A256828338800005D4D48 /* PBXContainerItemProxy */;
 		};
-		A96CD4142BCDA58100300B8C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = A96CD4132BCDA58100300B8C /* SwiftLintPlugin */;
-		};
 		A96CD4162BCDA58600300B8C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = A96CD4152BCDA58600300B8C /* SwiftLintPlugin */;
+		};
+		A977F67E2C933AA10071A1D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = A977F67D2C933AA10071A1D1 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2470,7 +2452,7 @@
 			repositoryURL = "https://github.com/apple/swift-collections.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.1.0;
 			};
 		};
 		A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */ = {
@@ -2668,11 +2650,6 @@
 			package = A95F4B2F2B990803006778E5 /* XCRemoteSwiftPackageReference "SpeziFileFormats" */;
 			productName = EDFFormat;
 		};
-		A96CD4132BCDA58100300B8C /* SwiftLintPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintPlugin";
-		};
 		A96CD4152BCDA58600300B8C /* SwiftLintPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */;
@@ -2697,6 +2674,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A977F6762C932D0E0071A1D1 /* XCRemoteSwiftPackageReference "SpeziDevices" */;
 			productName = SpeziDevicesUI;
+		};
+		A977F67D2C933AA10071A1D1 /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A96CD4122BCDA57700300B8C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 		A988FEA52B03FB4A00022A61 /* SpeziBluetooth */ = {
 			isa = XCSwiftPackageProductDependency;

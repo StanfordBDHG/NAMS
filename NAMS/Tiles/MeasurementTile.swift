@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+import SpeziViews
 import SwiftUI
 
 
@@ -25,35 +26,45 @@ struct MeasurementTile: View {
 
     var body: some View {
         if completed {
-            CompletedTile {
-                Text(task.title)
-            } description: {
+            SimpleTile {
+                CompletedTileHeader {
+                    Text(task.title)
+                }
+            } body: {
                 Text(task.completedDescription)
             }
         } else {
             SimpleTile(alignment: .center) {
-                Image(systemName: "brain.fill")
-                    .foregroundColor(.pink)
-                    .font(.custom("EEG Icon", size: 50, relativeTo: .title))
-                    .accessibilityHidden(true)
-                Text(task.title)
-                    .font(.title)
-                    .fontWeight(.semibold)
-                    .multilineTextAlignment(.center) // works better for larger text sizes
-                Text("\(task.expectedCompletionMinutes) min")
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .accessibilityLabel("takes \(task.expectedCompletionMinutes) min")
-            } footer: {
+                TileHeader(alignment: .center) {
+                    Image(systemName: "brain.fill")
+                        .foregroundColor(.pink)
+                        .font(.custom("EEG Icon", size: 50, relativeTo: .title))
+                        .accessibilityHidden(true)
+                } title: {
+                    Text(task.title)
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center) // works better for larger text sizes
+                } subheadline: {
+                    Text("\(task.expectedCompletionMinutes) min")
+                        .foregroundColor(.secondary)
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .accessibilityLabel("takes \(task.expectedCompletionMinutes) min")
+                }
+            } body: {
                 tileDescription
-            } action: {
-                presentingEEGRecording = true
-            } actionLabel: {
-                Text("Start \(task.tileType.localizedStringResource)")
+            } footer: {
+                Button {
+                    presentingEEGRecording = true
+                } label: {
+                    Text("Start \(task.tileType.localizedStringResource)")
+                        .frame(maxWidth: .infinity, minHeight: 30)
+                }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(task.requiresConnectedDevice && !deviceConnected)
             }
                 .tint(.pink)
-                .disabled(task.requiresConnectedDevice && !deviceConnected)
         }
     }
 
