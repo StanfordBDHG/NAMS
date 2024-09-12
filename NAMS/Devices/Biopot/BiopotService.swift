@@ -67,7 +67,7 @@ class BiopotService: BluetoothService {
 
     init() {}
 
-    func customConfigure() {
+    func customConfigure() { // TODO: replace by SpeziBluetooth infrastructure!
         $dataAcquisition.onChange { [weak self] value in
             self?.handleDataAcquisition(data: value)
         }

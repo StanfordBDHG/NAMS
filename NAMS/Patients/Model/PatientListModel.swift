@@ -23,7 +23,8 @@ import SwiftUI
 class PatientListModel: Module, EnvironmentAccessible, DefaultInitializable {
     static let logger = Logger(subsystem: "edu.stanford.NAMS", category: "PatientListModel")
 
-    @ObservationIgnored @Dependency(FirebaseAccountService.self) private var accountService: FirebaseAccountService?
+    @Dependency(FirebaseAccountService.self)
+    @ObservationIgnored private var accountService: FirebaseAccountService?
 
     var patientList: [Patient]? // swiftlint:disable:this discouraged_optional_collection
 
