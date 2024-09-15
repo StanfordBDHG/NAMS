@@ -11,6 +11,7 @@ import SwiftUI
 import SpeziBluetooth
 
 
+#if MUSE
 extension View {
     func scanNearbyDevices( // swiftlint:disable:this function_default_parameter_at_end
         enabled: Bool = true,
@@ -19,3 +20,4 @@ extension View {
         scanNearbyDevices(enabled: enabled, scanner: museManager, state: EmptyScanningState())
     }
 }
+#endif
