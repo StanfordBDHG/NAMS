@@ -105,7 +105,7 @@ struct NearbyDevicesView: View {
         }
     }
 
-    @ViewBuilder private var nearbyDevicesSection: some View {
+    @ViewBuilder @MainActor private var nearbyDevicesSection: some View {
         Section {
 #if MUSE
             MuseDeviceList(path: $navigationPath)
