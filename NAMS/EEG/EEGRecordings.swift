@@ -17,8 +17,10 @@ class EEGRecordings: Module, EnvironmentAccessible, DefaultInitializable {
 
     @StandardActor @ObservationIgnored private var standard: NAMSStandard
 
-    @Dependency(DeviceCoordinator.self) @ObservationIgnored private var deviceCoordinator
-    @Dependency(PatientListModel.self) @ObservationIgnored private var patientList
+    @Dependency(DeviceCoordinator.self)
+    @ObservationIgnored private var deviceCoordinator
+    @Dependency(PatientListModel.self)
+    @ObservationIgnored private var patientList
 
     required init() {}
 

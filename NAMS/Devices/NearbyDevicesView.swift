@@ -78,9 +78,9 @@ struct NearbyDevicesView: View {
                 }
         }
             .scanNearbyDevices(with: bluetooth, autoConnect: deviceCoordinator.shouldAutoConnectBiopot)
-            // TODO: .scanNearbyDevices(enabled: mockDeviceManager != nil, with: mockDeviceManager ?? MockDeviceManager())
+            .scanNearbyDevices(enabled: mockDeviceManager != nil, with: mockDeviceManager ?? MockDeviceManager())
 #if MUSE
-            // TODO: .scanNearbyDevices(with: museDeviceManager)
+            .scanNearbyDevices(with: museDeviceManager)
             .onChange(of: bluetooth.state) {
                 if case .poweredOn = bluetooth.state {
                     museDeviceManager.startScanning()

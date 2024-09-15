@@ -186,8 +186,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
-        "revision" : "8ee8ba902cff833aa6a6062fc8433e5d0e0338f3",
-        "version" : "3.0.1"
+        "branch" : "feature/service-configure",
+        "revision" : "a3b817455827213bb1cb98852582d08a63181910"
       }
     },
     {

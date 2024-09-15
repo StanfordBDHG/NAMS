@@ -7,12 +7,14 @@
 //
 
 import Observation
+@_spi(APISupport)
 import SpeziBluetooth
 
 
 @Observable
-class MockDeviceManager {
-    static let defaultNearbyDevices: [MockDevice] = [
+@MainActor
+final class MockDeviceManager {
+    static nonisolated let defaultNearbyDevices: [MockDevice] = [
         MockDevice(name: "Mock Device 1"),
         MockDevice(name: "Mock Device 2")
     ]
@@ -61,20 +63,19 @@ class MockDeviceManager {
 }
 
 
-// TODO: extension MockDeviceManager: BluetoothScanner {
-extension MockDeviceManager {
+extension MockDeviceManager: BluetoothScanner {
+    typealias ScanningState = EmptyScanningState
+
     var hasConnectedDevices: Bool {
         nearbyDevices.contains { device in
             device.state != .disconnected
         }
     }
 
-    func scanNearbyDevices(autoConnect: Bool) async {
-        precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
+    @MainActor
+    func scanNearbyDevices(_ state: EmptyScanningState) async {
         self.startScanning()
     }
 
-    func setAutoConnect(_ autoConnect: Bool) async {
-        precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
-    }
+    func updateScanningState(_ state: EmptyScanningState) async {}
 }
