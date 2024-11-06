@@ -122,7 +122,7 @@ final class PatientInformationTests: XCTestCase {
         XCTAssertTrue(app.buttons["Female"].waitForExistence(timeout: 0.5))
         app.buttons["Female"].tap()
 
-        try app.textViews["add notes ..."].enter(value: "My note ...", checkIfTextWasEnteredCorrectly: false, dismissKeyboard: false)
+        try app.textViews["add notes ..."].enter(value: "My note ...", options: [.skipTextInputValidation, .disableKeyboardDismiss])
 
         XCTAssertTrue(app.navigationBars.buttons["Done"].waitForExistence(timeout: 0.5))
         app.navigationBars.buttons["Done"].tap()
