@@ -1,5 +1,5 @@
 {
-  "originHash" : "e6e70e3fae6c5eab21bd16df95736241cb8649c371f6d9d965145f910f530a14",
+  "originHash" : "41c3afd956af575fe1bd0f7d491eaeb69bd3bcf5768b5320f90b1d955856af72",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -168,8 +168,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/Spezi",
       "state" : {
-        "revision" : "d5c8eec55255fd753367422c49db1ec16610c48b",
-        "version" : "1.7.4"
+        "revision" : "4513a697572e8e1faea1e0ee52e6fad4b8d3dd8d",
+        "version" : "1.8.0"
       }
     },
     {
@@ -177,8 +177,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziAccount.git",
       "state" : {
-        "revision" : "7e78ee9e7e4df2071a18ac0fc722671ac1dcfac4",
-        "version" : "2.0.0-beta.7"
+        "revision" : "7ffb73de1c874c78029b620f74d6411bdf65f3fc",
+        "version" : "2.0.1"
       }
     },
     {
@@ -186,8 +186,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziBluetooth",
       "state" : {
-        "branch" : "feature/service-configure",
-        "revision" : "a3b817455827213bb1cb98852582d08a63181910"
+        "revision" : "977cc675d8c2dca51eabd52dc0e9476702c678eb",
+        "version" : "3.1.0"
       }
     },
     {
@@ -222,8 +222,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFirebase.git",
       "state" : {
-        "revision" : "d0cb58fc43c99e632446b43c5cb56943f8339bf2",
-        "version" : "2.0.0-beta.3"
+        "revision" : "7c6829624884f6f1d700e0316b2580b39d3b0c5f",
+        "version" : "2.0.0"
       }
     },
     {
@@ -231,8 +231,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziFoundation.git",
       "state" : {
-        "revision" : "17bd0e03e69e0cc722d4cd28148d04443f4e2aba",
-        "version" : "2.0.0-beta.2"
+        "revision" : "5b4ad1b343154b52a68c33a6bfe02d9cb07cb9dc",
+        "version" : "2.0.0"
       }
     },
     {
@@ -276,8 +276,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordSpezi/SpeziViews.git",
       "state" : {
-        "branch" : "feature/additional-infrastructure",
-        "revision" : "dd28a4696f43ce0de8ef4acbf523f14c8c0c49c6"
+        "revision" : "f87514406bb57ae67d0040eec5454fff55104143",
+        "version" : "1.7.0"
       }
     },
     {
@@ -328,10 +328,10 @@
     {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-syntax.git",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
       "state" : {
-        "revision" : "2bc86522d115234d1f588efe2bcb4ce4be8f8b82",
-        "version" : "510.0.3"
+        "revision" : "515f79b522918f83483068d99c68daeb5116342d",
+        "version" : "600.0.0-prerelease-2024-08-14"
       }
     },
     {
@@ -348,8 +348,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/SwiftLint",
       "state" : {
-        "revision" : "b515723b16eba33f15c4677ee65f3fef2ce8c255",
-        "version" : "0.55.1"
+        "revision" : "168fb98ed1f3e343d703ecceaf518b6cf565207b",
+        "version" : "0.57.0"
       }
     },
     {
@@ -375,8 +375,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/StanfordBDHG/XCTestExtensions.git",
       "state" : {
-        "revision" : "1fe9b8e76aeb7a132af37bfa0892160c9b662dcc",
-        "version" : "0.4.10"
+        "revision" : "5379d70249cae926927105bfb6686770f03ee5b9",
+        "version" : "1.1.0"
       }
     },
     {
