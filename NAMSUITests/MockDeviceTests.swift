@@ -36,12 +36,12 @@ class MockDeviceTests: XCTestCase {
 
         // we don't check for the existence of the progress view as we probably cannot time that precisely
 
-        XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0))
-        app.buttons["Mock Device 1"].tap()
+        XCTAssertTrue(app.staticTexts["Mock Device 1"].waitForExistence(timeout: 5.0))
+        app.staticTexts["Mock Device 1"].tap()
 
 
-        XCTAssertTrue(app.buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
-        XCTAssertTrue(app.buttons["Mock Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
+        XCTAssertTrue(app.staticTexts["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(app.staticTexts["Mock Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
         app.buttons["Device Details"].tap()
@@ -82,7 +82,7 @@ class MockDeviceTests: XCTestCase {
         XCTAssertTrue(app.buttons["Disconnect"].waitForExistence(timeout: 0.5))
         app.buttons["Disconnect"].tap()
 
-        XCTAssertTrue(app.buttons["Mock Device 1"].waitForExistence(timeout: 5.0)) // ensure not connected
+        XCTAssertTrue(app.staticTexts["Mock Device 1"].waitForExistence(timeout: 5.0)) // ensure not connected
     }
 
     func testSuccessfulEEGRecording() {
@@ -186,9 +186,9 @@ extension XCUIApplication {
 
         XCTAssertTrue(navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
 
-        XCTAssertTrue(buttons["Mock Device 1"].waitForExistence(timeout: 5.0))
-        buttons["Mock Device 1"].tap()
-        XCTAssertTrue(buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(staticTexts["Mock Device 1"].waitForExistence(timeout: 5.0))
+        staticTexts["Mock Device 1"].tap()
+        XCTAssertTrue(staticTexts["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
 
         XCTAssertTrue(navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
         navigationBars.buttons["Close"].tap()

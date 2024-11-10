@@ -8,6 +8,7 @@
 
 import Charts
 import Spezi
+@_spi(TestingSupport)
 import SpeziAccount
 import SpeziBluetooth
 import SpeziOnboarding
@@ -58,17 +59,17 @@ struct EEGRecordingView: View {
 
 #if DEBUG
 #Preview {
-    let detailsBuilder = AccountDetails.Builder()
-        .set(\.accountId, value: UUID().uuidString)
-        .set(\.userId, value: "lelandstanford@stanford.edu")
-        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+    var details = AccountDetails()
+    details.accountId = UUID().uuidString
+    details.userId = "lelandstanford@stanford.edu"
+    details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
 
     return NavigationStack {
         AutoStartRecordingView { _ in
             EEGRecordingView()
         }
             .previewWith(standard: NAMSStandard()) {
-                AccountConfiguration(building: detailsBuilder, active: MockUserIdPasswordAccountService())
+                AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
                 EEGRecordings()
                 DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
                 PatientListModel(mock: Patient(id: UUID().uuidString, name: PersonNameComponents(givenName: "Leland", familyName: "Stanford")))
@@ -77,15 +78,15 @@ struct EEGRecordingView: View {
 }
 
 #Preview {
-    let detailsBuilder = AccountDetails.Builder()
-        .set(\.accountId, value: UUID().uuidString)
-        .set(\.userId, value: "lelandstanford@stanford.edu")
-        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+    var details = AccountDetails()
+    details.accountId = UUID().uuidString
+    details.userId = "lelandstanford@stanford.edu"
+    details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
 
     return NavigationStack {
         EEGRecordingView()
             .previewWith(standard: NAMSStandard()) {
-                AccountConfiguration(building: detailsBuilder, active: MockUserIdPasswordAccountService())
+                AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
                 EEGRecordings()
                 DeviceCoordinator(mock: .mock(MockDevice(name: "Mock Device 1", state: .connected)))
                 PatientListModel(mock: Patient(id: UUID().uuidString, name: PersonNameComponents(givenName: "Leland", familyName: "Stanford")))
@@ -97,9 +98,7 @@ struct EEGRecordingView: View {
     NavigationStack {
         EEGRecordingView()
             .previewWith(standard: NAMSStandard()) {
-                AccountConfiguration {
-                    MockUserIdPasswordAccountService()
-                }
+                AccountConfiguration(service: InMemoryAccountService())
                 EEGRecordings()
                 DeviceCoordinator()
                 PatientListModel()

@@ -6,6 +6,7 @@
 // SPDX-License-Identifier: MIT
 //
 
+@_spi(TestingSupport)
 import SpeziAccount
 import SwiftUI
 
@@ -23,26 +24,17 @@ struct AccountSheet: View {
 
 
     @State var isInSetup = false
-    @State var overviewIsEditing = false
 
     
     var body: some View {
         @Bindable var deviceCoordinator = deviceCoordinator
         NavigationStack {
             if account.signedIn && !isInSetup {
-                AccountOverview(isEditing: $overviewIsEditing) {
+                AccountOverview(close: .showCloseButton) {
                     Section("Developer") {
                         Toggle(isOn: $deviceCoordinator.enableMockDevice) {
                             Text("Show Mock Devices")
                         }
-                    }
-                }
-                .onDisappear {
-                    overviewIsEditing = false
-                }
-                .toolbar {
-                    if !overviewIsEditing {
-                        closeButton
                     }
                 }
             } else {
@@ -51,22 +43,18 @@ struct AccountSheet: View {
                 } header: {
                     AccountSetupHeader()
                 }
-                .onAppear {
-                    isInSetup = true
-                }
-                .toolbar {
-                    if !accountRequired {
-                        closeButton
+                    .onAppear {
+                        isInSetup = true
                     }
-                }
-            }
-        }
-    }
-
-    @ToolbarContentBuilder var closeButton: some ToolbarContent {
-        ToolbarItem(placement: .cancellationAction) {
-            Button("Close") {
-                dismiss()
+                    .toolbar {
+                        if !accountRequired {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button("Close") {
+                                    dismiss()
+                                }
+                            }
+                        }
+                    }
             }
         }
     }
@@ -75,14 +63,14 @@ struct AccountSheet: View {
 
 #if DEBUG
 #Preview {
-    let details = AccountDetails.Builder()
-        .set(\.accountId, value: UUID().uuidString)
-        .set(\.userId, value: "lelandstanford@stanford.edu")
-        .set(\.name, value: PersonNameComponents(givenName: "Leland", familyName: "Stanford"))
+    var details = AccountDetails()
+    details.accountId = UUID().uuidString
+    details.userId = "lelandstanford@stanford.edu"
+    details.name = PersonNameComponents(givenName: "Leland", familyName: "Stanford")
 
     return AccountSheet()
         .previewWith {
-            AccountConfiguration(building: details, active: MockUserIdPasswordAccountService())
+            AccountConfiguration(service: InMemoryAccountService(), activeDetails: details)
             DeviceCoordinator()
         }
 }
@@ -90,9 +78,7 @@ struct AccountSheet: View {
 #Preview {
     AccountSheet()
         .previewWith {
-            AccountConfiguration {
-                MockUserIdPasswordAccountService()
-            }
+            AccountConfiguration(service: InMemoryAccountService())
             DeviceCoordinator()
         }
 }

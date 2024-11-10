@@ -6,9 +6,9 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
 import Spezi
 import SpeziBluetooth
+import SpeziDevicesUI
 import SpeziViews
 import SwiftUI
 
@@ -62,7 +62,7 @@ struct NearbyDevicesView: View {
                     nearbyDevicesSection
                 } else {
                     Section {
-                        BluetoothStateHint(bluetooth.state)
+                        BluetoothUnavailableView(bluetooth.state)
                     }
                 }
             }
@@ -105,7 +105,7 @@ struct NearbyDevicesView: View {
         }
     }
 
-    @ViewBuilder private var nearbyDevicesSection: some View {
+    @ViewBuilder @MainActor private var nearbyDevicesSection: some View {
         Section {
 #if MUSE
             MuseDeviceList(path: $navigationPath)
@@ -126,7 +126,7 @@ struct NearbyDevicesView: View {
                 }
             }
         } header: {
-            LoadingSectionHeaderView("Devices", loading: isScanning)
+            LoadingSectionHeader("Devices", loading: isScanning)
         } footer: {
             MuseTroublesConnectingHint()
         }

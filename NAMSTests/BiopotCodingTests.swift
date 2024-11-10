@@ -6,9 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
+
+@_spi(TestingSupport)
+import ByteCoding
 @testable import NAMS
 import NIOCore
-@_spi(TestingSupport)
 import SpeziBluetooth
 import XCTByteCoding
 import XCTest

@@ -8,17 +8,19 @@
 
 import Observation
 import OSLog
+@_spi(APISupport)
 import SpeziBluetooth
 import SwiftUI
 
 
 #if MUSE
 @Observable
-class MuseDeviceManager {
+@MainActor
+final class MuseDeviceManager {
     private static let discoveryTimeout: Int64 = 10
-    private let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseDeviceManager")
+    private nonisolated let logger = Logger(subsystem: "edu.stanford.NAMS", category: "MuseDeviceManager")
 
-    private let museManager: IXNMuseManager
+    private nonisolated let museManager: IXNMuseManager
     @ObservationIgnored private var museListener: MuseListener?
 
     /// The list of nearby muse devices.
@@ -35,7 +37,7 @@ class MuseDeviceManager {
 
     private var lastKnownBluetoothState: BluetoothState = .unknown
 
-    @MainActor var connectedMuse: MuseDevice? {
+    var connectedMuse: MuseDevice? {
         nearbyMuses.first { muse in
             muse.state == .connected
         }
@@ -52,7 +54,6 @@ class MuseDeviceManager {
         self.museManager.removeFromList(after: Self.discoveryTimeout) // stale timeout if there isn't an updated advertisement
     }
 
-    @MainActor
     func startScanning() {
         logger.debug("Start scanning for nearby Muse devices...")
         if lastKnownBluetoothState == .poweredOff {
@@ -64,7 +65,6 @@ class MuseDeviceManager {
         handleUpdatedDeviceList(museManager.getMuses())
     }
 
-    @MainActor
     func stopScanning(state: BluetoothState) {
         logger.debug("Stopped scanning for nearby Muse devices!")
         self.lastKnownBluetoothState = state
@@ -85,7 +85,6 @@ class MuseDeviceManager {
         }
     }
 
-    @MainActor
     func stopScanning() {
         // we are called from the modifier, so state must be powered on
         stopScanning(state: .poweredOn)
@@ -110,7 +109,6 @@ class MuseDeviceManager {
     }
 
 
-    @MainActor
     private func handleUpdatedDeviceList(_ museList: [IXNMuse]) {
         MainActor.assertIsolated("Muse List was not updated on Main Actor!")
         var nearbyMuses = Set(museList)
@@ -150,7 +148,6 @@ class MuseDeviceManager {
         checkHiddenTimerScheduled()
     }
 
-    @MainActor
     private func checkHiddenMuseDevices() {
         var hiddenDeviceUpdated = false
 
@@ -167,7 +164,6 @@ class MuseDeviceManager {
         }
     }
 
-    @MainActor
     private func checkHiddenTimerScheduled() {
         if hiddenMuseDevices.isEmpty {
             hiddenDevicesTimer = nil
@@ -198,14 +194,12 @@ extension MuseDeviceManager: BluetoothScanner {
         }
     }
 
-    func scanNearbyDevices(autoConnect: Bool) async {
-        precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
-        await self.startScanning()
+    @MainActor
+    func scanNearbyDevices(_ state: EmptyScanningState) async {
+        self.startScanning()
     }
 
-    func setAutoConnect(_ autoConnect: Bool) async {
-        precondition(!autoConnect, "AutoConnect is unsupported on \(Self.self)")
-    }
+    func updateScanningState(_ state: EmptyScanningState) async {}
 }
 
 

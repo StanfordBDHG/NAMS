@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
+import SpeziDevicesUI
+import SpeziViews
 import SwiftUI
 
 
@@ -17,16 +18,25 @@ struct MockDeviceRow: View {
     private var deviceCoordinator
 
     @Binding private var path: NavigationPath
+    @State private var state: ViewState = .idle
 
 
     var body: some View {
         NearbyDeviceRow(peripheral: device) {
             Task {
-                await deviceCoordinator.tapDevice(.mock(device))
+                do {
+                    try await deviceCoordinator.tapDevice(.mock(device))
+                } catch {
+                    state = .error(AnyLocalizedError(
+                        error: error,
+                        defaultErrorDescription: "Failed to connect to device."
+                    ))
+                }
             }
         } secondaryAction: {
             path.append(ConnectedDevice.mock(device))
         }
+            .viewStateAlert(state: $state)
     }
 
 

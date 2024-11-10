@@ -77,7 +77,7 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
     /// Device is tapped by the user in the nearby devices view.
     @MainActor
-    func tapDevice(_ device: ConnectedDevice) async {
+    func tapDevice(_ device: ConnectedDevice) async throws {
         if let connectedDevice {
             logger.info("Disconnecting previously connected device \(connectedDevice.label)...")
             // either we tapped on the same device or on another one, in any case disconnect the currently connected device
@@ -92,7 +92,7 @@ class DeviceCoordinator: Module, EnvironmentAccessible, DefaultInitializable {
 
         logger.info("Connecting to nearby device \(device.label)...")
 
-        await device.connect()
+        try await device.connect()
         self.associateDevice(device)
     }
 

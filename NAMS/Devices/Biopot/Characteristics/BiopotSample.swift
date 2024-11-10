@@ -17,7 +17,7 @@ struct BiopotSample: Hashable { // we always deal with 8 channel samples
 
 
 extension BiopotSample: ByteDecodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    init?(from byteBuffer: inout ByteBuffer) {
         guard byteBuffer.readableBytes >= 24 else {
             return nil
         }
@@ -26,7 +26,7 @@ extension BiopotSample: ByteDecodable {
         channels.reserveCapacity(8)
 
         for _ in 0..<8 {
-            guard let channel = BDFSample(from: &byteBuffer, preferredEndianness: endianness) else {
+            guard let channel = BDFSample(from: &byteBuffer, endianness: .little) else {
                 return nil
             }
             channels.append(channel)

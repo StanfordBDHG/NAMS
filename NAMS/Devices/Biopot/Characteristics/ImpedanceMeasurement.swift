@@ -29,10 +29,10 @@ struct ImpedanceMeasurement {
 
 
 extension ImpedanceMeasurement: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        guard let enabled = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let bioEnabled = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let interval = UInt8(from: &byteBuffer, preferredEndianness: endianness),
+    init?(from byteBuffer: inout ByteBuffer) {
+        guard let enabled = Bool(from: &byteBuffer, endianness: .big),
+              let bioEnabled = Bool(from: &byteBuffer, endianness: .big),
+              let interval = UInt8(from: &byteBuffer, endianness: .big),
               let values = byteBuffer.readBytes(length: byteBuffer.readableBytes) else {
             return nil
         }
@@ -40,10 +40,10 @@ extension ImpedanceMeasurement: ByteCodable {
         self.init(enabled: enabled, bioImpedanceEnabled: bioEnabled, interval: interval, values: values)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        enabled.encode(to: &byteBuffer, preferredEndianness: endianness)
-        bioImpedanceEnabled.encode(to: &byteBuffer, preferredEndianness: endianness)
-        interval.encode(to: &byteBuffer, preferredEndianness: endianness)
+    func encode(to byteBuffer: inout ByteBuffer) {
+        enabled.encode(to: &byteBuffer, endianness: .big)
+        bioImpedanceEnabled.encode(to: &byteBuffer, endianness: .big)
+        interval.encode(to: &byteBuffer, endianness: .big)
         byteBuffer.writeBytes(values)
     }
 }

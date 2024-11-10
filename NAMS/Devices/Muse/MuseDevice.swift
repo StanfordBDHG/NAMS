@@ -6,11 +6,11 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
 import EDFFormat
 import Foundation
 import OSLog
 import SpeziBluetooth
+import SpeziDevices
 
 
 #if MUSE

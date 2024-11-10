@@ -127,59 +127,59 @@ extension SamplingConfiguration {
 // swiftlint:enable identifier_name
 
 
-extension SamplingConfiguration.LowPassFilter: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
+extension SamplingConfiguration.LowPassFilter: PrimitiveByteCodable {
+    init?(from byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
+    func encode(to byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, endianness: endianness)
     }
 }
 
 
-extension SamplingConfiguration.HighPassFilter: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
+extension SamplingConfiguration.HighPassFilter: PrimitiveByteCodable {
+    init?(from byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
+    func encode(to byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, endianness: endianness)
     }
 }
 
 
-extension SamplingConfiguration.SoftwareLowPassFilter: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        guard let value = UInt8(from: &byteBuffer, preferredEndianness: endianness) else {
+extension SamplingConfiguration.SoftwareLowPassFilter: PrimitiveByteCodable {
+    init?(from byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        guard let value = UInt8(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
         self.init(rawValue: value)
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
-        rawValue.encode(to: &byteBuffer, preferredEndianness: endianness)
+    func encode(to byteBuffer: inout ByteBuffer, endianness: Endianness) {
+        rawValue.encode(to: &byteBuffer, endianness: endianness)
     }
 }
 
 
 extension SamplingConfiguration: ByteCodable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    init?(from byteBuffer: inout ByteBuffer) {
         let endianness: Endianness = .big // we force big endianness for this type
 
-        guard let channelsBitMask = UInt32(from: &byteBuffer, preferredEndianness: endianness),
-              let lowPassFilter = LowPassFilter(from: &byteBuffer, preferredEndianness: endianness),
-              let highPassFilter = HighPassFilter(from: &byteBuffer, preferredEndianness: endianness),
-              let hardwareSamplingRate = UInt16(from: &byteBuffer, preferredEndianness: endianness),
-              let impedanceFrequency = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let impedanceScale = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let softwareLowPassFilter = SoftwareLowPassFilter(from: &byteBuffer, preferredEndianness: endianness) else {
+        guard let channelsBitMask = UInt32(from: &byteBuffer, endianness: endianness),
+              let lowPassFilter = LowPassFilter(from: &byteBuffer, endianness: endianness),
+              let highPassFilter = HighPassFilter(from: &byteBuffer, endianness: endianness),
+              let hardwareSamplingRate = UInt16(from: &byteBuffer, endianness: endianness),
+              let impedanceFrequency = UInt8(from: &byteBuffer, endianness: endianness),
+              let impedanceScale = UInt8(from: &byteBuffer, endianness: endianness),
+              let softwareLowPassFilter = SoftwareLowPassFilter(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
 
@@ -192,18 +192,18 @@ extension SamplingConfiguration: ByteCodable {
         self.softwareLowPassFilter = softwareLowPassFilter
     }
 
-    func encode(to byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    func encode(to byteBuffer: inout ByteBuffer) {
         byteBuffer.reserveCapacity(13)
 
         let endianness: Endianness = .big // we force big endianness for this type
 
-        channelsBitMask.encode(to: &byteBuffer, preferredEndianness: endianness)
-        lowPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
-        highPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
-        hardwareSamplingRate.encode(to: &byteBuffer, preferredEndianness: endianness)
-        impedanceFrequency.encode(to: &byteBuffer, preferredEndianness: endianness)
-        impedanceScale.encode(to: &byteBuffer, preferredEndianness: endianness)
-        softwareLowPassFilter.encode(to: &byteBuffer, preferredEndianness: endianness)
+        channelsBitMask.encode(to: &byteBuffer, endianness: endianness)
+        lowPassFilter.encode(to: &byteBuffer, endianness: endianness)
+        highPassFilter.encode(to: &byteBuffer, endianness: endianness)
+        hardwareSamplingRate.encode(to: &byteBuffer, endianness: endianness)
+        impedanceFrequency.encode(to: &byteBuffer, endianness: endianness)
+        impedanceScale.encode(to: &byteBuffer, endianness: endianness)
+        softwareLowPassFilter.encode(to: &byteBuffer, endianness: endianness)
 
         // for some reason Biopot wants 2 zero bytes at the end!
         byteBuffer.writeInteger(0, as: UInt16.self)

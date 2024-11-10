@@ -23,15 +23,15 @@ struct DeviceInformation {
 
 
 extension DeviceInformation: ByteDecodable, Equatable {
-    init?(from byteBuffer: inout ByteBuffer, preferredEndianness endianness: Endianness) {
+    init?(from byteBuffer: inout ByteBuffer) {
         let endianness: Endianness = .big
-        guard let syncRatio = UInt64(from: &byteBuffer, preferredEndianness: endianness),
-              let syncMode = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let memoryWriteNumber = UInt16(from: &byteBuffer, preferredEndianness: endianness),
-              let memoryEraseMode = Bool(from: &byteBuffer, preferredEndianness: endianness),
-              let batteryLevel = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let temperatureValue = UInt8(from: &byteBuffer, preferredEndianness: endianness),
-              let batteryCharging = Bool(from: &byteBuffer, preferredEndianness: endianness) else {
+        guard let syncRatio = UInt64(from: &byteBuffer, endianness: endianness),
+              let syncMode = Bool(from: &byteBuffer, endianness: endianness),
+              let memoryWriteNumber = UInt16(from: &byteBuffer, endianness: endianness),
+              let memoryEraseMode = Bool(from: &byteBuffer, endianness: endianness),
+              let batteryLevel = UInt8(from: &byteBuffer, endianness: endianness),
+              let temperatureValue = UInt8(from: &byteBuffer, endianness: endianness),
+              let batteryCharging = Bool(from: &byteBuffer, endianness: endianness) else {
             return nil
         }
 

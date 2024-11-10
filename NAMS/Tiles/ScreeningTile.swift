@@ -8,6 +8,7 @@
 
 #if canImport(SpeziQuestionnaire)
 import SpeziQuestionnaire
+import SpeziViews
 import SwiftUI
 
 
@@ -26,26 +27,64 @@ struct ScreeningTile: View {
 
     var body: some View {
         if completed {
-            CompletedTile {
-                Text(task.title)
-                    .font(.headline)
-            } description: {
+            SimpleTile {
+                CompletedTileHeader {
+                    Text(task.title)
+                }
+            } body: {
                 Text(task.completedDescription)
-                    .font(.callout)
             }
         } else {
             SimpleTile {
-                ScreeningTileHeader(task)
-            } footer: {
+                TileHeader {
+                    Image(systemName: "list.bullet.clipboard")
+                        .foregroundColor(.mint)
+                        .font(.custom("Screening Task Icon", size: 30, relativeTo: .headline))
+                        .accessibilityHidden(true)
+                        .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+                } title: {
+                    Text(task.title)
+                } subheadline: {
+                    subheadline
+                }
+            } body: {
                 Text(task.description)
                     .font(.callout)
-            } action: {
-                presentingItem = task.questionnaire
-            } actionLabel: {
-                Text("Start \(task.tileType.localizedStringResource)")
+            } footer: {
+                Button {
+                    presentingItem = task.questionnaire
+                } label: {
+                    Text("Start \(task.tileType.localizedStringResource)")
+                        .frame(maxWidth: .infinity, minHeight: 30)
+                }
+                    .buttonStyle(.borderedProminent)
             }
                 .tint(.mint)
         }
+    }
+
+    @ViewBuilder private var subheadline: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack {
+                Text(task.tileType.localizedStringResource)
+                Spacer()
+                expectedCompletion
+            }
+                .lineLimit(1)
+                .accessibilityElement(children: .combine)
+
+            VStack {
+                Text(task.tileType.localizedStringResource)
+                expectedCompletion
+            }
+                .lineLimit(1)
+                .accessibilityElement(children: .combine)
+        }
+    }
+
+    @ViewBuilder private var expectedCompletion: some View {
+        Text("\(task.expectedCompletionMinutes) min", comment: "Expected task completion in minutes.")
+            .accessibilityLabel("takes \(task.expectedCompletionMinutesSpoken) min")
     }
 
 

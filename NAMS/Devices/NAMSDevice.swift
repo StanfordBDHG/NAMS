@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-import BluetoothViews
 import EDFFormat
+import SpeziDevices
 
 
 protocol NAMSDevice: GenericBluetoothPeripheral {
@@ -18,7 +18,7 @@ protocol NAMSDevice: GenericBluetoothPeripheral {
     /// The duration of a single data record in seconds.
     var recordDuration: Int { get }
 
-    func connect() async
+    func connect() async throws
 
     func disconnect() async
 

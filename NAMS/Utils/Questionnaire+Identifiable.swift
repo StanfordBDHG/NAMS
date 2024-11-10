@@ -10,5 +10,9 @@
 import SpeziQuestionnaire
 
 
-extension Questionnaire: Identifiable {}
+#if compiler(>=6)
+extension Questionnaire: @retroactive Identifiable {}
+#else
+extension Questionnaire: Swift.Identifiable {}
+#endif
 #endif
