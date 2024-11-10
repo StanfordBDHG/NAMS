@@ -24,6 +24,8 @@ class ContactsTests: XCTestCase {
     func testContacts() throws {
         let app = XCUIApplication()
 
+        XCTAssertTrue(app.wait(for: .runningForeground, timeout: 5.0))
+
         XCTAssertTrue(app.tabBars["Tab Bar"].buttons["Contacts"].waitForExistence(timeout: 2))
         app.tabBars["Tab Bar"].buttons["Contacts"].tap()
         
