@@ -12,8 +12,8 @@ import SpeziBluetooth
 
 
 extension View {
-    func scanNearbyDevices( // swiftlint:disable:this function_default_parameter_at_end
-        enabled: Bool = true,
+    func scanNearbyDevices(
+        enabled: Bool = true,  // swiftlint:disable:this function_default_parameter_at_end
         with mockManager: MockDeviceManager
     ) -> some View {
         scanNearbyDevices(enabled: enabled, scanner: mockManager, state: EmptyScanningState())

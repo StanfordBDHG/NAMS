@@ -27,9 +27,8 @@ struct Patient: Codable, Identifiable {
     }
 
 
-    // swiftlint:disable:next function_default_parameter_at_end
     init(
-        id: String? = nil,
+        id: String? = nil, // swiftlint:disable:this function_default_parameter_at_end
         name: PersonNameComponents,
         code: String? = nil,
         sex: Sex? = nil,
