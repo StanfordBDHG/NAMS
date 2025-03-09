@@ -66,6 +66,7 @@ struct EEGChart: View {
                     .border(Color.gray)
                     .frame(maxHeight: 150)
                     .clipped()
+                    .drawingGroup()
             }
     }
 
