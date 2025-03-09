@@ -14,7 +14,7 @@ import SpeziBluetooth
 @Observable
 @MainActor
 final class MockDeviceManager {
-    static nonisolated let defaultNearbyDevices: [MockDevice] = [
+    @MainActor static let defaultNearbyDevices: [MockDevice] = [
         MockDevice(name: "Mock Device 1"),
         MockDevice(name: "Mock Device 2")
     ]
@@ -30,11 +30,17 @@ final class MockDeviceManager {
     }
 
 
-    init(nearbyDevices: [MockDevice] = MockDeviceManager.defaultNearbyDevices, immediate: Bool = false) {
+    init(nearbyDevices: [MockDevice], immediate: Bool = false) {
         self.storedDevicesList = nearbyDevices
         if immediate {
             self.nearbyDevices = nearbyDevices
         }
+    }
+
+
+    @MainActor
+    convenience init(immediate: Bool = false) {
+        self.init(nearbyDevices: MockDeviceManager.defaultNearbyDevices, immediate: immediate)
     }
 
 
