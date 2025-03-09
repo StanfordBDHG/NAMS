@@ -7,6 +7,7 @@
 //
 
 import Charts
+import EDFFormat
 import SwiftUI
 
 
