@@ -220,6 +220,8 @@
 		A95F4B392B99081D006778E5 /* EDFFormat in Frameworks */ = {isa = PBXBuildFile; productRef = A95F4B382B99081D006778E5 /* EDFFormat */; };
 		A967061C2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
 		A967061D2B1AA2E000C17BE5 /* EEGRecordingSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */; };
+		A973C0592D7DC63F00BA148C /* EEGChannelPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973C0582D7DC63F00BA148C /* EEGChannelPlot.swift */; };
+		A973C05A2D7DC63F00BA148C /* EEGChannelPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A973C0582D7DC63F00BA148C /* EEGChannelPlot.swift */; };
 		A974D6472B9C15540058C164 /* InvestigatorCodeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974D6462B9C15540058C164 /* InvestigatorCodeKey.swift */; };
 		A974D6482B9C15540058C164 /* InvestigatorCodeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A974D6462B9C15540058C164 /* InvestigatorCodeKey.swift */; };
 		A9770E152B9A7D2500C01276 /* PatientInformation+Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9770E142B9A7D2500C01276 /* PatientInformation+Patient.swift */; };
@@ -442,6 +444,7 @@
 		A94AF8632C9753FE00351E0A /* View+ScanNearbyMuseDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+ScanNearbyMuseDevices.swift"; sourceTree = "<group>"; };
 		A94AF8682C9754C000351E0A /* MockDeviceRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDeviceRow.swift; sourceTree = "<group>"; };
 		A967061B2B1AA2E000C17BE5 /* EEGRecordingSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGRecordingSession.swift; sourceTree = "<group>"; };
+		A973C0582D7DC63F00BA148C /* EEGChannelPlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EEGChannelPlot.swift; sourceTree = "<group>"; };
 		A974D6462B9C15540058C164 /* InvestigatorCodeKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestigatorCodeKey.swift; sourceTree = "<group>"; };
 		A9770E142B9A7D2500C01276 /* PatientInformation+Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PatientInformation+Patient.swift"; sourceTree = "<group>"; };
 		A9770E162B9A7D6E00C01276 /* Sex+Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sex+Patient.swift"; sourceTree = "<group>"; };
@@ -818,10 +821,11 @@
 		A967061A2B1AA28100C17BE5 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
-				A926D80E2AB7B430000C4C2F /* EEGChannelMark.swift */,
-				A926D8142AB7B430000C4C2F /* EEGChart.swift */,
 				A943DC422BA3B2B500039060 /* ChangeChartLayoutView.swift */,
 				A98905442BCEFD6800E36BA7 /* ChartMoreInformationView.swift */,
+				A926D80E2AB7B430000C4C2F /* EEGChannelMark.swift */,
+				A973C0582D7DC63F00BA148C /* EEGChannelPlot.swift */,
+				A926D8142AB7B430000C4C2F /* EEGChart.swift */,
 			);
 			path = Chart;
 			sourceTree = "<group>";
@@ -1310,6 +1314,7 @@
 				A943DC212BA0E93500039060 /* EEGProcessing.swift in Sources */,
 				A9D6BA852BACE051002863DA /* RecordingStateHeader.swift in Sources */,
 				A9D4B8D72B685D800054E27C /* MuseBatteryDetailsSection.swift in Sources */,
+				A973C05A2D7DC63F00BA148C /* EEGChannelPlot.swift in Sources */,
 				A97E4F232B1EA21800E25505 /* EEGLocation+Biopot.swift in Sources */,
 				A9D4B8D62B685D800054E27C /* MuseHeadbandFitSection.swift in Sources */,
 				A985DEC22BA4D2F700DDEBF8 /* BiopotDeviceConfiguration.swift in Sources */,
@@ -1465,6 +1470,7 @@
 				A943DC222BA0E93500039060 /* EEGProcessing.swift in Sources */,
 				A9D6BA862BACE051002863DA /* RecordingStateHeader.swift in Sources */,
 				A9D4B8E42B685DFA0054E27C /* MuseBatteryProblemsHint.swift in Sources */,
+				A973C0592D7DC63F00BA148C /* EEGChannelPlot.swift in Sources */,
 				A97E4F242B1EA21800E25505 /* EEGLocation+Biopot.swift in Sources */,
 				A94A42BB2AE9ED8300A3F9E5 /* AccountOnboarding.swift in Sources */,
 				A985DEC32BA4D2F700DDEBF8 /* BiopotDeviceConfiguration.swift in Sources */,
@@ -2465,8 +2471,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/StanfordSpezi/SpeziDevices.git";
 			requirement = {
-				branch = "fix/accessibility-children";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
 			};
 		};
 		A988FEA42B03FB4A00022A61 /* XCRemoteSwiftPackageReference "SpeziBluetooth" */ = {
