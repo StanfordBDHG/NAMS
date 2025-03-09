@@ -66,7 +66,7 @@ struct EEGChart: View {
                     .border(Color.gray)
                     .frame(maxHeight: 150)
                     .clipped()
-                    .drawingGroup()
+                    .drawingGroup() // render chart content on the GPU
             }
     }
 
