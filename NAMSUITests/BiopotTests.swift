@@ -31,11 +31,11 @@ final class BiopotTests: XCTestCase {
 
         XCTAssertTrue(app.navigationBars.staticTexts["Nearby Devices"].waitForExistence(timeout: 2.0))
 
-        XCTAssertTrue(app.staticTexts["SML BIO 0xAABBCCDD"].waitForExistence(timeout: 2.0))
-        app.staticTexts["SML BIO 0xAABBCCDD"].tap()
+        XCTAssertTrue(app.buttons["SensoMedical Biopot"].waitForExistence(timeout: 2.0))
+        app.buttons["SensoMedical Biopot"].tap()
 
 
-        XCTAssertTrue(app.staticTexts["SML BIO 0xAABBCCDD, Connected"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.buttons["SensoMedical Biopot, Connected"].waitForExistence(timeout: 2.0))
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
         app.buttons["Device Details"].tap()
 

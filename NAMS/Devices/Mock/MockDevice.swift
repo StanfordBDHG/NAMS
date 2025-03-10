@@ -14,7 +14,7 @@ import SpeziDevices
 
 
 @Observable
-class MockDevice: NAMSDevice {
+final class MockDevice: NAMSDevice, Sendable {
     private static let sampleRate = 60
 
     private let logger = Logger(subsystem: "edu.stanford.nams", category: "MockDevice")
@@ -22,13 +22,13 @@ class MockDevice: NAMSDevice {
     let id: UUID
     let name: String
 
-    private var measurementGenerator: MockMeasurementGenerator
+    @MainActor private var measurementGenerator: MockMeasurementGenerator
 
-    var state: PeripheralState
-    var deviceInformation: MuseDeviceInformation? // we are just reusing muse data model
+    @MainActor var state: PeripheralState
+    @MainActor var deviceInformation: MuseDeviceInformation? // we are just reusing muse data model
     @MainActor private var disconnectHandler: ((ConnectedDevice) -> Void)?
 
-    var equipmentCode: String {
+    @MainActor var equipmentCode: String {
         if let deviceInformation {
             "MOCK_\(deviceInformation.serialNumber)"
         } else {
@@ -36,7 +36,7 @@ class MockDevice: NAMSDevice {
         }
     }
 
-    var connectionState: ConnectionState {
+    @MainActor var connectionState: ConnectionState {
         switch state {
         case .disconnected:
             return .disconnected
@@ -56,12 +56,12 @@ class MockDevice: NAMSDevice {
         }
     }
 
-    @ObservationIgnored private var eegTimer: Timer? {
+    @ObservationIgnored @MainActor private var eegTimer: Timer? {
         willSet {
             eegTimer?.invalidate()
         }
     }
-    @ObservationIgnored private var task: Task<Void, Never>? {
+    @ObservationIgnored @MainActor private var task: Task<Void, Never>? {
         willSet {
             task?.cancel()
         }
@@ -85,7 +85,7 @@ class MockDevice: NAMSDevice {
         1
     }
 
-
+    @MainActor
     init(name: String, state: PeripheralState = .disconnected) {
         self.id = UUID()
         self.name = name
@@ -114,6 +114,7 @@ class MockDevice: NAMSDevice {
     }
 
 
+    @MainActor
     func connect() {
         state = .connecting
         task = Task { @MainActor [weak self] in
@@ -128,6 +129,7 @@ class MockDevice: NAMSDevice {
         }
     }
 
+    @MainActor
     private func handleConnected() {
         self.deviceInformation = MuseDeviceInformation(
             serialNumber: "0xAABBCCDD",

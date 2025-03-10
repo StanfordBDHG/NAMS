@@ -17,8 +17,14 @@ struct EEGChart: View {
     private let valueInterval: Int
 
     var body: some View {
-        Chart(signal.timedSamples, id: \.time) { sample in
-            EEGChannelMark(signal: signal.label, time: sample.time, value: sample.value)
+        Chart {
+            if #available(iOS 18.0, macOS 15.0, tvOS 18.0, watchOS 11.0, visionOS 2.0, *) {
+                EEGChannelPlot(signal: signal.label, samples: signal.timedSamples)
+            } else {
+                ForEach(signal.timedSamples, id: \.time) { sample in
+                    EEGChannelMark(signal: signal.label, time: sample.time, value: sample.value)
+                }
+            }
         }
             .chartXScale(domain: signal.lowerBound...(signal.lowerBound + displayedInterval))
             .chartYScale(domain: -valueInterval...valueInterval)
@@ -60,6 +66,7 @@ struct EEGChart: View {
                     .border(Color.gray)
                     .frame(maxHeight: 150)
                     .clipped()
+                    .drawingGroup() // render chart content on the GPU
             }
     }
 

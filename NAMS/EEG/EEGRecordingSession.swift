@@ -163,16 +163,15 @@ class EEGRecordingSession { // swiftlint:disable:this type_body_length
         recordingTask = task // only used to cancel, in the case of an internal error
 
         // timer for the recording, on completion will cancel the task
-        recordingTimer = Timer.scheduledTimer(withTimeInterval: EEGRecordingSession.recordingDuration, repeats: false) { [weak self] _ in
+        recordingTimer = Timer.scheduledTimer(withTimeInterval: EEGRecordingSession.recordingDuration, repeats: false) { [logger] _ in
             // calling saveRecording will be handled by the caller of this method!
             task.cancel()
-            self?.logger.debug("EEG recording session completed!")
+            logger.debug("EEG recording session completed!")
         }
 
-        let logger = logger
         await withTaskCancellationHandler {
             await task.value
-        } onCancel: {
+        } onCancel: { [logger] in
             task.cancel() // cancels the producer stream and stops recording
             logger.debug("Received cancellation for ongoing recording session ...")
         }

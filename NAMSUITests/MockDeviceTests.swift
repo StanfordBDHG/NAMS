@@ -40,7 +40,7 @@ class MockDeviceTests: XCTestCase {
         app.staticTexts["Mock Device 1"].tap()
 
 
-        XCTAssertTrue(app.staticTexts["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(app.buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
         XCTAssertTrue(app.staticTexts["Mock Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
@@ -188,7 +188,7 @@ extension XCUIApplication {
 
         XCTAssertTrue(staticTexts["Mock Device 1"].waitForExistence(timeout: 5.0))
         staticTexts["Mock Device 1"].tap()
-        XCTAssertTrue(staticTexts["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
 
         XCTAssertTrue(navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
         navigationBars.buttons["Close"].tap()
