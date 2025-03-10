@@ -188,7 +188,7 @@ extension XCUIApplication {
 
         XCTAssertTrue(staticTexts["Mock Device 1"].waitForExistence(timeout: 5.0))
         staticTexts["Mock Device 1"].tap()
-        XCTAssertTrue(staticTexts["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
 
         XCTAssertTrue(navigationBars.buttons["Close"].waitForExistence(timeout: 0.5))
         navigationBars.buttons["Close"].tap()
