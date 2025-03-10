@@ -40,7 +40,7 @@ class MockDeviceTests: XCTestCase {
         app.staticTexts["Mock Device 1"].tap()
 
 
-        XCTAssertTrue(app.staticTexts["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
+        XCTAssertTrue(app.buttons["Mock Device 1, Connected"].waitForExistence(timeout: 5.0))
         XCTAssertTrue(app.staticTexts["Mock Device 2"].waitForExistence(timeout: 0.5)) // ensure not connected
 
         XCTAssertTrue(app.buttons["Device Details"].waitForExistence(timeout: 2.0))
