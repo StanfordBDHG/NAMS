@@ -39,14 +39,15 @@ class QuestionnaireTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["M-CHAT R/F"].waitForExistence(timeout: 0.5))
 
         XCTAssertTrue(app.staticTexts["Yes"].waitForExistence(timeout: 2.0))
-        let yesButtons = app.staticTexts.matching(identifier: "Yes").allElementsBoundByIndex
 
-        for button in yesButtons {
+        for question in 1...20 {
+            let button = app.cells["question-\(String(format: "%02d", question))_0"]
             button.tap()
             usleep(500_000)
         }
 
         XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.buttons["Done"].isEnabled)
         app.buttons["Done"].tap()
 
 
